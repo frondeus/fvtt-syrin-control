@@ -18,10 +18,10 @@
   "conflicts": [
   ],
   "esmodules": [
-    "/scripts/module.js"
+    "/scripts/main.js",
+    "/scripts/papaparse.js"
   ],
   "scripts": [
-    "/scripts/lib/papaparse.min.js"
   ],
   "styles": [
     "/styles/module.css"

@@ -1,163 +1,36 @@
-let fetchOptions = () => {
-    const useAPI = game.settings.get('fvtt-syrin-control', 'syncMethod') === 'yes';
-    if(useAPI) return undefined;
-    return {
-        mode: "no-cors"
-    }
-};
-
-async function playMood(id) {
-    if (!game.user.isGM) {
-        return;
-    }
-    function link(id) {
-        let address = game.settings.get('fvtt-syrin-control', 'address').trimEnd('/');
-        let authToken = game.settings.get('fvtt-syrin-control', 'authToken');
-        return `${address}/moods/${id}/play/?auth_token=${authToken}`;
-    }
-
-    console.log("SyrinControl | Set mood", id);
-    return await fetch(link(id), fetchOptions());
-}
-
-async function playElement(id) {
-    if (!game.user.isGM) {
-        return;
-    }
-    function link(id) {
-        let authToken = game.settings.get('fvtt-syrin-control', 'authToken');
-        let address = game.settings.get('fvtt-syrin-control', 'address').trimEnd('/');
-        return `${address}/elements/${id}/play/?auth_token=${authToken}`;
-    }
-
-    console.log("SyrinControl | Play element", id);
-    return await fetch(link(id), fetchOptions());
-}
-
-async function getMoods(soundsetId) {
-    if (!game.user.isGM) { return; }
-
-    function link() {
-        let authToken = game.settings.get('fvtt-syrin-control', 'authToken');
-        let address = game.settings.get('fvtt-syrin-control', 'address').trimEnd('/');
-        return `${address}/moods/?soundset__uuid=${soundsetId}&auth_token=${authToken}`;
-    }
-
-    return await fetch(link(), fetchOptions());
-}
-
-async function getMood(moodId) {
-    if (!game.user.isGM) { return; }
-
-    function link() {
-        let authToken = game.settings.get('fvtt-syrin-control', 'authToken');
-        let address = game.settings.get('fvtt-syrin-control', 'address').trimEnd('/');
-        return `${address}/moods/${moodId}/?auth_token=${authToken}`;
-    }
-
-    return await fetch(link(), fetchOptions());
-}
-
-async function getSoundsets() {
-    if (!game.user.isGM) { return; }
-
-    function link() {
-        let authToken = game.settings.get('fvtt-syrin-control', 'authToken');
-        let address = game.settings.get('fvtt-syrin-control', 'address').trimEnd('/');
-        return `${address}/soundsets?auth_token=${authToken}`;
-    }
-
-    return await fetch(link(), fetchOptions());
-}
+import Papa from "papaparse";
+import { playMood, getMoods, getSoundsets } from "./api";
+import initSettings from "./settings";
+import { CSVData, Moods, Soundset, Soundsets } from "./syrin";
+import { getGame } from "./utils";
 
 Hooks.on("init", function() {
-    // CONFIG.debug.hooks = true;
-    game.syrinscape = {
-        playElement: playElement,
-        playMood: playMood
-    };
-
-    game.settings.register('fvtt-syrin-control', 'controlLinks', {
-        name: "Control Links",
-        scope: "client",
-        config: false
-    });
-    // Soundset
-    // {
-    //    name: "Foo",
-    //    moods: []
-    // }
-    game.settings.register('fvtt-syrin-control', 'soundsets', {
-        name: "Soundsets",
-        scope: "client",
-        config: false,
-        default: []
-    });
-
-    game.settings.register('fvtt-syrin-control', 'authToken', {
-        name: "Auth Token",
-        hint: "Authentication token to Syrinscape Online API",
-        scope: "client",
-        config: true,
-        type: String,
-        default: "",
-    });
-    game.settings.register('fvtt-syrin-control', 'syncMethod', {
-        name: "Synchronization method",
-        hint: "Should the module use online API to retrieve mood list?",
-        scope: "client",
-        config: true,
-        type: String,
-        default: "yes",
-        choices: {
-            "yes": "Yes - use API",
-            "no": "No - stick to CSV file"
-        }
-    });
-    game.settings.register('fvtt-syrin-control', 'controlLinksUrl', {
-        name: "Control Links",
-        hint: "Control links CSV - click \"Download Remote Control Links\" in Master Panel and upload it here",
-        scope: "client",
-        config: true,
-        type: String,
-        filePicker: true
-    });
-    game.settings.register('fvtt-syrin-control', 'address', {
-        name: "Syrinscape API address",
-        hint: "Address to Syrinscape Online. Can be replaced by proxy",
-        scope: "client",
-        config: true,
-        type: String,
-        default: "https://syrinscape.com/online/frontend-api"
-    });
-
+    initSettings();
 
     async function setMood() {
-        if (!game.user.isGM) {
+        let game = getGame();
+        if (!game.user?.isGM) {
             return;
         }
-        let scene = game.scenes.active;
-        if(!scene.data.flags) {
+        let scene = game.scenes?.active;
+        console.log('SyrinControl | active scene', scene);
+
+        let mood = scene?.getFlag('fvtt-syrin-control', 'mood');
+        if (mood === undefined) {
             return;
         }
-        let syrinControl = scene.data.flags['fvtt-syrin-control'];
-        if(!syrinControl) {
-            return;
-        }
-        if (!syrinControl.mood) {
-            return;
-        }
-        if (isNaN(syrinControl.mood)) {
+        if (isNaN(mood)) {
             return;
         }
 
-        await playMood(syrinControl.mood);
+        await playMood(mood);
     }
 
-    async function onlineMoods(soundsetId) {
+    async function onlineMoods(soundsetId: string): Promise<Moods> {
+        let game = getGame();
         const useAPI = game.settings.get('fvtt-syrin-control', 'syncMethod') === 'yes';
         if (useAPI) {
-            const moods = await getMoods(soundsetId).then(res => res.json());
+            const moods = await getMoods(soundsetId);
             console.log('SyrinControl | moods', moods);
             return moods.map(mood => { return {
                 id: mood.pk,
@@ -172,10 +45,11 @@ Hooks.on("init", function() {
         return {};
     }
 
-    async function onlineSoundsets() {
+    async function onlineSoundsets(): Promise<Soundsets> {
+        let game = getGame();
         const useAPI = game.settings.get('fvtt-syrin-control', 'syncMethod') === 'yes';
         if (useAPI) {
-            const soundsets = await getSoundsets().then(res => res.json());
+            const soundsets = await getSoundsets();
             console.log('SyrinControl | soundsets', soundsets);
             return soundsets.map(soundset => { return {
                 id: soundset.uuid,
@@ -191,8 +65,9 @@ Hooks.on("init", function() {
         return {};
     }
 
+
     Hooks.on("closeSettingsConfig", async () => {
-        const host = location.host;
+        let game = getGame();
         const controlLinks = '/' + game.settings.get('fvtt-syrin-control', 'controlLinksUrl');
 
         let soundsets = game.settings.get('fvtt-syrin-control', 'soundsets');
@@ -200,11 +75,11 @@ Hooks.on("init", function() {
         if(controlLinks !== '/') {
 
             console.debug("SyrinControl | Control Links URL", controlLinks);
-            const data = await new Promise((resolve, reject) => {
+            const data: CSVData[] = await new Promise((resolve) => {
                 Papa.parse(controlLinks, {
                     header: true,
                     download: true,
-                    complete: function(data) {
+                    complete: function(data: { data: CSVData [] }) {
                         resolve(data.data);
                     }
                 });
@@ -215,25 +90,27 @@ Hooks.on("init", function() {
                 .map(mood => {
                     const id = mood.id.split(":")[1];
                     return {
-                        id: id,
+                        id: Number(id),
                         name: mood.name,
                         soundset: mood.soundset
                     };
                 })
                 .reduce(([soundsetsByName, soundsetsById], mood, idx) => {
-                    let soundset = soundsetsByName[mood.soundset] || {
+                    let soundset: Soundset = soundsetsByName[mood.soundset] || {
                         name: mood.soundset,
                         id: idx.toString(),
                         moods: {},
                     };
 
-                    soundset.moods[mood.id]={
+                    soundset.moods[mood.id] = {
                         id: mood.id,
                         name: mood.name
                     };
 
+                    let soundsetId = soundset.id!;
+
                     soundsetsByName[soundset.name] = soundset;
-                    soundsetsById[soundset.id] = soundset;
+                    soundsetsById[soundsetId] = soundset;
 
                     return [soundsetsByName, soundsetsById];
                 }, [Object.create(null), Object.create(null)]);
@@ -245,7 +122,7 @@ Hooks.on("init", function() {
         }
 
         const newSoundsets = await onlineSoundsets();
-        if (newSoundsets.length !== 0) {
+        if (Object.keys(newSoundsets).length !== 0) {
             soundsets = newSoundsets;
         }
 
@@ -253,9 +130,10 @@ Hooks.on("init", function() {
     });
 
     Hooks.on("ready", async () => {
+        let game = getGame();
         let soundsets = game.settings.get('fvtt-syrin-control', 'soundsets');
         const newSoundsets = await onlineSoundsets();
-        if (newSoundsets.length !== 0) {
+        if (Object.keys(newSoundsets).length !== 0) {
             soundsets = newSoundsets;
         }
         game.settings.set('fvtt-syrin-control', 'soundsets', soundsets);
@@ -263,7 +141,7 @@ Hooks.on("init", function() {
         setMood();
     })
 
-    Hooks.on("updateScene", (scene, diff) => {
+    Hooks.on("updateScene", (scene: Scene) => {
         if(!scene.active) {
             return;
         }
@@ -271,15 +149,16 @@ Hooks.on("init", function() {
     });
 
 
-    Hooks.on("renderSceneConfig", async (obj) => {
+    Hooks.on("renderSceneConfig", async (obj: SceneConfig) => {
+        let game = getGame();
         console.debug("SyrinControl | Render scene config", obj);
 
-        if(!hasProperty(obj.object, 'data.flags.syrinscape.mood')) {
-            await obj.object.setFlag('fvtt-syrin-control', 'mood', '');
-        }
-        if(!hasProperty(obj.object, 'data.flags.syrinscape.soundset')) {
-            await obj.object.setFlag('fvtt-syrin-control', 'soundset', '');
-        }
+        // if(!hasProperty(obj.object, 'data.flags.fvtt-syrin-control.mood')) {
+        //     await obj.object.setFlag('fvtt-syrin-control', 'mood', '');
+        // }
+        // if(!hasProperty(obj.object, 'data.flags.fvtt-syrin-control.soundset')) {
+        //     await obj.object.setFlag('fvtt-syrin-control', 'soundset', '');
+        // }
 
         const soundsets = game.settings.get('fvtt-syrin-control', 'soundsets');
         console.log("SyrinControl | soundsets", soundsets);
@@ -290,9 +169,9 @@ Hooks.on("init", function() {
 
         console.log("SyrinControl | Current Soundset", currentSoundset);
 
-        let currentMoods = !!currentSoundset ? currentSoundset.moods : [];
+        let currentMoods = !!currentSoundset ? currentSoundset.moods : {};
 
-        if (currentMoods.length===0 && currentSoundsetId !== "") {
+        if (Object.keys(currentMoods).length===0 && currentSoundsetId !== undefined && currentSoundsetId !== "") {
             currentMoods = await onlineMoods(currentSoundsetId);
         }
 
@@ -306,7 +185,7 @@ Hooks.on("init", function() {
         let anySoundsetSelected = false;
         const soundsetsOptions = Object.entries(soundsets).map(([id, soundset]) => {
             const selected = currentSoundsetId === id;
-            anySoundsetSelected |= selected;
+            anySoundsetSelected = anySoundsetSelected || selected;
             return `<option value="${id}" ${selected?"selected":""}>${soundset.name}</option>`;
         }).join("\n");
 
@@ -315,8 +194,8 @@ Hooks.on("init", function() {
 
         let anyMoodSelected = false;
         const moodsOptions = Object.entries(currentMoods).map(([id, mood]) => {
-            const selected = currentMoodId === id;
-            anyMoodSelected |= selected;
+            const selected = currentMoodId === Number(id);
+            anyMoodSelected = anyMoodSelected || selected;
             return `<option value="${id}" ${selected?"selected":""}>${mood.name}</option>`;
         }).join("\n");
 
@@ -326,13 +205,13 @@ Hooks.on("init", function() {
         const moodDisabled = anySoundsetSelected?"":"disabled";
 
         const soundsetInjection = `
-  <select id="syrin-set" name="flags.syrinscape.soundset" data-dtype="string">
+  <select id="syrin-set" name="flags.fvtt-syrin-control.soundset" data-dtype="string">
     <option value="" ${noSoundsetSelected}></option>
     ${soundsetsOptions}
   </select>`;
 
         const moodInjection = `
-  <select id="syrin-mood" name="flags.syrinscape.mood" data-dtype="string" ${moodDisabled}>
+  <select id="syrin-mood" name="flags.fvtt-syrin-control.mood" data-dtype="string" ${moodDisabled}>
     <option value="" ${noMoodSelected}></option>
     ${moodsOptions}
   </select>
@@ -359,13 +238,16 @@ Hooks.on("init", function() {
         const $moods = $('#syrin-mood');
         $("#syrin-set").change(async function () {
             const id = $(this).val();
-            if (id === "") { return; }
+            if (id === undefined) { return; }
+            if (id instanceof Array) { return; }
+            if (!(typeof id === 'string')) return;
             const soundset = soundsets[id];
             console.log("Changed!", soundset);
             let moods = soundset.moods;
-            if (moods.length===0) {
+            if (Object.keys(moods).length===0) {
                 moods = await onlineMoods(id);
             }
+            console.log("SyrinControl | Updated moods", moods);
             const moodsOptions = Object.entries(moods).map(([id, mood]) => {
                 return `<option value="${id}">${mood.name}</option>`;
             }).join("\n");
