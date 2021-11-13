@@ -12,3 +12,5 @@ yarn-error.log*
 .npm
 .eslintcache
 fvtt-syrin-control.lock
+
+scripts/module.js

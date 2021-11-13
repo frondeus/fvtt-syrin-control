@@ -1,0 +1,13 @@
+{
+  "name": "fvtt-syrin-control",
+  "version": "1.0.0",
+  "description": "Syrinscape Online synchronization and control for Foundry VTT",
+  "main": "src/main.js",
+  "repository": "git@github.com:frondeus/fvtt-syrin-control.git",
+  "author": "Wojciech Polak <frondeus@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "typescript": "^4.4.4"
+  }
+}
