@@ -20,7 +20,7 @@ export interface CSVData {
 // What we process and store
 
 export interface Soundset {
-    id?: string;
+    id: string;
     name: string;
     moods: Moods;
 }

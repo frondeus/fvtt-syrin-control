@@ -31,7 +31,7 @@ export async function loadDataFromCSV(game: Game, controlLinks: string) {
                 moods: {},
             };
 
-            soundset.moods[mood.id] = {
+            soundset.moods![mood.id] = {
                 id: mood.id,
                 name: mood.name
             };

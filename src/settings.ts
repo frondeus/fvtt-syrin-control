@@ -1,7 +1,9 @@
 import { playElement, playMood } from "./api";
+import { loadDataFromCSV } from "./csv";
+import { onlineSoundsets } from "./online";
 import { MODULE } from "./utils";
 
-export default function initSettings(game: Game) {
+export function initSettings(game: Game) {
     game.syrinscape = {
         playElement: playElement,
         playMood: playMood
@@ -12,6 +14,18 @@ export default function initSettings(game: Game) {
         scope: "client",
         config: false,
         default: {}
+    });
+
+    game.settings.register(MODULE, 'currentSoundset', {
+        name: "Current Soundset",
+        scope: "client",
+        config: false
+    });
+
+    game.settings.register(MODULE, 'currentMood', {
+        name: "Current Mood",
+        scope: "client",
+        config: false
     });
 
     game.settings.register(MODULE, 'authToken', {
@@ -50,4 +64,21 @@ export default function initSettings(game: Game) {
         type: String,
         default: "https://syrinscape.com/online/frontend-api"
     });
+}
+
+export async function onCloseSettings(game: Game) {
+    const controlLinks = '/' + game.settings.get(MODULE, 'controlLinksUrl');
+
+    let soundsets = game.settings.get(MODULE, 'soundsets');
+
+    if(controlLinks !== '/') {
+        soundsets = await loadDataFromCSV(game, controlLinks);
+    }
+
+    const newSoundsets = await onlineSoundsets();
+    if (Object.keys(newSoundsets).length !== 0) {
+        soundsets = newSoundsets;
+    }
+
+    game.settings.set(MODULE, 'soundsets', soundsets);
 }

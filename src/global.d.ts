@@ -12,6 +12,9 @@ declare global {
     namespace ClientSettings {
         interface Values {
             'fvtt-syrin-control.soundsets': Soundsets;
+            'fvtt-syrin-control.currentSoundset': Soundset;
+            'fvtt-syrin-control.currentMood': Mood;
+
             'fvtt-syrin-control.controlLinksUrl': string;
             'fvtt-syrin-control.authToken': string;
             'fvtt-syrin-control.address': string;
@@ -22,8 +25,8 @@ declare global {
     interface FlagConfig {
         Scene: {
             'fvtt-syrin-control': {
-                mood?: number;
-                soundset?: string;
+                mood?: Mood;
+                soundset?: Soundset;
             };
         };
     }

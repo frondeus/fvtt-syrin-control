@@ -10,3 +10,10 @@
 .form-group > select {
     width: 100%;
 }
+
+#playlists .syrin-current-playing {
+    list-style: none;
+    margin: 0;
+    padding: 6px;
+    flex: 0 0 100%;
+}
