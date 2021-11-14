@@ -23,7 +23,7 @@ export async function onlineSoundsets(): Promise<Soundsets> {
         const soundsets = await getSoundsets();
         return soundsets.map(soundset => { return {
             id: soundset.uuid,
-            name: soundset.name,
+            name: soundset.full_name,
             moods: []
         };})
             .reduce((soundsetsById, soundset) => {
