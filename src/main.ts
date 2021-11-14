@@ -1,14 +1,22 @@
 import { playMood } from "./api";
 import { onlineSoundsets } from "./online";
-import { onPlaylistTab } from "./playlist";
+import { onPlaylistTab, updatePlaylist } from "./playlist";
 import { onSceneConfig } from "./scene";
 import { initSettings, onCloseSettings } from "./settings";
 import { getGame, MODULE } from "./utils";
 
 export async function setMood(game: Game) {
     if (!game.user?.isGM) { return; }
+    let soundset = game.scenes?.active?.getFlag(MODULE, 'soundset');
     let mood = game.scenes?.active?.getFlag(MODULE, 'mood');
+
+    if (!soundset) { return; }
     if (!mood) { return; }
+
+    game.settings.set(MODULE, "currentSoundset", soundset);
+    game.settings.set(MODULE, "currentMood", mood);
+
+    updatePlaylist(soundset, mood);
 
     await playMood(mood.id);
 }

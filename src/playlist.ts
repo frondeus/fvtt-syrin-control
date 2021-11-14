@@ -1,17 +1,30 @@
 import { Mood, Soundset } from "./syrin";
 import { MODULE } from "./utils";
 
+export function updatePlaylist(soundset: Soundset, mood: Mood) {
+    console.log("SyrinControl | Update playlist");
+
+    const $playlist = $('#playlists,#playlists-popup');
+
+    const $injected = $playlist.find('.syrin-playlists');
+    console.log("SyrinControl | injected", $injected);
+
+    $injected.find(".syrin-current-playing")
+        .html(`
+<li> ${soundset?.name ?? "--No soundset--"} </li>
+<li> ${mood?.name ?? "--No mood--"} </li>
+    `);
+
+}
+
 export async function onPlaylistTab(game: Game, dir: PlaylistDirectory) {
-    console.debug('SyrinControl | Game', game);
-    console.log('SyrinControl | Playlist', dir);
     const $playlist = $('#' + dir.id);
 
-    const activeScene = game.scenes?.active;
-    let soundset: Soundset | undefined = activeScene?.getFlag(MODULE, 'soundset');
-    let mood: Mood | undefined = activeScene?.getFlag(MODULE, 'mood');
+    let soundset: Soundset | undefined = game.settings.get(MODULE, 'currentSoundset');
+    let mood: Mood | undefined = game.settings.get(MODULE, 'currentMood');
 
     const $injected = $(`
-<div class="global-control flexrow collapsed">
+<div class="syrin-playlists global-control flexrow collapsed">
 <header class="playlist-header flexrow">
 <h4>Syrinscape Online
 <i class="collapse fa fa-angle-up"></i>
