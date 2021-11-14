@@ -15,6 +15,7 @@ declare global {
             'fvtt-syrin-control.controlLinksUrl': string;
             'fvtt-syrin-control.authToken': string;
             'fvtt-syrin-control.address': string;
+            'fvtt-syrin-control.syncMethod': "yes" | "no";
         }
     }
 

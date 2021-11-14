@@ -1,5 +1,5 @@
 import { playElement, playMood } from "./api";
-import { getGame } from "./utils";
+import { getGame, MODULE } from "./utils";
 
 export default function initSettings() {
     let game = getGame();
@@ -8,20 +8,14 @@ export default function initSettings() {
         playMood: playMood
     };
 
-    game.settings.register('fvtt-syrin-control', 'controlLinks', {
-        name: "Control Links",
-        scope: "client",
-        config: false
-    });
-
-    game.settings.register('fvtt-syrin-control', 'soundsets', {
+    game.settings.register(MODULE, 'soundsets', {
         name: "Soundsets",
         scope: "client",
         config: false,
         default: {}
     });
 
-    game.settings.register('fvtt-syrin-control', 'authToken', {
+    game.settings.register(MODULE, 'authToken', {
         name: "Auth Token",
         hint: "Authentication token to Syrinscape Online API",
         scope: "client",
@@ -29,7 +23,7 @@ export default function initSettings() {
         type: String,
         default: "",
     });
-    game.settings.register('fvtt-syrin-control', 'syncMethod', {
+    game.settings.register(MODULE, 'syncMethod', {
         name: "Synchronization method",
         hint: "Should the module use online API to retrieve mood list?",
         scope: "client",
@@ -41,7 +35,7 @@ export default function initSettings() {
             "no": "No - stick to CSV file"
         }
     });
-    game.settings.register('fvtt-syrin-control', 'controlLinksUrl', {
+    game.settings.register(MODULE, 'controlLinksUrl', {
         name: "Control Links",
         hint: "Control links CSV - click \"Download Remote Control Links\" in Master Panel and upload it here",
         scope: "client",
@@ -49,7 +43,7 @@ export default function initSettings() {
         type: String,
         filePicker: true
     });
-    game.settings.register('fvtt-syrin-control', 'address', {
+    game.settings.register(MODULE, 'address', {
         name: "Syrinscape API address",
         hint: "Address to Syrinscape Online. Can be replaced by proxy",
         scope: "client",

@@ -2,7 +2,7 @@ import Papa from "papaparse";
 import { playMood, getMoods, getSoundsets } from "./api";
 import initSettings from "./settings";
 import { CSVData, Moods, Soundset, Soundsets } from "./syrin";
-import { getGame } from "./utils";
+import { getGame, useAPI } from "./utils";
 
 Hooks.on("init", function() {
     initSettings();
@@ -27,9 +27,7 @@ Hooks.on("init", function() {
     }
 
     async function onlineMoods(soundsetId: string): Promise<Moods> {
-        let game = getGame();
-        const useAPI = game.settings.get('fvtt-syrin-control', 'syncMethod') === 'yes';
-        if (useAPI) {
+        if (useAPI()) {
             const moods = await getMoods(soundsetId);
             console.log('SyrinControl | moods', moods);
             return moods.map(mood => { return {
@@ -46,9 +44,7 @@ Hooks.on("init", function() {
     }
 
     async function onlineSoundsets(): Promise<Soundsets> {
-        let game = getGame();
-        const useAPI = game.settings.get('fvtt-syrin-control', 'syncMethod') === 'yes';
-        if (useAPI) {
+        if (useAPI()) {
             const soundsets = await getSoundsets();
             console.log('SyrinControl | soundsets', soundsets);
             return soundsets.map(soundset => { return {

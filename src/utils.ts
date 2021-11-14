@@ -10,7 +10,7 @@ export function isGM(): boolean {
     return is === true;
 }
 
-const MODULE = 'fvtt-syrin-control';
+export const MODULE = 'fvtt-syrin-control';
 
 export function getAddress(): string {
     let game = getGame();
