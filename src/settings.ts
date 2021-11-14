@@ -1,8 +1,7 @@
 import { playElement, playMood } from "./api";
-import { getGame, MODULE } from "./utils";
+import { MODULE } from "./utils";
 
-export default function initSettings() {
-    let game = getGame();
+export default function initSettings(game: Game) {
     game.syrinscape = {
         playElement: playElement,
         playMood: playMood

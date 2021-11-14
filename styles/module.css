@@ -1,9 +1,6 @@
-
-form .form-group .form-fields.syrin-vertical {
+.syrin-fields {
+    display: flex;
     flex-direction: column;
-    align-items: justify;
 }
-
-form .form-group .form-fields.syrin-vertical > * {
-    flex: 4;
+.syrin-fields > * {
 }

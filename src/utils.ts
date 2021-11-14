@@ -6,20 +6,17 @@ export function getGame(): Game {
 }
 
 export function isGM(): boolean {
-    let is = getGame().user?.isGM;
-    return is === true;
+    return getGame().user?.isGM === true;
 }
 
 export const MODULE = 'fvtt-syrin-control';
 
 export function getAddress(): string {
-    let game = getGame();
-    return game.settings.get(MODULE, 'address').replace(/\/$/, '');
+    return getGame().settings.get(MODULE, 'address').replace(/\/$/, '');
 }
 
 export function getAuth(): string {
-    let game = getGame();
-    return game.settings.get(MODULE, 'authToken');
+    return getGame().settings.get(MODULE, 'authToken');
 }
 
 export function useAPI(): boolean {
