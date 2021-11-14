@@ -1,0 +1,9 @@
+
+form .form-group .form-fields.syrin-vertical {
+    flex-direction: column;
+    align-items: justify;
+}
+
+form .form-group .form-fields.syrin-vertical > * {
+    flex: 4;
+}

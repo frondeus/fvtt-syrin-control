@@ -99,7 +99,7 @@ Hooks.on("init", function() {
 
         let anyMoodSelected = false;
         const moodsOptions = Object.entries(currentMoods).map(([id, mood]) => {
-            const selected = currentMoodId === Number(id);
+            const selected = Number(currentMoodId) === Number(id);
             anyMoodSelected = anyMoodSelected || selected;
             return `<option value="${id}" ${selected?"selected":""}>${mood.name}</option>`;
         }).join("\n");
@@ -109,25 +109,21 @@ Hooks.on("init", function() {
 
         const moodDisabled = anySoundsetSelected?"":"disabled";
 
-        const soundsetInjection = `
+        const injection = `
+<div class="form-group syrinscape-mood">
+<label>Syrinscape</label>
+<div class="form-fields syrin-vertical">
+
   <select id="syrin-set" name="flags.fvtt-syrin-control.soundset" data-dtype="string">
     <option value="" ${noSoundsetSelected}></option>
     ${soundsetsOptions}
-  </select>`;
+  </select>
 
-        const moodInjection = `
   <select id="syrin-mood" name="flags.fvtt-syrin-control.mood" data-dtype="string" ${moodDisabled}>
     <option value="" ${noMoodSelected}></option>
     ${moodsOptions}
   </select>
-`;
 
-        const injection = `
-<div class="form-group syrinscape-mood">
-<label>Syrinscape</label>
-<div class="form-fields">
-  ${soundsetInjection}
-  ${moodInjection}
 </div>
 <p class="notes">Select mood from available Syrinscape Moods</p>
 </div>
