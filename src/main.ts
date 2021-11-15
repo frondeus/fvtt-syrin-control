@@ -16,7 +16,7 @@ export async function setMood(game: Game) {
     game.settings.set(MODULE, "currentSoundset", soundset);
     game.settings.set(MODULE, "currentMood", mood);
 
-    updatePlaylist(soundset, mood);
+    await updatePlaylist(game);
 
     await playMood(mood.id);
 }

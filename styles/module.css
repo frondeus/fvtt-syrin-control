@@ -17,3 +17,8 @@
     padding: 6px;
     flex: 0 0 100%;
 }
+
+.syrin-list select {
+    width: 100%;
+    background: rgba(255, 255, 245, 0.8);
+}
