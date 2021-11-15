@@ -7,18 +7,25 @@
     width: 100%;
 }
 
-.form-group > select {
+.form-group select {
     width: 100%;
 }
 
-#playlists .syrin-current-playing {
+#playlists .syrin-to-collapse {
     list-style: none;
     margin: 0;
     padding: 6px;
     flex: 0 0 100%;
 }
 
-.syrin-list select {
+.syrin-search select {
     width: 100%;
     background: rgba(255, 255, 245, 0.8);
+}
+
+.syrin-controls {
+    padding: 6px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }

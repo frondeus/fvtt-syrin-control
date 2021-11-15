@@ -1,4 +1,4 @@
-import { playElement, playMood } from "./api";
+import { playElement } from "./api";
 import { loadDataFromCSV } from "./csv";
 import { onlineSoundsets } from "./online";
 import { MODULE } from "./utils";
@@ -6,7 +6,10 @@ import { MODULE } from "./utils";
 export function initSettings(game: Game) {
     game.syrinscape = {
         playElement: playElement,
-        playMood: playMood
+        playMood: async (_id: number) => {
+            //TODO:
+            console.warn("SyrinControl | Im sorry this feature is under development");
+        }
     };
 
     game.settings.register(MODULE, 'soundsets', {
@@ -14,18 +17,6 @@ export function initSettings(game: Game) {
         scope: "client",
         config: false,
         default: {}
-    });
-
-    game.settings.register(MODULE, 'currentSoundset', {
-        name: "Current Soundset",
-        scope: "client",
-        config: false
-    });
-
-    game.settings.register(MODULE, 'currentMood', {
-        name: "Current Mood",
-        scope: "client",
-        config: false
     });
 
     game.settings.register(MODULE, 'authToken', {

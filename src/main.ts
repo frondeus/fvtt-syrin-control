@@ -1,11 +1,24 @@
-import { playMood } from "./api";
+import { playMood, stopMood } from "./api";
 import { onlineSoundsets } from "./online";
-import { onPlaylistTab, updatePlaylist } from "./playlist";
+import { onPlaylistTab } from "./playlist";
 import { onSceneConfig } from "./scene";
 import { initSettings, onCloseSettings } from "./settings";
+import { Mood, Soundset } from "./syrin";
 import { getGame, MODULE } from "./utils";
 
-export async function setMood(game: Game) {
+export async function stopAll(game: Game) {
+    if (!game.user?.isGM) { return; }
+
+    await stopMood();
+}
+
+export async function setMood(soundset: Soundset, mood: Mood) {
+    Hooks.callAll(MODULE + "moodChange", soundset, mood);
+
+    await playMood(mood.id);
+}
+
+export async function setActiveMood(game: Game) {
     if (!game.user?.isGM) { return; }
     let soundset = game.scenes?.active?.getFlag(MODULE, 'soundset');
     let mood = game.scenes?.active?.getFlag(MODULE, 'mood');
@@ -13,13 +26,15 @@ export async function setMood(game: Game) {
     if (!soundset) { return; }
     if (!mood) { return; }
 
-    game.settings.set(MODULE, "currentSoundset", soundset);
-    game.settings.set(MODULE, "currentMood", mood);
-
-    await updatePlaylist(game);
-
-    await playMood(mood.id);
+    await setMood(soundset, mood);
 }
+
+// Hooks.on(MODULE + "moodChange", function(soundset: Soundset | undefined, mood: Mood | undefined) {
+//     let game = getGame();
+//     game.settings.set(MODULE, "currentSoundset", soundset);
+//     game.settings.set(MODULE, "currentMood", mood);
+//     updatePlaylist(game);
+// });
 
 Hooks.on("init", function() {
     let game = getGame();
@@ -28,14 +43,14 @@ Hooks.on("init", function() {
     Hooks.on("closeSettingsConfig", async () => await onCloseSettings(game));
 
     Hooks.on("ready", async () => {
+        setActiveMood(game);
+
         let soundsets = game.settings.get(MODULE, 'soundsets');
         const newSoundsets = await onlineSoundsets();
         if (Object.keys(newSoundsets).length !== 0) {
             soundsets = newSoundsets;
         }
         game.settings.set(MODULE, 'soundsets', soundsets);
-
-        setMood(game);
     });
 
     Hooks.on("updateScene", (scene: Scene) => {
@@ -49,7 +64,7 @@ Hooks.on("init", function() {
             return;
         }
         if(!scene.active) return;
-        setMood(game);
+        setActiveMood(game);
     });
 
     Hooks.on("renderSceneConfig", async (obj: SceneConfig) => await onSceneConfig(game, obj));

@@ -9,6 +9,19 @@ let fetchOptions = () => {
     }
 };
 
+export async function stopMood() : Promise<void> {
+    if (!isGM()) return;
+
+    function link() {
+        let address = getAddress();
+        let authToken = getAuth();
+        return `${address}/stop-all/?auth_token=${authToken}`;
+    }
+
+    console.log("SyrinControl | Stop mood");
+    await fetch(link(), fetchOptions());
+}
+
 export async function playMood(id: number) : Promise<void> {
     if (!isGM()) return;
 
@@ -18,7 +31,7 @@ export async function playMood(id: number) : Promise<void> {
         return `${address}/moods/${id}/play/?auth_token=${authToken}`;
     }
 
-    console.log("SyrinControl | Set mood", id);
+    console.log("SyrinControl | Play mood", id);
     await fetch(link(id), fetchOptions());
 }
 

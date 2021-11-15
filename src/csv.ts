@@ -1,5 +1,4 @@
 import Papa from "papaparse";
-import { setMood } from "./main";
 import { CSVData, Soundset } from "./syrin";
 import { MODULE } from "./utils";
 
@@ -45,6 +44,5 @@ export async function loadDataFromCSV(game: Game, controlLinks: string) {
         }, [Object.create(null), Object.create(null)]);
     ;
     game.settings.set(MODULE, 'controlLinksUrl', '');
-    setMood(game);
     return newSoundsets[1];
 }
