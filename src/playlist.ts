@@ -4,18 +4,17 @@ import { select } from "./select";
 import { Mood, Soundset, Soundsets } from "./syrin";
 import { MODULE } from "./utils";
 
+let lastSoundset: Soundset | undefined;
+let lastMood: Mood | undefined;
+
 export async function onPlaylistTab(game: Game, dir: PlaylistDirectory) {
     console.log("SyrinControl | OnPlaylistTab");
     const $playlist = $('#' + dir.id);
 
-    let currentSoundset: Soundset | undefined;
-    let currentMood: Mood | undefined;
-
-    let soundset: Soundset | undefined = currentSoundset;
-    let mood: Mood | undefined = currentMood;
+    let currentSoundset: Soundset | undefined = lastSoundset;
+    let currentMood: Mood | undefined = lastMood;
 
     const soundsets: Soundsets = game.settings.get(MODULE, 'soundsets');
-
     const isPlaying = (mood: Mood | undefined) => {
         if(!currentMood) {
             return false;
@@ -36,8 +35,8 @@ export async function onPlaylistTab(game: Game, dir: PlaylistDirectory) {
     <div class="syrin-search">
     </div>
     <div class="syrin-controls">
-        <a class="syrin-control syrin-play-or-stop" title="Play Mood"> <i class="fas fa-play"></i> </a>
-        <a class="syrin-control syrin-add" title="Add Mood"> <i class="fas fa-plus"></i> </a>
+        <a class="syrin-control syrin-play-or-stop" title="Play Mood" disabled> <i class="fas fa-play"></i> </a>
+        <a class="syrin-control syrin-add" title="Add Mood" disabled> <i class="fas fa-plus"></i> </a>
     </div>
 </ol>
 </div>
@@ -47,23 +46,52 @@ export async function onPlaylistTab(game: Game, dir: PlaylistDirectory) {
 `);
     $playlist.find('.directory-list').after($injected);
 
+    let $currentPlay = $injected.find(".syrin-control.syrin-play-or-stop");
 
     let onMoodChange = (mood: Mood | undefined) => {
         console.log("SyrinControl | onMoodChangePlaylist", mood);
+        if(mood === undefined && currentMood === undefined) {
+            $currentPlay.addClass("disabled");
+            return;
+        }
+        $currentPlay.removeClass("disabled");
+        if(currentMood !== undefined) {
+            $currentPlay.attr("title", "Stop Mood");
+            $currentPlay.find(".fas")
+                .removeClass("fa-play")
+                .addClass("fa-stop")
+        }
+        else {
+            $currentPlay.attr("title", "Play Mood");
+            $currentPlay.find(".fas")
+                .removeClass("fa-stop")
+                .addClass("fa-play")
+        }
     };
 
-    $injected.find(".syrin-control.syrin-play-or-stop").on("click", async function () {
-        let playOr = isPlaying(mood) ? "stop" : "play";
-        if(playOr === "stop") {
+    onMoodChange(lastMood);
+
+    let selectConfig =
+    {
+        soundsetClass: "syrin-search-set",
+        moodClass: "syrin-search-mood",
+        soundset: currentSoundset,
+        mood: currentMood,
+        soundsets,
+
+        onMoodChange
+    };
+
+    $currentPlay.on("click", async function () {
+        if($(this).hasClass("disabled")) return;
+
+        console.log("SyrinControl | Click", selectConfig.mood);
+
+        let playOr = isPlaying(selectConfig.mood) ? "stop" : "play";
+        if(!selectConfig.soundset || !selectConfig.mood || playOr === "stop") {
             await stopAll(game);
-            currentSoundset = undefined;
-            currentMood = undefined;
-            onMoodChange(mood);
         } else {
-            if (!soundset) return;
-            if (!mood) return;
-            await setMood(soundset, mood);
-            onMoodChange(mood);
+            await setMood(selectConfig.soundset, selectConfig.mood);
         }
     });
 
@@ -90,19 +118,11 @@ export async function onPlaylistTab(game: Game, dir: PlaylistDirectory) {
         collapsed = !collapsed;
     });
 
-    const $select = await select({
-        soundsetClass: "syrin-search-set",
-        moodClass: "syrin-search-mood",
-        soundset,
-        mood,
-        soundsets,
-
-        onMoodChange
-    });
+    const $select = await select(selectConfig);
 
     Hooks.on(MODULE + "moodChange", function(newSoundset: Soundset | undefined, newMood: Mood | undefined) {
-        currentSoundset = newSoundset;
-        currentMood = newMood;
+        lastSoundset = currentSoundset = newSoundset;
+        lastMood = currentMood = newMood;
         $select.setMood(newSoundset, newMood);
     });
 

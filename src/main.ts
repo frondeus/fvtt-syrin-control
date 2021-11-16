@@ -9,6 +9,8 @@ import { getGame, MODULE } from "./utils";
 export async function stopAll(game: Game) {
     if (!game.user?.isGM) { return; }
 
+    Hooks.callAll(MODULE + "moodChange", undefined, undefined);
+
     await stopMood();
 }
 
@@ -43,14 +45,14 @@ Hooks.on("init", function() {
     Hooks.on("closeSettingsConfig", async () => await onCloseSettings(game));
 
     Hooks.on("ready", async () => {
-        setActiveMood(game);
-
         let soundsets = game.settings.get(MODULE, 'soundsets');
         const newSoundsets = await onlineSoundsets();
         if (Object.keys(newSoundsets).length !== 0) {
             soundsets = newSoundsets;
         }
         game.settings.set(MODULE, 'soundsets', soundsets);
+
+        setActiveMood(game);
     });
 
     Hooks.on("updateScene", (scene: Scene) => {

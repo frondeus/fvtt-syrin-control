@@ -29,3 +29,8 @@
     flex-direction: row;
     justify-content: space-around;
 }
+
+.syrin-controls a.disabled {
+    cursor: default;
+    display: none;
+}

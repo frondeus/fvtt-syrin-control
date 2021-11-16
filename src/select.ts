@@ -54,10 +54,12 @@ export async function select(config: SelectConfig): Promise<JQuery<HTMLElement> 
     let $soundset = $inject.find("." + config.soundsetClass);
     let $mood = $inject.find("." + config.moodClass);
 
-    async function updateMoods() {
+    async function updateMoods(mood: Mood | undefined) {
         moods = await getMoods(config.soundset?.id);
 
-        const moodOptions = Object.entries(moods).map(([id, obj]) => {
+        const moodOptions = Object.entries(moods)
+            .filter(([id, _obj]) => mood?.id === undefined || Number(id)!== Number(mood.id))
+            .map(([id, obj]) => {
             return `<option value="${id}">${obj.name}</option>`;
         }).join("\n");
         $mood.append(moodOptions);
@@ -80,11 +82,12 @@ export async function select(config: SelectConfig): Promise<JQuery<HTMLElement> 
             return;
         }
         config.soundset = config.soundsets[id as string];
+        config.mood = undefined;
 
-        await updateMoods();
+        await updateMoods(config.mood);
 
         config.onSoundsetChange?.(config.soundset);
-        config.onMoodChange?.(undefined);
+        config.onMoodChange?.(config.mood);
     });
 
     $mood.on("change", async function() {
@@ -113,7 +116,12 @@ export async function select(config: SelectConfig): Promise<JQuery<HTMLElement> 
         $inject.find("." + config.soundsetClass + ` option[value="${newSoundset?.id ?? ""}"]`).prop('selected', true);
 
         if (isSoundsetNew) {
-            await updateMoods();
+            $mood.html('<option value="">--No mood--</option>');
+            if (newMood?.id !== undefined) {
+                $mood.append(`<option value="${newMood.id}">${newMood.name}</option>`);
+                $mood.removeAttr("disabled");
+            }
+            updateMoods(newMood);
         }
 
         $inject.find("." + config.moodClass + ` option[value="${newMood?.id ?? ""}"]`).prop('selected', true);
@@ -121,6 +129,9 @@ export async function select(config: SelectConfig): Promise<JQuery<HTMLElement> 
         if (newSoundset === undefined) {
             $mood.attr("disabled", "disabled");
         }
+
+        config.onSoundsetChange?.(config.soundset);
+        config.onMoodChange?.(config.mood);
     }
     });
 }
