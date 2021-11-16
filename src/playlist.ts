@@ -46,15 +46,16 @@ export async function onPlaylistTab(game: Game, dir: PlaylistDirectory) {
 `);
     $playlist.find('.directory-list').after($injected);
 
+    let $allControls = $injected.find(".syrin-control");
     let $currentPlay = $injected.find(".syrin-control.syrin-play-or-stop");
 
     let onMoodChange = (mood: Mood | undefined) => {
         console.log("SyrinControl | onMoodChangePlaylist", mood);
         if(mood === undefined && currentMood === undefined) {
-            $currentPlay.addClass("disabled");
+            $allControls.addClass("disabled");
             return;
         }
-        $currentPlay.removeClass("disabled");
+        $allControls.removeClass("disabled");
         if(currentMood !== undefined) {
             $currentPlay.attr("title", "Stop Mood");
             $currentPlay.find(".fas")
