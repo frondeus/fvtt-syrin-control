@@ -1,4 +1,4 @@
-import { Soundsets } from "./syrin";
+import { Soundsets, Playlist } from "./syrin";
 
 declare global {
 
@@ -12,6 +12,7 @@ declare global {
     namespace ClientSettings {
         interface Values {
             'fvtt-syrin-control.soundsets': Soundsets;
+            'fvtt-syrin-control.playlist': Playlist;
             'fvtt-syrin-control.currentSoundset': Soundset;
             'fvtt-syrin-control.currentMood': Mood;
 

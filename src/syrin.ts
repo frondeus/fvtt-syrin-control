@@ -37,3 +37,12 @@ export interface Moods {
 export interface Soundsets {
     [index: string]: Soundset;
 }
+
+export interface PlaylistEntry {
+    mood: Mood;
+    soundset: Soundset;
+}
+
+export interface Playlist {
+    entries: PlaylistEntry[]
+}

@@ -19,6 +19,13 @@ export function initSettings(game: Game) {
         default: {}
     });
 
+    game.settings.register(MODULE, 'playlist', {
+        name: "Playlist",
+        scope: "client",
+        config: false,
+        default: { entries: [] }
+    });
+
     game.settings.register(MODULE, 'authToken', {
         name: "Auth Token",
         hint: "Authentication token to Syrinscape Online API",

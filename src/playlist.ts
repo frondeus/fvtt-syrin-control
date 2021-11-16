@@ -1,7 +1,7 @@
 // import { setMood stopAll } from "./main";
 import { setMood, stopAll } from "./main";
 import { select } from "./select";
-import { Mood, Soundset, Soundsets } from "./syrin";
+import { Playlist, Mood, Soundset, Soundsets } from "./syrin";
 import { MODULE } from "./utils";
 
 let lastSoundset: Soundset | undefined;
@@ -9,10 +9,15 @@ let lastMood: Mood | undefined;
 
 export async function onPlaylistTab(game: Game, dir: PlaylistDirectory) {
     console.log("SyrinControl | OnPlaylistTab");
-    const $playlist = $('#' + dir.id);
+    const $tab = $('#' + dir.id);
 
     let currentSoundset: Soundset | undefined = lastSoundset;
     let currentMood: Mood | undefined = lastMood;
+
+    let playlist: Playlist = game.settings.get(MODULE, 'playlist');
+    if(playlist.entries === undefined) {
+        playlist.entries = [];
+    }
 
     const soundsets: Soundsets = game.settings.get(MODULE, 'soundsets');
     const isPlaying = (mood: Mood | undefined) => {
@@ -22,6 +27,7 @@ export async function onPlaylistTab(game: Game, dir: PlaylistDirectory) {
         console.log(mood, "VS", currentMood);
         return mood?.id === currentMood?.id;
     };
+
 
     const $injected = $(`
 <div>
@@ -34,7 +40,7 @@ export async function onPlaylistTab(game: Game, dir: PlaylistDirectory) {
 <ol class="syrin-to-collapse" style="display: none;">
     <div class="syrin-search">
     </div>
-    <div class="syrin-controls">
+    <div class="syrin-controls syrin-search-controls">
         <a class="syrin-control syrin-play-or-stop" title="Play Mood" disabled> <i class="fas fa-play"></i> </a>
         <a class="syrin-control syrin-add" title="Add Mood" disabled> <i class="fas fa-plus"></i> </a>
     </div>
@@ -44,19 +50,48 @@ export async function onPlaylistTab(game: Game, dir: PlaylistDirectory) {
 </ol>
 </div>
 `);
-    $playlist.find('.directory-list').after($injected);
+    $tab.find('.directory-list').after($injected);
 
-    let $allControls = $injected.find(".syrin-control");
-    let $currentPlay = $injected.find(".syrin-control.syrin-play-or-stop");
+    let $allControls = $injected.find(".syrin-search-controls .syrin-control");
+    let $currentPlay = $injected.find(".syrin-search-controls .syrin-control.syrin-play-or-stop");
+    let $addToPlaylist = $injected.find(".syrin-search-controls .syrin-control.syrin-add");
+
+    const updatePlaylistButtons = () => {
+        if(currentMood === undefined) {
+            let $play = $injected.find(".syrin-list .syrin-play-or-stop");
+            $play.attr("title", "Play Mood");
+            $play.find(".fas")
+                .removeClass("fa-stop")
+                .addClass("fa-play")
+            return;
+        }
+
+        let $play = $injected.find(`.syrin-list .syrin-play-or-stop[data-mood-id="${currentMood.id}"]`);
+        $play.attr("title", "Stop Mood");
+        $play.find(".fas")
+            .removeClass("fa-play")
+            .addClass("fa-stop")
+
+        $play = $injected.find(`.syrin-list .syrin-play-or-stop:not([data-mood-id="${currentMood.id}"])`);
+        $play.attr("title", "Play Mood");
+        $play.find(".fas")
+            .removeClass("fa-stop")
+            .addClass("fa-play")
+    };
 
     let onMoodChange = (mood: Mood | undefined) => {
         console.log("SyrinControl | onMoodChangePlaylist", mood);
+        updatePlaylistButtons();
         if(mood === undefined && currentMood === undefined) {
             $allControls.addClass("disabled");
             return;
         }
         $allControls.removeClass("disabled");
-        if(currentMood !== undefined) {
+        const keys = playlist.entries.map(e => e.mood.id);
+        if(mood?.id === undefined || keys.includes(mood.id)) {
+            $addToPlaylist.addClass("disabled");
+        }
+        if(currentMood !== undefined && currentMood === mood) {
             $currentPlay.attr("title", "Stop Mood");
             $currentPlay.find(".fas")
                 .removeClass("fa-play")
@@ -83,10 +118,84 @@ export async function onPlaylistTab(game: Game, dir: PlaylistDirectory) {
         onMoodChange
     };
 
+    const $playlist = $injected.find(".syrin-list");
+    const genPlaylist = () => {
+        console.log("SyrinControl | GenPlaylist", playlist.entries);
+        const html = playlist.entries.map((entry) => {
+            return `<li>
+<header class="playlist-header flexrow">
+<h4 class="playlist-name">
+${entry.mood.name}
+-
+${entry.soundset.name}
+</h4>
+<div class="syrin-controls">
+        <a
+data-mood-id="${entry.mood.id}"
+data-mood-name="${entry.mood.name}"
+data-soundset-id="${entry.soundset.id}"
+class="syrin-control syrin-play-or-stop" title="Play Mood"> <i class="fas fa-play"></i> </a>
+        <a data-mood-id="${entry.mood.id}" class="syrin-control syrin-remove" title="Remove Mood"> <i class="fas fa-trash"></i> </a>
+</div>
+</header>
+</li>`;
+        }).join("\n");
+        $playlist.html(html);
+        $playlist.find(".syrin-control.syrin-remove").on("click", onRemove);
+        $playlist.find(".syrin-control.syrin-play-or-stop").on("click", onPlayElem);
+        updatePlaylistButtons();
+    };
+
+
+
+    $addToPlaylist.on("click", async function() {
+        console.log("SyrinControl | Click Add", selectConfig.mood);
+        let mood = selectConfig.mood;
+        let soundset = selectConfig.soundset;
+        if (!mood) { return; }
+        if (!soundset) { return; }
+        playlist.entries = [...playlist.entries, { mood, soundset }];
+        console.log("SyrinControl | New Playlist", playlist);
+        game.settings.set(MODULE, "playlist", playlist);
+        genPlaylist();
+    });
+
+    const onPlayElem = async function( this: HTMLAnchorElement) {
+        let moodId: number = $(this).data("mood-id");
+        let soundsetId: string = $(this).data("soundset-id");
+        let moodName: string = $(this).data("mood-name");
+
+        console.log("SyrinControl | Click Play/Stop entry", moodId);
+        let soundset = soundsets[soundsetId];
+        let mood = {
+            id: moodId,
+            name: moodName
+        };
+
+        let playOr = isPlaying(mood) ? "stop": "play";
+        if(playOr === "stop") {
+            await stopAll(game);
+        } else {
+            await setMood(soundset, mood);
+        }
+    };
+
+    const onRemove = async function( this: HTMLAnchorElement) {
+        let moodId = $(this).data("mood-id");
+        console.log("SyrinControl | Click Remove", moodId);
+        playlist.entries = playlist.entries.filter((entry) => {
+            return Number(entry.mood.id) !== Number(moodId);
+        });
+        game.settings.set(MODULE, "playlist", playlist);
+        genPlaylist();
+    };
+
+    genPlaylist();
+
     $currentPlay.on("click", async function () {
         if($(this).hasClass("disabled")) return;
 
-        console.log("SyrinControl | Click", selectConfig.mood);
+        console.log("SyrinControl | Click Play/Stop", selectConfig.mood);
 
         let playOr = isPlaying(selectConfig.mood) ? "stop" : "play";
         if(!selectConfig.soundset || !selectConfig.mood || playOr === "stop") {
