@@ -65,11 +65,12 @@ export function initSettings(game: Game) {
 }
 
 export async function onCloseSettings(game: Game) {
-    const controlLinks = '/' + game.settings.get(MODULE, 'controlLinksUrl');
+    const controlLinksSetting = game.settings.get(MODULE, 'controlLinksUrl');
+    const controlLinks = controlLinksSetting.startsWith("http") ? controlLinksSetting : '/' + controlLinksSetting;
 
     let soundsets = game.settings.get(MODULE, 'soundsets');
 
-    if(controlLinks !== '/') {
+    if(controlLinksSetting !== '') {
         soundsets = await loadDataFromCSV(game, controlLinks);
     }
 
