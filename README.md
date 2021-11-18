@@ -10,6 +10,9 @@
 # SyrinControl - provides control mechanisms for Syrinscape Online
 Please, keep in mind that this module **do not** provide audio streaming, **and I do not intent to bring one**. You still need to use Syrinscape Online or some kind of Discord Bot.
 
+![image](https://user-images.githubusercontent.com/1165825/142510009-746f660d-9b6f-4aeb-8841-1503acdc6c56.png)
+
+
 Features:
 * Link Syrinscape mood to scene - module switches mood automatically when scene gets activated.
 * Create playlist with Syrinscape moods
