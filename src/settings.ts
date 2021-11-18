@@ -14,14 +14,14 @@ export function initSettings(game: Game) {
 
     game.settings.register(MODULE, 'soundsets', {
         name: "Soundsets",
-        scope: "client",
+        scope: "world",
         config: false,
         default: {}
     });
 
     game.settings.register(MODULE, 'playlist', {
         name: "Playlist",
-        scope: "client",
+        scope: "world",
         config: false,
         default: { entries: [] }
     });
@@ -29,7 +29,7 @@ export function initSettings(game: Game) {
     game.settings.register(MODULE, 'authToken', {
         name: "Auth Token",
         hint: "Authentication token to Syrinscape Online API",
-        scope: "client",
+        scope: "world",
         config: true,
         type: String,
         default: "",
@@ -37,7 +37,7 @@ export function initSettings(game: Game) {
     game.settings.register(MODULE, 'syncMethod', {
         name: "Synchronization method",
         hint: "Should the module use online API to retrieve mood list?",
-        scope: "client",
+        scope: "world",
         config: true,
         type: String,
         default: "yes",
@@ -49,7 +49,7 @@ export function initSettings(game: Game) {
     game.settings.register(MODULE, 'controlLinksUrl', {
         name: "Control Links",
         hint: "Control links CSV - click \"Download Remote Control Links\" in Master Panel and upload it here",
-        scope: "client",
+        scope: "world",
         config: true,
         type: String,
         filePicker: true
@@ -57,7 +57,7 @@ export function initSettings(game: Game) {
     game.settings.register(MODULE, 'address', {
         name: "Syrinscape API address",
         hint: "Address to Syrinscape Online. Can be replaced by proxy",
-        scope: "client",
+        scope: "world",
         config: true,
         type: String,
         default: "https://syrinscape.com/online/frontend-api"

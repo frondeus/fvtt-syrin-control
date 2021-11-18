@@ -44,5 +44,6 @@ export async function loadDataFromCSV(game: Game, controlLinks: string) {
         }, [Object.create(null), Object.create(null)]);
     ;
     game.settings.set(MODULE, 'controlLinksUrl', '');
+    console.debug("SyrinControl | Loaded CSV");
     return newSoundsets[1];
 }

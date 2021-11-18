@@ -2,6 +2,24 @@ import { Soundsets, Playlist } from "./syrin";
 
 declare global {
 
+    interface QuickInsertProps {
+        startText: string;
+        allowMultiple: boolean;
+        restrictTypes?: string[];
+        filter?: string;
+        onSubmit: (any) => void;
+    }
+
+    interface QuickInsert {
+        open(props: QuickInsertProps);
+        forceIndex();
+        searchLib: {
+            addItem(item: SearchItem)
+        }
+    }
+
+    const QuickInsert: QuickInsert | undefined;
+
     interface Game {
         syrinscape: {
             playElement: (number) => Promise<void>;

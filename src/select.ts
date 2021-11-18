@@ -1,4 +1,5 @@
 import { onlineMoods } from "./online";
+import { SyrinSearchItem } from "./quicksearch";
 import { Mood, Moods, Soundset, Soundsets } from "./syrin";
 
 export interface SelectConfig {
@@ -17,6 +18,8 @@ export interface Select {
 }
 
 export async function select(config: SelectConfig): Promise<JQuery<HTMLElement> & Select> {
+    const quickInsertExists = !!QuickInsert;
+
     let getMoods = async (soundsetId: string | undefined) => {
         if(!soundsetId) return {};
         let moods = config.soundsets[soundsetId].moods;
@@ -25,6 +28,7 @@ export async function select(config: SelectConfig): Promise<JQuery<HTMLElement> 
         }
         return moods;
     };
+
     let moods: Moods = await getMoods(config.soundset?.id);
 
     const soundsetOptions = Object.entries(config.soundsets).map(([id, obj]) => {
@@ -37,22 +41,53 @@ export async function select(config: SelectConfig): Promise<JQuery<HTMLElement> 
         return `<option value="${id}" ${selected}>${obj.name}</option>`;
     }).join("\n");
 
+    const quickSoundset = quickInsertExists ?
+        `<button type="button" class="syrin-quick-soundset" title="Search">
+            <i class="fas fa-search"></i>
+</button>`
+        : "";
+
     let $inject = $(`
 <div>
-  <select class="${config.soundsetClass}" >
-    <option value="" ${config.soundset === undefined ? "selected": ""}>--No soundset--</option>
-    ${soundsetOptions}
-  </select>
-
-    <select class="${config.moodClass}" ${config.soundset === undefined ? "disabled" : ""} >
-    <option value="" ${config.mood === undefined ? "selected": ""}>--No mood--</option>
-    ${moodOptions}
-  </select>
+    <div class="flexrow">
+        <select class="${config.soundsetClass}" >
+            <option value="" ${config.soundset === undefined ? "selected": ""}>--No soundset--</option>
+            ${soundsetOptions}
+        </select>
+        ${quickSoundset}
+    </div>
+    <div class="flexrow">
+        <select class="${config.moodClass}" ${config.soundset === undefined ? "disabled" : ""} >
+            <option value="" ${config.mood === undefined ? "selected": ""}>--No mood--</option>
+            ${moodOptions}
+        </select>
+    </div>
 </div>
     `);
 
     let $soundset = $inject.find("." + config.soundsetClass);
     let $mood = $inject.find("." + config.moodClass);
+
+    let $quickSoundset = $inject.find(".syrin-quick-soundset");
+
+    $quickSoundset.on("click", function() {
+        QuickInsert?.forceIndex();
+        for(let soundset of Object.values(config.soundsets)) {
+            if(!soundset) continue;
+            console.log("SyrinControl | indexing soundset", soundset);
+            QuickInsert?.searchLib?.addItem(SyrinSearchItem.fromSoundset(soundset));
+        }
+        QuickInsert?.open({
+            filter: "syrinscape.soundsets",
+            startText: config.soundset?.name ?? "",
+            allowMultiple: false,
+            restrictTypes: ["Macro"],
+            onSubmit: async (item: any) => {
+                let newSoundset: Soundset = await item.get();
+                await setMood(newSoundset, undefined);
+            }
+        });
+    });
 
     async function updateMoods(mood: Mood | undefined) {
         moods = await getMoods(config.soundset?.id);
@@ -106,8 +141,7 @@ export async function select(config: SelectConfig): Promise<JQuery<HTMLElement> 
         config.onMoodChange?.(config.mood);
     });
 
-    return Object.assign($inject, {
-    setMood: async (newSoundset: Soundset | undefined, newMood : Mood | undefined) => {
+    const setMood = async (newSoundset: Soundset | undefined, newMood : Mood | undefined) => {
         console.log("SyrinControl | setMood in select", newSoundset, newMood);
         const isSoundsetNew = newSoundset !== config.soundset;
         config.soundset = newSoundset;
@@ -132,6 +166,7 @@ export async function select(config: SelectConfig): Promise<JQuery<HTMLElement> 
 
         config.onSoundsetChange?.(config.soundset);
         config.onMoodChange?.(config.mood);
-    }
-    });
+    };
+
+    return Object.assign($inject, { setMood });
 }
