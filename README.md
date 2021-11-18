@@ -13,7 +13,7 @@ Please, keep in mind that this module **do not** provide audio streaming, **and 
 ![image](https://user-images.githubusercontent.com/1165825/142510009-746f660d-9b6f-4aeb-8841-1503acdc6c56.png)
 
 
-Features:
+## Features:
 * Link Syrinscape mood to scene - module switches mood automatically when scene gets activated.
 * Create playlist with Syrinscape moods
 * Play/Stop mood from the playlist
@@ -24,3 +24,9 @@ game.syrinscape.playElement(180872);
 * Load moods automatically from Syrinscape API (currently needs CORS proxy, as Syrinscape has strict CORS rules)
 * Load moods from CSV file ("Download Remote Control Links" button in Syrinscape Online Master Panel)
 * (WIP) QuickInsert integration to quickly find desired soundset (with SuperSyrin you get **A LOT** of soundsets, so its good to switch the mood as quickly as possible when your players detour :) )
+
+## Planned features:
+* [ ] Easier way to create new macros for playing elements (search, some kind of list)
+* [ ] Volume control
+* [ ] Localization
+* [ ] Better integration with Syrinscape Online to avoid CORS proxy.
