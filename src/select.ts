@@ -18,7 +18,7 @@ export interface Select {
 }
 
 export async function select(config: SelectConfig): Promise<JQuery<HTMLElement> & Select> {
-    const quickInsertExists = !!QuickInsert;
+    const quickInsertExists = typeof QuickInsert !== 'undefined';
 
     let getMoods = async (soundsetId: string | undefined) => {
         if(!soundsetId) return {};

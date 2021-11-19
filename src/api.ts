@@ -1,5 +1,5 @@
 import { ApiMood, ApiSoundset } from "./syrin";
-import { getAddress, getAuth, useAPI, isGM } from "./utils";
+import { getAddress, getAuth, useAPI, isGM, hasAuth } from "./utils";
 
 let fetchOptions = () => {
     const api = useAPI();
@@ -10,7 +10,7 @@ let fetchOptions = () => {
 };
 
 export async function stopMood() : Promise<void> {
-    if (!isGM()) return;
+    if (!isGM() || !hasAuth()) return;
 
     function link() {
         let address = getAddress();
@@ -23,7 +23,7 @@ export async function stopMood() : Promise<void> {
 }
 
 export async function playMood(id: number) : Promise<void> {
-    if (!isGM()) return;
+    if (!isGM() || !hasAuth()) return;
 
     function link(id: number) {
         let address = getAddress();
@@ -36,7 +36,7 @@ export async function playMood(id: number) : Promise<void> {
 }
 
 export async function playElement(id: number): Promise<void> {
-    if (!isGM()) return;
+    if (!isGM() || !hasAuth()) return;
 
     function link(id: number) {
         let address = getAddress();
@@ -49,7 +49,7 @@ export async function playElement(id: number): Promise<void> {
 }
 
 export async function getMoods(soundsetId: string): Promise<ApiMood[]> {
-    if (!isGM()) return [];
+    if (!isGM() || !hasAuth()) return [];
 
     function link() {
         let address = getAddress();
@@ -62,7 +62,7 @@ export async function getMoods(soundsetId: string): Promise<ApiMood[]> {
 
 
 export async function getSoundsets(): Promise<ApiSoundset[]> {
-    if (!isGM()) return [];
+    if (!isGM() || !hasAuth()) return [];
 
     function link() {
         let address = getAddress();
@@ -72,15 +72,3 @@ export async function getSoundsets(): Promise<ApiSoundset[]> {
 
     return await fetch(link(), fetchOptions()).then(res => res.json());
 }
-
-// export async function getMood(moodId: number): Promise<ApiMood2 | undefined> {
-//     if (!isGM()) return;
-
-//     function link() {
-//         let address = getAddress();
-//         let authToken = getAuth();
-//         return `${address}/moods/${moodId}/?auth_token=${authToken}`;
-//     }
-
-//     return await fetch(link(), fetchOptions()).then(res => res.json());
-// }

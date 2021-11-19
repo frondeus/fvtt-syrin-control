@@ -40,10 +40,10 @@ export function initSettings(game: Game) {
         scope: "world",
         config: true,
         type: String,
-        default: "yes",
+        default: "no",
         choices: {
+            "no": "No - stick to CSV file",
             "yes": "Yes - use API",
-            "no": "No - stick to CSV file"
         }
     });
     game.settings.register(MODULE, 'controlLinksUrl', {

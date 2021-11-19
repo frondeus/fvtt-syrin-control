@@ -22,3 +22,7 @@ export function getAuth(): string {
 export function useAPI(): boolean {
     return getGame().settings.get(MODULE, 'syncMethod') === 'yes';
 }
+
+export function hasAuth(): boolean {
+    return getGame().settings.get(MODULE, 'authToken').trim() !== '';
+}
