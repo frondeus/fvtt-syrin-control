@@ -10,12 +10,29 @@ export interface ApiMood {
     name: string;
 }
 
-export interface CSVData {
-    type: "mood" | string;
+export interface ApiElement {
+    name: string;
+    pk: number;
+    icon: string;
+    element_type: "sfx" | "oneshot";
+}
+
+interface CSVMood {
+    type: "mood";
     id: string;
     name: string;
     soundset: string;
 }
+
+interface CSVElement {
+    type: "element";
+    id: string;
+    name: string;
+    soundset: string;
+    icon?: string;
+}
+
+export type CSVData = CSVMood | CSVElement;
 
 // What we process and store
 
@@ -23,6 +40,7 @@ export interface Soundset {
     id: string;
     name: string;
     moods: Moods;
+    elements: Element[];
 }
 
 export interface Mood {
@@ -45,4 +63,14 @@ export interface PlaylistEntry {
 
 export interface Playlist {
     entries: PlaylistEntry[]
+}
+
+export interface Element {
+    id: number;
+    name: string;
+    icon: string;
+}
+
+export interface Module {
+    elementsApp: any;
 }

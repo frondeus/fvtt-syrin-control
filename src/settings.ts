@@ -19,6 +19,13 @@ export function initSettings(game: Game) {
         default: {}
     });
 
+    game.settings.register(MODULE, 'elements', {
+        name: "Elements",
+        scope: "world",
+        config: false,
+        default: []
+    });
+
     game.settings.register(MODULE, 'playlist', {
         name: "Playlist",
         scope: "world",

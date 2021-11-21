@@ -1,0 +1,16 @@
+<form class="syrin-elements">
+  {{#each elements}}
+    <div data-id="{{ id }}"
+         data-name="{{ name }}"
+         class="syrin-element">
+        <a class="syrin-control syrin-play-element" title="Play Element">
+          <img src="{{ icon }}"/>
+          <h4>
+          {{ name }}
+          </h4>
+          <i class="fas fa-play"></i>
+        </a>
+        <a class="syrin-control syrin-macro-element" title="Create Macro"> <i class="fas fa-terminal"></i> </a>
+    </div>
+  {{/each}}
+</form>

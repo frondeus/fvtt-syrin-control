@@ -1,4 +1,4 @@
-import { ApiMood, ApiSoundset } from "./syrin";
+import { ApiElement, ApiMood, ApiSoundset } from "./syrin";
 import { getAddress, getAuth, useAPI, isGM, hasAuth } from "./utils";
 
 let fetchOptions = () => {
@@ -60,6 +60,17 @@ export async function getMoods(soundsetId: string): Promise<ApiMood[]> {
     return await fetch(link(), fetchOptions()).then(res => res.json());
 }
 
+export async function getElements(soundsetId: string): Promise<ApiElement[]> {
+    if (!isGM() || !hasAuth()) return [];
+
+    function link() {
+        let address = getAddress();
+        let authToken = getAuth();
+        return `${address}/elements/?soundset__uuid=${soundsetId}&auth_token=${authToken}`;
+    }
+
+    return await fetch(link(), fetchOptions()).then(res => res.json());
+}
 
 export async function getSoundsets(): Promise<ApiSoundset[]> {
     if (!isGM() || !hasAuth()) return [];
@@ -68,6 +79,18 @@ export async function getSoundsets(): Promise<ApiSoundset[]> {
         let address = getAddress();
         let authToken = getAuth();
         return `${address}/soundsets?auth_token=${authToken}`;
+    }
+
+    return await fetch(link(), fetchOptions()).then(res => res.json());
+}
+
+export async function getGlobalElements(): Promise<ApiElement[]> {
+    if (!isGM() || !hasAuth()) return [];
+
+    function link() {
+        let address = getAddress();
+        let authToken = getAuth();
+        return `${address}/global-elements/?auth_token=${authToken}`;
     }
 
     return await fetch(link(), fetchOptions()).then(res => res.json());

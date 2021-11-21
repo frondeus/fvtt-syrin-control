@@ -14,3 +14,4 @@ yarn-error.log*
 fvtt-syrin-control.lock
 
 scripts
+run.sh
