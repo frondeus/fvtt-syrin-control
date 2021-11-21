@@ -1,0 +1,9 @@
+{
+  "name": "cors",
+  "version": "1.0.0",
+  "main": "main.js",
+  "license": "MIT",
+  "dependencies": {
+    "cors-anywhere": "^0.4.4"
+  }
+}

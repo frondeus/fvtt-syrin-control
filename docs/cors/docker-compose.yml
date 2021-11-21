@@ -1,0 +1,13 @@
+version: "3.3"
+services:
+  proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "8000:80"
+      - "8443:443"
+  cors:
+    build:
+      context: .
+      dockerfile: Dockerfile

@@ -13,7 +13,7 @@ export interface ApiMood {
 export interface ApiElement {
     name: string;
     pk: number;
-    icon: string;
+    icon?: string;
     element_type: "sfx" | "oneshot";
 }
 

@@ -48,7 +48,7 @@ export async function onlineGlobalElements(): Promise<Element[]> {
             return {
                 id: element.pk,
                 name: element.name,
-                icon: element.icon
+                icon: element.icon ?? "/icons/svg/sound.svg"
             };
         });
 }
@@ -60,12 +60,12 @@ export async function onlineElements(id: string): Promise<Element[]> {
 
     const global = await onlineGlobalElements();
     const elements = await getElements(id);
-    return global.concat(elements
+    return elements
         .map(element => {
             return {
                 id: element.pk,
                 name: element.name,
-                icon: element.icon
+                icon: element.icon ?? "/icons/svg/sound.svg"
             };
-        }));
+        }).concat(global);
 }
