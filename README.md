@@ -26,6 +26,8 @@ game.syrinscape.playElement(180872);
 
 ## How to use
 
+![Usage](https://user-images.githubusercontent.com/1165825/142780722-85a9163b-4afa-4f61-b2be-df89519194e0.png)
+
 First of all in Playlists tab you have a new section "Syrinscape Online".
 Here you can see currently playing mood (1 & 2)
 You can select new mood by first selecting the soundset (1) and then mood (2).
@@ -63,7 +65,11 @@ Go to [Syrinscape Online Control Panel](https://syrinscape.com/online/cp).
 On left side of the panel, there is a section "Your token can allow third party services to control your Syrinscape devices".
 Click "Copy" button.
 
+![Setup 1](https://user-images.githubusercontent.com/1165825/142780736-70118de0-32bc-4cd7-8d95-055cd44dc054.png)
+
 Next go to Module Settings in Foundry VTT and paste the token in "Auth Token" field.
+
+![Setup 2](https://user-images.githubusercontent.com/1165825/142780756-4e4a23b7-b511-4e22-afbd-8012435e59b1.png)
 
 > Note: This step is mandatory, Syrinscape wont allow you to play any sound or mood without it.
 
@@ -76,10 +82,20 @@ There are two main synchronization methods:
 Go to [Syrinscape Online Master Interface](https://syrinscape.com/online/master/#/).
 In top right corner, click hamburger menu and click "Download Remote Control Links (CSV)".
 
+![Setup 3](https://user-images.githubusercontent.com/1165825/142780769-a4a6ea4c-8372-4580-a31e-190578e8f83f.png)
+
+![Setup 4](https://user-images.githubusercontent.com/1165825/142780784-e0513ba6-877c-4a28-8041-72410cb49936.png)
+
+
 > Warning: This file might weight up to 20-30 MB (depending how many soundsets you have in your library).
 > It might be necessary to upload this file to Foundry server using external uploader.
 
 Next, upload this file to the Foundry and select it in Module Settings under "Control Links" field.
+
+![Setup 5](https://user-images.githubusercontent.com/1165825/142780804-459a78f3-6947-4172-9a22-e95c373b90a1.png)
+
+![Setup 6](https://user-images.githubusercontent.com/1165825/142780821-523ffa34-4ec0-4ecc-9ea6-c7cef86883b6.png)
+
 
 Save Changes in Module Settings - SyrinControl will parse the CSV file and hydrate its library with new moods, soundsets and elements.
 Now you are ready to play some music!
@@ -120,6 +136,9 @@ cors_proxy.createServer({
 
 Now, with CORS (+ HTTPS nginx) running, go to Module Settings and modify "Syrinscape API address".
 Prepend it with `http://localhost:8000/` or `https://localhost:8443`. Exact value depends on your setup.
+
+![Setup 7](https://user-images.githubusercontent.com/1165825/142780850-bbbf2948-f512-40e0-b5fb-e7942a1748c6.png)
+
 
 Thats it! No CSV, no hassle.
 
