@@ -17,12 +17,22 @@ export interface ApiElement {
     element_type: "sfx" | "oneshot";
 }
 
-export interface CSVData {
-    type: "mood" | string;
+interface CSVMood {
+    type: "mood";
     id: string;
     name: string;
     soundset: string;
 }
+
+interface CSVElement {
+    type: "element";
+    id: string;
+    name: string;
+    soundset: string;
+    icon?: string;
+}
+
+export type CSVData = CSVMood | CSVElement;
 
 // What we process and store
 
@@ -30,6 +40,7 @@ export interface Soundset {
     id: string;
     name: string;
     moods: Moods;
+    elements: Element[];
 }
 
 export interface Mood {

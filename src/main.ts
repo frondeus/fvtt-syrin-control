@@ -1,5 +1,5 @@
 import { playMood, stopMood } from "./api";
-import { onlineElements, onlineSoundsets } from "./online";
+import { onlineGlobalElements, onlineSoundsets } from "./online";
 import { onPlaylistTab } from "./playlist";
 import { onSceneConfig } from "./scene";
 import { initSettings, onCloseSettings } from "./settings";
@@ -52,7 +52,7 @@ Hooks.on("init", function() {
             game.settings.set(MODULE, 'soundsets', soundsets);
         }
 
-        const elements = await onlineElements();
+        const elements = await onlineGlobalElements();
         if (elements.length !== 0) {
             game.settings.set(MODULE, 'elements', elements);
         }

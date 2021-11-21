@@ -22,6 +22,7 @@ export async function select(config: SelectConfig): Promise<JQuery<HTMLElement> 
 
     let getMoods = async (soundsetId: string | undefined) => {
         if(!soundsetId) return {};
+        if(!config.soundsets[soundsetId]) return {};
         let moods = config.soundsets[soundsetId].moods;
         if(Object.keys(moods).length === 0) {
             return await onlineMoods(soundsetId);

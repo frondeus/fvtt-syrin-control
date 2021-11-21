@@ -13,27 +13,36 @@ export async function loadDataFromCSV(game: Game, controlLinks: string) {
             }
         });
     });
+    console.log("SyrinControl  CSV|", { data });
 
-    let newSoundsets = data.filter(data => data.type === "mood")
-        .map(mood => {
-            const id = mood.id.split(":")[1];
-            return {
-                id: Number(id),
-                name: mood.name,
-                soundset: mood.soundset
-            };
+    let newSoundsets = data.filter(data => data.type === "mood" || data.type === "element")
+        .map(data => {
+            const id = data.id.split(":")[1];
+            data.id = id;
+            return data;
         })
-        .reduce(([soundsetsByName, soundsetsById], mood, idx) => {
-            let soundset: Soundset = soundsetsByName[mood.soundset] || {
-                name: mood.soundset,
+        .reduce(([soundsetsByName, soundsetsById], data, idx) => {
+            let soundset: Soundset = soundsetsByName[data.soundset] || {
+                name: data.soundset,
                 id: idx.toString(),
                 moods: {},
+                elements: []
             };
 
-            soundset.moods![mood.id] = {
-                id: mood.id,
-                name: mood.name
-            };
+            if (data.type === "mood") {
+                const id = Number(data.id);
+                soundset.moods![id] = {
+                    id,
+                    name: data.name
+                };
+            }
+            else if (data.type === "element") {
+                soundset.elements.push({
+                    id: Number(data.id),
+                    name: data.name,
+                    icon: data.icon ?? "/icons/svg/sound.svg"
+                });
+            }
 
             let soundsetId = soundset.id!;
 

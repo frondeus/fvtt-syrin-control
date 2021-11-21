@@ -1,4 +1,4 @@
-import { getGlobalElements, getMoods, getSoundsets } from "./api";
+import { getElements, getGlobalElements, getMoods, getSoundsets } from "./api";
 import { Moods, Soundsets, Element } from "./syrin";
 import { useAPI } from "./utils";
 
@@ -37,7 +37,7 @@ export async function onlineSoundsets(): Promise<Soundsets> {
     ;
 }
 
-export async function onlineElements(): Promise<Element[]> {
+export async function onlineGlobalElements(): Promise<Element[]> {
     if (!useAPI()) {
         return [];
     }
@@ -51,4 +51,21 @@ export async function onlineElements(): Promise<Element[]> {
                 icon: element.icon
             };
         });
+}
+
+export async function onlineElements(id: string): Promise<Element[]> {
+    if (!useAPI()) {
+        return [];
+    }
+
+    const global = await onlineGlobalElements();
+    const elements = await getElements(id);
+    return global.concat(elements
+        .map(element => {
+            return {
+                id: element.pk,
+                name: element.name,
+                icon: element.icon
+            };
+        }));
 }

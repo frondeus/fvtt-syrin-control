@@ -1,5 +1,5 @@
 // import { setMood stopAll } from "./main";
-import { getElements, playElement } from "./api";
+import { playElement } from "./api";
 import { setMood, stopAll } from "./main";
 import { onlineElements } from "./online";
 import { select } from "./select";
@@ -181,22 +181,12 @@ export async function onPlaylistTab(game: Game, dir: PlaylistDirectory) {
 
     const onSoundsetChange = async (soundset: Soundset | undefined) => {
         if(soundset) {
-            const globalElements = await onlineElements();
-            const soundsetElements = await getElements(soundset.id).then(els => {
-                return els
-                .filter(element => element.element_type === "oneshot")
-                    .map(element => {
-                    console.log("SyrinControl | ", {element});
-                    return {
-                        id: element.pk,
-                        name: element.name,
-                        icon: element.icon
-                    };
-                });
-            });
+            soundset = soundsets[soundset.id];
+            if (!soundset) { return; }
 
-            const elements = soundsetElements.concat(globalElements);
-            console.log("SyrinControl | Set elements", elements);
+            const elements = (soundset.elements?.length ?? 0) === 0 ? await onlineElements(soundset.id) : soundset.elements;
+
+            console.log("SyrinControl | Set elements", elements, soundset);
             game.settings.set(MODULE, 'elements', elements);
             if(elementsApp) {
                 console.log("SyrinControl | rerender", elements);
