@@ -10,6 +10,13 @@ export interface ApiMood {
     name: string;
 }
 
+export interface ApiElement {
+    name: string;
+    pk: number;
+    icon: string;
+    element_type: "sfx" | "oneshot";
+}
+
 export interface CSVData {
     type: "mood" | string;
     id: string;
@@ -45,4 +52,14 @@ export interface PlaylistEntry {
 
 export interface Playlist {
     entries: PlaylistEntry[]
+}
+
+export interface Element {
+    id: number;
+    name: string;
+    icon: string;
+}
+
+export interface Module {
+    elementsApp: any;
 }

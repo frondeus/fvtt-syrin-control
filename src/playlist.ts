@@ -1,11 +1,83 @@
 // import { setMood stopAll } from "./main";
+import { getElements, playElement } from "./api";
 import { setMood, stopAll } from "./main";
+import { onlineElements } from "./online";
 import { select } from "./select";
-import { Playlist, Mood, Soundset, Soundsets } from "./syrin";
+import { Playlist, Mood, Soundset, Soundsets, Element } from "./syrin";
 import { MODULE } from "./utils";
 
 let lastSoundset: Soundset | undefined;
 let lastMood: Mood | undefined;
+let elementsApp: ElementsApplication | undefined;
+
+interface ElementsAppOptions extends FormApplication.Options {
+
+}
+
+interface ElementsData {
+    elements: Element[]
+}
+
+class ElementsApplication extends FormApplication<ElementsAppOptions, ElementsData> {
+    elements: Element[];
+
+    constructor(game: Game) {
+        super({});
+
+        const elements: Element[] = game.settings.get(MODULE, 'elements');
+
+        console.log("SyrinControl | Elements", elements);
+
+        this.elements = elements;
+    }
+
+    getData(): ElementsData {
+        return {
+            elements: this.elements
+        };
+    }
+
+    static get defaultOptions() {
+        return mergeObject(super.defaultOptions, {
+            popOut: true,
+            minimizable: true,
+            resizable: true,
+            width: 900,
+            id: "syrin-elements",
+            title: "Syrinscape Elements",
+            template: "modules/fvtt-syrin-control/templates/elements.html"
+        });
+    }
+
+    activateListeners(html: JQuery<HTMLElement>) {
+        const $play = html.find(".syrin-play-element");
+        const $macro = html.find(".syrin-macro-element");
+
+        $play.on("click", function() {
+            const parent = $(this).parent();
+            const id = Number(parent.attr("data-id"));
+            playElement(id);
+        });
+
+        $macro.on("click", function() {
+            const parent = $(this).parent();
+            const id = Number(parent.attr("data-id"));
+            const name = parent.attr("data-name") ?? "New Element";
+            const img = parent.find("img").attr("src");
+            let macro = Macro.create({
+                name,
+                type: "script",
+                img,
+                command: "game.syrinscape.playElement(" + id + ")",
+            });
+            console.log("SyrinControl | ", {macro});
+        });
+
+        super.activateListeners(html);
+    }
+
+    async _updateObject(_event: Event, _formData?: object) {}
+}
 
 export async function onPlaylistTab(game: Game, dir: PlaylistDirectory) {
     console.log("SyrinControl | OnPlaylistTab");
@@ -43,6 +115,7 @@ export async function onPlaylistTab(game: Game, dir: PlaylistDirectory) {
     <div class="syrin-controls syrin-search-controls">
         <a class="syrin-control syrin-play-or-stop" title="Play Mood" disabled> <i class="fas fa-play"></i> </a>
         <a class="syrin-control syrin-add" title="Add Mood" disabled> <i class="fas fa-plus"></i> </a>
+        <a class ="syrin-control syrin-elements" title="Elements"> <i class="fas fa-drum"></i> </a>
     </div>
 </ol>
 </div>
@@ -52,9 +125,10 @@ export async function onPlaylistTab(game: Game, dir: PlaylistDirectory) {
 `);
     $tab.find('.directory-list').after($injected);
 
-    let $allControls = $injected.find(".syrin-search-controls .syrin-control");
+    let $allControls = $injected.find(".syrin-search-controls .syrin-control.syrin-play-or-stop, .syrin-search-controls .syrin-control.syrin-add");
     let $currentPlay = $injected.find(".syrin-search-controls .syrin-control.syrin-play-or-stop");
     let $addToPlaylist = $injected.find(".syrin-search-controls .syrin-control.syrin-add");
+    let $elements = $injected.find(".syrin-search-controls .syrin-elements");
 
     const updatePlaylistButtons = () => {
         if(currentMood === undefined) {
@@ -105,6 +179,34 @@ export async function onPlaylistTab(game: Game, dir: PlaylistDirectory) {
         }
     };
 
+    const onSoundsetChange = async (soundset: Soundset | undefined) => {
+        if(soundset) {
+            const globalElements = await onlineElements();
+            const soundsetElements = await getElements(soundset.id).then(els => {
+                return els
+                .filter(element => element.element_type === "oneshot")
+                    .map(element => {
+                    console.log("SyrinControl | ", {element});
+                    return {
+                        id: element.pk,
+                        name: element.name,
+                        icon: element.icon
+                    };
+                });
+            });
+
+            const elements = soundsetElements.concat(globalElements);
+            console.log("SyrinControl | Set elements", elements);
+            game.settings.set(MODULE, 'elements', elements);
+            if(elementsApp) {
+                console.log("SyrinControl | rerender", elements);
+                elementsApp.elements = elements;
+                elementsApp= <ElementsApplication> elementsApp.render(true);
+            }
+
+        }
+    };
+
     onMoodChange(lastMood);
 
     let selectConfig =
@@ -115,7 +217,8 @@ export async function onPlaylistTab(game: Game, dir: PlaylistDirectory) {
         mood: currentMood,
         soundsets,
 
-        onMoodChange
+        onMoodChange,
+        onSoundsetChange
     };
 
     const $playlist = $injected.find(".syrin-list");
@@ -147,6 +250,10 @@ class="syrin-control syrin-play-or-stop" title="Play Mood"> <i class="fas fa-pla
     };
 
 
+    $elements.on("click", async function() {
+        elementsApp = <ElementsApplication> new ElementsApplication(game).render(true);
+        console.log("SyrinControl | ", {elementsApp});
+    });
 
     $addToPlaylist.on("click", async function() {
         console.log("SyrinControl | Click Add", selectConfig.mood);
@@ -230,7 +337,7 @@ class="syrin-control syrin-play-or-stop" title="Play Mood"> <i class="fas fa-pla
 
     const $select = await select(selectConfig);
 
-    Hooks.on(MODULE + "moodChange", function(newSoundset: Soundset | undefined, newMood: Mood | undefined) {
+    Hooks.on(MODULE + "moodChange", async function(newSoundset: Soundset | undefined, newMood: Mood | undefined) {
         lastSoundset = currentSoundset = newSoundset;
         lastMood = currentMood = newMood;
         $select.setMood(newSoundset, newMood);

@@ -1,5 +1,5 @@
 import { playMood, stopMood } from "./api";
-import { onlineSoundsets } from "./online";
+import { onlineElements, onlineSoundsets } from "./online";
 import { onPlaylistTab } from "./playlist";
 import { onSceneConfig } from "./scene";
 import { initSettings, onCloseSettings } from "./settings";
@@ -42,15 +42,20 @@ Hooks.on("init", function() {
     let game = getGame();
     initSettings(game);
 
+    loadTemplates(["modules/fvtt-syrin-control/templates/elements.html"]);
+
     Hooks.on("closeSettingsConfig", async () => await onCloseSettings(game));
 
     Hooks.on("ready", async () => {
-        let soundsets = game.settings.get(MODULE, 'soundsets');
-        const newSoundsets = await onlineSoundsets();
-        if (Object.keys(newSoundsets).length !== 0) {
-            soundsets = newSoundsets;
+        const soundsets = await onlineSoundsets();
+        if (Object.keys(soundsets).length !== 0) {
+            game.settings.set(MODULE, 'soundsets', soundsets);
         }
-        game.settings.set(MODULE, 'soundsets', soundsets);
+
+        const elements = await onlineElements();
+        if (elements.length !== 0) {
+            game.settings.set(MODULE, 'elements', elements);
+        }
 
         setActiveMood(game);
     });

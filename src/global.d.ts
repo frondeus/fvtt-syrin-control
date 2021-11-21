@@ -1,4 +1,6 @@
-import { Soundsets, Playlist } from "./syrin";
+import { Soundsets, Playlist, Element } from "./syrin";
+
+type FVTTModule = typeof MODULE;
 
 declare global {
 
@@ -18,6 +20,10 @@ declare global {
         }
     }
 
+    interface SyrinControl {
+
+    }
+
     const QuickInsert: QuickInsert | undefined;
 
     interface Game {
@@ -27,9 +33,14 @@ declare global {
         }
     }
 
+    interface ModuleData<ModuleData> {
+        elementsApp: any;
+    }
+
     namespace ClientSettings {
         interface Values {
             'fvtt-syrin-control.soundsets': Soundsets;
+            'fvtt-syrin-control.elements': Element[];
             'fvtt-syrin-control.playlist': Playlist;
             'fvtt-syrin-control.currentSoundset': Soundset;
             'fvtt-syrin-control.currentMood': Mood;
