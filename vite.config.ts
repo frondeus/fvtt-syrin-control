@@ -1,4 +1,5 @@
 import type { UserConfig } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 import checker from "vite-plugin-checker";
 
 const path = require('path');
@@ -30,6 +31,9 @@ const config: UserConfig = {
         }
     },
     plugins: [
+        svelte({
+            configFile: '../svelte.config.cjs'
+        }),
         checker({
             typescript: true
         })

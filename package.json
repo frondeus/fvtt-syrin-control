@@ -8,11 +8,17 @@
   "private": true,
   "scripts": {
     "build": "npx vite build",
-    "dev": "npx vite serve --host --https"
+    "dev": "npx vite serve --host --https",
+    "check": "tsc"
   },
   "devDependencies": {
     "@league-of-foundry-developers/foundry-vtt-types": "^0.8.8-9",
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
+    "@tsconfig/svelte": "^2.0.1",
     "@types/papaparse": "^5.3.1",
+    "svelte": "^3.44.2",
+    "svelte-preprocess": "^4.9.8",
+    "svelte-select": "^4.4.6",
     "typescript": "^4.4.4",
     "vite": "^2.6.14",
     "vite-plugin-checker": "^0.3.4"
