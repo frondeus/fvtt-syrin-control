@@ -6,12 +6,17 @@ export async function loadDataFromCSV(game: Game, controlLinks: string) {
     console.debug("SyrinControl | Control Links URL", controlLinks);
     ui.notifications?.info(`SyrinControl | Loading ${controlLinks}.`);
 
-    const data: CSVData[] = await new Promise((resolve) => {
+    const data: CSVData[] = await new Promise((resolve, reject) => {
         Papa.parse(controlLinks, {
             header: true,
             download: true,
             complete: function(data: { data: CSVData [] }) {
                 resolve(data.data);
+            },
+            error: function(err: any, file: any) {
+                let e = `Found error in ${file}: ${err}.`;
+                ui.notifications?.error("SyrinControl | " + e);
+                reject(e);
             }
         });
     });
