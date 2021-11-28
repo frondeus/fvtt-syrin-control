@@ -24,16 +24,16 @@ export async function loadDataFromCSV(game: Game, controlLinks: string) {
     ui.notifications?.info(`SyrinControl | Parsed ${controlLinks}. Found ${data.length} entries`);
     console.log("SyrinControl  CSV|", { data });
 
-    let newSoundsets = data.filter(data => data.type === "mood" || data.type === "element")
+    let soundsetsByName = data.filter(data => data.type === "mood" || data.type === "element")
         .map(data => {
             const id = data.id.split(":")[1];
             data.id = id;
             return data;
         })
-        .reduce(([soundsetsByName, soundsetsById], data, idx) => {
+        .reduce((soundsetsByName, data) => {
             let soundset: Soundset = soundsetsByName[data.soundset] || {
                 name: data.soundset,
-                id: idx.toString(),
+                id: "todo",
                 moods: {},
                 elements: []
             };
@@ -53,16 +53,25 @@ export async function loadDataFromCSV(game: Game, controlLinks: string) {
                 });
             }
 
-            let soundsetId = soundset.id!;
-
             soundsetsByName[soundset.name] = soundset;
-            soundsetsById[soundsetId] = soundset;
 
-            return [soundsetsByName, soundsetsById];
-        }, [Object.create(null), Object.create(null)]);
-    ;
+            return soundsetsByName;
+        }, Object.create(null));
+
+    let soundsets: Soundset[] = Object.values(soundsetsByName);
+    soundsets.sort((a, b) => (a.name > b.name) ? 1: -1);
+
+    let soundsetsById =
+        soundsets
+            .reduce((soundsetsById, soundset, idx) => {
+                let id = idx.toString();
+                soundset.id =id;
+                soundsetsById[id] = soundset;
+                return soundsetsById;
+        }, Object.create(null));
+
     game.settings.set(MODULE, 'controlLinksUrl', '');
     console.debug("SyrinControl | Loaded CSV");
-    ui.notifications?.info(`SyrinControl | Loaded ${controlLinks}. Found ${Object.keys(newSoundsets[1]).length} soundsets`);
-    return newSoundsets[1];
+    ui.notifications?.info(`SyrinControl | Loaded ${controlLinks}. Found ${Object.keys(soundsetsById).length} soundsets`);
+    return soundsetsById;
 }
