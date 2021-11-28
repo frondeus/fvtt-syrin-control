@@ -13,5 +13,5 @@ yarn-error.log*
 .eslintcache
 fvtt-syrin-control.lock
 
-scripts
+dist
 run.sh

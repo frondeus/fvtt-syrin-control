@@ -7,15 +7,15 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "webpack --mode production"
+    "build": "npx vite build",
+    "dev": "npx vite serve --host --https"
   },
   "devDependencies": {
     "@league-of-foundry-developers/foundry-vtt-types": "^0.8.8-9",
     "@types/papaparse": "^5.3.1",
-    "ts-loader": "^9.2.6",
     "typescript": "^4.4.4",
-    "webpack": "^5.64.0",
-    "webpack-cli": "^4.9.1"
+    "vite": "^2.6.14",
+    "vite-plugin-checker": "^0.3.4"
   },
   "dependencies": {
     "papaparse": "^5.3.1"
