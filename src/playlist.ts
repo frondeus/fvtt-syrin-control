@@ -331,6 +331,9 @@ class="syrin-control syrin-play-or-stop" title="Play Mood"> <i class="fas fa-pla
         lastSoundset = currentSoundset = newSoundset;
         lastMood = currentMood = newMood;
         $select.setMood(newSoundset, newMood);
+        if(newMood) {
+            ui.notifications?.info(`SyrinControl | Playing "${newMood.name}" from "${newSoundset?.name ?? "unknown soundset"}"`);
+        }
     });
 
     let $syrinList = $injected.find(".syrin-search");

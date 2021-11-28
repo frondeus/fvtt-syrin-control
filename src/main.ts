@@ -40,13 +40,39 @@ export async function setActiveMood(game: Game) {
 
 Hooks.on("init", function() {
     let game = getGame();
+
     initSettings(game);
 
     loadTemplates(["modules/fvtt-syrin-control/templates/elements.html"]);
 
-    Hooks.on("closeSettingsConfig", async () => await onCloseSettings(game));
-
     Hooks.on("ready", async () => {
+        if (!game.user?.isGM) { return; }
+
+        Hooks.on("closeSettingsConfig", async () => await onCloseSettings(game));
+        Hooks.on("updateScene", (scene: Scene) => {
+            if (!game.user?.isGM) { return; }
+
+            if(scene.getFlag(MODULE, 'soundset')?.id === null) {
+                scene.unsetFlag(MODULE, 'soundset');
+                scene.unsetFlag(MODULE, 'mood');
+                return;
+            }
+            if(scene.getFlag(MODULE, 'mood')?.id === null) {
+                scene.unsetFlag(MODULE, 'mood');
+                return;
+            }
+            if(!scene.active) return;
+            setActiveMood(game);
+        });
+
+        Hooks.on("renderSceneConfig", async (obj: SceneConfig) => await onSceneConfig(game, obj));
+
+        Hooks.on("renderPlaylistDirectory", async (dir: PlaylistDirectory) => await onPlaylistTab(game, dir));
+        let dir = game.playlists?.directory;
+        if (dir) {
+            await onPlaylistTab(game, dir);
+        }
+
         const soundsets = await onlineSoundsets();
         if (Object.keys(soundsets).length !== 0) {
             game.settings.set(MODULE, 'soundsets', soundsets);
@@ -60,22 +86,5 @@ Hooks.on("init", function() {
         setActiveMood(game);
     });
 
-    Hooks.on("updateScene", (scene: Scene) => {
-        if(scene.getFlag(MODULE, 'soundset')?.id === null) {
-            scene.unsetFlag(MODULE, 'soundset');
-            scene.unsetFlag(MODULE, 'mood');
-            return;
-        }
-        if(scene.getFlag(MODULE, 'mood')?.id === null) {
-            scene.unsetFlag(MODULE, 'mood');
-            return;
-        }
-        if(!scene.active) return;
-        setActiveMood(game);
-    });
-
-    Hooks.on("renderSceneConfig", async (obj: SceneConfig) => await onSceneConfig(game, obj));
-
-    Hooks.on("renderPlaylistDirectory", async (dir: PlaylistDirectory) => await onPlaylistTab(game, dir));
 
 });
