@@ -19,7 +19,7 @@ export async function stopMood() : Promise<void> {
     }
 
     console.log("SyrinControl | Stop mood");
-    await fetch(link(), { mode: "no-cors" })
+    await fetch(link(), fetchOptions())
         .catch(catchErr("stopMood"));
 }
 
@@ -33,7 +33,7 @@ export async function playMood(id: number) : Promise<void> {
     }
 
     console.log("SyrinControl | Play mood", id);
-    await fetch(link(id), { mode: "no-cors" })
+    await fetch(link(id), fetchOptions())
         .catch(catchErr("playMood"));
 }
 
@@ -47,7 +47,7 @@ export async function playElement(id: number): Promise<void> {
     }
 
     console.log("SyrinControl | Play element", id);
-    await fetch(link(id), { mode: "no-cors" })
+    await fetch(link(id), fetchOptions())
         .catch(catchErr("playElement"));
 }
 
