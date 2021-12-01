@@ -17,15 +17,10 @@
   ],
   "conflicts": [
   ],
-  "esmodules": [
-    "/scripts/main.js",
-    "/scripts/papaparse.js"
-  ],
+  "esmodules": ["index.js"],
   "scripts": [
   ],
-  "styles": [
-    "/styles/module.css"
-  ],
+  "styles": ["style.css"],
   "languages": [
     {
       "lang": "en",

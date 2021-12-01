@@ -46,6 +46,7 @@ export interface Soundset {
 export interface Mood {
     id: number;
     name: string;
+    soundset?: string;
 }
 
 export interface Moods {

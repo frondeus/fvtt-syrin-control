@@ -120,7 +120,6 @@ function catchErr<T>(api: string): (e: any) => T[] {
 }
 
 async function handleErr(res: Response): Promise<Response> {
-    console.log("SyrinControl | ", res);
     if (!res.ok) {
         if(res.statusText.length > 0) {
             throw Error(res.statusText);

@@ -20,7 +20,7 @@ jobs:
       id: sub_manifest_link_version
       uses: microsoft/variable-substitution@v1
       with:
-        files: 'module.json'
+        files: 'dist/module.json'
       env:
         version: ${{steps.get_version.outputs.version-without-v}}
         url: https://github.com/${{github.repository}}
@@ -38,7 +38,10 @@ jobs:
         cmd: run build
 
     # Create a zip file with all files required by the module to add to the release
-    - run: zip -r ./module.zip module.json LICENSE styles/ scripts/ templates/ languages/
+    - run: |
+        cd dist
+        zip -r ../module.zip module.json LICENSE templates/ languages/ index.js index.js.map style.css
+        cp module.json ../module.json
 
     # Create a release for this specific version
     - name: Update Release with Files

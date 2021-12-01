@@ -42,7 +42,8 @@ export async function loadDataFromCSV(game: Game, controlLinks: string) {
                 const id = Number(data.id);
                 soundset.moods![id] = {
                     id,
-                    name: data.name
+                    name: data.name,
+                    soundset: data.soundset
                 };
             }
             else if (data.type === "element") {
