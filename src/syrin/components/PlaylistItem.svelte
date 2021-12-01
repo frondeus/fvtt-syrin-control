@@ -38,3 +38,31 @@ export let item: PlaylistItem;
     </div>
     </header>
 </li>
+
+<style>
+ .playlist-header {
+     padding: 3px;
+ }
+ .playlist-name {
+    flex: 6;
+     word-break: break-all;
+     white-space: pre;
+     text-align: left;
+     overflow: hidden;
+     margin: 0;
+ }
+
+
+ .playlist-header {
+     align-items: center;
+     justify-content: middle;
+ }
+
+ .syrin-controls {
+     display: flex;
+     align-items: center;
+     justify-content: space-around;
+     vertical-align: middle;
+ }
+
+</style>

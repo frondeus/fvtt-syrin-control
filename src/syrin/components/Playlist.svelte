@@ -121,12 +121,6 @@ import { ElementsApplication } from "../elements";
 
 </script>
 
-<style lang="postcss">
- .separator {
-     border-bottom: 1px dashed;
-     margin: 1em;
- }
-</style>
 
 <div>
     <div class="syrin-playlists global-control flexrow" class:collapsed>
@@ -135,7 +129,7 @@ import { ElementsApplication } from "../elements";
         </header>
         <ol class="syrin-to-collapse" style={collapsed ? "display: none;" : "display: block;"}>
             <div class="syrin-search">
-                <Select bind:soundset={soundset} bind:mood={mood} {soundsets} />
+                <Select dark bind:soundset={soundset} bind:mood={mood} {soundsets} />
             </div>
             <div class="syrin-controls syrin-search-controls">
                 <Toggable on:click={playMood(soundset, mood)} toggled={isMood.playing}
@@ -162,3 +156,32 @@ import { ElementsApplication } from "../elements";
         {/each}
     </ol>
 </div>
+
+<style>
+ .separator {
+     border-bottom: 1px dashed;
+     margin: 1em;
+ }
+
+ .syrin-list {
+     padding: 3px;
+ }
+
+.syrin-to-collapse {
+    list-style: none;
+    margin: 0;
+    padding: 6px;
+    flex: 0 0 100%;
+}
+
+.syrin-controls {
+    padding: 6px;
+    display: flex;
+    flex-direction: row;
+}
+
+.syrin-search-controls.syrin-controls {
+    justify-content: space-around;
+}
+
+</style>

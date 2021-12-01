@@ -29,3 +29,25 @@
     </a>
     <a on:click={macro} class="syrin-control syrin-macro-element" title="Create Macro"> <i class="fas fa-terminal"></i> </a>
 </div>
+
+<style>
+.syrin-element {
+    border: 1px solid #000;
+    border-radius: 4px;
+    padding: 0.5em;
+    text-align: center;
+    margin: 4px;
+    max-width: 120px;
+}
+
+.syrin-element img {
+    max-height: 100px;
+    max-width: 100px;
+    border: 0;
+    object-fit: cover;
+}
+
+.syrin-element h4 {
+    marign: 0;
+}
+</style>

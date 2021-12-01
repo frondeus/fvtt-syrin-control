@@ -1,5 +1,3 @@
-import './main.css';
-
 import { playMood, stopMood } from "./api";
 import { onlineGlobalElements, onlineSoundsets } from "./online";
 import { onPlaylistTab } from "./playlist";

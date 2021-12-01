@@ -11,3 +11,11 @@
       <ElementComponent {element} />
   {/each}
 </form>
+
+<style>
+ .syrin-elements {
+     display: inline-flex;
+     flex-direction: row;
+     flex-wrap: wrap;
+ }
+</style>

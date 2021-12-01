@@ -13,3 +13,16 @@
         <i class="fas fa-{icon}"></i>
     </a>
 {/if}
+
+<style>
+ .syrin-control {
+     display: inline;
+     margin: 2px;
+     vertical-align: middle;
+ }
+
+ .syrin-control i {
+     display: inline;
+     vertical-align: middle;
+ }
+</style>

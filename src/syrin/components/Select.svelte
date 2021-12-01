@@ -5,6 +5,7 @@ import { onlineMoods } from "../online";
 
 import { Mood, Soundset, Soundsets } from "../syrin";
 
+ export let dark = false;
  export let soundsetClass = "syrin-set";
  export let moodClass = "syrin-mood";
  export let soundsets: Soundsets;
@@ -81,7 +82,7 @@ export let mood: Mood | undefined = undefined;
          <div>{mood?.name ?? "??"}</div>
          </div> -->
     <div class="flexrow">
-        <select bind:value={selectedSoundset} on:change={soundsetChange} class={soundsetClass}>
+        <select class:dark bind:value={selectedSoundset} on:change={soundsetChange} class={soundsetClass}>
             <option value={0}>--No soundset--</option>
             {#each soundsetsOptions as item, idx}
                 <option value={idx + 1}>{item.name}</option>
@@ -89,13 +90,24 @@ export let mood: Mood | undefined = undefined;
         </select>
     </div>
     <div class="flexrow">
-            <select bind:value={selectedMood} on:change={moodChange} class={moodClass} disabled={moodsOptions === undefined}>
-                <option value={0}>--No mood--</option>
-                {#if moodsOptions !== undefined}
-                    {#each moodsOptions as item, idx}
-                        <option value={idx + 1}>{item.name}</option>
-                    {/each}
-                {/if}
-            </select>
+        <select class:dark bind:value={selectedMood} on:change={moodChange} class={moodClass} disabled={moodsOptions === undefined}>
+            <option value={0}>--No mood--</option>
+            {#if moodsOptions !== undefined}
+                {#each moodsOptions as item, idx}
+                    <option value={idx + 1}>{item.name}</option>
+                {/each}
+            {/if}
+        </select>
     </div>
 </div>
+
+<style>
+ select {
+     width: 100%;
+ }
+ .dark {
+     background: rgba(255, 255, 245, 0.8);
+}
+
+
+</style>

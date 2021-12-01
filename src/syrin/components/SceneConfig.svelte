@@ -38,3 +38,29 @@
     </div>
     <p class="notes">Select soundset and mood from available list</p>
 </div>
+
+<style>
+.syrin-fields {
+    display: flex;
+    flex-direction: column;
+}
+
+.syrin-fields > * {
+    width: 100%;
+}
+
+.syrin-fields select {
+    width: 100%;
+    margin: 0 3px 12px 0;
+    flex: 1;
+}
+
+.syrin-fields button {
+    flex: 0;
+    margin: -2px 0;
+    line-height: 22px;
+    height: 30px;
+    margin-right: 0;
+}
+
+</style>
