@@ -109,7 +109,7 @@ import { ElementsApplication } from "../elements";
 
  function openElements() {
      const game = getGame();
-     new ElementsApplication(game).render(true);
+     new ElementsApplication(game, {}).render(true);
  }
 
  function removeMood(e: { detail: number; }) {

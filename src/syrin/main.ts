@@ -39,8 +39,6 @@ Hooks.on("init", function() {
 
     initSettings(game);
 
-    loadTemplates(["modules/fvtt-syrin-control/templates/elements.html"]);
-
     Hooks.on("ready", async () => {
         if (!game.user?.isGM) { return; }
 
