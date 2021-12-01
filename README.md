@@ -143,9 +143,3 @@ I prepared NGINX proxy and CORS proxy with self-signed certificate.
 
 Just go to directory and run `docker-compose up`.
 In Syrinscape API address you can set: `https://localhost:8443/cors/https://syrinscape.com/online/frontend-api/` and enjoy the music.
-
-
-## Planned features:
-* [ ] Volume control
-* [ ] Localization
-* [ ] Better integration with Syrinscape Online to avoid CORS proxy.
