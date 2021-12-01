@@ -12,7 +12,7 @@ export class ElementsApplication extends Dialog {
             content: "",
             buttons: {},
             default: ""
-        }, Object.assign({ width: 900 }, options));
+        }, Object.assign({ width: 790 }, options));
 
         const elements: Element[] = game.settings.get(MODULE, 'elements');
 

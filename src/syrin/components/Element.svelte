@@ -22,12 +22,12 @@
 </script>
 
 <div class="syrin-element">
-    <a class="syrin-control syrin-play-element" title="Play Element" on:click={play}>
+    <a class="syrin-control syrin-play-element" title="Play: {element.name}" on:click={play}>
         <img alt="icon" src="{element.icon}"/>
-        <h4> {element.name} </h4>
+        <!-- <h4> {element.name} </h4> -->
         <i class="fas fa-play"></i>
     </a>
-    <a on:click={macro} class="syrin-control syrin-macro-element" title="Create Macro"> <i class="fas fa-terminal"></i> </a>
+    <a on:click={macro} class="syrin-control syrin-macro-element" title="Create Macro: {element.name}"> <i class="fas fa-terminal"></i> </a>
 </div>
 
 <style>
@@ -41,13 +41,9 @@
 }
 
 .syrin-element img {
-    max-height: 100px;
-    max-width: 100px;
+    max-height: 64px;
+    max-width: 64px;
     border: 0;
     object-fit: cover;
-}
-
-.syrin-element h4 {
-    marign: 0;
 }
 </style>

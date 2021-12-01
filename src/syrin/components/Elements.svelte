@@ -14,8 +14,10 @@
 
 <style>
  .syrin-elements {
-     display: inline-flex;
-     flex-direction: row;
-     flex-wrap: wrap;
+     display: grid;
+     grid-template-columns:  repeat(8, 1fr);
+     max-width: 790px;
+     max-height: 600px;
+     overflow: auto;
  }
 </style>
