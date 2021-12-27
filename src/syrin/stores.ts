@@ -1,4 +1,5 @@
 import { Updater, Writable, writable } from "svelte/store";
+import { ElementsApplication } from "./elements";
 import { Mood, Soundset, Playlist, Element } from "./syrin";
 import { getGame, MODULE } from "./utils";
 
@@ -7,10 +8,35 @@ export interface Store {
     soundset?: Soundset,
 }
 type Elements = Element[];
+interface ElementApp {
+    id: string;
+    app: ElementsApplication
+}
+type ElementsApps = ElementApp[];
 
 export const current: Writable<Store> = writable({});
 export const currentScene: Writable<Store> = writable({});
-export const elements: Writable<Elements> = writable([]);
+export const globalElements: Writable<Elements> = writable([]);
+
+export const globalElementsApp: Writable<ElementsApplication | undefined> = writable(undefined);
+const elementsApps: Writable<ElementsApps> = writable([]);
+
+export function addElementApp(id: string, creator: () => ElementsApplication): ElementsApplication {
+    let app: ElementsApplication;
+    elementsApps.update((p: ElementsApps): ElementsApps => {
+        for (const existing of p) {
+            if(existing.id === id) {
+                app = existing.app;
+                return p;
+            }
+        }
+        app = creator();
+        return [...p, { id, app }];
+    });
+
+    return app!;
+}
+
 
 export type PlaylistStore = Writable<Playlist>;
 

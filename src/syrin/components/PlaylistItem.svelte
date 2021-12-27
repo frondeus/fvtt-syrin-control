@@ -22,15 +22,23 @@ export let item: PlaylistItem;
      }
  }
 
+ function onElements() {
+     dispatch("elements", item);
+ }
+
 </script>
 
 <li>
     <header class="playlist-header flexrow">
-        <h4 class="playlist-name">{item.mood.name} - {item.soundset.name}</h4>
+        <h4 class="playlist-name" title="{item.mood.name} - {item.soundset.name}">{item.mood.name} - {item.soundset.name}</h4>
         <div class="syrin-controls">
             <Toggable on:click={onPlay} toggled={item.isPlaying}
                     on={["Stop Mood", "stop"]}
                     off={["Play Mood", "play"]} />
+
+            <a class="syrin-control" on:click={onElements} title="Soundset Elements">
+                <i class="fas fa-drum"></i>
+            </a>
 
             <Toggable on:click={onAddOrRemove} toggled={idx !== undefined}
                     on={["Remove Mood", "trash"]}
@@ -44,7 +52,7 @@ export let item: PlaylistItem;
      padding: 3px;
  }
  .playlist-name {
-    flex: 6;
+     flex: 4;
      word-break: break-all;
      white-space: pre;
      text-align: left;
@@ -59,6 +67,7 @@ export let item: PlaylistItem;
  }
 
  .syrin-controls {
+     flex: 1;
      display: flex;
      align-items: center;
      justify-content: space-around;

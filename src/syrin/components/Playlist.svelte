@@ -1,14 +1,14 @@
 <script lang="ts">
  import Select from "./Select.svelte";
  import Toggable from "./Toggable.svelte";
- import { current, PlaylistStore, currentScene } from "../stores";
+ import { current, PlaylistStore, currentScene, addElementApp, globalElementsApp } from "../stores";
 
  import { Mood, Soundset, Soundsets, } from "../syrin";
  import { getGame } from "../utils";
 import { setMood, stopAll } from "../main";
 import PlaylistItemComponent from "./PlaylistItem.svelte";
 import { PlaylistItem } from "../playlist";
-import { ElementsApplication } from "../elements";
+import { ElementsApplication, openGlobalElements } from "../elements";
 
  export let soundsets: Soundsets;
  export let playlist: PlaylistStore;
@@ -120,6 +120,13 @@ import { ElementsApplication } from "../elements";
      addMood(e.detail.soundset, e.detail.mood)();
  }
 
+ function openItemElements(e: { detail: PlaylistItem }) {
+     addElementApp(
+         e.detail.soundset.id,
+         () => new ElementsApplication({ soundset: e.detail.soundset, soundsets }, {})
+     ).render(true);
+ }
+
  function addMood(soundset: Soundset | undefined, mood: Mood | undefined) {
      return function () {
         if (!mood || !soundset) { return; }
@@ -128,10 +135,6 @@ import { ElementsApplication } from "../elements";
             soundset
         }];
      }
- }
-
- function openElements() {
-     new ElementsApplication({}).render(true);
  }
 
  function removeMood(e: { detail: number; }) {
@@ -164,22 +167,22 @@ import { ElementsApplication } from "../elements";
                           off={["Add Mood", "plus"]}
                           disabled={mood === undefined || isMood.inPlaylist} />
 
-                <a on:click={openElements} class="syrin-control" title="Elements"> <i class="fas fa-drum"></i> </a>
+                <a on:click={openGlobalElements} class="syrin-control" title="Global Elements"> <i class="fas fa-drum"></i> </a>
             </div>
         </ol>
     </div>
     <ol class="directory-list syrin-list">
         {#if currentSceneItem.shouldDisplay }
-            <PlaylistItemComponent item={intoItem(currentSceneItem)} on:play={playItem} on:add={addItem} />
+            <PlaylistItemComponent item={intoItem(currentSceneItem)} on:play={playItem} on:add={addItem} on:elements={openItemElements} />
         {/if}
         {#if currentItem.shouldDisplay }
-            <PlaylistItemComponent item={intoItem(currentItem)} on:play={playItem} on:add={addItem} />
+            <PlaylistItemComponent item={intoItem(currentItem)} on:play={playItem} on:add={addItem} on:elements={openItemElements} />
         {/if}
         {#if currentSceneItem.shouldDisplay || currentItem.shouldDisplay }
             <div class="separator"></div>
         {/if}
         {#each playlistItems as item, idx}
-            <PlaylistItemComponent {item} {idx} on:play={playItem} on:remove={removeMood} />
+            <PlaylistItemComponent {item} {idx} on:play={playItem} on:remove={removeMood} on:elements={openItemElements} />
         {/each}
     </ol>
 </div>

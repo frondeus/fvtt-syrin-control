@@ -38,6 +38,7 @@
     text-align: center;
     margin: 4px;
     max-width: 120px;
+    max-height: 120px;
 }
 
 .syrin-element img {

@@ -1,11 +1,12 @@
 import { playMood, stopMood } from "./api";
-import { onlineGlobalElements, onlineSoundsets, onlineElements } from "./online";
+import { onlineGlobalElements, onlineSoundsets } from "./online";
 import { onPlaylistTab } from "./playlist";
 import { onSceneConfig } from "./scene";
 import { initSettings, onCloseSettings } from "./settings";
 import { Mood, Soundset } from "./syrin";
 import { getGame, MODULE } from "./utils";
-import { current, createPlaylist, currentScene, elements } from "./stores";
+import { current, createPlaylist, currentScene, globalElements as globalElementsStore } from "./stores";
+import { openGlobalElements } from "./elements";
 
 export async function stopAll(game: Game) {
     if (!game.user?.isGM) { return; }
@@ -37,6 +38,23 @@ Hooks.on("init", function() {
 
     initSettings(game);
 
+    Hooks.on("getSceneControlButtons", (buttons: any) => {
+        if (!game.user?.isGM) { return; }
+
+        const group = buttons.find((b: any) => b.name === 'sounds');
+
+        group.tools.push({
+            button: true,
+            icon: 'fas fa-drum',
+            name: MODULE + 'globalElements',
+            title: "Syrinscape: Global Elements",
+            onClick: () => {
+                openGlobalElements();
+            }
+        });
+
+    });
+
     Hooks.on("ready", async () => {
         if (!game.user?.isGM) { return; }
 
@@ -49,13 +67,11 @@ Hooks.on("init", function() {
                     soundset: newSoundset,
                 });
 
-                if (newSoundset) {
-                    const el = await onlineElements(newSoundset.id);
-                    if (el.length !== 0) {
-                        game.settings.set(MODULE, 'elements', el);
-                        elements.set(game.settings.get(MODULE, 'elements'));
-                    }
+                const el = await onlineGlobalElements();
+                if (el.length !== 0) {
+                    game.settings.set(MODULE, 'elements', el);
                 }
+                globalElementsStore.set(game.settings.get(MODULE, 'elements'));
 
                 if(newMood) {
                     ui.notifications?.info(`SyrinControl | Playing "${newMood.name}" from "${newSoundset?.name ?? "unknown soundset"}"`);
@@ -78,7 +94,7 @@ Hooks.on("init", function() {
             setActiveMood(game);
         });
 
-        Hooks.on("canvasInit", (canvas) => {
+        Hooks.on("canvasReady", (canvas) => {
             const scene = canvas?.scene;
             const soundset = scene?.getFlag(MODULE, 'soundset');
             const mood = scene?.getFlag(MODULE, 'mood');
@@ -109,7 +125,7 @@ Hooks.on("init", function() {
         if (el.length !== 0) {
             game.settings.set(MODULE, 'elements', el);
         }
-        elements.set(game.settings.get(MODULE, 'elements'));
+        globalElementsStore.set(game.settings.get(MODULE, 'elements'));
     });
 
 

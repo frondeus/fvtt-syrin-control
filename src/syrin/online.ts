@@ -28,7 +28,8 @@ export async function onlineSoundsets(): Promise<Soundsets> {
     return soundsets.map(soundset => { return {
         id: soundset.uuid,
         name: soundset.full_name,
-        moods: []
+        moods: [],
+        elements: []
     };})
         .reduce((soundsetsById, soundset) => {
             soundsetsById[soundset.id] = soundset;
@@ -60,7 +61,7 @@ export async function onlineElements(id: string): Promise<Element[]> {
         return [];
     }
 
-    const global = await onlineGlobalElements();
+    // const global = await onlineGlobalElements();
     const elements = await getElements(id);
     return elements
         .filter(element => element.element_type == "oneshot")
@@ -70,5 +71,6 @@ export async function onlineElements(id: string): Promise<Element[]> {
                 name: element.name,
                 icon: element.icon ?? "/icons/svg/sound.svg"
             };
-        }).concat(global);
+        });
+        //.concat(global);
 }
