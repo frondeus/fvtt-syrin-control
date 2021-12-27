@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "build": "npx vite build",
-    "dev": "npx vite serve --host --https",
+    "dev": "npx vite serve --https",
     "check": "tsc"
   },
   "devDependencies": {

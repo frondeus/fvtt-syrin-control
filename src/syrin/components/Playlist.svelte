@@ -1,7 +1,7 @@
 <script lang="ts">
  import Select from "./Select.svelte";
  import Toggable from "./Toggable.svelte";
- import { current, PlaylistStore } from "../stores";
+ import { current, PlaylistStore, currentScene } from "../stores";
 
  import { Mood, Soundset, Soundsets, } from "../syrin";
  import { getGame } from "../utils";
@@ -23,10 +23,16 @@ import { ElementsApplication } from "../elements";
      return current?.id === m?.id;
 };
 
- type CurrentPlaylistItem = (Partial<PlaylistItem> & { inPlaylist: boolean });
+ type CurrentPlaylistItem = (Partial<PlaylistItem> & { inPlaylist: boolean, shouldDisplay: boolean });
 
  let currentItem: CurrentPlaylistItem = {
-     inPlaylist: false
+     inPlaylist: false,
+     shouldDisplay: false
+ };
+
+ let currentSceneItem: CurrentPlaylistItem = {
+     inPlaylist: false,
+     shouldDisplay: false
  };
 
  function intoItem(item: CurrentPlaylistItem): PlaylistItem {
@@ -46,12 +52,29 @@ import { ElementsApplication } from "../elements";
      let currentMood = $current.mood;
      let currentSoundset = $current.soundset;
      let isPlaying = currentMood !== undefined;
+     let inPlaylist = currentMood !== undefined ? $playlist.entries.findIndex(e => e.mood.id === currentMood!.id) >= 0: false;
 
      currentItem = {
          isPlaying,
          mood: currentMood,
          soundset: currentSoundset,
-         inPlaylist: currentMood !== undefined ? $playlist.entries.findIndex(e => e.mood.id === currentMood!.id) >= 0: false
+         inPlaylist,
+         shouldDisplay: isPlaying && !inPlaylist
+     };
+ }
+
+ $: {
+     let sceneMood = $currentScene.mood;
+     let sceneSoundset = $currentScene.soundset;
+     let isPlaying = sceneMood !== undefined && sceneMood === $current.mood;
+     let inPlaylist = sceneMood !== undefined ? $playlist.entries.findIndex(e => e.mood.id === sceneMood!.id) >= 0: false;
+
+     currentSceneItem = {
+         isPlaying,
+         mood: sceneMood,
+         soundset: sceneSoundset,
+         inPlaylist,
+         shouldDisplay: sceneMood !== undefined && !isPlaying && !inPlaylist
      };
  }
 
@@ -108,8 +131,7 @@ import { ElementsApplication } from "../elements";
  }
 
  function openElements() {
-     const game = getGame();
-     new ElementsApplication(game, {}).render(true);
+     new ElementsApplication({}).render(true);
  }
 
  function removeMood(e: { detail: number; }) {
@@ -147,8 +169,13 @@ import { ElementsApplication } from "../elements";
         </ol>
     </div>
     <ol class="directory-list syrin-list">
-        {#if currentItem.isPlaying && !currentItem.inPlaylist}
+        {#if currentSceneItem.shouldDisplay }
+            <PlaylistItemComponent item={intoItem(currentSceneItem)} on:play={playItem} on:add={addItem} />
+        {/if}
+        {#if currentItem.shouldDisplay }
             <PlaylistItemComponent item={intoItem(currentItem)} on:play={playItem} on:add={addItem} />
+        {/if}
+        {#if currentSceneItem.shouldDisplay || currentItem.shouldDisplay }
             <div class="separator"></div>
         {/if}
         {#each playlistItems as item, idx}

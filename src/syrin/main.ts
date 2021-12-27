@@ -1,11 +1,11 @@
 import { playMood, stopMood } from "./api";
-import { onlineGlobalElements, onlineSoundsets } from "./online";
+import { onlineGlobalElements, onlineSoundsets, onlineElements } from "./online";
 import { onPlaylistTab } from "./playlist";
 import { onSceneConfig } from "./scene";
 import { initSettings, onCloseSettings } from "./settings";
 import { Mood, Soundset } from "./syrin";
 import { getGame, MODULE } from "./utils";
-import { current, createPlaylist } from "./stores";
+import { current, createPlaylist, currentScene, elements } from "./stores";
 
 export async function stopAll(game: Game) {
     if (!game.user?.isGM) { return; }
@@ -40,6 +40,7 @@ Hooks.on("init", function() {
     Hooks.on("ready", async () => {
         if (!game.user?.isGM) { return; }
 
+
         Hooks.on(
             MODULE + "moodChange",
             async function(newSoundset: Soundset | undefined, newMood: Mood | undefined): Promise<void> {
@@ -47,6 +48,15 @@ Hooks.on("init", function() {
                     mood: newMood,
                     soundset: newSoundset,
                 });
+
+                if (newSoundset) {
+                    const el = await onlineElements(newSoundset.id);
+                    if (el.length !== 0) {
+                        game.settings.set(MODULE, 'elements', el);
+                        elements.set(game.settings.get(MODULE, 'elements'));
+                    }
+                }
+
                 if(newMood) {
                     ui.notifications?.info(`SyrinControl | Playing "${newMood.name}" from "${newSoundset?.name ?? "unknown soundset"}"`);
                 }
@@ -68,6 +78,14 @@ Hooks.on("init", function() {
             setActiveMood(game);
         });
 
+        Hooks.on("canvasInit", (canvas) => {
+            const scene = canvas?.scene;
+            const soundset = scene?.getFlag(MODULE, 'soundset');
+            const mood = scene?.getFlag(MODULE, 'mood');
+
+            currentScene.set({ soundset, mood });
+        });
+
         Hooks.on("renderSceneConfig", async (obj: SceneConfig) => await onSceneConfig(game, obj));
 
         let playlistStore = createPlaylist();
@@ -87,10 +105,11 @@ Hooks.on("init", function() {
             game.settings.set(MODULE, 'soundsets', soundsets);
         }
 
-        const elements = await onlineGlobalElements();
-        if (elements.length !== 0) {
-            game.settings.set(MODULE, 'elements', elements);
+        const el = await onlineGlobalElements();
+        if (el.length !== 0) {
+            game.settings.set(MODULE, 'elements', el);
         }
+        elements.set(game.settings.get(MODULE, 'elements'));
     });
 
 

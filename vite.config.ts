@@ -12,6 +12,10 @@ const config: UserConfig = {
         port: 9443,
         open: true,
         proxy: {
+            '/cors': {
+                target: 'https://localhost:8443',
+                secure: false
+            },
             '^(?!\/modules\/fvtt-syrin-control)': 'http://localhost:3000/',
             '/socket.io': {
                 target: 'ws://localhost:3000',

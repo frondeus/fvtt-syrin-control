@@ -2,12 +2,12 @@
  import { Element } from "../syrin";
  import ElementComponent from "./Element.svelte";
 
- export let elements: Element[];
+ import { elements } from "../stores";
 
 </script>
 
 <form class="syrin-elements">
-  {#each elements as element}
+  {#each $elements as element}
       <ElementComponent {element} />
   {/each}
 </form>
@@ -18,6 +18,5 @@
      grid-template-columns:  repeat(8, 1fr);
      max-width: 790px;
      max-height: 600px;
-     overflow: auto;
  }
 </style>

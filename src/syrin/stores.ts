@@ -1,13 +1,16 @@
 import { Updater, Writable, writable } from "svelte/store";
-import { Mood, Soundset, Playlist } from "./syrin";
+import { Mood, Soundset, Playlist, Element } from "./syrin";
 import { getGame, MODULE } from "./utils";
 
 export interface Store {
     mood?: Mood,
     soundset?: Soundset,
 }
+type Elements = Element[];
 
 export const current: Writable<Store> = writable({});
+export const currentScene: Writable<Store> = writable({});
+export const elements: Writable<Elements> = writable([]);
 
 export type PlaylistStore = Writable<Playlist>;
 

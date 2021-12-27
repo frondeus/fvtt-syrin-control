@@ -44,6 +44,7 @@ export async function onlineGlobalElements(): Promise<Element[]> {
 
     const elements = await getGlobalElements();
     return elements
+        .filter(element => element.element_type == "oneshot")
         .map(element => {
             return {
                 id: element.pk,
@@ -53,6 +54,7 @@ export async function onlineGlobalElements(): Promise<Element[]> {
         });
 }
 
+// soundset id
 export async function onlineElements(id: string): Promise<Element[]> {
     if (!useAPI()) {
         return [];
@@ -61,6 +63,7 @@ export async function onlineElements(id: string): Promise<Element[]> {
     const global = await onlineGlobalElements();
     const elements = await getElements(id);
     return elements
+        .filter(element => element.element_type == "oneshot")
         .map(element => {
             return {
                 id: element.pk,
