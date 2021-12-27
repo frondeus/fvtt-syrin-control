@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-
 	import { onlineMoods } from '../api';
-
 	import { Mood, Soundset } from '../syrin';
-	import { soundsets } from '../stores';
+	import { context } from '../context';
+
+	const ctx = context();
+	const soundsets = ctx.stores.soundsets;
 
 	export let dark = false;
 	export let soundsetClass = 'syrin-set';

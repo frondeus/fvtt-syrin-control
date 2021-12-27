@@ -1,12 +1,13 @@
 <script lang="ts">
-	import { elementsTabs } from '../stores';
+	import { context } from '../context';
 	import ElementsTabComponent from './ElementsTab.svelte';
-	import { writable } from 'svelte/store';
 	import { ElementsTab } from '../syrin';
 
-	let active = writable(0);
+	const ctx = context();
+	const elementsApp = ctx.stores.elementsApp;
+	$: active = $elementsApp.active;
 
-	$: tabs = $elementsTabs.map((tab: ElementsTab) => {
+	$: tabs = $elementsApp.tabs.map((tab: ElementsTab) => {
 		return {
 			title: tab.kind === 'soundset' ? tab.soundset.name : 'Global',
 			global: tab.kind === 'global'
@@ -15,8 +16,8 @@
 
 	function remove(idx: number) {
 		return () => {
-			elementsTabs.update((e) => {
-				e.splice(idx, 1);
+			elementsApp.update((e) => {
+				e.removeTab(idx);
 				return e;
 			});
 		};
@@ -26,20 +27,20 @@
 <div class="container">
 	<nav class="sheet-tabs tabs">
 		{#each tabs as tab, idx}
-			<span class="item">
+			<span class="tab">
 				<span
-					class="title"
+					class="title item"
+					class:active={idx === active}
 					role="button"
 					title={tab.title}
 					on:click={() => {
-						$active = idx;
+						$elementsApp.active = idx;
 					}}
-					class:active={idx === $active}
 				>
 					{tab.title}
 				</span>
 				{#if !tab.global}
-					<span role="button" on:click={remove(idx)}>
+					<span class="close" role="button" on:click={remove(idx)}>
 						<i class="fas fa-times" />
 					</span>
 				{/if}
@@ -47,8 +48,8 @@
 		{/each}
 	</nav>
 
-	{#each $elementsTabs as tab, idx}
-		<ElementsTabComponent {tab} active={idx === $active} />
+	{#each $elementsApp.tabs as tab, idx}
+		<ElementsTabComponent {tab} active={idx === active} />
 	{/each}
 </div>
 
@@ -65,20 +66,21 @@
 		border-bottom: 1px solid var(--color-border-light-primary);
 	}
 
-	.container .sheet-tabs .item {
+	.container .sheet-tabs .tab {
 		display: flex;
 		align-items: center;
 	}
 
-	.container .sheet-tabs .item > * {
+	.container .sheet-tabs .tab > * {
 		display: inline-block;
 		height: 32px;
 	}
 
-	.container .sheet-tabs .item > .title {
+	.container .sheet-tabs .tab > .title {
 		display: inline-block;
 		overflow: hidden;
 		max-width: 256px;
-		margin-right: 4px;
+		padding-right: 8px;
+		padding-left: 8px;
 	}
 </style>

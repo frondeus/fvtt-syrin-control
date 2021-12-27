@@ -1,6 +1,7 @@
 import { loadDataFromCSV } from './csv';
 import { onlineSoundsets, playElement } from './api';
 import { MODULE } from './utils';
+import { Context } from './context';
 
 export function initSettings(game: Game) {
 	game.syrinscape = {
@@ -70,13 +71,13 @@ export function initSettings(game: Game) {
 	});
 }
 
-export async function onCloseSettings(game: Game) {
+export async function onCloseSettings(game: Game, ctx: Context) {
 	const controlLinksSetting = game.settings.get(MODULE, 'controlLinksUrl');
 	const controlLinks = controlLinksSetting.startsWith('http')
 		? controlLinksSetting
 		: '/' + controlLinksSetting;
 
-	let soundsets = game.settings.get(MODULE, 'soundsets');
+	let soundsets = ctx.stores.soundsets.get();
 
 	if (controlLinksSetting !== '') {
 		soundsets = await loadDataFromCSV(game, controlLinks);
@@ -87,5 +88,5 @@ export async function onCloseSettings(game: Game) {
 		soundsets = newSoundsets;
 	}
 
-	game.settings.set(MODULE, 'soundsets', soundsets);
+	ctx.stores.soundsets.set(soundsets);
 }
