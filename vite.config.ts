@@ -40,7 +40,7 @@ const config: UserConfig = {
 		alias(),
 		svelte({
 			configFile: '../svelte.config.cjs'
-		}),
+		})
 		// checker({
 		// 	typescript: true
 		// })

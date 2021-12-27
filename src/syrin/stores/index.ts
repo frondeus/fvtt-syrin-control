@@ -1,7 +1,7 @@
 import { Writable, writable } from 'svelte/store';
-import { ElementsApplication, ElementsTabs, SoundsetElementsTab } from './elements';
-import { createFoundryStore } from './stores/foundry';
-import { Mood, Soundset, Playlist, Elements, Soundsets } from './syrin';
+import { ElementsApplication, ElementsTabs, SoundsetElementsTab } from '../elements';
+import { createFoundryStore } from '../stores/foundry';
+import { Mood, Soundset, Playlist, Elements, Soundsets } from '../syrin';
 
 export interface Store {
 	mood?: Mood;
@@ -16,8 +16,6 @@ export const soundsets: Writable<Soundsets> = writable({});
 export const elementsApp: Writable<ElementsApplication | undefined> = writable(undefined);
 export const elementsTabs: Writable<ElementsTabs> = writable([{ kind: 'global' }]);
 
-export type PlaylistStore = Writable<Playlist>;
-
 export function addElementsTab(tab: SoundsetElementsTab) {
 	elementsTabs.update((p) => {
 		if (p.includes(tab)) {
@@ -27,8 +25,7 @@ export function addElementsTab(tab: SoundsetElementsTab) {
 	});
 }
 
+export type PlaylistStore = Writable<Playlist>;
 export function createPlaylist(): PlaylistStore {
-	return createFoundryStore("playlist");
+	return createFoundryStore('playlist');
 }
-
-// export const playlist: Writable<Playlist> = playlist_store();

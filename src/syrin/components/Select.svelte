@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
-	import { onlineMoods } from '../online';
+	import { onlineMoods } from '../api';
 
 	import { Mood, Soundset } from '../syrin';
 	import { soundsets } from '../stores';

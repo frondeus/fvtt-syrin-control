@@ -24,7 +24,10 @@
 <div class="syrin-element">
 	<span
 		role="button"
-		class="syrin-control syrin-play-element" title="Play: {element.name}" on:click={play}>
+		class="syrin-control syrin-play-element"
+		title="Play: {element.name}"
+		on:click={play}
+	>
 		<img alt="icon" src={element.icon} />
 		<!-- <h4> {element.name} </h4> -->
 		<i class="fas fa-play" />
@@ -40,7 +43,7 @@
 </div>
 
 <style>
-	:global(span[role="button"]:hover) {
+	:global(span[role='button']:hover) {
 		text-shadow: 0 0 8px var(--color-shadow-primary);
 		cursor: pointer;
 	}

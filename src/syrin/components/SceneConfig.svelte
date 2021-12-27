@@ -54,13 +54,13 @@
 		width: 100%;
 	}
 
- /* .syrin-fields select {
+	/* .syrin-fields select {
 	width: 100%;
 	margin: 0 3px 12px 0;
 	flex: 1;
 	} */
 
- /* .syrin-fields button {
+	/* .syrin-fields button {
 	flex: 0;
 	margin: -2px 0;
 	line-height: 22px;

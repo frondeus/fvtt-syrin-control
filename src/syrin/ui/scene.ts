@@ -1,6 +1,6 @@
-import { Mood, Soundset } from './syrin';
-import { MODULE } from './utils';
-import SvelteConfig from './components/SceneConfig.svelte';
+import { Mood, Soundset } from '../syrin';
+import { MODULE } from '../utils';
+import SvelteConfig from '../components/SceneConfig.svelte';
 
 export async function onSceneConfig(game: Game, obj: SceneConfig) {
 	let soundset: Soundset | undefined = obj.object.getFlag(MODULE, 'soundset');

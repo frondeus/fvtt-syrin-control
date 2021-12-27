@@ -1,6 +1,6 @@
-import { getElements, getGlobalElements, getMoods, getSoundsets } from './api';
-import { Moods, Soundsets, Element } from './syrin';
-import { useAPI } from './utils';
+import { getElements, getGlobalElements, getMoods, getSoundsets } from './raw';
+import { Moods, Soundsets, Element } from '../syrin';
+import { useAPI } from '../utils';
 
 export async function onlineMoods(soundsetId: string): Promise<Moods> {
 	if (!useAPI()) {

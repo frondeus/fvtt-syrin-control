@@ -1,7 +1,7 @@
-import { playMood, stopMood } from './api';
-import { onlineGlobalElements, onlineSoundsets } from './online';
-import { onPlaylistTab } from './playlist';
-import { onSceneConfig } from './scene';
+import { playMood, stopMood, onlineGlobalElements, onlineSoundsets } from './api';
+import { onPlaylistTab } from './ui/playlist';
+import { onSceneConfig } from './ui/scene';
+import { openElements } from './ui/elements';
 import { initSettings, onCloseSettings } from './settings';
 import { Mood, Soundset } from './syrin';
 import { getGame, MODULE } from './utils';
@@ -12,7 +12,6 @@ import {
 	globalElements as globalElementsStore,
 	soundsets as soundsetsStore
 } from './stores';
-import { openElements } from './elements';
 
 export async function stopAll(game: Game) {
 	if (!game.user?.isGM) {

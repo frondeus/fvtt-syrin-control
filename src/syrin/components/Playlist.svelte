@@ -1,19 +1,13 @@
 <script lang="ts">
 	import Select from './Select.svelte';
 	import Toggable from './Toggable.svelte';
-	import {
-		current,
-		PlaylistStore,
-		currentScene,
-		addElementsTab,
-	} from '../stores';
+	import { current, PlaylistStore, currentScene, addElementsTab } from '../stores';
 
-	import { Mood, Soundset } from '../syrin';
+	import { PlaylistItem, Mood, Soundset } from '../syrin';
 	import { getGame } from '../utils';
 	import { setMood, stopAll } from '../main';
 	import PlaylistItemComponent from './PlaylistItem.svelte';
-	import { PlaylistItem } from '../playlist';
-	import { openElements } from '../elements';
+	import { openElements } from '../ui/elements';
 
 	export let playlist: PlaylistStore;
 
@@ -200,9 +194,13 @@
 					disabled={mood === undefined || isMood.inPlaylist}
 				/>
 
-				<span role="button" on:click={openSelectedElements} class="syrin-control" title="Global Elements">
-					<i class="fas fa-drum" />
-				</span>
+				<Toggable
+					on:click={openSelectedElements}
+					toggled={false}
+					on={['Global Elements', 'drum']}
+					off={['Global Elements', 'drum']}
+					disabled={soundset === undefined || isMood.inPlaylist}
+				/>
 			</div>
 		</ol>
 	</div>

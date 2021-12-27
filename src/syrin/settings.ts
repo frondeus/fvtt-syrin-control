@@ -1,6 +1,5 @@
-import { playElement } from './api';
 import { loadDataFromCSV } from './csv';
-import { onlineSoundsets } from './online';
+import { onlineSoundsets, playElement } from './api';
 import { MODULE } from './utils';
 
 export function initSettings(game: Game) {

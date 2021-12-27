@@ -1,22 +1,8 @@
-import ElementsComponent from './components/Elements.svelte';
-import { elementsApp } from './stores';
-import { Soundset, Soundsets } from './syrin';
-
-export interface GlobalElementsTab {
-	kind: "global";
-}
-
-export interface SoundsetElementsTab {
-	kind: "soundset";
-	soundset: Soundset;
-}
-
-export type ElementsTab = SoundsetElementsTab | GlobalElementsTab;
-export type ElementsTabs = ElementsTab[];
+import ElementsComponent from '../components/Elements.svelte';
+import { elementsApp } from '../stores';
 
 export class ElementsApplication extends Dialog {
 	component?: ElementsComponent;
-	soundsets?: Soundsets;
 
 	constructor(dialog: Partial<Dialog.Options> = {}) {
 		super(

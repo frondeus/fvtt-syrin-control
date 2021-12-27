@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
-	import { PlaylistItem } from '../playlist';
+	import { PlaylistItem } from '../syrin';
 	import Toggable from './Toggable.svelte';
 
 	export let item: PlaylistItem;

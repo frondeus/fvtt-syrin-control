@@ -77,3 +77,21 @@ export interface Module {
 }
 
 export type Elements = Element[];
+
+export interface GlobalElementsTab {
+	kind: 'global';
+}
+
+export interface SoundsetElementsTab {
+	kind: 'soundset';
+	soundset: Soundset;
+}
+
+export type ElementsTab = SoundsetElementsTab | GlobalElementsTab;
+export type ElementsTabs = ElementsTab[];
+
+export interface PlaylistItem {
+	isPlaying: boolean;
+	mood: Mood;
+	soundset: Soundset;
+}

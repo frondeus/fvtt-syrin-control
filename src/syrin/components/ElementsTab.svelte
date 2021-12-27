@@ -1,22 +1,21 @@
 <script lang="ts">
 	import { soundsets } from '../stores';
 	import ElementComponent from './Element.svelte';
-	import { onlineElements } from '../online';
+	import { onlineElements } from '../api';
 	import { globalElements } from '../stores';
-	import { Elements, Soundset } from '../syrin';
-	import { ElementsTab } from '../elements';
+	import { Elements, Soundset, ElementsTab } from '../syrin';
 
 	export let tab: ElementsTab;
-    export let active: boolean = false;
+	export let active: boolean = false;
 
 	const global = tab.kind === 'global';
-    function setSoundset(tab: ElementsTab): Soundset | undefined {
-        if (tab.kind === "soundset") {
-            return tab.soundset;
-        }
-        return undefined;
-    }
- let soundset = setSoundset(tab);
+	function setSoundset(tab: ElementsTab): Soundset | undefined {
+		if (tab.kind === 'soundset') {
+			return tab.soundset;
+		}
+		return undefined;
+	}
+	let soundset = setSoundset(tab);
 
 	async function getSoundsetElements(soundsetId: string | undefined): Promise<Elements> {
 		if (!soundsetId) return [];
@@ -30,30 +29,30 @@
 		return elements;
 	}
 
-    let globalPromise: Promise<Elements>;
+	let globalPromise: Promise<Elements>;
 
-    $: {
-        globalPromise = new Promise((resolve) => {
-            resolve($globalElements);
-        });
-    }
+	$: {
+		globalPromise = new Promise((resolve) => {
+			resolve($globalElements);
+		});
+	}
 
 	$: elementsPromise = global ? globalPromise : getSoundsetElements(soundset?.id);
 </script>
 
 {#if active}
-    {#await elementsPromise}
-        Loading...
-    {:then elements}
-        {#if elements.length === 0}
-            No elements found
-        {/if}
-        <form class="syrin-elements">
-            {#each elements as element}
-                <ElementComponent {element} />
-            {/each}
-        </form>
-    {/await}
+	{#await elementsPromise}
+		Loading...
+	{:then elements}
+		{#if elements.length === 0}
+			No elements found
+		{/if}
+		<form class="syrin-elements">
+			{#each elements as element}
+				<ElementComponent {element} />
+			{/each}
+		</form>
+	{/await}
 {/if}
 
 <style>
@@ -61,6 +60,5 @@
 		display: grid;
 		grid-template-columns: repeat(8, 1fr);
 		max-width: 790px;
-		border: 1px solid black;
 	}
 </style>

@@ -1,5 +1,5 @@
-import { ApiElement, ApiMood, ApiSoundset } from './syrin';
-import { getAddress, getAuth, useAPI, isGM, hasAuth } from './utils';
+import { ApiElement, ApiMood, ApiSoundset } from '../syrin';
+import { getAddress, getAuth, useAPI, isGM, hasAuth } from '../utils';
 
 let fetchOptions = () => {
 	const api = useAPI();

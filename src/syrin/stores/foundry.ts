@@ -2,7 +2,7 @@ import type { Writable, Updater } from 'svelte/store';
 import { writable } from 'svelte/store';
 import { getGame, MODULE } from '../utils';
 
-export function createFoundryStore<T>(name: string) : Writable<T> {
+export function createFoundryStore<T>(name: string): Writable<T> {
 	const game = getGame();
 	const initial: T = game.settings.get(MODULE, name) as T;
 	const store = writable<T>(initial);
@@ -17,10 +17,12 @@ export function createFoundryStore<T>(name: string) : Writable<T> {
 			const updated = func(state);
 			game.settings.set(MODULE, name, updated);
 			return updated;
-		})
+		});
 	};
 
 	return {
-		set, update, subscribe: store.subscribe
+		set,
+		update,
+		subscribe: store.subscribe
 	};
 }
