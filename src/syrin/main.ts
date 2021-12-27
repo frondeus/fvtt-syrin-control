@@ -1,97 +1,155 @@
-import { playMood, stopMood } from "./api";
-import { onlineGlobalElements, onlineSoundsets } from "./online";
-import { onPlaylistTab } from "./playlist";
-import { onSceneConfig } from "./scene";
-import { initSettings, onCloseSettings } from "./settings";
-import { Mood, Soundset } from "./syrin";
-import { getGame, MODULE } from "./utils";
-import { current, createPlaylist } from "./stores";
+import { playMood, stopMood, onlineGlobalElements, onlineSoundsets } from './api';
+import { onPlaylistTab } from './ui/playlist';
+import { onSceneConfig } from './ui/scene';
+import { openElements } from './ui/elements';
+import { initSettings, onCloseSettings } from './settings';
+import { Mood, Soundset } from './syrin';
+import { getGame, MODULE } from './utils';
+import {
+	current,
+	createPlaylist,
+	currentScene,
+	globalElements as globalElementsStore,
+	soundsets as soundsetsStore
+} from './stores';
 
 export async function stopAll(game: Game) {
-    if (!game.user?.isGM) { return; }
+	if (!game.user?.isGM) {
+		return;
+	}
 
-    Hooks.callAll(MODULE + "moodChange", undefined, undefined);
+	Hooks.callAll(MODULE + 'moodChange', undefined, undefined);
 
-    await stopMood();
+	await stopMood();
 }
 
 export async function setMood(soundset: Soundset, mood: Mood) {
-    Hooks.callAll(MODULE + "moodChange", soundset, mood);
+	Hooks.callAll(MODULE + 'moodChange', soundset, mood);
 
-    await playMood(mood.id);
+	await playMood(mood.id);
 }
 
 export async function setActiveMood(game: Game) {
-    if (!game.user?.isGM) { return; }
-    let soundset = game.scenes?.active?.getFlag(MODULE, 'soundset');
-    let mood = game.scenes?.active?.getFlag(MODULE, 'mood');
+	if (!game.user?.isGM) {
+		return;
+	}
+	let soundset = game.scenes?.active?.getFlag(MODULE, 'soundset');
+	let mood = game.scenes?.active?.getFlag(MODULE, 'mood');
 
-    if (!soundset) { return; }
-    if (!mood) { return; }
+	if (!soundset) {
+		return;
+	}
+	if (!mood) {
+		return;
+	}
 
-    await setMood(soundset, mood);
+	await setMood(soundset, mood);
 }
 
-Hooks.on("init", function() {
-    let game = getGame();
+Hooks.on('init', function () {
+	let game = getGame();
 
-    initSettings(game);
+	initSettings(game);
 
-    Hooks.on("ready", async () => {
-        if (!game.user?.isGM) { return; }
+	Hooks.on('getSceneControlButtons', (buttons: any) => {
+		if (!game.user?.isGM) {
+			return;
+		}
 
-        Hooks.on(
-            MODULE + "moodChange",
-            async function(newSoundset: Soundset | undefined, newMood: Mood | undefined): Promise<void> {
-                current.set({
-                    mood: newMood,
-                    soundset: newSoundset,
-                });
-                if(newMood) {
-                    ui.notifications?.info(`SyrinControl | Playing "${newMood.name}" from "${newSoundset?.name ?? "unknown soundset"}"`);
-                }
-        });
-        Hooks.on("closeSettingsConfig", async () => await onCloseSettings(game));
-        Hooks.on("updateScene", (scene: Scene) => {
-            if (!game.user?.isGM) { return; }
+		const group = buttons.find((b: any) => b.name === 'sounds');
 
-            if(scene.getFlag(MODULE, 'soundset')?.id === null) {
-                scene.unsetFlag(MODULE, 'soundset');
-                scene.unsetFlag(MODULE, 'mood');
-                return;
-            }
-            if(scene.getFlag(MODULE, 'mood')?.id === null) {
-                scene.unsetFlag(MODULE, 'mood');
-                return;
-            }
-            if(!scene.active) return;
-            setActiveMood(game);
-        });
+		group.tools.push({
+			button: true,
+			icon: 'fas fa-drum',
+			name: MODULE + 'Elements',
+			title: 'Syrinscape: Elements',
+			onClick: () => {
+				openElements();
+			}
+		});
+	});
 
-        Hooks.on("renderSceneConfig", async (obj: SceneConfig) => await onSceneConfig(game, obj));
+	Hooks.on('ready', async () => {
+		if (!game.user?.isGM) {
+			return;
+		}
 
-        let playlistStore = createPlaylist();
+		Hooks.on(
+			MODULE + 'moodChange',
+			async function (newSoundset: Soundset | undefined, newMood: Mood | undefined): Promise<void> {
+				current.set({
+					mood: newMood,
+					soundset: newSoundset
+				});
 
-        setActiveMood(game);
+				const el = await onlineGlobalElements();
+				if (el.length !== 0) {
+					game.settings.set(MODULE, 'elements', el);
+				}
+				globalElementsStore.set(game.settings.get(MODULE, 'elements'));
 
-        Hooks.on("renderPlaylistDirectory", async (dir: PlaylistDirectory) => await onPlaylistTab(game, dir, playlistStore));
+				if (newMood) {
+					ui.notifications?.info(
+						`SyrinControl | Playing "${newMood.name}" from "${
+							newSoundset?.name ?? 'unknown soundset'
+						}"`
+					);
+				}
+			}
+		);
+		Hooks.on('closeSettingsConfig', async () => await onCloseSettings(game));
+		Hooks.on('updateScene', (scene: Scene) => {
+			if (!game.user?.isGM) {
+				return;
+			}
 
-        let dir = game.playlists?.directory;
-        if (dir) {
-            await onPlaylistTab(game, dir, playlistStore);
-        }
+			if (scene.getFlag(MODULE, 'soundset')?.id === null) {
+				scene.unsetFlag(MODULE, 'soundset');
+				scene.unsetFlag(MODULE, 'mood');
+				return;
+			}
+			if (scene.getFlag(MODULE, 'mood')?.id === null) {
+				scene.unsetFlag(MODULE, 'mood');
+				return;
+			}
+			if (!scene.active) return;
+			setActiveMood(game);
+		});
 
+		Hooks.on('canvasReady', (canvas) => {
+			const scene = canvas?.scene;
+			const soundset = scene?.getFlag(MODULE, 'soundset');
+			const mood = scene?.getFlag(MODULE, 'mood');
 
-        const soundsets = await onlineSoundsets();
-        if (Object.keys(soundsets).length !== 0) {
-            game.settings.set(MODULE, 'soundsets', soundsets);
-        }
+			currentScene.set({ soundset, mood });
+		});
 
-        const elements = await onlineGlobalElements();
-        if (elements.length !== 0) {
-            game.settings.set(MODULE, 'elements', elements);
-        }
-    });
+		Hooks.on('renderSceneConfig', async (obj: SceneConfig) => await onSceneConfig(game, obj));
 
+		let playlistStore = createPlaylist();
 
+		setActiveMood(game);
+
+		Hooks.on(
+			'renderPlaylistDirectory',
+			async (dir: PlaylistDirectory) => await onPlaylistTab(dir, playlistStore)
+		);
+
+		let dir = game.playlists?.directory;
+		if (dir) {
+			await onPlaylistTab(dir, playlistStore);
+		}
+
+		const soundsets = await onlineSoundsets();
+		if (Object.keys(soundsets).length !== 0) {
+			game.settings.set(MODULE, 'soundsets', soundsets);
+		}
+		soundsetsStore.set(game.settings.get(MODULE, 'soundsets'));
+
+		const el = await onlineGlobalElements();
+		if (el.length !== 0) {
+			game.settings.set(MODULE, 'elements', el);
+		}
+		globalElementsStore.set(game.settings.get(MODULE, 'elements'));
+	});
 });
