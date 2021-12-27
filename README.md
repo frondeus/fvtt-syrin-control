@@ -3,20 +3,24 @@
 ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Ffvtt-syrin-control&colorB=4aa94a)
 
 # SyrinControl - provides control mechanisms for Syrinscape Online
+
 Please, keep in mind that this module **do not** provide audio streaming, **and I do not intent to bring one**. You still need to use Syrinscape Online or some kind of Discord Bot.
 
 ## Features:
-* Link Syrinscape mood to scene - module switches mood automatically when scene gets activated.
-* Create playlist with Syrinscape moods
-* Play/Stop mood from the playlist
-* Popup for playing one-shot elements as well as creating handy macros.
-* Simple utility macro for playing elements (like gunshot)
+
+- Link Syrinscape mood to scene - module switches mood automatically when scene gets activated.
+- Create playlist with Syrinscape moods
+- Play/Stop mood from the playlist
+- Popup for playing one-shot elements as well as creating handy macros.
+- Simple utility macro for playing elements (like gunshot)
+
 ```
 game.syrinscape.playElement(180872);
 ```
-* Load moods from CSV file ("Download Remote Control Links" button in Syrinscape Online Master Panel)
-* Load moods automatically from Syrinscape API (currently needs CORS proxy, as Syrinscape has strict CORS rules)
-* (WIP) QuickInsert integration to quickly find desired soundset (with SuperSyrin you get **A LOT** of soundsets, so its good to switch the mood as quickly as possible when your players detour :) )
+
+- Load moods from CSV file ("Download Remote Control Links" button in Syrinscape Online Master Panel)
+- Load moods automatically from Syrinscape API (currently needs CORS proxy, as Syrinscape has strict CORS rules)
+- (WIP) QuickInsert integration to quickly find desired soundset (with SuperSyrin you get **A LOT** of soundsets, so its good to switch the mood as quickly as possible when your players detour :) )
 
 ## How to use
 
@@ -27,9 +31,10 @@ Here you can see currently playing mood (1 & 2)
 You can select new mood by first selecting the soundset (1) and then mood (2).
 
 Below there are control buttons (3 & 4 & 5).
-* Play/Stop button (3)
-* Add to playlist (4)
-* Open Elements window (A)
+
+- Play/Stop button (3)
+- Add to playlist (4)
+- Open Elements window (A)
 
 Below control buttons you can see playlist (6). Here you can keep frequently used moods that are not significant enough to make them as a separate Foundry Scene.
 
@@ -51,10 +56,10 @@ All macros are available in the standard macro folder.
 
 You can use macros for one-shots even those not present for current playing soundset.
 
-
 ## How to setup
 
 ### 1. Get Authentication token
+
 Go to [Syrinscape Online Control Panel](https://syrinscape.com/online/cp).
 On left side of the panel, there is a section "Your token can allow third party services to control your Syrinscape devices".
 Click "Copy" button.
@@ -68,18 +73,20 @@ Next go to Module Settings in Foundry VTT and paste the token in "Auth Token" fi
 > Note: This step is mandatory, Syrinscape wont allow you to play any sound or mood without it.
 
 ### 2. Choose synchronization method
+
 There are two main synchronization methods:
-* Via uploading a CSV file, or
-* Via Syrinscape Online API
+
+- Via uploading a CSV file, or
+- Via Syrinscape Online API
 
 #### 2.A CSV file (default, easier method)
+
 Go to [Syrinscape Online Master Interface](https://syrinscape.com/online/master/#/).
 In top right corner, click hamburger menu and click "Download Remote Control Links (CSV)".
 
 ![Setup 3](https://user-images.githubusercontent.com/1165825/142780769-a4a6ea4c-8372-4580-a31e-190578e8f83f.png)
 
 ![Setup 4](https://user-images.githubusercontent.com/1165825/142780784-e0513ba6-877c-4a28-8041-72410cb49936.png)
-
 
 > Warning: This file might weight up to 20-30 MB (depending how many soundsets you have in your library).
 > It might be necessary to upload this file to Foundry server using external uploader.
@@ -89,7 +96,6 @@ Next, upload this file to the Foundry and select it in Module Settings under "Co
 ![Setup 5](https://user-images.githubusercontent.com/1165825/142780804-459a78f3-6947-4172-9a22-e95c373b90a1.png)
 
 ![Setup 6](https://user-images.githubusercontent.com/1165825/142780821-523ffa34-4ec0-4ecc-9ea6-c7cef86883b6.png)
-
 
 Save Changes in Module Settings - SyrinControl will parse the CSV file and hydrate its library with new moods, soundsets and elements.
 Now you are ready to play some music!
@@ -113,19 +119,21 @@ You can run this server **on localhost**.
 
 > If you run FoundryVTT under HTTPS connection (for example by using ForgeVTT hosting), you **need to hide the CORS proxy under HTTPS proxy or setup the CORS with HTTPS certs**. This HTTPS certificate, however can be self-signed.
 
-``` javascript
+```javascript
 var host = process.env.HOST || '0.0.0.0';
 var port = process.env.PORT || 8080;
 
 var cors_proxy = require('cors-anywhere');
 
-cors_proxy.createServer({
-  originWhitelist: [], // Allow all origins
-  requireHeader: ['origin', 'x-requested-with'],
-  removeHeaders: ['cookie', 'cookie2']
-}).listen(port, host, function() {
-  console.log('Running CORS Anywhere on ' + host + ':' + port);
-});
+cors_proxy
+	.createServer({
+		originWhitelist: [], // Allow all origins
+		requireHeader: ['origin', 'x-requested-with'],
+		removeHeaders: ['cookie', 'cookie2']
+	})
+	.listen(port, host, function () {
+		console.log('Running CORS Anywhere on ' + host + ':' + port);
+	});
 ```
 
 Now, with CORS (+ HTTPS nginx) running, go to Module Settings and modify "Syrinscape API address".
@@ -133,12 +141,11 @@ Prepend it with `http://localhost:8000/` or `https://localhost:8443`. Exact valu
 
 ![Setup 7](https://user-images.githubusercontent.com/1165825/142780850-bbbf2948-f512-40e0-b5fb-e7942a1748c6.png)
 
-
 Thats it! No CSV, no hassle.
 
-
 ##### Docker-compose example
-Note: If you have experience with `docker` and `docker-compose`, you can look at `docs/cors/docker-compose.yml`. 
+
+Note: If you have experience with `docker` and `docker-compose`, you can look at `docs/cors/docker-compose.yml`.
 I prepared NGINX proxy and CORS proxy with self-signed certificate.
 
 Just go to directory and run `docker-compose up`.
