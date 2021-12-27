@@ -1,9 +1,12 @@
 <script lang="ts">
-	import { soundsets } from '../stores';
+	import { context } from '../context';
 	import ElementComponent from './Element.svelte';
 	import { onlineElements } from '../api';
-	import { globalElements } from '../stores';
 	import { Elements, Soundset, ElementsTab } from '../syrin';
+
+	const ctx = context();
+	const soundsets = ctx.stores.soundsets;
+	const globalElements = ctx.stores.globalElements;
 
 	export let tab: ElementsTab;
 	export let active: boolean = false;

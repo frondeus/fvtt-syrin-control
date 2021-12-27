@@ -1,15 +1,17 @@
 <script lang="ts">
 	import Select from './Select.svelte';
 	import Toggable from './Toggable.svelte';
-	import { current, PlaylistStore, currentScene, addElementsTab } from '../stores';
-
+	import { context } from '../context';
 	import { PlaylistItem, Mood, Soundset } from '../syrin';
 	import { getGame } from '../utils';
 	import { setMood, stopAll } from '../main';
 	import PlaylistItemComponent from './PlaylistItem.svelte';
 	import { openElements } from '../ui/elements';
 
-	export let playlist: PlaylistStore;
+	const ctx = context();
+	const playlist = ctx.stores.playlist;
+	const current = ctx.stores.currentlyPlaying;
+	const currentScene = ctx.stores.currentScene;
 
 	let soundset: Soundset | undefined;
 	let mood: Mood | undefined;
@@ -129,15 +131,21 @@
 	}
 
 	function openItemElements(e: { detail: PlaylistItem }) {
-		addElementsTab({ soundset: e.detail.soundset, kind: 'soundset' });
-		openElements();
+		ctx.stores.elementsApp.update((p) => {
+			p.addTab({ soundset: e.detail.soundset, kind: 'soundset' });
+			return p;
+		});
+		openElements(ctx);
 	}
 
 	function openSelectedElements() {
 		if (soundset) {
-			addElementsTab({ soundset, kind: 'soundset' });
+			ctx.stores.elementsApp.update((p) => {
+				p.addTab({ soundset: soundset!, kind: 'soundset' });
+				return p;
+			});
 		}
-		openElements();
+		openElements(ctx);
 	}
 
 	function addMood(soundset: Soundset | undefined, mood: Mood | undefined) {

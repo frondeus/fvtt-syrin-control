@@ -1,10 +1,11 @@
 import ElementsComponent from '../components/Elements.svelte';
-import { elementsApp } from '../stores';
+import { Context } from '../context';
 
 export class ElementsApplication extends Dialog {
 	component?: ElementsComponent;
+	context: Context;
 
-	constructor(dialog: Partial<Dialog.Options> = {}) {
+	constructor(context: Context, dialog: Partial<Dialog.Options> = {}) {
 		super(
 			{
 				title: 'Syrinscape: Elements',
@@ -14,23 +15,26 @@ export class ElementsApplication extends Dialog {
 			},
 			Object.assign({ width: 790 }, dialog)
 		);
+		this.context = context;
 	}
 
 	activateListeners(html: JQuery<HTMLElement>) {
 		this.component = new ElementsComponent({
-			target: html.get(0)!
+			target: html.get(0)!,
+			context: this.context.map()
 		});
 
 		super.activateListeners(html);
 	}
 }
 
-export function openElements() {
-	elementsApp.update((app: ElementsApplication | undefined): ElementsApplication | undefined => {
-		if (!app) {
-			return new ElementsApplication({}).render(true) as ElementsApplication;
+export function openElements(ctx: Context) {
+	ctx.stores.elementsApp.update((store) => {
+		if (!store.app) {
+			store.app = new ElementsApplication(ctx, {}).render(true) as ElementsApplication;
 		} else {
-			return app.render(true) as ElementsApplication;
+			store.app = store.app.render(true) as ElementsApplication;
 		}
+		return store;
 	});
 }

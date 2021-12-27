@@ -1,8 +1,9 @@
 import { Mood, Soundset } from '../syrin';
 import { MODULE } from '../utils';
+import { Context } from '../context';
 import SvelteConfig from '../components/SceneConfig.svelte';
 
-export async function onSceneConfig(game: Game, obj: SceneConfig) {
+export async function onSceneConfig(game: Game, obj: SceneConfig, ctx: Context) {
 	let soundset: Soundset | undefined = obj.object.getFlag(MODULE, 'soundset');
 	let mood: Mood | undefined = obj.object.getFlag(MODULE, 'mood');
 
@@ -16,6 +17,7 @@ export async function onSceneConfig(game: Game, obj: SceneConfig) {
 		props: {
 			mood,
 			soundset
-		}
+		},
+		context: ctx.map()
 	});
 }
