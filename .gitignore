@@ -2,6 +2,7 @@
 .idea
 *.log
 tmp/
+wiki/
 
 *.tern-port
 node_modules/
