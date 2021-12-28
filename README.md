@@ -1,5 +1,4 @@
-![](https://img.shields.io/badge/Foundry-v0.8.6-informational)
-![](https://foundryshields.com/version?url=https://github.com/frondeus/fvtt-syrin-control/releases/download/0.2.0-pre3/module.json)
+![](https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://github.com/frondeus/fvtt-syrin-control/releases/download/0.2.0-pre3/module.json)
 ![Latest Release Download Count](https://img.shields.io/github/downloads/frondeus/fvtt-syrin-control/latest/module.zip)
 ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Ffvtt-syrin-control&colorB=4aa94a)
 
