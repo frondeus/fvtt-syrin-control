@@ -8,6 +8,10 @@ Please, keep in mind that this module **do not** provide audio streaming, **and 
 
 https://user-images.githubusercontent.com/1165825/147572876-7454ebe8-a30f-4f7d-ba49-bb3b925b9787.mp4
 
+## How to:
+- [Setup](https://github.com/frondeus/fvtt-syrin-control/wiki/Setup)
+- [Use](https://github.com/frondeus/fvtt-syrin-control/wiki/How-To-Use)
+
 ## Features:
 
 - Link Syrinscape mood to scene - module switches mood automatically when scene gets activated.
@@ -22,7 +26,3 @@ game.syrinscape.playElement(180872);
 
 - Load moods from CSV file ("Download Remote Control Links" button in Syrinscape Online Master Panel)
 - Load moods automatically from Syrinscape API (currently needs CORS proxy, as Syrinscape has strict CORS rules)
-
-## How to:
-- [Setup](https://github.com/frondeus/fvtt-syrin-control/wiki/Setup)
-- [Use](https://github.com/frondeus/fvtt-syrin-control/wiki/How-To-Use)
