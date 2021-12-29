@@ -1,5 +1,9 @@
 <script lang="ts">
+	import { context } from '../context';
 	import { loadDataFromCSV } from '../csv';
+
+	const ctx = context();
+	const soundsets = ctx.stores.soundsets;
 
 	export let syncMethod: 'yes' | 'no';
 
@@ -20,11 +24,11 @@
 
 		let reader = new FileReader();
 		reader.readAsText(csv);
-		reader.onload = () => {
+		reader.onload = async () => {
 			const controlLinks = reader.result;
 			if (typeof controlLinks === 'string') {
 				console.debug('SyrinControl | Loaded', reader.result);
-				loadDataFromCSV(csv.name, controlLinks);
+				$soundsets = await loadDataFromCSV(csv.name, controlLinks);
 			}
 		};
 		reader.onerror = () => {

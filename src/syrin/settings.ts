@@ -63,7 +63,7 @@ export function initSettings(game: Game) {
 	});
 }
 
-export async function onSettingsConfig(game: Game, config: SettingsConfig) {
+export async function onSettingsConfig(game: Game, config: SettingsConfig, ctx: Context) {
 	const form = config.form;
 	if (!form) {
 		return;
@@ -83,7 +83,8 @@ export async function onSettingsConfig(game: Game, config: SettingsConfig) {
 		anchor: formGroup!,
 		props: {
 			syncMethod
-		}
+		},
+		context: ctx.map()
 	});
 
 	$(formGroup).remove();

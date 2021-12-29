@@ -122,7 +122,7 @@ Hooks.on('init', function () {
 		Hooks.on('renderSceneConfig', async (obj: SceneConfig) => await onSceneConfig(game, obj, ctx));
 		Hooks.on(
 			'renderSettingsConfig',
-			async (obj: SettingsConfig) => await onSettingsConfig(game, obj)
+			async (obj: SettingsConfig) => await onSettingsConfig(game, obj, ctx)
 		);
 
 		setActiveMood(game);
