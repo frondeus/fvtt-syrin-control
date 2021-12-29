@@ -2,7 +2,7 @@ import { playMood, stopMood, onlineGlobalElements, onlineSoundsets } from './api
 import { onPlaylistTab } from './ui/playlist';
 import { onSceneConfig } from './ui/scene';
 import { openElements } from './ui/elements';
-import { initSettings, onCloseSettings } from './settings';
+import { initSettings, onCloseSettings, onSettingsConfig } from './settings';
 import { Mood, Soundset } from './syrin';
 import { getGame, MODULE } from './utils';
 import { Context } from './context';
@@ -92,7 +92,7 @@ Hooks.on('init', function () {
 				}
 			}
 		);
-		Hooks.on('closeSettingsConfig', async () => await onCloseSettings(game, ctx));
+		Hooks.on('closeSettingsConfig', async () => await onCloseSettings(ctx));
 		Hooks.on('updateScene', (scene: Scene) => {
 			if (!game.user?.isGM) {
 				return;
@@ -120,6 +120,10 @@ Hooks.on('init', function () {
 		});
 
 		Hooks.on('renderSceneConfig', async (obj: SceneConfig) => await onSceneConfig(game, obj, ctx));
+		Hooks.on(
+			'renderSettingsConfig',
+			async (obj: SettingsConfig) => await onSettingsConfig(game, obj)
+		);
 
 		setActiveMood(game);
 

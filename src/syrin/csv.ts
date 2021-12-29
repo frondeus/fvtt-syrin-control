@@ -1,15 +1,12 @@
 import Papa from 'papaparse';
 import { CSVData, Soundset } from './syrin';
-import { MODULE } from './utils';
 
-export async function loadDataFromCSV(game: Game, controlLinks: string) {
-	console.debug('SyrinControl | Control Links URL', controlLinks);
-	ui.notifications?.info(`SyrinControl | Loading ${controlLinks}.`);
+export async function loadDataFromCSV(name: string, controlLinks: string) {
+	console.debug('SyrinControl | Control Links', name);
 
 	const data: CSVData[] = await new Promise((resolve, reject) => {
 		Papa.parse(controlLinks, {
 			header: true,
-			download: true,
 			complete: function (data: { data: CSVData[] }) {
 				resolve(data.data);
 			},
@@ -21,8 +18,8 @@ export async function loadDataFromCSV(game: Game, controlLinks: string) {
 		});
 	});
 
-	ui.notifications?.info(`SyrinControl | Parsed ${controlLinks}. Found ${data.length} entries`);
-	console.log('SyrinControl  CSV|', { data });
+	ui.notifications?.info(`SyrinControl | Parsed ${name}. Found ${data.length} entries`);
+	console.debug('SyrinControl  CSV|', { data });
 
 	let soundsetsByName = data
 		.filter((data) => data.type === 'mood' || data.type === 'element')
@@ -69,10 +66,9 @@ export async function loadDataFromCSV(game: Game, controlLinks: string) {
 		return soundsetsById;
 	}, Object.create(null));
 
-	game.settings.set(MODULE, 'controlLinksUrl', '');
 	console.debug('SyrinControl | Loaded CSV');
 	ui.notifications?.info(
-		`SyrinControl | Loaded ${controlLinks}. Found ${Object.keys(soundsetsById).length} soundsets`
+		`SyrinControl | Loaded ${name}. Found ${Object.keys(soundsetsById).length} soundsets`
 	);
 	return soundsetsById;
 }

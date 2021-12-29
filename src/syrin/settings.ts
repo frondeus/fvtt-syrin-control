@@ -1,7 +1,7 @@
-import { loadDataFromCSV } from './csv';
 import { onlineSoundsets, playElement } from './api';
 import { MODULE } from './utils';
 import { Context } from './context';
+import SettingsConfigComponent from './components/SettingsConfig.svelte';
 
 export function initSettings(game: Game) {
 	game.syrinscape = {
@@ -53,14 +53,6 @@ export function initSettings(game: Game) {
 			yes: 'Yes - use API'
 		}
 	});
-	game.settings.register(MODULE, 'controlLinksUrl', {
-		name: 'Control Links',
-		hint: 'Control links CSV - click "Download Remote Control Links" in Master Panel and upload it here',
-		scope: 'world',
-		config: true,
-		type: String,
-		filePicker: true
-	});
 	game.settings.register(MODULE, 'address', {
 		name: 'Syrinscape API address',
 		hint: 'Address to Syrinscape Online. Can be replaced by proxy',
@@ -71,17 +63,36 @@ export function initSettings(game: Game) {
 	});
 }
 
-export async function onCloseSettings(game: Game, ctx: Context) {
-	const controlLinksSetting = game.settings.get(MODULE, 'controlLinksUrl');
-	const controlLinks = controlLinksSetting.startsWith('http')
-		? controlLinksSetting
-		: '/' + controlLinksSetting;
-
-	let soundsets = ctx.stores.soundsets.get();
-
-	if (controlLinksSetting !== '') {
-		soundsets = await loadDataFromCSV(game, controlLinks);
+export async function onSettingsConfig(game: Game, config: SettingsConfig) {
+	const form = config.form;
+	if (!form) {
+		return;
 	}
+	const select = $(form).find("select[name='fvtt-syrin-control.syncMethod']")[0];
+	const formGroup = $(select).closest('.form-group')[0];
+	if (formGroup.id === 'fvtt-syrin-control-settings') {
+		return;
+	}
+
+	const parent = $(formGroup).parent();
+
+	const syncMethod = game.settings.get(MODULE, 'syncMethod');
+
+	new SettingsConfigComponent({
+		target: parent.get(0)!,
+		anchor: formGroup!,
+		props: {
+			syncMethod
+		}
+	});
+
+	$(formGroup).remove();
+
+	console.debug('SyrinControl | config', parent);
+}
+
+export async function onCloseSettings(ctx: Context) {
+	let soundsets = ctx.stores.soundsets.get();
 
 	const newSoundsets = await onlineSoundsets();
 	if (Object.keys(newSoundsets).length !== 0) {
