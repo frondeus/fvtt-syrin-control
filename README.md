@@ -9,6 +9,7 @@ Please, keep in mind that this module **do not** provide audio streaming, **and 
 https://user-images.githubusercontent.com/1165825/147572876-7454ebe8-a30f-4f7d-ba49-bb3b925b9787.mp4
 
 ## How to:
+
 - [Setup](https://github.com/frondeus/fvtt-syrin-control/wiki/Setup)
 - [Use](https://github.com/frondeus/fvtt-syrin-control/wiki/How-To-Use)
 
