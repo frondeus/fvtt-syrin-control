@@ -2,9 +2,11 @@ import { Stores, createFoundryStore, ElementsAppStore } from './stores';
 import { getContext } from 'svelte';
 import { writable } from 'svelte/store';
 import { MODULE } from './utils';
+import { getApiContext } from './api';
 
 export class Context {
 	stores: Stores;
+	notifications?: Notifications;
 
 	constructor(game: Game) {
 		this.stores = {
@@ -17,13 +19,15 @@ export class Context {
 
 			elementsApp: writable(new ElementsAppStore())
 		};
+		this.notifications = ui.notifications;
 	}
 
-	map(): Map<string, Context> {
-		return new Map([[MODULE, this]]);
+	map(): Map<string, any> {
+		let that: any = this;
+		return new Map([[MODULE, that], [MODULE + '-api', getApiContext()]]);
 	}
 }
 
-export function context(): Context {
+export default function context(): Context {
 	return getContext(MODULE);
 }

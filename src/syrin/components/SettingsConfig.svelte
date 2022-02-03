@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { context } from '../context';
+	import Context from '../context';
 	import { loadDataFromCSV } from '../csv';
 
-	const ctx = context();
+	const ctx = Context();
 	const soundsets = ctx.stores.soundsets;
 
 	export let syncMethod: 'yes' | 'no';

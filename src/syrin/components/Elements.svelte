@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { context } from '../context';
+	import Context from '../context';
 	import ElementsTabComponent from './ElementsTab.svelte';
 	import { ElementsTab } from '../syrin';
 
-	const ctx = context();
+	const ctx = Context();
 	const elementsApp = ctx.stores.elementsApp;
 	$: active = $elementsApp.active;
 

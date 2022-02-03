@@ -1,11 +1,11 @@
-import { onlineSoundsets, playElement } from './api';
+import { getApiContext } from './api';
 import { MODULE } from './utils';
 import { Context } from './context';
 import SettingsConfigComponent from './components/SettingsConfig.svelte';
 
 export function initSettings(game: Game) {
 	game.syrinscape = {
-		playElement: playElement,
+		playElement: getApiContext().playElement,
 		playMood: async (_id: number) => {
 			//TODO:
 			console.warn('SyrinControl | Im sorry this feature is under development');
@@ -95,7 +95,7 @@ export async function onSettingsConfig(game: Game, config: SettingsConfig, ctx: 
 export async function onCloseSettings(ctx: Context) {
 	let soundsets = ctx.stores.soundsets.get();
 
-	const newSoundsets = await onlineSoundsets();
+	const newSoundsets = await getApiContext().onlineSoundsets();
 	if (Object.keys(newSoundsets).length !== 0) {
 		soundsets = newSoundsets;
 	}

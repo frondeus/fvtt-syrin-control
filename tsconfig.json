@@ -6,7 +6,7 @@
 		"module": "esnext",
 		"sourceMap": true,
 		"lib": ["DOM", "ESNext"],
-		"types": ["@league-of-foundry-developers/foundry-vtt-types", "svelte"],
+		"types": ["@league-of-foundry-developers/foundry-vtt-types", "svelte", "jest"],
 		"moduleResolution": "node",
 		"strictNullChecks": true,
 		"esModuleInterop": true,

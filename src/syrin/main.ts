@@ -1,4 +1,4 @@
-import { playMood, stopMood, onlineGlobalElements, onlineSoundsets } from './api';
+import { getApiContext } from './api';
 import { onPlaylistTab } from './ui/playlist';
 import { onSceneConfig } from './ui/scene';
 import { openElements } from './ui/elements';
@@ -14,13 +14,13 @@ export async function stopAll(game: Game) {
 
 	Hooks.callAll(MODULE + 'moodChange', undefined, undefined);
 
-	await stopMood();
+	await getApiContext().stopMood();
 }
 
 export async function setMood(soundset: Soundset, mood: Mood) {
 	Hooks.callAll(MODULE + 'moodChange', soundset, mood);
 
-	await playMood(mood.id);
+	await getApiContext().playMood(mood.id);
 }
 
 export async function setActiveMood(game: Game) {
@@ -42,7 +42,6 @@ export async function setActiveMood(game: Game) {
 
 Hooks.on('init', function () {
 	let game = getGame();
-
 	initSettings(game);
 
 	Hooks.on('ready', async () => {
@@ -78,7 +77,7 @@ Hooks.on('init', function () {
 					soundset: newSoundset
 				});
 
-				const el = await onlineGlobalElements();
+				const el = await getApiContext().onlineGlobalElements();
 				if (el.length !== 0) {
 					ctx.stores.globalElements.set(el);
 				}
@@ -137,12 +136,12 @@ Hooks.on('init', function () {
 			await onPlaylistTab(dir, ctx);
 		}
 
-		const soundsets = await onlineSoundsets();
+		const soundsets = await getApiContext().onlineSoundsets();
 		if (Object.keys(soundsets).length !== 0) {
 			ctx.stores.soundsets.set(soundsets);
 		}
 
-		const el = await onlineGlobalElements();
+		const el = await getApiContext().onlineGlobalElements();
 		if (el.length !== 0) {
 			ctx.stores.globalElements.set(el);
 		}

@@ -1,14 +1,14 @@
 <script lang="ts">
 	import Select from './Select.svelte';
 	import Toggable from './Toggable.svelte';
-	import { context } from '../context';
+	import Context from '../context';
 	import { PlaylistItem, Mood, Soundset } from '../syrin';
 	import { getGame } from '../utils';
 	import { setMood, stopAll } from '../main';
 	import PlaylistItemComponent from './PlaylistItem.svelte';
 	import { openElements } from '../ui/elements';
 
-	const ctx = context();
+	const ctx = Context();
 	const playlist = ctx.stores.playlist;
 	const current = ctx.stores.currentlyPlaying;
 	const currentScene = ctx.stores.currentScene;

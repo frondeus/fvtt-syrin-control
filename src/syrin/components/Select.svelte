@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { onlineMoods } from '../api';
+	import Api from '../api';
 	import { Mood, Soundset } from '../syrin';
-	import { context } from '../context';
+	import Context from '../context';
 
-	const ctx = context();
+	const api = Api();
+	const ctx = Context();
 	const soundsets = ctx.stores.soundsets;
 
 	export let dark = false;
@@ -22,7 +23,7 @@
 
 		let moods = $soundsets[soundsetId].moods;
 		if (Object.keys(moods).length === 0) {
-			return await onlineMoods(soundsetId);
+			return await api.onlineMoods(soundsetId);
 		}
 		return moods;
 	};

@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { context } from '../context';
+	import Context from '../context';
 	import ElementComponent from './Element.svelte';
-	import { onlineElements } from '../api';
+	import Api from '../api';
 	import { Elements, Soundset, ElementsTab } from '../syrin';
 
-	const ctx = context();
+	const api = Api();
+	const ctx = Context();
 	const soundsets = ctx.stores.soundsets;
 	const globalElements = ctx.stores.globalElements;
 
@@ -27,7 +28,7 @@
 
 		const elements = $soundsets[soundsetId].elements;
 		if (elements.length === 0) {
-			return await onlineElements(soundsetId);
+			return await api.onlineElements(soundsetId);
 		}
 		return elements;
 	}
