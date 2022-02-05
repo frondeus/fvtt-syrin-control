@@ -1,10 +1,10 @@
 import PlaylistComponent from '@/components/Playlist.svelte';
 import { Context } from '@/services/context';
 
-export async function onPlaylistTab(dir: PlaylistDirectory, ctx: Context) {
-	const $tab = $('#' + dir.id);
-
+export async function onPlaylistTab(ctx: Context, $tab: JQuery<Element>) {
 	let target = $tab.find('.directory-list');
+
+	console.debug("SyrinControl | On Playlist Tab", { $tab });
 
 	new PlaylistComponent({
 		target: target.get(0)!,
