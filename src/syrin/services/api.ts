@@ -12,7 +12,7 @@ export default function api(): Api {
 export class Api {
 	constructor(
 		private readonly utils: Utils,
-		@inject("RawApi")
+		@inject('RawApi')
 		private readonly raw: RawApi
 	) {}
 

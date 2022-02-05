@@ -15,5 +15,7 @@ module.exports = {
 	moduleFileExtensions: ['js', 'ts', 'svelte'],
 	testEnvironment: 'jsdom',
 	modulePathIgnorePatterns: ['<rootDir>/cypress'],
-    moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>' + compilerOptions.baseUrl })
+	moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+		prefix: '<rootDir>' + compilerOptions.baseUrl
+	})
 };

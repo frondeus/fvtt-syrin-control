@@ -5,7 +5,6 @@ import swc from 'unplugin-swc';
 
 const path = require('path');
 
-
 const config: UserConfig = {
 	root: 'src/',
 	publicDir: path.resolve(__dirname, 'public'),
@@ -34,7 +33,7 @@ const config: UserConfig = {
 	},
 	resolve: {
 		alias: {
-			"@": path.resolve(__dirname, "./src/syrin")
+			'@': path.resolve(__dirname, './src/syrin')
 		}
 	},
 	plugins: [

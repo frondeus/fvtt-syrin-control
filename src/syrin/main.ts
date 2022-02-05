@@ -12,13 +12,13 @@ import { FVTTGameImpl } from './services/game';
 import { RawApiImpl } from './services/raw';
 
 Hooks.on('init', function () {
-	console.log("SyrinControl | Initializing...");
+	console.log('SyrinControl | Initializing...');
 	CONFIG.debug.hooks = true;
 
-	container.register("FVTTGame", {
+	container.register('FVTTGame', {
 		useClass: FVTTGameImpl
 	});
-	container.register("RawApi", {
+	container.register('RawApi', {
 		useClass: RawApiImpl
 	});
 	const ctx = container.resolve(Context);
@@ -116,22 +116,19 @@ Hooks.on('init', function () {
 		}
 		await onSceneConfig(obj, ctx, html);
 	});
-	Hooks.on(
-		'renderSettingsConfig',
-		async (obj: SettingsConfig) => {
-			if (!ctx.game.isGM()) {
-				return;
-			}
-			await onSettingsConfig(obj, ctx)
+	Hooks.on('renderSettingsConfig', async (obj: SettingsConfig) => {
+		if (!ctx.game.isGM()) {
+			return;
 		}
-	);
+		await onSettingsConfig(obj, ctx);
+	});
 
 	Hooks.on('ready', async () => {
 		if (!ctx.game.isGM()) {
-			console.log("SyrinControl | Ready but not a GM.");
+			console.log('SyrinControl | Ready but not a GM.');
 			return;
 		}
-		console.log("SyrinControl | Ready...");
+		console.log('SyrinControl | Ready...');
 
 		ctx.syrin.setActiveMood();
 
