@@ -1,5 +1,5 @@
-import PlaylistComponent from '../components/Playlist.svelte';
-import { Context } from '../context';
+import PlaylistComponent from '@/components/Playlist.svelte';
+import { Context } from '@/services/context';
 
 export async function onPlaylistTab(dir: PlaylistDirectory, ctx: Context) {
 	const $tab = $('#' + dir.id);

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Context from '../context';
+	import Context from '@/services/context';
 	import ElementsTabComponent from './ElementsTab.svelte';
-	import { ElementsTab } from '../syrin';
+	import { ElementsTab } from '@/models';
 
 	const ctx = Context();
 	const elementsApp = ctx.stores.elementsApp;

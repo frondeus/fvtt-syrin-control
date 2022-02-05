@@ -1,58 +1,34 @@
-import { getApiContext } from './api';
+import { container } from 'tsyringe';
+import { initSettings, onCloseSettings, onSettingsConfig } from './settings';
+import { Mood, Soundset } from './models';
+
 import { onPlaylistTab } from './ui/playlist';
 import { onSceneConfig } from './ui/scene';
 import { openElements } from './ui/elements';
-import { initSettings, onCloseSettings, onSettingsConfig } from './settings';
-import { Mood, Soundset } from './syrin';
-import { getGame, MODULE } from './utils';
-import { Context } from './context';
 
-export async function stopAll(game: Game) {
-	if (!game.user?.isGM) {
-		return;
-	}
-
-	Hooks.callAll(MODULE + 'moodChange', undefined, undefined);
-
-	await getApiContext().stopMood();
-}
-
-export async function setMood(soundset: Soundset, mood: Mood) {
-	Hooks.callAll(MODULE + 'moodChange', soundset, mood);
-
-	await getApiContext().playMood(mood.id);
-}
-
-export async function setActiveMood(game: Game) {
-	if (!game.user?.isGM) {
-		return;
-	}
-	let soundset = game.scenes?.active?.getFlag(MODULE, 'soundset');
-	let mood = game.scenes?.active?.getFlag(MODULE, 'mood');
-
-	if (!soundset) {
-		return;
-	}
-	if (!mood) {
-		return;
-	}
-
-	await setMood(soundset, mood);
-}
+import { MODULE } from './services/utils';
+import { Context } from './services/context';
+import { getGame, FVTTGameImpl } from './services/game';
+import { RawApiImpl } from './services/raw';
+import { Api } from './services/api';
 
 Hooks.on('init', function () {
-	let game = getGame();
-	initSettings(game);
+	container.register("FVTTGame", {
+		useClass: FVTTGameImpl
+	});
+	container.register("RawApi", {
+		useClass: RawApiImpl
+	});
+	const ctx = container.resolve(Context);
+	initSettings(ctx.game, ctx.api);
 
 	Hooks.on('ready', async () => {
-		if (!game.user?.isGM) {
+		if (!ctx.game.isGM()) {
 			return;
 		}
 
-		const ctx = new Context(game);
-
 		Hooks.on('getSceneControlButtons', (buttons: any) => {
-			if (!game.user?.isGM) {
+			if (!ctx.game.isGM()) {
 				return;
 			}
 
@@ -77,13 +53,13 @@ Hooks.on('init', function () {
 					soundset: newSoundset
 				});
 
-				const el = await getApiContext().onlineGlobalElements();
+				const el = await ctx.api.onlineGlobalElements();
 				if (el.length !== 0) {
 					ctx.stores.globalElements.set(el);
 				}
 
 				if (newMood) {
-					ui.notifications?.info(
+					ctx.game.notifyInfo(
 						`SyrinControl | Playing "${newMood.name}" from "${
 							newSoundset?.name ?? 'unknown soundset'
 						}"`
@@ -93,7 +69,7 @@ Hooks.on('init', function () {
 		);
 		Hooks.on('closeSettingsConfig', async () => await onCloseSettings(ctx));
 		Hooks.on('updateScene', (scene: Scene) => {
-			if (!game.user?.isGM) {
+			if (!ctx.game.isGM()) {
 				return;
 			}
 
@@ -107,7 +83,7 @@ Hooks.on('init', function () {
 				return;
 			}
 			if (!scene.active) return;
-			setActiveMood(game);
+			ctx.syrin.setActiveMood();
 		});
 
 		Hooks.on('canvasReady', (canvas) => {
@@ -118,30 +94,30 @@ Hooks.on('init', function () {
 			ctx.stores.currentScene.set({ soundset, mood });
 		});
 
-		Hooks.on('renderSceneConfig', async (obj: SceneConfig) => await onSceneConfig(game, obj, ctx));
+		Hooks.on('renderSceneConfig', async (obj: SceneConfig) => await onSceneConfig(obj, ctx));
 		Hooks.on(
 			'renderSettingsConfig',
-			async (obj: SettingsConfig) => await onSettingsConfig(game, obj, ctx)
+			async (obj: SettingsConfig) => await onSettingsConfig(obj, ctx)
 		);
 
-		setActiveMood(game);
+		ctx.syrin.setActiveMood();
 
 		Hooks.on(
 			'renderPlaylistDirectory',
 			async (dir: PlaylistDirectory) => await onPlaylistTab(dir, ctx)
 		);
 
-		let dir = game.playlists?.directory;
+		let dir = getGame().playlists?.directory;
 		if (dir) {
 			await onPlaylistTab(dir, ctx);
 		}
 
-		const soundsets = await getApiContext().onlineSoundsets();
+		const soundsets = await ctx.api.onlineSoundsets();
 		if (Object.keys(soundsets).length !== 0) {
 			ctx.stores.soundsets.set(soundsets);
 		}
 
-		const el = await getApiContext().onlineGlobalElements();
+		const el = await ctx.api.onlineGlobalElements();
 		if (el.length !== 0) {
 			ctx.stores.globalElements.set(el);
 		}

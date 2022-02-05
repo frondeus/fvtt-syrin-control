@@ -1,12 +1,10 @@
 <script lang="ts">
 	import Select from './Select.svelte';
 	import Toggable from './Toggable.svelte';
-	import Context from '../context';
-	import { PlaylistItem, Mood, Soundset } from '../syrin';
-	import { getGame } from '../utils';
-	import { setMood, stopAll } from '../main';
+	import Context from '@/services/context';
+	import { PlaylistItem, Mood, Soundset } from '@/models';
 	import PlaylistItemComponent from './PlaylistItem.svelte';
-	import { openElements } from '../ui/elements';
+	import { openElements } from '@/ui/elements';
 
 	const ctx = Context();
 	const playlist = ctx.stores.playlist;
@@ -113,12 +111,11 @@
 	function playMood(soundset: Soundset | undefined, mood: Mood | undefined) {
 		if (mood === undefined || soundset === undefined || isPlaying(mood, $current.mood)) {
 			return async function () {
-				let game = getGame();
-				await stopAll(game);
+				await ctx.syrin.stopAll();
 			};
 		}
 		return async function () {
-			await setMood(soundset, mood);
+			await ctx.syrin.setMood(soundset, mood);
 		};
 	}
 

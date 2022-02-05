@@ -1,5 +1,5 @@
-import ElementsComponent from '../components/Elements.svelte';
-import { Context } from '../context';
+import ElementsComponent from '@/components/Elements.svelte';
+import { Context } from '@/services/context';
 
 export class ElementsApplication extends Dialog {
 	component?: ElementsComponent;

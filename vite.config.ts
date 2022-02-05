@@ -1,9 +1,10 @@
 import type { UserConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
-// import checker from 'vite-plugin-checker';
-import alias from '@rollup/plugin-alias';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import swc from 'unplugin-swc';
 
 const path = require('path');
+
 
 const config: UserConfig = {
 	root: 'src/',
@@ -33,11 +34,12 @@ const config: UserConfig = {
 	},
 	resolve: {
 		alias: {
-			// "@": path.resolve(__dirname, "./syrin")
+			"@": path.resolve(__dirname, "./src/syrin")
 		}
 	},
 	plugins: [
-		alias(),
+		tsconfigPaths(),
+		swc.vite(),
 		svelte({
 			configFile: '../svelte.config.cjs'
 		})

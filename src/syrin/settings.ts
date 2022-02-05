@@ -1,39 +1,18 @@
-import { getApiContext } from './api';
-import { MODULE } from './utils';
-import { Context } from './context';
 import SettingsConfigComponent from './components/SettingsConfig.svelte';
+import { FVTTGame } from './services/game';
+import { Api } from './services/api';
+import { Context } from './services/context';
 
-export function initSettings(game: Game) {
-	game.syrinscape = {
-		playElement: getApiContext().playElement,
+export function initSettings(game: FVTTGame, api: Api) {
+	game.setGlobal({
+		playElement: api.playElement,
 		playMood: async (_id: number) => {
 			//TODO:
 			console.warn('SyrinControl | Im sorry this feature is under development');
 		}
-	};
-
-	game.settings.register(MODULE, 'soundsets', {
-		name: 'Soundsets',
-		scope: 'world',
-		config: false,
-		default: {}
 	});
 
-	game.settings.register(MODULE, 'elements', {
-		name: 'Elements',
-		scope: 'world',
-		config: false,
-		default: []
-	});
-
-	game.settings.register(MODULE, 'playlist', {
-		name: 'Playlist',
-		scope: 'world',
-		config: false,
-		default: { entries: [] }
-	});
-
-	game.settings.register(MODULE, 'authToken', {
+	game.registerSetting('authToken', {
 		name: 'Auth Token',
 		hint: 'Authentication token to Syrinscape Online API',
 		scope: 'world',
@@ -41,7 +20,7 @@ export function initSettings(game: Game) {
 		type: String,
 		default: ''
 	});
-	game.settings.register(MODULE, 'syncMethod', {
+	game.registerSetting('syncMethod', {
 		name: 'Synchronization method',
 		hint: 'Should the module use online API to retrieve mood list?',
 		scope: 'world',
@@ -53,7 +32,7 @@ export function initSettings(game: Game) {
 			yes: 'Yes - use API'
 		}
 	});
-	game.settings.register(MODULE, 'address', {
+	game.registerSetting('address', {
 		name: 'Syrinscape API address',
 		hint: 'Address to Syrinscape Online. Can be replaced by proxy',
 		scope: 'world',
@@ -63,7 +42,7 @@ export function initSettings(game: Game) {
 	});
 }
 
-export async function onSettingsConfig(game: Game, config: SettingsConfig, ctx: Context) {
+export async function onSettingsConfig(config: SettingsConfig, ctx: Context) {
 	const form = config.form;
 	if (!form) {
 		return;
@@ -76,7 +55,7 @@ export async function onSettingsConfig(game: Game, config: SettingsConfig, ctx: 
 
 	const parent = $(formGroup).parent();
 
-	const syncMethod = game.settings.get(MODULE, 'syncMethod');
+	const syncMethod = ctx.game.getSetting<'yes' | 'no'>('syncMethod');
 
 	new SettingsConfigComponent({
 		target: parent.get(0)!,
@@ -95,7 +74,7 @@ export async function onSettingsConfig(game: Game, config: SettingsConfig, ctx: 
 export async function onCloseSettings(ctx: Context) {
 	let soundsets = ctx.stores.soundsets.get();
 
-	const newSoundsets = await getApiContext().onlineSoundsets();
+	const newSoundsets = await ctx.api.onlineSoundsets();
 	if (Object.keys(newSoundsets).length !== 0) {
 		soundsets = newSoundsets;
 	}

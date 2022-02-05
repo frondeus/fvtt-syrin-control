@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Context from '../context';
-	import { loadDataFromCSV } from '../csv';
+	import Context from '@/services/context';
+	import { loadDataFromCSV } from '@/csv';
 
 	const ctx = Context();
 	const soundsets = ctx.stores.soundsets;
@@ -28,7 +28,7 @@
 			const controlLinks = reader.result;
 			if (typeof controlLinks === 'string') {
 				console.debug('SyrinControl | Loaded', reader.result);
-				$soundsets = await loadDataFromCSV(csv.name, controlLinks);
+				$soundsets = await loadDataFromCSV(ctx.game, csv.name, controlLinks);
 			}
 		};
 		reader.onerror = () => {

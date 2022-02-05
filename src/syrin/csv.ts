@@ -1,7 +1,8 @@
 import Papa from 'papaparse';
-import { CSVData, Soundset } from './syrin';
+import { FVTTGame } from './services/game';
+import { CSVData, Soundset } from './models';
 
-export async function loadDataFromCSV(name: string, controlLinks: string) {
+export async function loadDataFromCSV(game: FVTTGame, name: string, controlLinks: string) {
 	console.debug('SyrinControl | Control Links', name);
 
 	const data: CSVData[] = await new Promise((resolve, reject) => {
@@ -12,13 +13,13 @@ export async function loadDataFromCSV(name: string, controlLinks: string) {
 			},
 			error: function (err: any, file: any) {
 				let e = `Found error in ${file}: ${err}.`;
-				ui.notifications?.error('SyrinControl | ' + e);
+				game.notifyError('SyrinControl | ' + e);
 				reject(e);
 			}
 		});
 	});
 
-	ui.notifications?.info(`SyrinControl | Parsed ${name}. Found ${data.length} entries`);
+	game.notifyInfo(`SyrinControl | Parsed ${name}. Found ${data.length} entries`);
 	console.debug('SyrinControl  CSV|', { data });
 
 	let soundsetsByName = data
@@ -67,7 +68,7 @@ export async function loadDataFromCSV(name: string, controlLinks: string) {
 	}, Object.create(null));
 
 	console.debug('SyrinControl | Loaded CSV');
-	ui.notifications?.info(
+	game.notifyInfo(
 		`SyrinControl | Loaded ${name}. Found ${Object.keys(soundsetsById).length} soundsets`
 	);
 	return soundsetsById;

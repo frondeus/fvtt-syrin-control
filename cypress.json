@@ -1,5 +1,5 @@
 {
-  "componentsFolder": "src",
-  "testFiles": "**/*spec.ts",
-  "baseUrl": "https://localhost:9443"
+	"componentsFolder": "src",
+	"testFiles": "**/*spec.ts",
+	"baseUrl": "https://localhost:9443"
 }
