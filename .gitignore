@@ -16,3 +16,4 @@ fvtt-syrin-control.lock
 
 dist
 run.sh
+cypress.env.json

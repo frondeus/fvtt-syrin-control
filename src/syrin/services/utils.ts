@@ -19,7 +19,7 @@ export class Utils {
 	}
 
 	useAPI(): boolean {
-		return this.game.getSetting<string>('syncMethod') === 'yes';
+		return true;
 	}
 
 	hasAuth(): boolean {

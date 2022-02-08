@@ -2,9 +2,10 @@
 import { injectable } from 'tsyringe';
 import { MODULE } from './utils';
 
-interface Global {
+export interface Global {
 	playElement(id: number): Promise<void>;
 	playMood(id: number): Promise<void>;
+	refresh(): void;
 }
 
 export interface FVTTGame {
@@ -37,6 +38,8 @@ export class FVTTGameImpl implements FVTTGame {
 
 	setGlobal(global: Global): void {
 		this.game.syrinscape = global;
+		// this.game.modules.get(MODULE)!.api = global;
+		// console.error("SET GLOBAL");
 	}
 
 	registerSetting(name: string, options: ClientSettings.PartialSetting<any>) {

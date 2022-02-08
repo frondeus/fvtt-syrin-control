@@ -13,7 +13,7 @@ import {
 import { ElementsApplication } from '@/ui/elements';
 import { inject, injectable } from 'tsyringe';
 
-export type FoundryStore<T> = Writable<T> & { get: () => T };
+export type FoundryStore<T> = Writable<T> & { get: () => T; refresh: () => void };
 
 @injectable()
 export class Stores {
@@ -58,6 +58,12 @@ export class Stores {
 		this.soundsets = createFoundryStore(game, 'soundsets');
 
 		this.elementsApp = writable(new ElementsAppStore());
+	}
+
+	refresh() {
+		this.globalElements.refresh();
+		this.soundsets.refresh();
+		this.playlist.refresh();
 	}
 }
 
@@ -112,10 +118,17 @@ function createFoundryStore<T>(game: FVTTGame, name: string): FoundryStore<T> {
 		});
 	};
 
+	const refresh = () => {
+		let loaded = game.getSetting<T>(name);
+		console.warn('SyrinControl | Refreshing', {name, loaded});
+		store.set(loaded);
+	};
+
 	return {
 		set,
 		get,
 		update,
+		refresh,
 		subscribe: store.subscribe
 	};
 }

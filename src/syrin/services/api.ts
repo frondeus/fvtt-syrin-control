@@ -41,6 +41,7 @@ export class Api {
 		}
 
 		const soundsets = await this.raw.getSoundsets();
+		console.warn("SyrinControl | Online Soundsets", soundsets);
 		return soundsets
 			.map((soundset) => {
 				return {

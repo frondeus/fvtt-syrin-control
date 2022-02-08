@@ -13,7 +13,7 @@ import { RawApiImpl } from './services/raw';
 
 Hooks.on('init', function () {
 	console.log('SyrinControl | Initializing...');
-	CONFIG.debug.hooks = true;
+	// CONFIG.debug.hooks = true;
 
 	container.register('FVTTGame', {
 		useClass: FVTTGameImpl
@@ -22,7 +22,7 @@ Hooks.on('init', function () {
 		useClass: RawApiImpl
 	});
 	const ctx = container.resolve(Context);
-	initSettings(ctx.game, ctx.api);
+	initSettings(ctx);
 
 	Hooks.on('renderPlaylistDirectory', async (_: any, html: JQuery<Element>) => {
 		if (!ctx.game.isGM()) {
@@ -115,12 +115,6 @@ Hooks.on('init', function () {
 			return;
 		}
 		await onSceneConfig(obj, ctx, html);
-	});
-	Hooks.on('renderSettingsConfig', async (obj: SettingsConfig) => {
-		if (!ctx.game.isGM()) {
-			return;
-		}
-		await onSettingsConfig(obj, ctx);
 	});
 
 	Hooks.on('ready', async () => {

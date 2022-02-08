@@ -110,7 +110,8 @@ export class RawApiImpl implements RawApi {
 		function link() {
 			let address = utils.getAddress();
 			let authToken = utils.getAuth();
-			return `${address}/soundsets?auth_token=${authToken}`;
+			console.warn("SyrinControl | Address: ", address);
+			return `${address}/soundsets/?auth_token=${authToken}`;
 		}
 
 		return await fetch(link(), this.fetchOptions())

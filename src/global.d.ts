@@ -1,4 +1,5 @@
 import { Soundsets, Playlist, Element } from './syrin';
+import { Global } from './services/game.ts';
 
 type FVTTModule = typeof MODULE;
 
@@ -24,10 +25,7 @@ declare global {
 	const QuickInsert: QuickInsert | undefined;
 
 	interface Game {
-		syrinscape: {
-			playElement: (number) => Promise<void>;
-			playMood: (number) => Promise<void>;
-		};
+		syrinscape: Global;
 	}
 
 	interface ModuleData<ModuleData> {
