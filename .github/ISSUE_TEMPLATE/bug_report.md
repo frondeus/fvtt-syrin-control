@@ -30,6 +30,7 @@ assignees: ''
  - Foundry VTT version [e.g. 8.2, v9]
  - Module version: [e.g. 0.1.0, 0.2.0, 0.2.1]
  - [ ] Does it work in Safety Mode (without other plugins enabled)
+ - [ ] I did read FAQ - https://github.com/frondeus/fvtt-syrin-control/wiki/Frequently-Asked-Questions
 -->
 
 **Logs**
