@@ -4,7 +4,6 @@ import { MODULE } from './utils';
 
 export interface Global {
 	playElement(id: number): Promise<void>;
-	playMood(id: number): Promise<void>;
 	refresh(): void;
 }
 

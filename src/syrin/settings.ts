@@ -7,10 +7,6 @@ export function initSettings(ctx: Context) {
 		playElement: async (id: number) => {
 			await api.playElement(id);
 		},
-		playMood: async (_id: number) => {
-			//TODO:
-			console.warn('SyrinControl | Im sorry this feature is under development');
-		},
 		refresh: () => {
 			ctx.stores.refresh();
 		}
