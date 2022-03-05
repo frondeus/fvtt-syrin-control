@@ -26,5 +26,4 @@ https://user-images.githubusercontent.com/1165825/147572876-7454ebe8-a30f-4f7d-b
 game.syrinscape.playElement(180872);
 ```
 
-- Load moods from CSV file ("Download Remote Control Links" button in Syrinscape Online Master Panel)
-- Load moods automatically from Syrinscape API (currently needs CORS proxy, as Syrinscape has strict CORS rules)
+- Load moods automatically from Syrinscape API
