@@ -1,12 +1,14 @@
 <script lang="ts">
-	import { playElement } from '../api';
-	import { Element } from '../syrin';
+	import { Element } from '@/models';
+	import Context from '@/services/context';
 
 	export let element: Element;
 
+	const ctx = Context();
+
 	function play() {
-		ui.notifications?.info(`SyrinControl | Playing "${element.name}"`);
-		playElement(element.id);
+		ctx.game.notifyInfo(`SyrinControl | Playing "${element.name}"`);
+		ctx.api.playElement(element.id);
 	}
 
 	function macro() {
@@ -17,7 +19,7 @@
 			command: 'game.syrinscape.playElement(' + element.id + ')'
 		});
 		console.debug('SyrinControl | ', { macro });
-		ui.notifications?.info(`SyrinControl | Created macro "${element.name}"`);
+		ctx.game.notifyInfo(`SyrinControl | Created macro "${element.name}"`);
 	}
 </script>
 

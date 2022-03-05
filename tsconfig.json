@@ -6,7 +6,7 @@
 		"module": "esnext",
 		"sourceMap": true,
 		"lib": ["DOM", "ESNext"],
-		"types": ["@league-of-foundry-developers/foundry-vtt-types", "svelte"],
+		"types": ["svelte", "jest", "cypress"],
 		"moduleResolution": "node",
 		"strictNullChecks": true,
 		"esModuleInterop": true,
@@ -24,7 +24,14 @@
 		"skipLibCheck": true,
 		"importsNotUsedAsValues": "remove",
 		"forceConsistentCasingInFileNames": true,
-		"allowSyntheticDefaultImports": true
+		"allowSyntheticDefaultImports": true,
+
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"baseUrl": "./src",
+		"paths": {
+			"@/*": ["./syrin/*"]
+		}
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"]
 }
