@@ -166,6 +166,23 @@
 		entries.splice(idx, 1);
 		$playlist.entries = entries;
 	}
+
+  function createMoodMacro(soundset: Soundset | undefined, mood: Mood | undefined) {
+	 return function() {
+			let commandArg = JSON.stringify({
+				soundset, mood
+			});
+			let macro = Macro.create({
+				name: mood.name,
+				type: 'script',
+				img: 'icons/svg/sound.svg',
+				command: 'game.syrinscape.playMood(' + commandArg + ')'
+			});
+				// command: 'game.syrinscape.playMood("' + soundset.id + '",' + mood.id  + ')'
+			console.debug('SyrinControl | ', { macro });
+      ctx.game.notifyInfo(`SyrinControl | Created macro "${mood.name}"`);
+   };
+  }
 </script>
 
 <div>
@@ -205,6 +222,14 @@
 					on={['Global Elements', 'drum']}
 					off={['Global Elements', 'drum']}
 					disabled={soundset === undefined || isMood.inPlaylist}
+				/>
+				
+				<Toggable
+					on:click={createMoodMacro(soundset, mood)}
+				  toggled={false}
+				  on={['Create Macro', 'terminal']}
+				  off={['Create Macro', 'terminal']}
+				  disabled={mood === undefined}
 				/>
 			</div>
 		</ol>

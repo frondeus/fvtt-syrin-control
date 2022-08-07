@@ -1,11 +1,23 @@
 import { Context } from './services/context';
 
+interface playMoodParams {
+	soundset: Soundset | undefined,
+	mood: Mood | undefined
+}
+
 export function initSettings(ctx: Context) {
 	const game = ctx.game;
 	const api = ctx.api;
 	game.setGlobal({
 		playElement: async (id: number) => {
 			await api.playElement(id);
+		},
+		playMood: async (params: playMoodParams) => {
+			const { soundset, mood } = params;
+			console.log(soundset, mood);
+
+			await ctx.syrin.setMood(soundset, mood);
+			// await api.playMood(moodId);
 		},
 		refresh: () => {
 			ctx.stores.refresh();
