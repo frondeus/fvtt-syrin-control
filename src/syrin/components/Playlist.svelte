@@ -5,6 +5,7 @@
 	import type { PlaylistItem, Mood, Soundset } from '@/models';
 	import PlaylistItemComponent from './PlaylistItem.svelte';
 	import { openElements } from '@/ui/elements';
+  import { openMacroManager } from '@/ui/macromanager';
 
 	const ctx = Context();
 	const playlist = ctx.stores.playlist;
@@ -145,6 +146,10 @@
 		openElements(ctx);
 	}
 
+	function openMM() {
+		openMacroManager(ctx);
+	}
+
 	function addMood(soundset: Soundset | undefined, mood: Mood | undefined) {
 		return function () {
 			if (!mood || !soundset) {
@@ -222,6 +227,14 @@
 					on={['Global Elements', 'drum']}
 					off={['Global Elements', 'drum']}
 					disabled={soundset === undefined || isMood.inPlaylist}
+				/>
+
+				<Toggable
+					on:click={openMM}
+					toggled={false}
+					on={['Macro Manager', 'terminal']}
+					off={['Macro Manager', 'terminal']}
+					disabled={false}
 				/>
 				
 				<Toggable
