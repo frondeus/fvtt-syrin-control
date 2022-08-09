@@ -21,7 +21,7 @@
 		if (!soundsetId) return {};
 		if (!$soundsets[soundsetId]) return {};
 
-		console.trace("SyrinControl | Select | soundset = ", $soundsets[soundsetId]);
+		console.trace("SyrinControl | Select | Get Moods | soundset = ", $soundsets[soundsetId]);
 
 		let moods = $soundsets[soundsetId].moods;
 		if (Object.keys(moods).length === 0) {
@@ -51,7 +51,7 @@
 		});
 
 	function soundsetChange() {
-		console.trace("SyrinControl | Select | Soundset Change", { soundsetOptions });
+		console.trace("SyrinControl | Select | Soundset Change", { soundsetsOptions });
 		mood = undefined;
 		moodsOptions = undefined;
 		if (selectedSoundset > 0) {
@@ -59,8 +59,8 @@
 		} else {
 			soundset = undefined;
 		}
-		console.trace("SyrinControl | Select | mood = ", mood);
-		console.trace("SyrinControl | Select | soundset = ", soundset);
+		console.trace("SyrinControl | Select | Soundset Change | mood = ", mood);
+		console.trace("SyrinControl | Select | Soundset Change | soundset = ", soundset);
 		dispatcher('moodChange', mood);
 		dispatcher('soundsetChange', soundset);
 	}
@@ -77,7 +77,7 @@
 		} else {
 			mood = undefined;
 		}
-		console.trace("SyrinControl | Select | mood = ", mood);
+		console.trace("SyrinControl | Select | Mood Change | mood = ", mood);
 		dispatcher('moodChange', mood);
 	}
 </script>

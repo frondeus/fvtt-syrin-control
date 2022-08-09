@@ -23,7 +23,7 @@ export class Api {
 		console.trace("SyrinControl | API | Online Moods", { soundsetId });
 
 		const moods = await this.raw.getMoods(soundsetId);
-		console.trace("SyrinControl | API | moods = ", moods);
+		console.trace("SyrinControl | API | Online Moods | moods = ", moods);
 		return moods
 			.map((mood) => {
 				return {
@@ -44,7 +44,7 @@ export class Api {
 		console.trace("SyrinControl | API | Online Soundsets");
 
 		const soundsets = await this.raw.getSoundsets();
-		console.trace("SyrinControl | API | soundsets = ", soundsets);
+		console.trace("SyrinControl | API | Online Soundsets | soundsets = ", soundsets);
 		return soundsets
 			.map((soundset) => {
 				return {
@@ -69,7 +69,7 @@ export class Api {
 
 		const elements = await this.raw.getGlobalElements();
 
-		console.trace("SyrinControl | API | elements", elements);
+		console.trace("SyrinControl | API | Online Global Elements | elements = ", elements);
 
 		return elements
 			.filter((element) => element.element_type == 'oneshot')
@@ -91,7 +91,7 @@ export class Api {
 		
 		const elements = await this.raw.getElements(soundsetId);
 
-		console.trace("SyrinControl | API | elements = ", elements);
+		console.trace("SyrinControl | API | Online Elements | elements = ", elements);
 
 		return elements
 			.filter((element) => element.element_type == 'oneshot')
