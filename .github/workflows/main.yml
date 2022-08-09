@@ -16,12 +16,12 @@ jobs:
         uses: battila7/get-version-action@v2
 
       - name: install deps
-        uses: borales/actions-yarn@v2.3.0
+        uses: borales/actions-yarn@v3.0.0
         with:
           cmd: install
 
       - name: build
-        uses: borales/actions-yarn@v2.3.0
+        uses: borales/actions-yarn@v3.0.0
         with:
           cmd: run build
 
