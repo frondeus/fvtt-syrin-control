@@ -20,8 +20,10 @@ export class Api {
 		if (!this.utils.useAPI()) {
 			return {};
 		}
+		console.trace("SyrinControl | API | Online Moods", { soundsetId });
 
 		const moods = await this.raw.getMoods(soundsetId);
+		console.trace("SyrinControl | API | moods = ", moods);
 		return moods
 			.map((mood) => {
 				return {
@@ -39,9 +41,10 @@ export class Api {
 		if (!this.utils.useAPI()) {
 			return {};
 		}
+		console.trace("SyrinControl | API | Online Soundsets");
 
 		const soundsets = await this.raw.getSoundsets();
-		//console.warn("SyrinControl | Online Soundsets", soundsets);
+		console.trace("SyrinControl | API | soundsets = ", soundsets);
 		return soundsets
 			.map((soundset) => {
 				return {
@@ -61,8 +64,13 @@ export class Api {
 		if (!this.utils.useAPI()) {
 			return [];
 		}
+		
+		console.trace("SyrinControl | API | Online Global Elements");
 
 		const elements = await this.raw.getGlobalElements();
+
+		console.trace("SyrinControl | API | elements", elements);
+
 		return elements
 			.filter((element) => element.element_type == 'oneshot')
 			.map((element) => {
@@ -78,8 +86,13 @@ export class Api {
 		if (!this.utils.useAPI()) {
 			return [];
 		}
-
+		
+		console.trace("SyrinControl | API | Online Elements", { soundsetId });
+		
 		const elements = await this.raw.getElements(soundsetId);
+
+		console.trace("SyrinControl | API | elements = ", elements);
+
 		return elements
 			.filter((element) => element.element_type == 'oneshot')
 			.map((element) => {
@@ -92,14 +105,17 @@ export class Api {
 	}
 
 	async playMood(id: number): Promise<void> {
+		console.trace("SyrinControl | API | Play Mood", { id });
 		await this.raw.playMood(id);
 	}
 
 	async playElement(id: number): Promise<void> {
+		console.trace("SyrinControl | API | Play Element", { id });
 		await this.raw.playElement(id);
 	}
 
 	async stopMood(): Promise<void> {
+		console.trace("SyrinControl | API | Stop Mood");
 		await this.raw.stopMood();
 	}
 }

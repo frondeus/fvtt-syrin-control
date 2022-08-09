@@ -16,8 +16,12 @@
 	const dispatcher = createEventDispatcher();
 
 	const getMoods = async (soundsetId: string | undefined) => {
+		console.trace("SyrinControl | Select | Get Moods", { soundsetId });
+
 		if (!soundsetId) return {};
 		if (!$soundsets[soundsetId]) return {};
+
+		console.trace("SyrinControl | Select | soundset = ", $soundsets[soundsetId]);
 
 		let moods = $soundsets[soundsetId].moods;
 		if (Object.keys(moods).length === 0) {
@@ -47,7 +51,7 @@
 		});
 
 	function soundsetChange() {
-		// console.log("SyrinControl | Soundset Change");
+		console.trace("SyrinControl | Select | Soundset Change", { soundsetOptions });
 		mood = undefined;
 		moodsOptions = undefined;
 		if (selectedSoundset > 0) {
@@ -55,11 +59,15 @@
 		} else {
 			soundset = undefined;
 		}
+		console.trace("SyrinControl | Select | mood = ", mood);
+		console.trace("SyrinControl | Select | soundset = ", soundset);
 		dispatcher('moodChange', mood);
 		dispatcher('soundsetChange', soundset);
 	}
 
 	async function moodChange() {
+		console.trace("SyrinControl | Select | Mood Change", { moodsOptions });
+
 		if (!moodsOptions) {
 			return;
 		}
@@ -69,6 +77,7 @@
 		} else {
 			mood = undefined;
 		}
+		console.trace("SyrinControl | Select | mood = ", mood);
 		dispatcher('moodChange', mood);
 	}
 </script>

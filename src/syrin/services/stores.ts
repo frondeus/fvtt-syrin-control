@@ -25,6 +25,7 @@ export class Stores {
 	soundsets: FoundryStore<Soundsets>;
 
 	elementsApp: Writable<ElementsAppStore>;
+	macroManagerApp: Writable<MacroManagerAppStore>;
 
 	constructor(
 		@inject('FVTTGame')
@@ -58,6 +59,7 @@ export class Stores {
 		this.soundsets = createFoundryStore(game, 'soundsets');
 
 		this.elementsApp = writable(new ElementsAppStore());
+		this.macroManagerApp= writable(new MacroManagerAppStore());
 	}
 
 	refresh() {
@@ -83,6 +85,7 @@ export class ElementsAppStore {
 	}
 
 	addTab(tab: SoundsetElementsTab) {
+		console.tracing("SyrinControl | Stores | addTab", { tab });
 		if (this.tabs.includes(tab)) {
 			return;
 		}
@@ -90,11 +93,45 @@ export class ElementsAppStore {
 	}
 
 	removeTab(idx: number) {
+		console.tracing("SyrinControl | Stores | removeTab", { idx});
 		if (this.active === idx) {
 			this.active -= 1;
 		}
 		this.tabs.splice(idx, 1);
 	}
+}
+
+export class MacroManagerAppStore {
+	app?: MacroManagerApplicationn;
+	filterSoundset: string;
+	filterCaseSensitive: boolean;
+	selectedSoundsets: Set<string>;
+	// filteredSelectedSoundsets: Set<string>;
+	// active: number;
+	// tabs: ElementsTabs;
+
+	constructor() {
+		this.filterSoundset = "";
+		this.filterCaseSensitive = false;
+		this.selectedSoundsets = new Set();
+		// this.filteredSelectedSoundsets = new Set();
+		// this.tabs = [{ kind: 'global' }];
+		// this.active = 0;
+	}
+
+	// addTab(tab: SoundsetElementsTab) {
+	// 	if (this.tabs.includes(tab)) {
+	// 		return;
+	// 	}
+	// 	this.tabs.push(tab);
+	// }
+
+	// removeTab(idx: number) {
+	// 	if (this.active === idx) {
+	// 		this.active -= 1;
+	// 	}
+	// 	this.tabs.splice(idx, 1);
+	// }
 }
 
 function createFoundryStore<T>(game: FVTTGame, name: string): FoundryStore<T> {

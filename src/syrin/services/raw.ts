@@ -31,6 +31,7 @@ export class RawApiImpl implements RawApi {
 
 	async stopMood(): Promise<void> {
 		if (!this.game.isGM() || !this.utils.hasAuth()) return;
+		console.trace("SyrinControl | RAW | Stop Mood");
 
 		let utils = this.utils;
 		function link() {
@@ -39,7 +40,6 @@ export class RawApiImpl implements RawApi {
 			return `${address}/stop-all/?auth_token=${authToken}`;
 		}
 
-		console.log('SyrinControl | Stop mood');
 		await fetch(link(), this.fetchOptions()).catch(this.catchErr('stopMood'));
 	}
 
@@ -47,13 +47,14 @@ export class RawApiImpl implements RawApi {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return;
 
+		console.trace("SyrinControl | RAW | Play Mood", { id });
+
 		function link(id: number) {
 			let address = utils.getAddress();
 			let authToken = utils.getAuth();
 			return `${address}/moods/${id}/play/?auth_token=${authToken}`;
 		}
 
-		console.log('SyrinControl | Play mood', id);
 		await fetch(link(id), this.fetchOptions()).catch(this.catchErr('playMood'));
 	}
 
@@ -61,19 +62,22 @@ export class RawApiImpl implements RawApi {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return;
 
+		console.trace("SyrinControl | RAW | Play Element", { id });
+
 		function link(id: number) {
 			let address = utils.getAddress();
 			let authToken = utils.getAuth();
 			return `${address}/elements/${id}/play/?auth_token=${authToken}`;
 		}
 
-		console.log('SyrinControl | Play element', id);
 		await fetch(link(id), this.fetchOptions()).catch(this.catchErr('playElement'));
 	}
 
 	async getMoods(soundsetId: string): Promise<ApiMood[]> {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return [];
+
+		console.trace("SyrinControl | RAW | Get Moods", { soundsetId });
 
 		function link() {
 			let address = utils.getAddress();
@@ -91,6 +95,8 @@ export class RawApiImpl implements RawApi {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return [];
 
+		console.trace("SyrinControl | RAW | Get Elements", { soundsetId });
+
 		function link() {
 			let address = utils.getAddress();
 			let authToken = utils.getAuth();
@@ -106,6 +112,8 @@ export class RawApiImpl implements RawApi {
 	async getSoundsets(): Promise<ApiSoundset[]> {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return [];
+
+		console.trace("SyrinControl | RAW | Get Soundsets");
 
 		function link() {
 			let address = utils.getAddress();
@@ -124,6 +132,8 @@ export class RawApiImpl implements RawApi {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return [];
 
+		console.trace("SyrinControl | RAW | Get Global Elements");
+
 		function link() {
 			let address = utils.getAddress();
 			let authToken = utils.getAuth();
@@ -139,6 +149,7 @@ export class RawApiImpl implements RawApi {
 	catchErr<T>(api: string): (e: any) => T[] {
 		let game = this.game;
 		return function <T>(e: any): T[] {
+			console.error("SyrinControl | RAW | " + api + " | Catched error", { e });
 			game.notifyError('SyrinControl | ' + api + ' : ' + e.message);
 			return [];
 		};
