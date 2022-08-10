@@ -50,8 +50,8 @@
 			moodsOptions = moods;
 		});
 
-	function soundsetChange() {
-		console.trace("SyrinControl | Select | Soundset Change", { soundsetsOptions });
+	function soundsetChange(event) {
+		console.trace("SyrinControl | Select | Soundset Change", { soundsetsOptions, selectedSoundset, event, selected: event.target.value });
 		mood = undefined;
 		moodsOptions = undefined;
 		if (selectedSoundset > 0) {
@@ -66,7 +66,7 @@
 	}
 
 	async function moodChange() {
-		console.trace("SyrinControl | Select | Mood Change", { moodsOptions });
+		console.trace("SyrinControl | Select | Mood Change", { moodsOptions, selectedMood });
 
 		if (!moodsOptions) {
 			return;
