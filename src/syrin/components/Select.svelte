@@ -45,7 +45,9 @@
 		}
 	}
 
-	$: getMoods(soundset?.id)
+	async function selectMood() {
+		console.trace("SyrinControl | Select | Select Mood");
+	 await getMoods(soundset?.id)
 		.then((m) => Object.values(m))
 		.then((moods) => {
 			const selected = moods.findIndex((m) => Number(m.id) === Number(mood?.id)) + 1;
@@ -55,10 +57,14 @@
 			} else {
 				selectedMood = 0;
 			}
+			console.trace("SyrinControl | Select | Select Mood | selectedMood = ", selectedMood);
 			moodsOptions = moods;
 		});
+	}
 
-	function soundsetChange(event) {
+	selectMood();
+
+	async function soundsetChange(event) {
 		console.trace("SyrinControl | Select | Soundset Change", { 
 			soundsetsOptions, 
 			selectedSoundset, 
@@ -75,6 +81,7 @@
 		}
 		console.trace("SyrinControl | Select | Soundset Change | mood = ", mood);
 		console.trace("SyrinControl | Select | Soundset Change | soundset = ", soundset);
+		await selectMood();
 		dispatcher('moodChange', mood);
 		dispatcher('soundsetChange', soundset);
 	}
