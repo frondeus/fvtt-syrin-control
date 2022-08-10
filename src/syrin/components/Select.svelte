@@ -32,10 +32,18 @@
 
 	$: soundsetsOptions = Object.values($soundsets);
 
-	$: selectedSoundset = soundsetsOptions.findIndex((s) => s.id === soundset?.id) + 1;
 
+	let selectedSoundset: number = 0;
 	let selectedMood: number = 0;
 	let moodsOptions: Mood[] | undefined;
+
+	$: {
+		if (soundset !== undefined) {
+	  	console.trace("SyrinControl | Select | Reactive ", { selectedSoundset, soundset });
+			selectedSoundset = soundsetsOptions.findIndex((s) => s.id === soundset?.id) + 1;
+	  	console.trace("SyrinControl | Select | Reactive After", { selectedSoundset, soundset });
+		}
+	}
 
 	$: getMoods(soundset?.id)
 		.then((m) => Object.values(m))
@@ -51,7 +59,13 @@
 		});
 
 	function soundsetChange(event) {
-		console.trace("SyrinControl | Select | Soundset Change", { soundsetsOptions, selectedSoundset, event, selected: event.target.value });
+		console.trace("SyrinControl | Select | Soundset Change", { 
+			soundsetsOptions, 
+			selectedSoundset, 
+			event: JSON.stringify(event), 
+			target: event.target,
+			selected: event.target.value 
+		});
 		mood = undefined;
 		moodsOptions = undefined;
 		if (selectedSoundset > 0) {
