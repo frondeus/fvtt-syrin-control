@@ -85,7 +85,7 @@ export class ElementsAppStore {
 	}
 
 	addTab(tab: SoundsetElementsTab) {
-		console.tracing("SyrinControl | Stores | addTab", { tab });
+		console.trace("SyrinControl | Stores | addTab", { tab });
 		if (this.tabs.includes(tab)) {
 			return;
 		}
@@ -93,7 +93,7 @@ export class ElementsAppStore {
 	}
 
 	removeTab(idx: number) {
-		console.tracing("SyrinControl | Stores | removeTab", { idx});
+		console.trace("SyrinControl | Stores | removeTab", { idx});
 		if (this.active === idx) {
 			this.active -= 1;
 		}
