@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Context from '@/services/context';
 	import ElementsTabComponent from './ElementsTab.svelte';
-	import { ElementsTab } from '@/models';
+	import type { ElementsTab } from '@/models';
 
 	const ctx = Context();
 	const elementsApp = ctx.stores.elementsApp;

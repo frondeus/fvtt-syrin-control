@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { Mood, Soundset } from '@/models';
+	import type { Mood, Soundset } from '@/models';
 	import Context from '@/services/context';
 
 	const ctx = Context();

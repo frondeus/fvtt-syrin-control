@@ -2,7 +2,7 @@
 	import Select from './Select.svelte';
 	import Toggable from './Toggable.svelte';
 	import Context from '@/services/context';
-	import { PlaylistItem, Mood, Soundset } from '@/models';
+	import type { PlaylistItem, Mood, Soundset } from '@/models';
 	import PlaylistItemComponent from './PlaylistItem.svelte';
 	import { openElements } from '@/ui/elements';
 

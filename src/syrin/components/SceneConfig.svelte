@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Mood, Soundset } from '@/models';
+	import type { Mood, Soundset } from '@/models';
 	import Select from './Select.svelte';
 
 	export let soundset: Soundset | undefined;

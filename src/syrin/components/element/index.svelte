@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Element } from '@/models';
+	import type { Element } from '@/models';
 	import Context from '@/services/context';
 
 	export let element: Element;

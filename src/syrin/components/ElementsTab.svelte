@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Context from '@/services/context';
 	import ElementComponent from './element/index.svelte';
-	import { Elements, Soundset, ElementsTab } from '@/models';
+	import type { Elements, Soundset, ElementsTab } from '@/models';
 
 	const ctx = Context();
 	const soundsets = ctx.stores.soundsets;

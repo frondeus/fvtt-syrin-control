@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
-	import { PlaylistItem } from '@/models';
+	import type { PlaylistItem } from '@/models';
 	import Toggable from './Toggable.svelte';
 
 	export let item: PlaylistItem;
