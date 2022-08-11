@@ -87,6 +87,23 @@ export class Stores {
 		}
 		return moods;
 	}
+	
+	async getSoundsetElements(soundsetId: string | undefined) {
+		this.utils.trace('Stores | Get Soundset Elements', { soundsetId });
+		const soundsets = get(this.soundsets);
+
+		if (!soundsetId) return [];
+		if (!soundsets) return [];
+		if (!soundsets[soundsetId]) return [];
+
+		this.utils.trace('Select | Get Soundset Elements | soundset = ', soundsets[soundsetId]);
+
+		const elements = soundsets[soundsetId].elements;
+		if (elements.length === 0) {
+			return await this.api.onlineElements(soundsetId);
+		}
+		return elements;
+	}
 }
 
 export interface MoodStore {

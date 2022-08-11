@@ -2,6 +2,7 @@
 	import type { Mood, Soundset } from '@/models';
 	import Select from './Select.svelte';
 
+	// Params & State
 	export let soundset: Soundset | undefined;
 	export let mood: Mood | undefined;
 </script>

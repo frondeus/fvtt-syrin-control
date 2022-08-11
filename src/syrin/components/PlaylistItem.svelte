@@ -4,11 +4,14 @@
 	import type { PlaylistItem } from '@/models';
 	import Toggable from './Toggable.svelte';
 
+	// Context
+	const dispatch = createEventDispatcher();
+
+	// Params & State
 	export let item: PlaylistItem;
 	export let idx: number | undefined = undefined;
 
-	const dispatch = createEventDispatcher();
-
+	// Event handlers
 	function onPlay() {
 		dispatch('play', item);
 	}

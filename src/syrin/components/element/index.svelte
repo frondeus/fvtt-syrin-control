@@ -2,10 +2,13 @@
 	import type { Element } from '@/models';
 	import Context from '@/services/context';
 
-	export let element: Element;
-
+	// Context
 	const ctx = Context();
 
+	// Params & State
+	export let element: Element;
+
+	// Event handlers
 	function play() {
 		ctx.game.notifyInfo(`SyrinControl | Playing "${element.name}"`);
 		ctx.api.playElement(element.id);

@@ -3,17 +3,42 @@
 	import type { Mood, Soundset } from '@/models';
 	import Context from '@/services/context';
 
-	export let item: Soundset;
-	export let filteredSelectedSoundsets: Set<string>;
-
+	// Context
 	const ctx = Context();
 	const managerApp = ctx.stores.macroManagerApp;
 	const dispatcher = createEventDispatcher();
 
-	$: isSoundsetChecked = filteredSelectedSoundsets.has(item.id);
-
+	// Params & State
+	export let item: Soundset;
+	export let filteredSelectedSoundsets: Set<string>;
 	let expanded = false;
+	let isSoundsetChecked = false;
+	let isSoundsetPartiallyChecked = false;
+	let soundsetCheckboxTitle: string = "";
+	let soundsetButtonTitle: string = "";
 
+	// Reactive Blocks
+	const reactiveIsSoundsetChecked = (filteredSelectedSoundsets, item) => {
+		isSoundsetChecked = filteredSelectedSoundsets.has(item.id);
+	}; 
+	const reactiveIsSoundsetPartiallyChecked = (isSoundsetChecked, item, filteredSelectedSoundsets) => {
+		const len = item.moods.filter((mood) => filteredSelectedSoundsets.has(item.id + ';' + mood.id)).length;
+    isSoundsetPartiallyChecked = item.moods.length > len && len > 0;
+	};
+	const reactiveSoundsetCheckboxTitle = (isSoundsetChecked, item) => {
+		soundsetCheckboxTitle =
+			(isSoundsetChecked ? 'Remove selection: ' : 'Expand and select: ') + item.name;
+	};
+	const reactiveButtonTitle = (expanded, item) => {
+		soundsetButtonTitle = (expanded ? 'Collapse: ' : 'Expand: ') + item.name;
+	};
+
+	$: reactiveIsSoundsetChecked(filteredSelectedSoundsets, item);
+	$: reactiveIsSoundsetPartiallyChecked(isSoundsetChecked, item, filteredSelectedSoundsets);
+	$: reactiveSoundsetCheckboxTitle(isSoundsetChecked, item);
+	$: reactiveButtonTitle(expanded, item);
+
+	// Event handlers
 	function onExpand() {
 		expanded = !expanded;
 		if (expanded) {
@@ -45,14 +70,6 @@
 			$managerApp = $managerApp;
 		};
 	}
-
-	$: isSoundsetPartiallyChecked =
-		isSoundsetChecked === false &&
-		item.moods.some((mood) => filteredSelectedSoundsets.has(item.id + ';' + mood.id));
-
-	$: soundsetCheckboxTitle =
-		(isSoundsetChecked ? 'Remove selection: ' : 'Expand and select: ') + item.name;
-	$: soundsetButtonTitle = (expanded ? 'Collapse: ' : 'Expand: ') + item.name;
 </script>
 
 <div class="soundset">

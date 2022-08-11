@@ -1,11 +1,23 @@
 <script lang="ts">
+	// Params & State
 	export let on: string[];
 	export let off: string[];
 	export let disabled = false;
 	export let toggled: boolean = false;
 
-	$: title = toggled ? on[0] : off[0];
-	$: icon = toggled ? on[1] : off[1];
+	let title = "";
+	let icon = "";
+
+	// Reactive Blocks
+	const reactiveTitle = (toggled, on, off) => {
+		title = toggled ? on[0] : off[0];
+	};
+	const reactiveIcon = (toggled, on, off) => {
+		icon = toggled ? on[1] : off[1];
+	};
+
+	$: reactiveTitle(toggled, on, off);	
+	$: reactiveIcon(toggled, on, off);	
 </script>
 
 {#if !disabled}

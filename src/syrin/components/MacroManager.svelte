@@ -3,36 +3,58 @@
 	import type { Soundset } from '@/models';
 	import MMSoundset from '@/components/macromanager/MMSoundset.svelte';
 
+	// Context
 	const ctx = Context();
 	const soundsets = ctx.stores.soundsets;
 	const managerApp = ctx.stores.macroManagerApp;
 
-	$: filterSoundsetList = $managerApp.filterSoundset.trim().split(/\s+/);
+	// Params & State
+	let filterSoundsetList: [String] = [];
+	let soundsetsList: [Soundset] = [];
+	let filteredSelectedSoundsets: [Soundset] = [];
+	let isSelectedAll: boolean = false;
 
-	$: soundsetsList = Object.values($soundsets).filter((item) => {
-		if (filterSoundsetList.length === 0) {
-			return true;
-		}
-		if ($managerApp.filterCaseSensitive) {
-			return filterSoundsetList.every((filter) => item.name.includes(filter));
-		} else {
-			return filterSoundsetList
-				.map((filter) => filter.toLowerCase())
-				.every((filter) => item.name.toLowerCase().includes(filter));
-		}
-	});
+	// Reactive Blocks
+	const reactiveFilterSoundsetList = (managerApp) => {
+	   filterSoundsetList = managerApp.filterSoundset.trim().split(/\s+/);
+	};
 
-	$: filteredSelectedSoundsets = ctx.utils.setIntersection(
-		$managerApp.selectedSoundsets,
-		soundsetsListSet(soundsetsList)
-	);
+	const reactiveSoundsetList = (managerApp, soundsets, filterSoundsetList) => {
+		soundsetsList = Object.values(soundsets).filter((item) => {
+			if (filterSoundsetList.length === 0) {
+				return true;
+			}
+			if (managerApp.filterCaseSensitive) {
+				return filterSoundsetList.every((filter) => item.name.includes(filter));
+			} else {
+				return filterSoundsetList
+					.map((filter) => filter.toLowerCase())
+					.every((filter) => item.name.toLowerCase().includes(filter));
+			}
+		});
+	};
 
-	$: isSelectedAll =
-		filteredSelectedSoundsets.size ===
-		soundsetsList.reduce((acc, current) => {
-			return acc + 1 + current.moods.length;
-		}, 0);
+	const reactiveFilteredSelectedSoundsets = (managerApp, soundsetsList) => {
+			filteredSelectedSoundsets = ctx.utils.setIntersection(
+				managerApp.selectedSoundsets,
+				soundsetsListSet(soundsetsList)
+			);
+	};
 
+	const reactiveIsSelectedAll = (filteredSelectedSoundsets, soundsetsList) => {
+		isSelectedAll = filteredSelectedSoundsets.size === soundsetsList.reduce((acc, current) => 
+				acc + 1 + current.moods.length
+		, 0);
+	};
+
+
+	$: reactiveFilterSoundsetList($managerApp);
+	$: reactiveSoundsetList($managerApp, $soundsets, filterSoundsetList);
+	$: reactiveFilteredSelectedSoundsets($managerApp, soundsetsList);
+	$: reactiveIsSelectedAll(filteredSelectedSoundsets, soundsetsList);
+
+
+	// Event handlers
 	function onExpand(soundset: Soundset) {
 		return async function () {
 			const moods = await ctx.stores.getMoods(soundset.id).then((m) => Object.values(m));
@@ -49,14 +71,6 @@
 				$managerApp = $managerApp;
 			}
 		};
-	}
-
-	function soundsetsListSet(soundsetsList) {
-		return new Set(
-			soundsetsList.flatMap((item) => {
-				return [item.id, ...item.moods.map((m) => item.id + ';' + m.id)];
-			})
-		);
 	}
 
 	async function onSelectAll(event) {
@@ -112,9 +126,19 @@
 				img: 'icons/svg/sound.svg',
 				command: 'game.syrinscape.playMood(' + commandArg + ')'
 			});
-			// console.log({ entry, mood, soundset });
 		}
+		ctx.game.notifyInfo(`SyrinControl | Created macro folder "${folder.name}"`)
 	}
+
+	// Utils
+	function soundsetsListSet(soundsetsList) {
+		return new Set(
+			soundsetsList.flatMap((item) => {
+				return [item.id, ...item.moods.map((m) => item.id + ';' + m.id)];
+			})
+		);
+	}
+
 </script>
 
 <div class="container">

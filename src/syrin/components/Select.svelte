@@ -3,9 +3,12 @@
 	import type { Mood, Soundset } from '@/models';
 	import Context from '@/services/context';
 
+	// Context
 	const ctx = Context();
 	const soundsets = ctx.stores.soundsets;
+	const dispatcher = createEventDispatcher();
 
+	// Params & State
 	export let dark = false;
 	export let soundsetClass = 'syrin-set';
 	export let moodClass = 'syrin-mood';
@@ -13,13 +16,16 @@
 	export let soundset: Soundset | undefined = undefined;
 	export let mood: Mood | undefined = undefined;
 
-	const dispatcher = createEventDispatcher();
-
 	let selectedSoundset: number = 0;
 	let selectedMood: number = 0;
 	let moodsOptions: Mood[] | undefined;
+	let soundsetsOptions = undefined;
 
-	$: soundsetsOptions = Object.values($soundsets);
+	// Reactive Blocks
+	function reactiveSoundsetsOptions(soundsets: Map<String, Soundset>) {
+		soundsetsOptions = Object.values(soundsets);
+	}
+
 
 	async function onSoundsetChange(soundset: Soundset | undefined) {
 		ctx.utils.trace('Select | On Soundset Change', { selectedSoundset, soundset });
@@ -34,9 +40,9 @@
 		ctx.utils.trace('Select | On Soundset Change  End ', { selectedSoundset, soundset });
 	}
 
-	$: {
-		onSoundsetChange(soundset);
-	}
+	$: reactiveSoundsetsOptions($soundsets);
+	$: onSoundsetChange(soundset);
+	
 
 	async function selectMood() {
 		ctx.utils.trace('Select | Select Mood');
@@ -56,6 +62,7 @@
 			});
 	}
 
+	// Event handlers
 	async function soundsetChange(event) {
 		ctx.utils.trace('Select | Soundset Change', {
 			soundsetsOptions,

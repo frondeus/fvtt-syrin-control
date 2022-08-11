@@ -149,7 +149,7 @@ export class RawApiImpl implements RawApi {
 	catchErr<T>(api: string): (e: any) => T[] {
 		let game = this.game;
 		return function <T>(e: any): T[] {
-			this.utils.error('RAW | ' + api + ' | Catched error', { e });
+			console.error('SyrinControl | RAW | ' + api + ' | Catched error', { e });
 			game.notifyError('SyrinControl | ' + api + ' : ' + e.message);
 			return [];
 		};

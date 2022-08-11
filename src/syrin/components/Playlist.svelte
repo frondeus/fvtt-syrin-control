@@ -7,11 +7,13 @@
 	import { openElements } from '@/ui/elements';
 	import { openMacroManager } from '@/ui/macromanager';
 
+	// Context
 	const ctx = Context();
 	const playlist = ctx.stores.playlist;
 	const current = ctx.stores.currentlyPlaying;
 	const currentScene = ctx.stores.currentScene;
 
+	// Params & State
 	let soundset: Soundset | undefined;
 	let mood: Mood | undefined;
 	let collapsed = false;
@@ -50,6 +52,7 @@
 		inPlaylist: false
 	};
 
+	// Reactive Blocks
 	$: {
 		let currentMood = $current.mood;
 		let currentSoundset = $current.soundset;
@@ -105,6 +108,7 @@
 		};
 	});
 
+	// Event handlers
 	function toggleCollapsed() {
 		collapsed = !collapsed;
 	}

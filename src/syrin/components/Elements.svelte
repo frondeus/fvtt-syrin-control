@@ -3,17 +3,30 @@
 	import ElementsTabComponent from './ElementsTab.svelte';
 	import type { ElementsTab } from '@/models';
 
+	// Context
 	const ctx = Context();
 	const elementsApp = ctx.stores.elementsApp;
-	$: active = $elementsApp.active;
 
-	$: tabs = $elementsApp.tabs.map((tab: ElementsTab) => {
-		return {
+	// Params & State
+	let active: boolean = false;
+	let tabs: [{ title: string, global: boolean }] = [];
+
+	// Reactive Blocks
+	const reactiveActive = (elementsApp) => {
+		active = elementsApp.active;
+	};
+
+	const reactiveTabs = (elementsApp) => {
+		tabs = elementsApp.tabs.map((tab: ElementsTab) => ({
 			title: tab.kind === 'soundset' ? tab.soundset.name : 'Global',
 			global: tab.kind === 'global'
-		};
-	});
+		}));
+	};
 
+	$: reactiveActive($elementsApp);
+	$: reactiveTabs($elementsApp);
+
+	// Event handlers
 	function remove(idx: number) {
 		return () => {
 			elementsApp.update((e) => {
