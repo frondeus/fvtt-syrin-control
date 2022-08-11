@@ -13,6 +13,7 @@
 	let soundsetsList: [Soundset] = [];
 	let filteredSelectedSoundsets: [Soundset] = [];
 	let isSelectedAll: boolean = false;
+	let isAnySelected: boolean = false;
 
 	// Reactive Blocks
 	const reactiveFilterSoundsetList = (managerApp) => {
@@ -46,12 +47,17 @@
 				acc + 1 + current.moods.length
 		, 0);
 	};
+	
+	const reactiveIsAnySelected = (filteredSelectedSoundsets) => {
+		isAnySelected = filteredSelectedSoundsets.size > 0;
+	};
 
 
 	$: reactiveFilterSoundsetList($managerApp);
 	$: reactiveSoundsetList($managerApp, $soundsets, filterSoundsetList);
 	$: reactiveFilteredSelectedSoundsets($managerApp, soundsetsList);
 	$: reactiveIsSelectedAll(filteredSelectedSoundsets, soundsetsList);
+	$: reactiveIsAnySelected(filteredSelectedSoundsets);
 
 
 	// Event handlers
@@ -89,8 +95,6 @@
 		let selectedMoods = Array.from(filteredSelectedSoundsets.values())
 			.filter((id) => id.includes(';'))
 			.map((id) => id.split(';'));
-		console.log(selectedMoods);
-		console.log(CONST.FOLDER_DOCUMENT_TYPES);
 		const folder = await Folder.create({
 			name: 'Syrinscape Soundsets',
 			type: 'Macro'
@@ -146,19 +150,28 @@
 		<input type="text" placeholder="Search for soundset" bind:value={$managerApp.filterSoundset} />
 		<label> Case Sensitive </label>
 		<input type="checkbox" bind:checked={$managerApp.filterCaseSensitive} />
-		<label> Select All </label>
-		<input type="checkbox" checked={isSelectedAll} on:click={onSelectAll} />
 	</div>
-	<div class="list">
+	<div class="main">
+	<table class="list">
+		<tr> 
+			<th class="checkbox-cell">
+				<input type="checkbox" checked={isSelectedAll} on:click={onSelectAll} />
+			</th>
+		  <th>Soundsets</th>
+			<th class="actions-cell-header"></th>
+		</tr>
 		{#each soundsetsList as item, idx}
 			<MMSoundset {item} {filteredSelectedSoundsets} on:expand={onExpand(item)} />
 		{/each}
+	</table>
 	</div>
+	{#if isAnySelected }
 	<div class="footer">
-		<button type="submit" title="Create macro compendium" on:click={onCreateMacro}>
-			Create Macro Compedium
+		<button type="submit" title="Create macro folder" on:click={onCreateMacro}>
+			Create Macro Folder
 		</button>
 	</div>
+	{/if}
 </div>
 
 <style>
@@ -169,9 +182,23 @@
 		display: flex;
 		flex-direction: column;
 	}
-	.list {
+	.header { 
+		display: flex; 
+		align-items: center;
+	}
+	.header input[type="text"] {
+		flex: 4;
+		margin-right: 0.5em;
+	}
+	.main {
 		overflow: auto;
 		margin: 1em;
 		flex-grow: 1;
+	}
+	.checkbox-cell {
+		text-align: left;
+	}
+	.actions-cell-header {
+		min-width: 50px;
 	}
 </style>

@@ -2,11 +2,13 @@
 	import { createEventDispatcher } from 'svelte';
 	import type { Mood, Soundset } from '@/models';
 	import Context from '@/services/context';
+	import Toggable from '@/components/Toggable.svelte';
 
 	// Context
 	const ctx = Context();
 	const managerApp = ctx.stores.macroManagerApp;
 	const dispatcher = createEventDispatcher();
+	const current = ctx.stores.currentlyPlaying;
 
 	// Params & State
 	export let item: Soundset;
@@ -70,9 +72,27 @@
 			$managerApp = $managerApp;
 		};
 	}
+
+	function onPlayMood(mood: Mood) {
+		if(mood === undefined || isPlaying(mood, $current.mood)) {
+			return async function () {
+				await ctx.syrin.stopAll();
+			};
+		}
+		return async function () {
+			await ctx.syrin.setMood(item, mood);
+		};
+	}
+	// Utils
+	function isPlaying(m: Mood | undefined, current: Mood | undefined) {
+		if (!current) return false;
+
+		return current?.id === m?.id;
+	}
 </script>
 
-<div class="soundset">
+<tr class="soundset">
+	<td class="checkbox-cell">
 	<input
 		type="checkbox"
 		title={soundsetCheckboxTitle}
@@ -80,27 +100,53 @@
 		checked={isSoundsetChecked}
 		indeterminate={isSoundsetPartiallyChecked}
 	/>
+	</td>
+	<td>
 	<span role="button" title={soundsetButtonTitle} on:click={onExpand}>
 		{item.name}
 	</span>
+	</td>
+	<td></td>
+</tr>
 	{#if expanded}
 		{#each item.moods as mood}
-			<div class="mood">
+			<tr class="mood">
+				<td>
 				<input
 					type="checkbox"
 					on:click={onSelectMood(mood)}
 					checked={filteredSelectedSoundsets.has(item.id + ';' + mood.id)}
 				/>
-				<span>
+				</td>
+				<td>
+				<span class="name">
 					{mood.name}
 				</span>
-			</div>
+				</td>
+				<td class="actions-cell">
+					<Toggable 
+						on:click={onPlayMood(mood)}
+						toggled={mood.isPlaying}
+						on={['Stop Mood', 'stop']}
+						off={['Play Mood', 'play']}
+					/>
+				</td>
+			</tr>
 		{/each}
 	{/if}
-</div>
 
 <style>
-	.mood {
-		margin-left: 2em;
+	.mood > td >  .name {
+		padding-left: 2em;
+	}
+	.checkbox-cell {
+		text-align: left;
+	}
+	.actions-cell {
+		text-align: center;
+	}
+
+	input[type="checkbox"]:indeterminate {
+		-webkit-filter: grayscale(100%);
 	}
 </style>
