@@ -37,12 +37,18 @@
 	let selectedMood: number = 0;
 	let moodsOptions: Mood[] | undefined;
 
-	$: {
+  async function onSoundsetChange(soundset: Soundset | undefined) {
+  	console.trace("SyrinControl | Select | On Soundset Change", { selectedSoundset, soundset });
 		if (soundset !== undefined) {
-	  	console.trace("SyrinControl | Select | Reactive ", { selectedSoundset, soundset });
 			selectedSoundset = soundsetsOptions.findIndex((s) => s.id === soundset?.id) + 1;
-	  	console.trace("SyrinControl | Select | Reactive After", { selectedSoundset, soundset });
+	  	console.trace("SyrinControl | Select | On Soundset Change | new Selected Soundset = ", { selectedSoundset, soundset });
 		}
+		await selectMood();
+	  	console.trace("SyrinControl | Select | On Soundset Change  End ", { selectedSoundset, soundset });
+  }
+
+	$: {
+		onSoundsetChange(soundset);
 	}
 
 	async function selectMood() {
@@ -62,8 +68,6 @@
 		});
 	}
 
-	selectMood();
-
 	async function soundsetChange(event) {
 		console.trace("SyrinControl | Select | Soundset Change", { 
 			soundsetsOptions, 
@@ -81,7 +85,6 @@
 		}
 		console.trace("SyrinControl | Select | Soundset Change | mood = ", mood);
 		console.trace("SyrinControl | Select | Soundset Change | soundset = ", soundset);
-		await selectMood();
 		dispatcher('moodChange', mood);
 		dispatcher('soundsetChange', soundset);
 	}
