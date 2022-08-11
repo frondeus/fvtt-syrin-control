@@ -5,7 +5,7 @@
 	import type { PlaylistItem, Mood, Soundset } from '@/models';
 	import PlaylistItemComponent from './PlaylistItem.svelte';
 	import { openElements } from '@/ui/elements';
-  import { openMacroManager } from '@/ui/macromanager';
+	import { openMacroManager } from '@/ui/macromanager';
 
 	const ctx = Context();
 	const playlist = ctx.stores.playlist;
@@ -172,10 +172,11 @@
 		$playlist.entries = entries;
 	}
 
-  function createMoodMacro(soundset: Soundset | undefined, mood: Mood | undefined) {
-	 return function() {
+	function createMoodMacro(soundset: Soundset | undefined, mood: Mood | undefined) {
+		return function () {
 			let commandArg = JSON.stringify({
-				soundset, mood
+				soundset,
+				mood
 			});
 			let macro = Macro.create({
 				name: mood.name,
@@ -183,11 +184,11 @@
 				img: 'icons/svg/sound.svg',
 				command: 'game.syrinscape.playMood(' + commandArg + ')'
 			});
-				// command: 'game.syrinscape.playMood("' + soundset.id + '",' + mood.id  + ')'
+			// command: 'game.syrinscape.playMood("' + soundset.id + '",' + mood.id  + ')'
 			console.debug('SyrinControl | ', { macro });
-      ctx.game.notifyInfo(`SyrinControl | Created macro "${mood.name}"`);
-   };
-  }
+			ctx.game.notifyInfo(`SyrinControl | Created macro "${mood.name}"`);
+		};
+	}
 </script>
 
 <div>
@@ -236,13 +237,13 @@
 					off={['Macro Manager', 'terminal']}
 					disabled={false}
 				/>
-				
+
 				<Toggable
 					on:click={createMoodMacro(soundset, mood)}
-				  toggled={false}
-				  on={['Create Macro', 'terminal']}
-				  off={['Create Macro', 'terminal']}
-				  disabled={mood === undefined}
+					toggled={false}
+					on={['Create Macro', 'terminal']}
+					off={['Create Macro', 'terminal']}
+					disabled={mood === undefined}
 				/>
 			</div>
 		</ol>

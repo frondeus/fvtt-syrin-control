@@ -1,1825 +1,1825 @@
 {
-    "soundsets": [
-        {
-            "unity_id": "soundset_12878",
-            "duplicate_url": "https://syrinscape.com/online/frontend-api/soundsets/12878/duplicate/",
-            "artwork_url": "https://thumbor.syrinscape.com/uPaKgpEThbCPMpECY4QsXDJTKRE=/fit-in/1024x1024/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/d518ecc81cdf73e0159383847ab0cd52.jpg",
-            "online_player_artwork_url": "https://thumbor.syrinscape.com/Nve_-cr8HzPJWfcwYN5mP2walns=/fit-in/720x720/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/d518ecc81cdf73e0159383847ab0cd52.jpg",
-            "online_player_background_url": "https://thumbor.syrinscape.com/1WknDlHXksjOi2xVHjOM8YUKGOM=/fit-in/1024x1024/filters:blur(90):quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/d518ecc81cdf73e0159383847ab0cd52.jpg",
-            "sync_reverb_preset_url": "https://syrinscape.com/online/frontend-api/soundsets/12878/sync_reverb_preset/",
-            "submit_for_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/12878/submit_for_publishing_approval/",
-            "retract_from_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/12878/retract_from_publishing_approval/",
-            "approve_soundset_as_community_content_url": "https://syrinscape.com/online/frontend-api/soundsets/12878/approve_soundset_as_community_content/",
-            "reject_soundset_url": "https://syrinscape.com/online/frontend-api/soundsets/12878/reject_soundset/",
-            "dismiss_rejection_url": "https://syrinscape.com/online/frontend-api/soundsets/12878/dismiss_rejection/",
-            "report_playing_elements_user_can_save_url": "https://syrinscape.com/online/frontend-api/soundsets/12878/report_playing_elements_user_can_save/",
-            "url": "https://syrinscape.com/online/frontend-api/soundsets/12878/",
-            "name": "Abyss",
-            "full_name": "Abyss",
-            "uuid": "b788ca12-0089-4e32-a836-ff5d7b2180dc",
-            "category": "boardgame",
-            "subcategory": "boardgame",
-            "reverb_preset": null,
-            "initial_gain": 1.4,
-            "slug": "abyss-ii",
-            "is_bundled": false,
-            "status": "OFFICIAL",
-            "is_featured": false,
-            "is_private": false,
-            "is_rejected": false,
-            "rejected_reason": "",
-            "owned_by": null,
-            "id": 12878,
-            "user_can_delete_soundset": false,
-            "user_can_copy_elements_from_other_soundsets": true,
-            "user_is_owner_of_soundset": false,
-            "user_can_publish_or_retract_soundset": false,
-            "user_can_edit_soundset": false,
-            "user_can_clean_edit_soundset": false,
-            "snapshot_error": "",
-            "snapshot_status": "OK"
-        },
-        {
-            "unity_id": "soundset_20503",
-            "duplicate_url": "https://syrinscape.com/online/frontend-api/soundsets/20503/duplicate/",
-            "artwork_url": "https://thumbor.syrinscape.com/RSjmrHvL_V-qCUvqyrB6mZqXuho=/fit-in/1024x1024/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/861532dfe810ef5cea1259a6777c96e4.jpg",
-            "online_player_artwork_url": "https://thumbor.syrinscape.com/iVeAUP3bdZxawurbUfmTow5VpM0=/fit-in/720x720/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/861532dfe810ef5cea1259a6777c96e4.jpg",
-            "online_player_background_url": "https://thumbor.syrinscape.com/P6hRQDLTlIEfF7qbxiU0avqtOKE=/fit-in/1024x1024/filters:blur(90):quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/861532dfe810ef5cea1259a6777c96e4.jpg",
-            "sync_reverb_preset_url": "https://syrinscape.com/online/frontend-api/soundsets/20503/sync_reverb_preset/",
-            "submit_for_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/20503/submit_for_publishing_approval/",
-            "retract_from_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/20503/retract_from_publishing_approval/",
-            "approve_soundset_as_community_content_url": "https://syrinscape.com/online/frontend-api/soundsets/20503/approve_soundset_as_community_content/",
-            "reject_soundset_url": "https://syrinscape.com/online/frontend-api/soundsets/20503/reject_soundset/",
-            "dismiss_rejection_url": "https://syrinscape.com/online/frontend-api/soundsets/20503/dismiss_rejection/",
-            "report_playing_elements_user_can_save_url": "https://syrinscape.com/online/frontend-api/soundsets/20503/report_playing_elements_user_can_save/",
-            "url": "https://syrinscape.com/online/frontend-api/soundsets/20503/",
-            "name": "Air elemental battle",
-            "full_name": "Air elemental battle",
-            "uuid": "f97e530b-4ab6-49a9-90de-b1e89f086b58",
-            "category": "fantasy",
-            "subcategory": "dungeons-and-dragons",
-            "reverb_preset": null,
-            "initial_gain": 1.5,
-            "slug": "air-elemental-battle-ii",
-            "is_bundled": false,
-            "status": "OFFICIAL",
-            "is_featured": false,
-            "is_private": false,
-            "is_rejected": false,
-            "rejected_reason": "",
-            "owned_by": null,
-            "id": 20503,
-            "user_can_delete_soundset": false,
-            "user_can_copy_elements_from_other_soundsets": true,
-            "user_is_owner_of_soundset": false,
-            "user_can_publish_or_retract_soundset": false,
-            "user_can_edit_soundset": false,
-            "user_can_clean_edit_soundset": false,
-            "snapshot_error": "",
-            "snapshot_status": "OK"
-        },
-        {
-            "unity_id": "soundset_1",
-            "duplicate_url": "https://syrinscape.com/online/frontend-api/soundsets/1/duplicate/",
-            "artwork_url": "https://thumbor.syrinscape.com/jOLub9ZWtQmG6d-L6M9-IrebPY4=/fit-in/1024x1024/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/146e2d6a5dc517ef7a0847242a8cd398.jpg",
-            "online_player_artwork_url": "https://thumbor.syrinscape.com/OKomKaA2R6TTC_SxgO2rf-nyE1Y=/fit-in/720x720/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/146e2d6a5dc517ef7a0847242a8cd398.jpg",
-            "online_player_background_url": "https://thumbor.syrinscape.com/GGo_8wTUvwhbrQ-TEPJ2kMU6p6o=/fit-in/1024x1024/filters:blur(90):quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/146e2d6a5dc517ef7a0847242a8cd398.jpg",
-            "sync_reverb_preset_url": "https://syrinscape.com/online/frontend-api/soundsets/1/sync_reverb_preset/",
-            "submit_for_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/1/submit_for_publishing_approval/",
-            "retract_from_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/1/retract_from_publishing_approval/",
-            "approve_soundset_as_community_content_url": "https://syrinscape.com/online/frontend-api/soundsets/1/approve_soundset_as_community_content/",
-            "reject_soundset_url": "https://syrinscape.com/online/frontend-api/soundsets/1/reject_soundset/",
-            "dismiss_rejection_url": "https://syrinscape.com/online/frontend-api/soundsets/1/dismiss_rejection/",
-            "report_playing_elements_user_can_save_url": "https://syrinscape.com/online/frontend-api/soundsets/1/report_playing_elements_user_can_save/",
-            "url": "https://syrinscape.com/online/frontend-api/soundsets/1/",
-            "name": "Witchwood",
-            "full_name": "Witchwood",
-            "uuid": "31616763-a7cf-11e2-9c4b-68a86d087c62",
-            "category": "fantasy",
-            "subcategory": "general-fantasy",
-            "reverb_preset": null,
-            "initial_gain": 0.9,
-            "slug": "witchwood",
-            "is_bundled": true,
-            "status": "OFFICIAL",
-            "is_featured": false,
-            "is_private": false,
-            "is_rejected": false,
-            "rejected_reason": "",
-            "owned_by": null,
-            "id": 1,
-            "user_can_delete_soundset": false,
-            "user_can_copy_elements_from_other_soundsets": true,
-            "user_is_owner_of_soundset": false,
-            "user_can_publish_or_retract_soundset": false,
-            "user_can_edit_soundset": false,
-            "user_can_clean_edit_soundset": false,
-            "snapshot_error": "",
-            "snapshot_status": "OK"
-        },
-        {
-            "unity_id": "soundset_167",
-            "duplicate_url": "https://syrinscape.com/online/frontend-api/soundsets/167/duplicate/",
-            "artwork_url": "https://thumbor.syrinscape.com/5N222sW_pVsxGdvSuOMCIBw0C0c=/fit-in/1024x1024/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/72ea5bf16c7440318bba639910f07e0c.jpg",
-            "online_player_artwork_url": "https://thumbor.syrinscape.com/OHPcPc3scrtzMBQF1SCaJSRfpT0=/fit-in/720x720/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/72ea5bf16c7440318bba639910f07e0c.jpg",
-            "online_player_background_url": "https://thumbor.syrinscape.com/VBtmF2a6aQT-Yo54Pcev0PihthE=/fit-in/1024x1024/filters:blur(90):quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/72ea5bf16c7440318bba639910f07e0c.jpg",
-            "sync_reverb_preset_url": "https://syrinscape.com/online/frontend-api/soundsets/167/sync_reverb_preset/",
-            "submit_for_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/167/submit_for_publishing_approval/",
-            "retract_from_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/167/retract_from_publishing_approval/",
-            "approve_soundset_as_community_content_url": "https://syrinscape.com/online/frontend-api/soundsets/167/approve_soundset_as_community_content/",
-            "reject_soundset_url": "https://syrinscape.com/online/frontend-api/soundsets/167/reject_soundset/",
-            "dismiss_rejection_url": "https://syrinscape.com/online/frontend-api/soundsets/167/dismiss_rejection/",
-            "report_playing_elements_user_can_save_url": "https://syrinscape.com/online/frontend-api/soundsets/167/report_playing_elements_user_can_save/",
-            "url": "https://syrinscape.com/online/frontend-api/soundsets/167/",
-            "name": "Wormhole",
-            "full_name": "Wormhole",
-            "uuid": "a07322cc-5269-11e5-9a3c-f23c9170c08b",
-            "category": "sci-fi",
-            "subcategory": "sci-fi",
-            "reverb_preset": null,
-            "initial_gain": 1.0,
-            "slug": "wormhole",
-            "is_bundled": false,
-            "status": "OFFICIAL",
-            "is_featured": false,
-            "is_private": false,
-            "is_rejected": false,
-            "rejected_reason": "",
-            "owned_by": null,
-            "id": 167,
-            "user_can_delete_soundset": false,
-            "user_can_copy_elements_from_other_soundsets": true,
-            "user_is_owner_of_soundset": false,
-            "user_can_publish_or_retract_soundset": false,
-            "user_can_edit_soundset": false,
-            "user_can_clean_edit_soundset": false,
-            "snapshot_error": "",
-            "snapshot_status": "OK"
-        },
-        {
-            "unity_id": "soundset_6099",
-            "duplicate_url": "https://syrinscape.com/online/frontend-api/soundsets/6099/duplicate/",
-            "artwork_url": "https://thumbor.syrinscape.com/2rw_3j-0dAIV0RL9NT0ZdNlE9R0=/fit-in/1024x1024/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/ba3c6509078fde980d724ade5425e96a.jpg",
-            "online_player_artwork_url": "https://thumbor.syrinscape.com/N-B3Q1ev5eCF9i78pmQgOI4G_yw=/fit-in/720x720/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/ba3c6509078fde980d724ade5425e96a.jpg",
-            "online_player_background_url": "https://thumbor.syrinscape.com/L4m5AZz6v_f2CtGiKQm183Ut2bc=/fit-in/1024x1024/filters:blur(90):quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/ba3c6509078fde980d724ade5425e96a.jpg",
-            "sync_reverb_preset_url": "https://syrinscape.com/online/frontend-api/soundsets/6099/sync_reverb_preset/",
-            "submit_for_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/6099/submit_for_publishing_approval/",
-            "retract_from_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/6099/retract_from_publishing_approval/",
-            "approve_soundset_as_community_content_url": "https://syrinscape.com/online/frontend-api/soundsets/6099/approve_soundset_as_community_content/",
-            "reject_soundset_url": "https://syrinscape.com/online/frontend-api/soundsets/6099/reject_soundset/",
-            "dismiss_rejection_url": "https://syrinscape.com/online/frontend-api/soundsets/6099/dismiss_rejection/",
-            "report_playing_elements_user_can_save_url": "https://syrinscape.com/online/frontend-api/soundsets/6099/report_playing_elements_user_can_save/",
-            "url": "https://syrinscape.com/online/frontend-api/soundsets/6099/",
-            "name": "monp New acquaintances",
-            "full_name": "Call of Cthulhu - Masks of Nyarlathotep: Part 1 - Peru: New acquaintances",
-            "uuid": "d2a02504-c0ef-4139-9ebc-87fb26bc57b5",
-            "category": "sci-fi",
-            "subcategory": "sci-fi",
-            "reverb_preset": null,
-            "initial_gain": 1.0,
-            "slug": "monp-new-acquaintances-rev",
-            "is_bundled": false,
-            "status": "OFFICIAL",
-            "is_featured": false,
-            "is_private": false,
-            "is_rejected": false,
-            "rejected_reason": "",
-            "owned_by": null,
-            "id": 6099,
-            "user_can_delete_soundset": false,
-            "user_can_copy_elements_from_other_soundsets": true,
-            "user_is_owner_of_soundset": false,
-            "user_can_publish_or_retract_soundset": false,
-            "user_can_edit_soundset": false,
-            "user_can_clean_edit_soundset": false,
-            "snapshot_error": "",
-            "snapshot_status": "OK"
-        }
-    ],
-    "moods": {
-        "24351": { "play": { "ok": true } }
-    },
-    "global-elements": [
-    {
-        "pk": 9412,
-        "playlist": [
-            {
-                "id": 54843,
-                "unity_id": "playlist_54843",
-                "sample_id": 11441,
-                "sample_unity_id": "sample_11441",
-                "url": "https://syrinscape.com/online/frontend-api/playlists/54843/",
-                "element": "https://syrinscape.com/online/frontend-api/elements/9412/",
-                "order": 52418,
-                "sample": "https://syrinscape.com/online/frontend-api/samples/11441/",
-                "min_gain": 1.0,
-                "max_gain": 1.0,
-                "min_intensity": 0.0,
-                "max_intensity": 1.0
-            },
-            {
-                "id": 3518008,
-                "unity_id": "playlist_3518008",
-                "sample_id": 11441,
-                "sample_unity_id": "sample_11441",
-                "url": "https://syrinscape.com/online/frontend-api/playlists/3518008/",
-                "element": "https://syrinscape.com/online/frontend-api/elements/9412/",
-                "order": 3518008,
-                "sample": "https://syrinscape.com/online/frontend-api/samples/11441/",
-                "min_gain": 1.0,
-                "max_gain": 1.0,
-                "min_intensity": 0.0,
-                "max_intensity": 1.0
-            },
-            {
-                "id": 3518009,
-                "unity_id": "playlist_3518009",
-                "sample_id": 11441,
-                "sample_unity_id": "sample_11441",
-                "url": "https://syrinscape.com/online/frontend-api/playlists/3518009/",
-                "element": "https://syrinscape.com/online/frontend-api/elements/9412/",
-                "order": 3518009,
-                "sample": "https://syrinscape.com/online/frontend-api/samples/11441/",
-                "min_gain": 1.0,
-                "max_gain": 1.0,
-                "min_intensity": 0.0,
-                "max_intensity": 1.0
-            },
-            {
-                "id": 3518010,
-                "unity_id": "playlist_3518010",
-                "sample_id": 11441,
-                "sample_unity_id": "sample_11441",
-                "url": "https://syrinscape.com/online/frontend-api/playlists/3518010/",
-                "element": "https://syrinscape.com/online/frontend-api/elements/9412/",
-                "order": 3518010,
-                "sample": "https://syrinscape.com/online/frontend-api/samples/11441/",
-                "min_gain": 1.0,
-                "max_gain": 1.0,
-                "min_intensity": 0.0,
-                "max_intensity": 1.0
-            }
-        ],
-        "duplicate_url": "https://syrinscape.com/online/frontend-api/elements/9412/duplicate/",
-        "upload_samples_url": "https://syrinscape.com/online/frontend-api/elements/9412/upload_samples/",
-        "unity_id": "element_9412",
-        "soundset_name": "Bugbear Battle",
-        "url": "https://syrinscape.com/online/frontend-api/elements/9412/",
-        "soundset": "https://syrinscape.com/online/frontend-api/soundsets/3/",
-        "name": "Force missile",
-        "element_type": "oneshot",
-        "initial_volume": 1.0,
-        "icon": "https://syrinscape-us.s3.amazonaws.com/media/dd/element/icon/53988cf8cff3c55e9ce75cc12f6f1f4e.png",
-        "position_samples": true,
-        "min_distance": 0.0,
-        "max_distance": 0.0,
-        "min_angle": 180.0,
-        "max_angle": 180.0,
-        "reverse_direction": false,
-        "speed": 0.0,
-        "reverb_preset": "https://syrinscape.com/online/frontend-api/reverb-presets/5/",
-        "playlist_order": "shuffle",
-        "repeat_playlist": true,
-        "auto_trigger": true,
-        "crossfade_samples": false,
-        "crossfade_duration": null,
-        "min_wait": 0.0,
-        "max_wait": 0.0,
-        "min_start_delay": 0.0,
-        "max_start_delay": 0.0,
-        "allow_samples_to_overlap": false,
-        "is_global_oneshot": true,
-        "user_can_reorder_object": false,
-        "user_can_reorder_playlist_entries": false,
-        "current_volume": 1.0
-    }
-    ],
-    "soundsetMoods": {
-        "d2a02504-c0ef-4139-9ebc-87fb26bc57b5": [
-            {
-                "pk": 24348,
-                "duplicate_url": "https://syrinscape.com/online/frontend-api/moods/24348/duplicate/",
-                "update_mood_to_match_current_play_state_url": "https://syrinscape.com/online/frontend-api/moods/24348/update_mood_to_match_current_play_state/",
-                "elements": [
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846409/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131778/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846384/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131753/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846385/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131754/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846406/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131775/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846405/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131774/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846404/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131773/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846403/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131772/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846402/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131771/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846408/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131777/",
-                        "intensity": 1.0,
-                        "volume": 0.41000000000000003,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846401/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131770/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846383/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131752/",
-                        "intensity": 1.0,
-                        "volume": 0.4,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846400/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131769/",
-                        "intensity": 1.0,
-                        "volume": 0.30000000000000004,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846382/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131751/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846399/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131768/",
-                        "intensity": 1.0,
-                        "volume": 0.41000000000000003,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846398/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131767/",
-                        "intensity": 1.0,
-                        "volume": 0.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846397/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131766/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846396/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131765/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846395/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131764/",
-                        "intensity": 1.0,
-                        "volume": 0.7000000000000001,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846394/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131763/",
-                        "intensity": 1.0,
-                        "volume": 0.5,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846393/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131762/",
-                        "intensity": 1.0,
-                        "volume": 0.75,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846392/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131761/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846407/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131776/",
-                        "intensity": 1.0,
-                        "volume": 0.75,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846391/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131760/",
-                        "intensity": 1.0,
-                        "volume": 0.61,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846390/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131759/",
-                        "intensity": 1.0,
-                        "volume": 0.75,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846389/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131758/",
-                        "intensity": 1.0,
-                        "volume": 0.30000000000000004,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846388/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131757/",
-                        "intensity": 1.0,
-                        "volume": 0.6000000000000001,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846387/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131756/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846386/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131755/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846410/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131779/",
-                        "intensity": 1.0,
-                        "volume": 0.72,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/15071687/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/1508133/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    }
-                ],
-                "unity_id": "mood_24348",
-                "url": "https://syrinscape.com/online/frontend-api/moods/24348/",
-                "soundset": "https://syrinscape.com/online/frontend-api/soundsets/6099/",
-                "soundset_uuid": "d2a02504-c0ef-4139-9ebc-87fb26bc57b5",
-                "name": "Streets of Lima (Evening)",
-                "order": 21831,
-                "user_can_reorder_object": false
-            },
-            {
-                "pk": 24349,
-                "duplicate_url": "https://syrinscape.com/online/frontend-api/moods/24349/duplicate/",
-                "update_mood_to_match_current_play_state_url": "https://syrinscape.com/online/frontend-api/moods/24349/update_mood_to_match_current_play_state/",
-                "elements": [
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846413/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131753/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846414/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131754/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846412/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131752/",
-                        "intensity": 1.0,
-                        "volume": 0.4,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846411/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131751/",
-                        "intensity": 1.0,
-                        "volume": 0.4,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846426/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131766/",
-                        "intensity": 1.0,
-                        "volume": 0.35000000000000003,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846425/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131765/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846424/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131764/",
-                        "intensity": 1.0,
-                        "volume": 0.7000000000000001,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846423/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131763/",
-                        "intensity": 1.0,
-                        "volume": 0.5,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846422/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131762/",
-                        "intensity": 1.0,
-                        "volume": 0.75,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846421/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131761/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846420/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131760/",
-                        "intensity": 1.0,
-                        "volume": 0.61,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846419/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131759/",
-                        "intensity": 1.0,
-                        "volume": 0.75,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846418/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131758/",
-                        "intensity": 1.0,
-                        "volume": 0.8,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846417/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131757/",
-                        "intensity": 1.0,
-                        "volume": 0.75,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846416/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131756/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846415/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131755/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846438/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131778/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846435/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131775/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846434/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131774/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846433/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131773/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846432/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131772/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846431/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131771/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846437/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131777/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846430/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131770/",
-                        "intensity": 1.0,
-                        "volume": 0.71,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846429/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131769/",
-                        "intensity": 1.0,
-                        "volume": 0.6000000000000001,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846428/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131768/",
-                        "intensity": 1.0,
-                        "volume": 0.6000000000000001,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846427/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131767/",
-                        "intensity": 1.0,
-                        "volume": 0.5,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846436/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131776/",
-                        "intensity": 1.0,
-                        "volume": 0.75,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846439/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131779/",
-                        "intensity": 1.0,
-                        "volume": 0.72,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/15071688/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/1508133/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    }
-                ],
-                "unity_id": "mood_24349",
-                "url": "https://syrinscape.com/online/frontend-api/moods/24349/",
-                "soundset": "https://syrinscape.com/online/frontend-api/soundsets/6099/",
-                "soundset_uuid": "d2a02504-c0ef-4139-9ebc-87fb26bc57b5",
-                "name": "Bar Cordano",
-                "order": 21832,
-                "user_can_reorder_object": false
-            },
-            {
-                "pk": 24350,
-                "duplicate_url": "https://syrinscape.com/online/frontend-api/moods/24350/duplicate/",
-                "update_mood_to_match_current_play_state_url": "https://syrinscape.com/online/frontend-api/moods/24350/update_mood_to_match_current_play_state/",
-                "elements": [
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846467/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131778/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846442/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131753/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846443/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131754/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846464/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131775/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846463/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131774/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846462/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131773/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846461/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131772/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846460/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131771/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846466/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131777/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846459/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131770/",
-                        "intensity": 1.0,
-                        "volume": 0.71,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846441/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131752/",
-                        "intensity": 1.0,
-                        "volume": 0.4,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846458/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131769/",
-                        "intensity": 1.0,
-                        "volume": 0.6000000000000001,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846440/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131751/",
-                        "intensity": 1.0,
-                        "volume": 0.5,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846457/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131768/",
-                        "intensity": 1.0,
-                        "volume": 0.81,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846456/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131767/",
-                        "intensity": 1.0,
-                        "volume": 0.5,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846455/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131766/",
-                        "intensity": 1.0,
-                        "volume": 0.35000000000000003,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846454/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131765/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846453/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131764/",
-                        "intensity": 1.0,
-                        "volume": 0.7000000000000001,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846452/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131763/",
-                        "intensity": 1.0,
-                        "volume": 0.5,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846451/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131762/",
-                        "intensity": 1.0,
-                        "volume": 0.75,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846450/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131761/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846465/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131776/",
-                        "intensity": 1.0,
-                        "volume": 0.75,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846449/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131760/",
-                        "intensity": 1.0,
-                        "volume": 0.61,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846448/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131759/",
-                        "intensity": 1.0,
-                        "volume": 0.75,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846447/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131758/",
-                        "intensity": 1.0,
-                        "volume": 0.8,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846446/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131757/",
-                        "intensity": 1.0,
-                        "volume": 0.75,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846445/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131756/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846444/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131755/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846468/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131779/",
-                        "intensity": 1.0,
-                        "volume": 0.72,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/15071689/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/1508133/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    }
-                ],
-                "unity_id": "mood_24350",
-                "url": "https://syrinscape.com/online/frontend-api/moods/24350/",
-                "soundset": "https://syrinscape.com/online/frontend-api/soundsets/6099/",
-                "soundset_uuid": "d2a02504-c0ef-4139-9ebc-87fb26bc57b5",
-                "name": "Drinks with Elias",
-                "order": 21833,
-                "user_can_reorder_object": false
-            },
-            {
-                "pk": 24351,
-                "duplicate_url": "https://syrinscape.com/online/frontend-api/moods/24351/duplicate/",
-                "update_mood_to_match_current_play_state_url": "https://syrinscape.com/online/frontend-api/moods/24351/update_mood_to_match_current_play_state/",
-                "elements": [
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846496/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131778/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846471/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131753/",
-                        "intensity": 1.0,
-                        "volume": 0.5,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846472/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131754/",
-                        "intensity": 1.0,
-                        "volume": 0.89,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846493/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131775/",
-                        "intensity": 1.0,
-                        "volume": 0.89,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846492/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131774/",
-                        "intensity": 1.0,
-                        "volume": 0.6900000000000001,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846491/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131773/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846490/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131772/",
-                        "intensity": 1.0,
-                        "volume": 0.81,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846489/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131771/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846495/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131777/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846488/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131770/",
-                        "intensity": 1.0,
-                        "volume": 0.49,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846470/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131752/",
-                        "intensity": 1.0,
-                        "volume": 0.29,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846487/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131769/",
-                        "intensity": 1.0,
-                        "volume": 0.5,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846469/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131751/",
-                        "intensity": 1.0,
-                        "volume": 0.5,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846486/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131768/",
-                        "intensity": 1.0,
-                        "volume": 0.41000000000000003,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846485/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131767/",
-                        "intensity": 1.0,
-                        "volume": 0.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846484/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131766/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846483/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131765/",
-                        "intensity": 1.0,
-                        "volume": 0.6000000000000001,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846482/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131764/",
-                        "intensity": 1.0,
-                        "volume": 0.48,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846481/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131763/",
-                        "intensity": 1.0,
-                        "volume": 0.5,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846480/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131762/",
-                        "intensity": 1.0,
-                        "volume": 0.61,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846479/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131761/",
-                        "intensity": 1.0,
-                        "volume": 0.74,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846494/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131776/",
-                        "intensity": 1.0,
-                        "volume": 0.75,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846478/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131760/",
-                        "intensity": 1.0,
-                        "volume": 0.46,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846477/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131759/",
-                        "intensity": 1.0,
-                        "volume": 0.75,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846476/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131758/",
-                        "intensity": 1.0,
-                        "volume": 0.26,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846475/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131757/",
-                        "intensity": 1.0,
-                        "volume": 0.6000000000000001,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846474/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131756/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846473/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131755/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846497/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131779/",
-                        "intensity": 1.0,
-                        "volume": 0.72,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/15071690/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/1508133/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    }
-                ],
-                "unity_id": "mood_24351",
-                "url": "https://syrinscape.com/online/frontend-api/moods/24351/",
-                "soundset": "https://syrinscape.com/online/frontend-api/soundsets/6099/",
-                "soundset_uuid": "d2a02504-c0ef-4139-9ebc-87fb26bc57b5",
-                "name": "The professors home",
-                "order": 21834,
-                "user_can_reorder_object": false
-            },
-            {
-                "pk": 24352,
-                "duplicate_url": "https://syrinscape.com/online/frontend-api/moods/24352/duplicate/",
-                "update_mood_to_match_current_play_state_url": "https://syrinscape.com/online/frontend-api/moods/24352/update_mood_to_match_current_play_state/",
-                "elements": [
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846500/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131753/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846501/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131754/",
-                        "intensity": 1.0,
-                        "volume": 0.89,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846499/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131752/",
-                        "intensity": 1.0,
-                        "volume": 0.29,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846498/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131751/",
-                        "intensity": 1.0,
-                        "volume": 0.5,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846514/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131767/",
-                        "intensity": 1.0,
-                        "volume": 0.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846513/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131766/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846512/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131765/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846511/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131764/",
-                        "intensity": 1.0,
-                        "volume": 0.48,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846510/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131763/",
-                        "intensity": 1.0,
-                        "volume": 0.5,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846509/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131762/",
-                        "intensity": 1.0,
-                        "volume": 0.61,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846508/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131761/",
-                        "intensity": 1.0,
-                        "volume": 0.74,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846507/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131760/",
-                        "intensity": 1.0,
-                        "volume": 0.46,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846506/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131759/",
-                        "intensity": 1.0,
-                        "volume": 0.75,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846505/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131758/",
-                        "intensity": 1.0,
-                        "volume": 0.30000000000000004,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846504/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131757/",
-                        "intensity": 1.0,
-                        "volume": 0.6000000000000001,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846503/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131756/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846502/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131755/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846525/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131778/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846522/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131775/",
-                        "intensity": 1.0,
-                        "volume": 0.68,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846521/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131774/",
-                        "intensity": 1.0,
-                        "volume": 0.5700000000000001,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846520/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131773/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846519/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131772/",
-                        "intensity": 1.0,
-                        "volume": 0.81,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846518/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131771/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846524/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131777/",
-                        "intensity": 1.0,
-                        "volume": 0.41000000000000003,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846517/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131770/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846516/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131769/",
-                        "intensity": 1.0,
-                        "volume": 0.30000000000000004,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846515/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131768/",
-                        "intensity": 1.0,
-                        "volume": 0.41000000000000003,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846523/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131776/",
-                        "intensity": 1.0,
-                        "volume": 0.75,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846526/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131779/",
-                        "intensity": 1.0,
-                        "volume": 0.72,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/15071691/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/1508133/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    }
-                ],
-                "unity_id": "mood_24352",
-                "url": "https://syrinscape.com/online/frontend-api/moods/24352/",
-                "soundset": "https://syrinscape.com/online/frontend-api/soundsets/6099/",
-                "soundset_uuid": "d2a02504-c0ef-4139-9ebc-87fb26bc57b5",
-                "name": "Running through the streets",
-                "order": 21835,
-                "user_can_reorder_object": false
-            },
-            {
-                "pk": 24353,
-                "duplicate_url": "https://syrinscape.com/online/frontend-api/moods/24353/duplicate/",
-                "update_mood_to_match_current_play_state_url": "https://syrinscape.com/online/frontend-api/moods/24353/update_mood_to_match_current_play_state/",
-                "elements": [
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846554/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131778/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846529/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131753/",
-                        "intensity": 1.0,
-                        "volume": 0.5,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846530/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131754/",
-                        "intensity": 1.0,
-                        "volume": 0.89,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846551/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131775/",
-                        "intensity": 1.0,
-                        "volume": 0.89,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846550/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131774/",
-                        "intensity": 1.0,
-                        "volume": 0.6900000000000001,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846549/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131773/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846548/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131772/",
-                        "intensity": 1.0,
-                        "volume": 0.81,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846547/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131771/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846553/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131777/",
-                        "intensity": 1.0,
-                        "volume": 0.41000000000000003,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846546/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131770/",
-                        "intensity": 1.0,
-                        "volume": 0.5,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846528/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131752/",
-                        "intensity": 1.0,
-                        "volume": 0.29,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846545/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131769/",
-                        "intensity": 1.0,
-                        "volume": 0.30000000000000004,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846527/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131751/",
-                        "intensity": 1.0,
-                        "volume": 0.5,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846544/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131768/",
-                        "intensity": 1.0,
-                        "volume": 0.41000000000000003,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846543/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131767/",
-                        "intensity": 1.0,
-                        "volume": 0.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846542/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131766/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846541/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131765/",
-                        "intensity": 1.0,
-                        "volume": 0.6000000000000001,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846540/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131764/",
-                        "intensity": 1.0,
-                        "volume": 0.48,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846539/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131763/",
-                        "intensity": 1.0,
-                        "volume": 0.5,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846538/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131762/",
-                        "intensity": 1.0,
-                        "volume": 0.61,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846537/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131761/",
-                        "intensity": 1.0,
-                        "volume": 0.74,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846552/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131776/",
-                        "intensity": 1.0,
-                        "volume": 0.75,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846536/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131760/",
-                        "intensity": 1.0,
-                        "volume": 0.46,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846535/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131759/",
-                        "intensity": 1.0,
-                        "volume": 0.75,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846534/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131758/",
-                        "intensity": 1.0,
-                        "volume": 0.26,
-                        "plays": true
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846533/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131757/",
-                        "intensity": 1.0,
-                        "volume": 0.6000000000000001,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846532/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131756/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846531/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131755/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/846555/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/131779/",
-                        "intensity": 1.0,
-                        "volume": 0.72,
-                        "plays": false
-                    },
-                    {
-                        "url": "https://syrinscape.com/online/frontend-api/moodelements/15071692/",
-                        "mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                        "element": "https://syrinscape.com/online/frontend-api/elements/1508133/",
-                        "intensity": 1.0,
-                        "volume": 1.0,
-                        "plays": false
-                    }
-                ],
-                "unity_id": "mood_24353",
-                "url": "https://syrinscape.com/online/frontend-api/moods/24353/",
-                "soundset": "https://syrinscape.com/online/frontend-api/soundsets/6099/",
-                "soundset_uuid": "d2a02504-c0ef-4139-9ebc-87fb26bc57b5",
-                "name": "The Boarding House",
-                "order": 21836,
-                "user_can_reorder_object": false
-            }
-        ]
-    }
+	"soundsets": [
+		{
+			"unity_id": "soundset_12878",
+			"duplicate_url": "https://syrinscape.com/online/frontend-api/soundsets/12878/duplicate/",
+			"artwork_url": "https://thumbor.syrinscape.com/uPaKgpEThbCPMpECY4QsXDJTKRE=/fit-in/1024x1024/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/d518ecc81cdf73e0159383847ab0cd52.jpg",
+			"online_player_artwork_url": "https://thumbor.syrinscape.com/Nve_-cr8HzPJWfcwYN5mP2walns=/fit-in/720x720/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/d518ecc81cdf73e0159383847ab0cd52.jpg",
+			"online_player_background_url": "https://thumbor.syrinscape.com/1WknDlHXksjOi2xVHjOM8YUKGOM=/fit-in/1024x1024/filters:blur(90):quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/d518ecc81cdf73e0159383847ab0cd52.jpg",
+			"sync_reverb_preset_url": "https://syrinscape.com/online/frontend-api/soundsets/12878/sync_reverb_preset/",
+			"submit_for_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/12878/submit_for_publishing_approval/",
+			"retract_from_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/12878/retract_from_publishing_approval/",
+			"approve_soundset_as_community_content_url": "https://syrinscape.com/online/frontend-api/soundsets/12878/approve_soundset_as_community_content/",
+			"reject_soundset_url": "https://syrinscape.com/online/frontend-api/soundsets/12878/reject_soundset/",
+			"dismiss_rejection_url": "https://syrinscape.com/online/frontend-api/soundsets/12878/dismiss_rejection/",
+			"report_playing_elements_user_can_save_url": "https://syrinscape.com/online/frontend-api/soundsets/12878/report_playing_elements_user_can_save/",
+			"url": "https://syrinscape.com/online/frontend-api/soundsets/12878/",
+			"name": "Abyss",
+			"full_name": "Abyss",
+			"uuid": "b788ca12-0089-4e32-a836-ff5d7b2180dc",
+			"category": "boardgame",
+			"subcategory": "boardgame",
+			"reverb_preset": null,
+			"initial_gain": 1.4,
+			"slug": "abyss-ii",
+			"is_bundled": false,
+			"status": "OFFICIAL",
+			"is_featured": false,
+			"is_private": false,
+			"is_rejected": false,
+			"rejected_reason": "",
+			"owned_by": null,
+			"id": 12878,
+			"user_can_delete_soundset": false,
+			"user_can_copy_elements_from_other_soundsets": true,
+			"user_is_owner_of_soundset": false,
+			"user_can_publish_or_retract_soundset": false,
+			"user_can_edit_soundset": false,
+			"user_can_clean_edit_soundset": false,
+			"snapshot_error": "",
+			"snapshot_status": "OK"
+		},
+		{
+			"unity_id": "soundset_20503",
+			"duplicate_url": "https://syrinscape.com/online/frontend-api/soundsets/20503/duplicate/",
+			"artwork_url": "https://thumbor.syrinscape.com/RSjmrHvL_V-qCUvqyrB6mZqXuho=/fit-in/1024x1024/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/861532dfe810ef5cea1259a6777c96e4.jpg",
+			"online_player_artwork_url": "https://thumbor.syrinscape.com/iVeAUP3bdZxawurbUfmTow5VpM0=/fit-in/720x720/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/861532dfe810ef5cea1259a6777c96e4.jpg",
+			"online_player_background_url": "https://thumbor.syrinscape.com/P6hRQDLTlIEfF7qbxiU0avqtOKE=/fit-in/1024x1024/filters:blur(90):quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/861532dfe810ef5cea1259a6777c96e4.jpg",
+			"sync_reverb_preset_url": "https://syrinscape.com/online/frontend-api/soundsets/20503/sync_reverb_preset/",
+			"submit_for_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/20503/submit_for_publishing_approval/",
+			"retract_from_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/20503/retract_from_publishing_approval/",
+			"approve_soundset_as_community_content_url": "https://syrinscape.com/online/frontend-api/soundsets/20503/approve_soundset_as_community_content/",
+			"reject_soundset_url": "https://syrinscape.com/online/frontend-api/soundsets/20503/reject_soundset/",
+			"dismiss_rejection_url": "https://syrinscape.com/online/frontend-api/soundsets/20503/dismiss_rejection/",
+			"report_playing_elements_user_can_save_url": "https://syrinscape.com/online/frontend-api/soundsets/20503/report_playing_elements_user_can_save/",
+			"url": "https://syrinscape.com/online/frontend-api/soundsets/20503/",
+			"name": "Air elemental battle",
+			"full_name": "Air elemental battle",
+			"uuid": "f97e530b-4ab6-49a9-90de-b1e89f086b58",
+			"category": "fantasy",
+			"subcategory": "dungeons-and-dragons",
+			"reverb_preset": null,
+			"initial_gain": 1.5,
+			"slug": "air-elemental-battle-ii",
+			"is_bundled": false,
+			"status": "OFFICIAL",
+			"is_featured": false,
+			"is_private": false,
+			"is_rejected": false,
+			"rejected_reason": "",
+			"owned_by": null,
+			"id": 20503,
+			"user_can_delete_soundset": false,
+			"user_can_copy_elements_from_other_soundsets": true,
+			"user_is_owner_of_soundset": false,
+			"user_can_publish_or_retract_soundset": false,
+			"user_can_edit_soundset": false,
+			"user_can_clean_edit_soundset": false,
+			"snapshot_error": "",
+			"snapshot_status": "OK"
+		},
+		{
+			"unity_id": "soundset_1",
+			"duplicate_url": "https://syrinscape.com/online/frontend-api/soundsets/1/duplicate/",
+			"artwork_url": "https://thumbor.syrinscape.com/jOLub9ZWtQmG6d-L6M9-IrebPY4=/fit-in/1024x1024/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/146e2d6a5dc517ef7a0847242a8cd398.jpg",
+			"online_player_artwork_url": "https://thumbor.syrinscape.com/OKomKaA2R6TTC_SxgO2rf-nyE1Y=/fit-in/720x720/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/146e2d6a5dc517ef7a0847242a8cd398.jpg",
+			"online_player_background_url": "https://thumbor.syrinscape.com/GGo_8wTUvwhbrQ-TEPJ2kMU6p6o=/fit-in/1024x1024/filters:blur(90):quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/146e2d6a5dc517ef7a0847242a8cd398.jpg",
+			"sync_reverb_preset_url": "https://syrinscape.com/online/frontend-api/soundsets/1/sync_reverb_preset/",
+			"submit_for_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/1/submit_for_publishing_approval/",
+			"retract_from_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/1/retract_from_publishing_approval/",
+			"approve_soundset_as_community_content_url": "https://syrinscape.com/online/frontend-api/soundsets/1/approve_soundset_as_community_content/",
+			"reject_soundset_url": "https://syrinscape.com/online/frontend-api/soundsets/1/reject_soundset/",
+			"dismiss_rejection_url": "https://syrinscape.com/online/frontend-api/soundsets/1/dismiss_rejection/",
+			"report_playing_elements_user_can_save_url": "https://syrinscape.com/online/frontend-api/soundsets/1/report_playing_elements_user_can_save/",
+			"url": "https://syrinscape.com/online/frontend-api/soundsets/1/",
+			"name": "Witchwood",
+			"full_name": "Witchwood",
+			"uuid": "31616763-a7cf-11e2-9c4b-68a86d087c62",
+			"category": "fantasy",
+			"subcategory": "general-fantasy",
+			"reverb_preset": null,
+			"initial_gain": 0.9,
+			"slug": "witchwood",
+			"is_bundled": true,
+			"status": "OFFICIAL",
+			"is_featured": false,
+			"is_private": false,
+			"is_rejected": false,
+			"rejected_reason": "",
+			"owned_by": null,
+			"id": 1,
+			"user_can_delete_soundset": false,
+			"user_can_copy_elements_from_other_soundsets": true,
+			"user_is_owner_of_soundset": false,
+			"user_can_publish_or_retract_soundset": false,
+			"user_can_edit_soundset": false,
+			"user_can_clean_edit_soundset": false,
+			"snapshot_error": "",
+			"snapshot_status": "OK"
+		},
+		{
+			"unity_id": "soundset_167",
+			"duplicate_url": "https://syrinscape.com/online/frontend-api/soundsets/167/duplicate/",
+			"artwork_url": "https://thumbor.syrinscape.com/5N222sW_pVsxGdvSuOMCIBw0C0c=/fit-in/1024x1024/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/72ea5bf16c7440318bba639910f07e0c.jpg",
+			"online_player_artwork_url": "https://thumbor.syrinscape.com/OHPcPc3scrtzMBQF1SCaJSRfpT0=/fit-in/720x720/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/72ea5bf16c7440318bba639910f07e0c.jpg",
+			"online_player_background_url": "https://thumbor.syrinscape.com/VBtmF2a6aQT-Yo54Pcev0PihthE=/fit-in/1024x1024/filters:blur(90):quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/72ea5bf16c7440318bba639910f07e0c.jpg",
+			"sync_reverb_preset_url": "https://syrinscape.com/online/frontend-api/soundsets/167/sync_reverb_preset/",
+			"submit_for_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/167/submit_for_publishing_approval/",
+			"retract_from_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/167/retract_from_publishing_approval/",
+			"approve_soundset_as_community_content_url": "https://syrinscape.com/online/frontend-api/soundsets/167/approve_soundset_as_community_content/",
+			"reject_soundset_url": "https://syrinscape.com/online/frontend-api/soundsets/167/reject_soundset/",
+			"dismiss_rejection_url": "https://syrinscape.com/online/frontend-api/soundsets/167/dismiss_rejection/",
+			"report_playing_elements_user_can_save_url": "https://syrinscape.com/online/frontend-api/soundsets/167/report_playing_elements_user_can_save/",
+			"url": "https://syrinscape.com/online/frontend-api/soundsets/167/",
+			"name": "Wormhole",
+			"full_name": "Wormhole",
+			"uuid": "a07322cc-5269-11e5-9a3c-f23c9170c08b",
+			"category": "sci-fi",
+			"subcategory": "sci-fi",
+			"reverb_preset": null,
+			"initial_gain": 1.0,
+			"slug": "wormhole",
+			"is_bundled": false,
+			"status": "OFFICIAL",
+			"is_featured": false,
+			"is_private": false,
+			"is_rejected": false,
+			"rejected_reason": "",
+			"owned_by": null,
+			"id": 167,
+			"user_can_delete_soundset": false,
+			"user_can_copy_elements_from_other_soundsets": true,
+			"user_is_owner_of_soundset": false,
+			"user_can_publish_or_retract_soundset": false,
+			"user_can_edit_soundset": false,
+			"user_can_clean_edit_soundset": false,
+			"snapshot_error": "",
+			"snapshot_status": "OK"
+		},
+		{
+			"unity_id": "soundset_6099",
+			"duplicate_url": "https://syrinscape.com/online/frontend-api/soundsets/6099/duplicate/",
+			"artwork_url": "https://thumbor.syrinscape.com/2rw_3j-0dAIV0RL9NT0ZdNlE9R0=/fit-in/1024x1024/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/ba3c6509078fde980d724ade5425e96a.jpg",
+			"online_player_artwork_url": "https://thumbor.syrinscape.com/N-B3Q1ev5eCF9i78pmQgOI4G_yw=/fit-in/720x720/filters:quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/ba3c6509078fde980d724ade5425e96a.jpg",
+			"online_player_background_url": "https://thumbor.syrinscape.com/L4m5AZz6v_f2CtGiKQm183Ut2bc=/fit-in/1024x1024/filters:blur(90):quality(90)/https://syrinscape-us.s3.amazonaws.com/media/dd/chapter/background_image/ba3c6509078fde980d724ade5425e96a.jpg",
+			"sync_reverb_preset_url": "https://syrinscape.com/online/frontend-api/soundsets/6099/sync_reverb_preset/",
+			"submit_for_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/6099/submit_for_publishing_approval/",
+			"retract_from_publishing_approval_url": "https://syrinscape.com/online/frontend-api/soundsets/6099/retract_from_publishing_approval/",
+			"approve_soundset_as_community_content_url": "https://syrinscape.com/online/frontend-api/soundsets/6099/approve_soundset_as_community_content/",
+			"reject_soundset_url": "https://syrinscape.com/online/frontend-api/soundsets/6099/reject_soundset/",
+			"dismiss_rejection_url": "https://syrinscape.com/online/frontend-api/soundsets/6099/dismiss_rejection/",
+			"report_playing_elements_user_can_save_url": "https://syrinscape.com/online/frontend-api/soundsets/6099/report_playing_elements_user_can_save/",
+			"url": "https://syrinscape.com/online/frontend-api/soundsets/6099/",
+			"name": "monp New acquaintances",
+			"full_name": "Call of Cthulhu - Masks of Nyarlathotep: Part 1 - Peru: New acquaintances",
+			"uuid": "d2a02504-c0ef-4139-9ebc-87fb26bc57b5",
+			"category": "sci-fi",
+			"subcategory": "sci-fi",
+			"reverb_preset": null,
+			"initial_gain": 1.0,
+			"slug": "monp-new-acquaintances-rev",
+			"is_bundled": false,
+			"status": "OFFICIAL",
+			"is_featured": false,
+			"is_private": false,
+			"is_rejected": false,
+			"rejected_reason": "",
+			"owned_by": null,
+			"id": 6099,
+			"user_can_delete_soundset": false,
+			"user_can_copy_elements_from_other_soundsets": true,
+			"user_is_owner_of_soundset": false,
+			"user_can_publish_or_retract_soundset": false,
+			"user_can_edit_soundset": false,
+			"user_can_clean_edit_soundset": false,
+			"snapshot_error": "",
+			"snapshot_status": "OK"
+		}
+	],
+	"moods": {
+		"24351": { "play": { "ok": true } }
+	},
+	"global-elements": [
+		{
+			"pk": 9412,
+			"playlist": [
+				{
+					"id": 54843,
+					"unity_id": "playlist_54843",
+					"sample_id": 11441,
+					"sample_unity_id": "sample_11441",
+					"url": "https://syrinscape.com/online/frontend-api/playlists/54843/",
+					"element": "https://syrinscape.com/online/frontend-api/elements/9412/",
+					"order": 52418,
+					"sample": "https://syrinscape.com/online/frontend-api/samples/11441/",
+					"min_gain": 1.0,
+					"max_gain": 1.0,
+					"min_intensity": 0.0,
+					"max_intensity": 1.0
+				},
+				{
+					"id": 3518008,
+					"unity_id": "playlist_3518008",
+					"sample_id": 11441,
+					"sample_unity_id": "sample_11441",
+					"url": "https://syrinscape.com/online/frontend-api/playlists/3518008/",
+					"element": "https://syrinscape.com/online/frontend-api/elements/9412/",
+					"order": 3518008,
+					"sample": "https://syrinscape.com/online/frontend-api/samples/11441/",
+					"min_gain": 1.0,
+					"max_gain": 1.0,
+					"min_intensity": 0.0,
+					"max_intensity": 1.0
+				},
+				{
+					"id": 3518009,
+					"unity_id": "playlist_3518009",
+					"sample_id": 11441,
+					"sample_unity_id": "sample_11441",
+					"url": "https://syrinscape.com/online/frontend-api/playlists/3518009/",
+					"element": "https://syrinscape.com/online/frontend-api/elements/9412/",
+					"order": 3518009,
+					"sample": "https://syrinscape.com/online/frontend-api/samples/11441/",
+					"min_gain": 1.0,
+					"max_gain": 1.0,
+					"min_intensity": 0.0,
+					"max_intensity": 1.0
+				},
+				{
+					"id": 3518010,
+					"unity_id": "playlist_3518010",
+					"sample_id": 11441,
+					"sample_unity_id": "sample_11441",
+					"url": "https://syrinscape.com/online/frontend-api/playlists/3518010/",
+					"element": "https://syrinscape.com/online/frontend-api/elements/9412/",
+					"order": 3518010,
+					"sample": "https://syrinscape.com/online/frontend-api/samples/11441/",
+					"min_gain": 1.0,
+					"max_gain": 1.0,
+					"min_intensity": 0.0,
+					"max_intensity": 1.0
+				}
+			],
+			"duplicate_url": "https://syrinscape.com/online/frontend-api/elements/9412/duplicate/",
+			"upload_samples_url": "https://syrinscape.com/online/frontend-api/elements/9412/upload_samples/",
+			"unity_id": "element_9412",
+			"soundset_name": "Bugbear Battle",
+			"url": "https://syrinscape.com/online/frontend-api/elements/9412/",
+			"soundset": "https://syrinscape.com/online/frontend-api/soundsets/3/",
+			"name": "Force missile",
+			"element_type": "oneshot",
+			"initial_volume": 1.0,
+			"icon": "https://syrinscape-us.s3.amazonaws.com/media/dd/element/icon/53988cf8cff3c55e9ce75cc12f6f1f4e.png",
+			"position_samples": true,
+			"min_distance": 0.0,
+			"max_distance": 0.0,
+			"min_angle": 180.0,
+			"max_angle": 180.0,
+			"reverse_direction": false,
+			"speed": 0.0,
+			"reverb_preset": "https://syrinscape.com/online/frontend-api/reverb-presets/5/",
+			"playlist_order": "shuffle",
+			"repeat_playlist": true,
+			"auto_trigger": true,
+			"crossfade_samples": false,
+			"crossfade_duration": null,
+			"min_wait": 0.0,
+			"max_wait": 0.0,
+			"min_start_delay": 0.0,
+			"max_start_delay": 0.0,
+			"allow_samples_to_overlap": false,
+			"is_global_oneshot": true,
+			"user_can_reorder_object": false,
+			"user_can_reorder_playlist_entries": false,
+			"current_volume": 1.0
+		}
+	],
+	"soundsetMoods": {
+		"d2a02504-c0ef-4139-9ebc-87fb26bc57b5": [
+			{
+				"pk": 24348,
+				"duplicate_url": "https://syrinscape.com/online/frontend-api/moods/24348/duplicate/",
+				"update_mood_to_match_current_play_state_url": "https://syrinscape.com/online/frontend-api/moods/24348/update_mood_to_match_current_play_state/",
+				"elements": [
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846409/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131778/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846384/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131753/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846385/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131754/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846406/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131775/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846405/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131774/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846404/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131773/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846403/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131772/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846402/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131771/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846408/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131777/",
+						"intensity": 1.0,
+						"volume": 0.41000000000000003,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846401/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131770/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846383/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131752/",
+						"intensity": 1.0,
+						"volume": 0.4,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846400/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131769/",
+						"intensity": 1.0,
+						"volume": 0.30000000000000004,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846382/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131751/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846399/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131768/",
+						"intensity": 1.0,
+						"volume": 0.41000000000000003,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846398/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131767/",
+						"intensity": 1.0,
+						"volume": 0.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846397/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131766/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846396/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131765/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846395/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131764/",
+						"intensity": 1.0,
+						"volume": 0.7000000000000001,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846394/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131763/",
+						"intensity": 1.0,
+						"volume": 0.5,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846393/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131762/",
+						"intensity": 1.0,
+						"volume": 0.75,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846392/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131761/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846407/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131776/",
+						"intensity": 1.0,
+						"volume": 0.75,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846391/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131760/",
+						"intensity": 1.0,
+						"volume": 0.61,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846390/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131759/",
+						"intensity": 1.0,
+						"volume": 0.75,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846389/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131758/",
+						"intensity": 1.0,
+						"volume": 0.30000000000000004,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846388/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131757/",
+						"intensity": 1.0,
+						"volume": 0.6000000000000001,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846387/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131756/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846386/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131755/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846410/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131779/",
+						"intensity": 1.0,
+						"volume": 0.72,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/15071687/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24348/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/1508133/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					}
+				],
+				"unity_id": "mood_24348",
+				"url": "https://syrinscape.com/online/frontend-api/moods/24348/",
+				"soundset": "https://syrinscape.com/online/frontend-api/soundsets/6099/",
+				"soundset_uuid": "d2a02504-c0ef-4139-9ebc-87fb26bc57b5",
+				"name": "Streets of Lima (Evening)",
+				"order": 21831,
+				"user_can_reorder_object": false
+			},
+			{
+				"pk": 24349,
+				"duplicate_url": "https://syrinscape.com/online/frontend-api/moods/24349/duplicate/",
+				"update_mood_to_match_current_play_state_url": "https://syrinscape.com/online/frontend-api/moods/24349/update_mood_to_match_current_play_state/",
+				"elements": [
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846413/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131753/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846414/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131754/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846412/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131752/",
+						"intensity": 1.0,
+						"volume": 0.4,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846411/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131751/",
+						"intensity": 1.0,
+						"volume": 0.4,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846426/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131766/",
+						"intensity": 1.0,
+						"volume": 0.35000000000000003,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846425/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131765/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846424/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131764/",
+						"intensity": 1.0,
+						"volume": 0.7000000000000001,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846423/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131763/",
+						"intensity": 1.0,
+						"volume": 0.5,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846422/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131762/",
+						"intensity": 1.0,
+						"volume": 0.75,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846421/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131761/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846420/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131760/",
+						"intensity": 1.0,
+						"volume": 0.61,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846419/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131759/",
+						"intensity": 1.0,
+						"volume": 0.75,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846418/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131758/",
+						"intensity": 1.0,
+						"volume": 0.8,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846417/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131757/",
+						"intensity": 1.0,
+						"volume": 0.75,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846416/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131756/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846415/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131755/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846438/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131778/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846435/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131775/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846434/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131774/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846433/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131773/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846432/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131772/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846431/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131771/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846437/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131777/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846430/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131770/",
+						"intensity": 1.0,
+						"volume": 0.71,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846429/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131769/",
+						"intensity": 1.0,
+						"volume": 0.6000000000000001,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846428/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131768/",
+						"intensity": 1.0,
+						"volume": 0.6000000000000001,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846427/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131767/",
+						"intensity": 1.0,
+						"volume": 0.5,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846436/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131776/",
+						"intensity": 1.0,
+						"volume": 0.75,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846439/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131779/",
+						"intensity": 1.0,
+						"volume": 0.72,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/15071688/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24349/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/1508133/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					}
+				],
+				"unity_id": "mood_24349",
+				"url": "https://syrinscape.com/online/frontend-api/moods/24349/",
+				"soundset": "https://syrinscape.com/online/frontend-api/soundsets/6099/",
+				"soundset_uuid": "d2a02504-c0ef-4139-9ebc-87fb26bc57b5",
+				"name": "Bar Cordano",
+				"order": 21832,
+				"user_can_reorder_object": false
+			},
+			{
+				"pk": 24350,
+				"duplicate_url": "https://syrinscape.com/online/frontend-api/moods/24350/duplicate/",
+				"update_mood_to_match_current_play_state_url": "https://syrinscape.com/online/frontend-api/moods/24350/update_mood_to_match_current_play_state/",
+				"elements": [
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846467/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131778/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846442/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131753/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846443/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131754/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846464/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131775/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846463/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131774/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846462/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131773/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846461/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131772/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846460/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131771/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846466/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131777/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846459/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131770/",
+						"intensity": 1.0,
+						"volume": 0.71,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846441/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131752/",
+						"intensity": 1.0,
+						"volume": 0.4,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846458/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131769/",
+						"intensity": 1.0,
+						"volume": 0.6000000000000001,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846440/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131751/",
+						"intensity": 1.0,
+						"volume": 0.5,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846457/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131768/",
+						"intensity": 1.0,
+						"volume": 0.81,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846456/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131767/",
+						"intensity": 1.0,
+						"volume": 0.5,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846455/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131766/",
+						"intensity": 1.0,
+						"volume": 0.35000000000000003,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846454/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131765/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846453/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131764/",
+						"intensity": 1.0,
+						"volume": 0.7000000000000001,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846452/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131763/",
+						"intensity": 1.0,
+						"volume": 0.5,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846451/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131762/",
+						"intensity": 1.0,
+						"volume": 0.75,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846450/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131761/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846465/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131776/",
+						"intensity": 1.0,
+						"volume": 0.75,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846449/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131760/",
+						"intensity": 1.0,
+						"volume": 0.61,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846448/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131759/",
+						"intensity": 1.0,
+						"volume": 0.75,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846447/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131758/",
+						"intensity": 1.0,
+						"volume": 0.8,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846446/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131757/",
+						"intensity": 1.0,
+						"volume": 0.75,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846445/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131756/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846444/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131755/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846468/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131779/",
+						"intensity": 1.0,
+						"volume": 0.72,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/15071689/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24350/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/1508133/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					}
+				],
+				"unity_id": "mood_24350",
+				"url": "https://syrinscape.com/online/frontend-api/moods/24350/",
+				"soundset": "https://syrinscape.com/online/frontend-api/soundsets/6099/",
+				"soundset_uuid": "d2a02504-c0ef-4139-9ebc-87fb26bc57b5",
+				"name": "Drinks with Elias",
+				"order": 21833,
+				"user_can_reorder_object": false
+			},
+			{
+				"pk": 24351,
+				"duplicate_url": "https://syrinscape.com/online/frontend-api/moods/24351/duplicate/",
+				"update_mood_to_match_current_play_state_url": "https://syrinscape.com/online/frontend-api/moods/24351/update_mood_to_match_current_play_state/",
+				"elements": [
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846496/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131778/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846471/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131753/",
+						"intensity": 1.0,
+						"volume": 0.5,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846472/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131754/",
+						"intensity": 1.0,
+						"volume": 0.89,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846493/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131775/",
+						"intensity": 1.0,
+						"volume": 0.89,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846492/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131774/",
+						"intensity": 1.0,
+						"volume": 0.6900000000000001,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846491/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131773/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846490/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131772/",
+						"intensity": 1.0,
+						"volume": 0.81,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846489/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131771/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846495/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131777/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846488/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131770/",
+						"intensity": 1.0,
+						"volume": 0.49,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846470/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131752/",
+						"intensity": 1.0,
+						"volume": 0.29,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846487/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131769/",
+						"intensity": 1.0,
+						"volume": 0.5,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846469/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131751/",
+						"intensity": 1.0,
+						"volume": 0.5,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846486/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131768/",
+						"intensity": 1.0,
+						"volume": 0.41000000000000003,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846485/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131767/",
+						"intensity": 1.0,
+						"volume": 0.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846484/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131766/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846483/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131765/",
+						"intensity": 1.0,
+						"volume": 0.6000000000000001,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846482/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131764/",
+						"intensity": 1.0,
+						"volume": 0.48,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846481/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131763/",
+						"intensity": 1.0,
+						"volume": 0.5,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846480/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131762/",
+						"intensity": 1.0,
+						"volume": 0.61,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846479/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131761/",
+						"intensity": 1.0,
+						"volume": 0.74,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846494/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131776/",
+						"intensity": 1.0,
+						"volume": 0.75,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846478/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131760/",
+						"intensity": 1.0,
+						"volume": 0.46,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846477/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131759/",
+						"intensity": 1.0,
+						"volume": 0.75,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846476/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131758/",
+						"intensity": 1.0,
+						"volume": 0.26,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846475/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131757/",
+						"intensity": 1.0,
+						"volume": 0.6000000000000001,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846474/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131756/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846473/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131755/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846497/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131779/",
+						"intensity": 1.0,
+						"volume": 0.72,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/15071690/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24351/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/1508133/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					}
+				],
+				"unity_id": "mood_24351",
+				"url": "https://syrinscape.com/online/frontend-api/moods/24351/",
+				"soundset": "https://syrinscape.com/online/frontend-api/soundsets/6099/",
+				"soundset_uuid": "d2a02504-c0ef-4139-9ebc-87fb26bc57b5",
+				"name": "The professors home",
+				"order": 21834,
+				"user_can_reorder_object": false
+			},
+			{
+				"pk": 24352,
+				"duplicate_url": "https://syrinscape.com/online/frontend-api/moods/24352/duplicate/",
+				"update_mood_to_match_current_play_state_url": "https://syrinscape.com/online/frontend-api/moods/24352/update_mood_to_match_current_play_state/",
+				"elements": [
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846500/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131753/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846501/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131754/",
+						"intensity": 1.0,
+						"volume": 0.89,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846499/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131752/",
+						"intensity": 1.0,
+						"volume": 0.29,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846498/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131751/",
+						"intensity": 1.0,
+						"volume": 0.5,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846514/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131767/",
+						"intensity": 1.0,
+						"volume": 0.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846513/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131766/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846512/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131765/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846511/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131764/",
+						"intensity": 1.0,
+						"volume": 0.48,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846510/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131763/",
+						"intensity": 1.0,
+						"volume": 0.5,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846509/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131762/",
+						"intensity": 1.0,
+						"volume": 0.61,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846508/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131761/",
+						"intensity": 1.0,
+						"volume": 0.74,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846507/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131760/",
+						"intensity": 1.0,
+						"volume": 0.46,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846506/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131759/",
+						"intensity": 1.0,
+						"volume": 0.75,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846505/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131758/",
+						"intensity": 1.0,
+						"volume": 0.30000000000000004,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846504/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131757/",
+						"intensity": 1.0,
+						"volume": 0.6000000000000001,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846503/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131756/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846502/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131755/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846525/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131778/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846522/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131775/",
+						"intensity": 1.0,
+						"volume": 0.68,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846521/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131774/",
+						"intensity": 1.0,
+						"volume": 0.5700000000000001,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846520/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131773/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846519/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131772/",
+						"intensity": 1.0,
+						"volume": 0.81,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846518/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131771/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846524/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131777/",
+						"intensity": 1.0,
+						"volume": 0.41000000000000003,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846517/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131770/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846516/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131769/",
+						"intensity": 1.0,
+						"volume": 0.30000000000000004,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846515/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131768/",
+						"intensity": 1.0,
+						"volume": 0.41000000000000003,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846523/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131776/",
+						"intensity": 1.0,
+						"volume": 0.75,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846526/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131779/",
+						"intensity": 1.0,
+						"volume": 0.72,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/15071691/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24352/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/1508133/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					}
+				],
+				"unity_id": "mood_24352",
+				"url": "https://syrinscape.com/online/frontend-api/moods/24352/",
+				"soundset": "https://syrinscape.com/online/frontend-api/soundsets/6099/",
+				"soundset_uuid": "d2a02504-c0ef-4139-9ebc-87fb26bc57b5",
+				"name": "Running through the streets",
+				"order": 21835,
+				"user_can_reorder_object": false
+			},
+			{
+				"pk": 24353,
+				"duplicate_url": "https://syrinscape.com/online/frontend-api/moods/24353/duplicate/",
+				"update_mood_to_match_current_play_state_url": "https://syrinscape.com/online/frontend-api/moods/24353/update_mood_to_match_current_play_state/",
+				"elements": [
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846554/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131778/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846529/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131753/",
+						"intensity": 1.0,
+						"volume": 0.5,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846530/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131754/",
+						"intensity": 1.0,
+						"volume": 0.89,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846551/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131775/",
+						"intensity": 1.0,
+						"volume": 0.89,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846550/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131774/",
+						"intensity": 1.0,
+						"volume": 0.6900000000000001,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846549/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131773/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846548/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131772/",
+						"intensity": 1.0,
+						"volume": 0.81,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846547/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131771/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846553/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131777/",
+						"intensity": 1.0,
+						"volume": 0.41000000000000003,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846546/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131770/",
+						"intensity": 1.0,
+						"volume": 0.5,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846528/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131752/",
+						"intensity": 1.0,
+						"volume": 0.29,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846545/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131769/",
+						"intensity": 1.0,
+						"volume": 0.30000000000000004,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846527/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131751/",
+						"intensity": 1.0,
+						"volume": 0.5,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846544/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131768/",
+						"intensity": 1.0,
+						"volume": 0.41000000000000003,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846543/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131767/",
+						"intensity": 1.0,
+						"volume": 0.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846542/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131766/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846541/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131765/",
+						"intensity": 1.0,
+						"volume": 0.6000000000000001,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846540/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131764/",
+						"intensity": 1.0,
+						"volume": 0.48,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846539/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131763/",
+						"intensity": 1.0,
+						"volume": 0.5,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846538/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131762/",
+						"intensity": 1.0,
+						"volume": 0.61,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846537/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131761/",
+						"intensity": 1.0,
+						"volume": 0.74,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846552/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131776/",
+						"intensity": 1.0,
+						"volume": 0.75,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846536/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131760/",
+						"intensity": 1.0,
+						"volume": 0.46,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846535/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131759/",
+						"intensity": 1.0,
+						"volume": 0.75,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846534/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131758/",
+						"intensity": 1.0,
+						"volume": 0.26,
+						"plays": true
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846533/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131757/",
+						"intensity": 1.0,
+						"volume": 0.6000000000000001,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846532/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131756/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846531/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131755/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/846555/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/131779/",
+						"intensity": 1.0,
+						"volume": 0.72,
+						"plays": false
+					},
+					{
+						"url": "https://syrinscape.com/online/frontend-api/moodelements/15071692/",
+						"mood": "https://syrinscape.com/online/frontend-api/moods/24353/",
+						"element": "https://syrinscape.com/online/frontend-api/elements/1508133/",
+						"intensity": 1.0,
+						"volume": 1.0,
+						"plays": false
+					}
+				],
+				"unity_id": "mood_24353",
+				"url": "https://syrinscape.com/online/frontend-api/moods/24353/",
+				"soundset": "https://syrinscape.com/online/frontend-api/soundsets/6099/",
+				"soundset_uuid": "d2a02504-c0ef-4139-9ebc-87fb26bc57b5",
+				"name": "The Boarding House",
+				"order": 21836,
+				"user_can_reorder_object": false
+			}
+		]
+	}
 }

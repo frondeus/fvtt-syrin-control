@@ -2,7 +2,7 @@ import MacroManagerComponent from '@/components/MacroManager.svelte';
 import { Context } from '@/services/context';
 
 export class MacroManagerApplication extends Dialog {
-  component?: MacroManagerComponent;
+	component?: MacroManagerComponent;
 	context: Context;
 
 	constructor(context: Context, dialog: Partial<Dialog.Options> = {}) {
@@ -29,12 +29,12 @@ export class MacroManagerApplication extends Dialog {
 }
 
 export function openMacroManager(ctx: Context) {
-  ctx.stores.macroManagerApp.update((store) => {
-    if(!store.app) {
-      store.app = new MacroManagerApplication(ctx, {}).render(true) as MacroManagerApplication;
-    } else {
-      store.app = store.app.render(true) as MacroManagerApplication;
-    }
-    return store;
-  });
+	ctx.stores.macroManagerApp.update((store) => {
+		if (!store.app) {
+			store.app = new MacroManagerApplication(ctx, {}).render(true) as MacroManagerApplication;
+		} else {
+			store.app = store.app.render(true) as MacroManagerApplication;
+		}
+		return store;
+	});
 }

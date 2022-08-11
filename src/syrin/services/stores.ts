@@ -1,4 +1,4 @@
-import { writable, Writable } from 'svelte/store';
+import { get, writable, Writable } from 'svelte/store';
 import type { Updater } from 'svelte/store';
 import type { FVTTGame } from './game';
 import {
@@ -12,6 +12,8 @@ import {
 } from '@/models';
 import { ElementsApplication } from '@/ui/elements';
 import { inject, injectable } from 'tsyringe';
+import { Utils } from './utils';
+import { Api } from './api';
 
 export type FoundryStore<T> = Writable<T> & { get: () => T; refresh: () => void };
 
@@ -29,7 +31,9 @@ export class Stores {
 
 	constructor(
 		@inject('FVTTGame')
-		game: FVTTGame
+		game: FVTTGame,
+		private readonly utils: Utils,
+		private readonly api: Api
 	) {
 		game.registerSetting('soundsets', {
 			name: 'Soundsets',
@@ -59,13 +63,29 @@ export class Stores {
 		this.soundsets = createFoundryStore(game, 'soundsets');
 
 		this.elementsApp = writable(new ElementsAppStore());
-		this.macroManagerApp= writable(new MacroManagerAppStore());
+		this.macroManagerApp = writable(new MacroManagerAppStore());
 	}
 
 	refresh() {
 		this.globalElements.refresh();
 		this.soundsets.refresh();
 		this.playlist.refresh();
+	}
+
+	async getMoods(soundsetId: string | undefined) {
+		this.utils.trace('Stores | Get Moods', { soundsetId });
+		const soundsets = get(this.soundsets);
+
+		if (!soundsetId) return {};
+		if (!soundsets[soundsetId]) return {};
+
+		this.utils.trace('Select | Get Moods | soundset = ', soundsets[soundsetId]);
+
+		let moods = soundsets[soundsetId].moods;
+		if (Object.keys(moods).length === 0) {
+			return await this.api.onlineMoods(soundsetId);
+		}
+		return moods;
 	}
 }
 
@@ -111,7 +131,7 @@ export class MacroManagerAppStore {
 	// tabs: ElementsTabs;
 
 	constructor() {
-		this.filterSoundset = "";
+		this.filterSoundset = '';
 		this.filterCaseSensitive = false;
 		this.selectedSoundsets = new Set();
 		// this.filteredSelectedSoundsets = new Set();
@@ -157,7 +177,7 @@ function createFoundryStore<T>(game: FVTTGame, name: string): FoundryStore<T> {
 
 	const refresh = () => {
 		let loaded = game.getSetting<T>(name);
-		console.warn('SyrinControl | Refreshing', {name, loaded});
+		console.warn('SyrinControl | Refreshing', { name, loaded });
 		store.set(loaded);
 	};
 

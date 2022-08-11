@@ -10,7 +10,7 @@ export class Syrin {
 		private readonly utils: Utils,
 		@inject('FVTTGame')
 		public game: FVTTGame,
-		public api: Api,
+		public api: Api
 	) {}
 
 	async stopAll() {
@@ -18,7 +18,7 @@ export class Syrin {
 			return;
 		}
 
-		this.utils.trace("Syrin | StopAll");
+		this.utils.trace('Syrin | StopAll');
 
 		this.game.callHookAll('moodChange', undefined, undefined);
 
@@ -26,7 +26,7 @@ export class Syrin {
 	}
 
 	async setMood(soundset: Soundset, mood: Mood) {
-		this.utils.trace("Syrin | Set Mood", { soundset, mood });
+		this.utils.trace('Syrin | Set Mood', { soundset, mood });
 
 		this.game.callHookAll('moodChange', soundset, mood);
 
@@ -38,7 +38,7 @@ export class Syrin {
 			return;
 		}
 
-		this.utils.trace("Syrin | Set Active Mood");
+		this.utils.trace('Syrin | Set Active Mood');
 
 		let soundset = this.game.getActiveScene()?.getFlag(MODULE, 'soundset');
 		let mood = this.game.getActiveScene()?.getFlag(MODULE, 'mood');

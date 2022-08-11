@@ -15,66 +15,54 @@
 
 	const dispatcher = createEventDispatcher();
 
-	const getMoods = async (soundsetId: string | undefined) => {
-		ctx.utils.trace("Select | Get Moods", { soundsetId });
-
-		if (!soundsetId) return {};
-		if (!$soundsets[soundsetId]) return {};
-
-		ctx.utils.trace("Select | Get Moods | soundset = ", $soundsets[soundsetId]);
-
-		let moods = $soundsets[soundsetId].moods;
-		if (Object.keys(moods).length === 0) {
-			return await ctx.api.onlineMoods(soundsetId);
-		}
-		return moods;
-	};
-
-	$: soundsetsOptions = Object.values($soundsets);
-
-
 	let selectedSoundset: number = 0;
 	let selectedMood: number = 0;
 	let moodsOptions: Mood[] | undefined;
 
-  async function onSoundsetChange(soundset: Soundset | undefined) {
-  	ctx.utils.trace("Select | On Soundset Change", { selectedSoundset, soundset });
+	$: soundsetsOptions = Object.values($soundsets);
+
+	async function onSoundsetChange(soundset: Soundset | undefined) {
+		ctx.utils.trace('Select | On Soundset Change', { selectedSoundset, soundset });
 		if (soundset !== undefined) {
 			selectedSoundset = soundsetsOptions.findIndex((s) => s.id === soundset?.id) + 1;
-	  	ctx.utils.trace("Select | On Soundset Change | new Selected Soundset = ", { selectedSoundset, soundset });
+			ctx.utils.trace('Select | On Soundset Change | new Selected Soundset = ', {
+				selectedSoundset,
+				soundset
+			});
 		}
 		await selectMood();
-	  	ctx.utils.trace("Select | On Soundset Change  End ", { selectedSoundset, soundset });
-  }
+		ctx.utils.trace('Select | On Soundset Change  End ', { selectedSoundset, soundset });
+	}
 
 	$: {
 		onSoundsetChange(soundset);
 	}
 
 	async function selectMood() {
-		ctx.utils.trace("Select | Select Mood");
-	 await getMoods(soundset?.id)
-		.then((m) => Object.values(m))
-		.then((moods) => {
-			const selected = moods.findIndex((m) => Number(m.id) === Number(mood?.id)) + 1;
-			// ctx.utils.log("Update moods");
-			if (selected > 0) {
-				selectedMood = selected;
-			} else {
-				selectedMood = 0;
-			}
-			ctx.utils.trace("Select | Select Mood | selectedMood = ", selectedMood);
-			moodsOptions = moods;
-		});
+		ctx.utils.trace('Select | Select Mood');
+		await ctx.stores
+			.getMoods(soundset?.id)
+			.then((m) => Object.values(m))
+			.then((moods) => {
+				const selected = moods.findIndex((m) => Number(m.id) === Number(mood?.id)) + 1;
+				// ctx.utils.log("Update moods");
+				if (selected > 0) {
+					selectedMood = selected;
+				} else {
+					selectedMood = 0;
+				}
+				ctx.utils.trace('Select | Select Mood | selectedMood = ', selectedMood);
+				moodsOptions = moods;
+			});
 	}
 
 	async function soundsetChange(event) {
-		ctx.utils.trace("Select | Soundset Change", { 
-			soundsetsOptions, 
-			selectedSoundset, 
-			event: JSON.stringify(event), 
+		ctx.utils.trace('Select | Soundset Change', {
+			soundsetsOptions,
+			selectedSoundset,
+			event: JSON.stringify(event),
 			target: event.target,
-			selected: event.target.value 
+			selected: event.target.value
 		});
 		mood = undefined;
 		moodsOptions = undefined;
@@ -83,14 +71,14 @@
 		} else {
 			soundset = undefined;
 		}
-		ctx.utils.trace("Select | Soundset Change | mood = ", mood);
-		ctx.utils.trace("Select | Soundset Change | soundset = ", soundset);
+		ctx.utils.trace('Select | Soundset Change | mood = ', mood);
+		ctx.utils.trace('Select | Soundset Change | soundset = ', soundset);
 		dispatcher('moodChange', mood);
 		dispatcher('soundsetChange', soundset);
 	}
 
 	async function moodChange() {
-		ctx.utils.trace("Select | Mood Change", { moodsOptions, selectedMood });
+		ctx.utils.trace('Select | Mood Change', { moodsOptions, selectedMood });
 
 		if (!moodsOptions) {
 			return;
@@ -101,7 +89,7 @@
 		} else {
 			mood = undefined;
 		}
-		ctx.utils.trace("Select | Mood Change | mood = ", mood);
+		ctx.utils.trace('Select | Mood Change | mood = ', mood);
 		dispatcher('moodChange', mood);
 	}
 </script>

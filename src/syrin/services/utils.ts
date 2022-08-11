@@ -25,24 +25,28 @@ export class Utils {
 	hasAuth(): boolean {
 		return this.game.getSetting<string>('authToken').trim() !== '';
 	}
-	
+
 	trace(...args: any[]) {
 		if (this.traceEnabled()) {
-			const first = "SyrinControl | " + args.shift();
+			const first = 'SyrinControl | ' + args.shift();
 			console.trace(first, ...args);
 		}
 	}
-	
+
 	error(...args: any[]) {
 		console.error(...args);
 	}
-	
+
 	warn(...args: any[]) {
 		console.warn(...args);
 	}
-	
+
 	traceEnabled(): boolean {
 		return this.game.getSetting<boolean>('debugTraces');
 		return true;
+	}
+
+	setIntersection<T>(sA: Set<T>, sB: Set<T>): Set<T> {
+		return new Set([...sA].filter((e) => sB.has(e)));
 	}
 }

@@ -22,7 +22,7 @@ module.exports = (on, config) => {
 			launchOptions.args.push('--enable-webgl');
 		}
 
-		return launchOptions
+		return launchOptions;
 	});
 
 	return config;

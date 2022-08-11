@@ -31,7 +31,7 @@ export class RawApiImpl implements RawApi {
 
 	async stopMood(): Promise<void> {
 		if (!this.game.isGM() || !this.utils.hasAuth()) return;
-		this.utils.trace("RAW | Stop Mood");
+		this.utils.trace('RAW | Stop Mood');
 
 		let utils = this.utils;
 		function link() {
@@ -47,7 +47,7 @@ export class RawApiImpl implements RawApi {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return;
 
-		this.utils.trace("RAW | Play Mood", { id });
+		this.utils.trace('RAW | Play Mood', { id });
 
 		function link(id: number) {
 			let address = utils.getAddress();
@@ -62,7 +62,7 @@ export class RawApiImpl implements RawApi {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return;
 
-		this.utils.trace("RAW | Play Element", { id });
+		this.utils.trace('RAW | Play Element', { id });
 
 		function link(id: number) {
 			let address = utils.getAddress();
@@ -77,7 +77,7 @@ export class RawApiImpl implements RawApi {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return [];
 
-		this.utils.trace("RAW | Get Moods", { soundsetId });
+		this.utils.trace('RAW | Get Moods', { soundsetId });
 
 		function link() {
 			let address = utils.getAddress();
@@ -95,7 +95,7 @@ export class RawApiImpl implements RawApi {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return [];
 
-		this.utils.trace("RAW | Get Elements", { soundsetId });
+		this.utils.trace('RAW | Get Elements', { soundsetId });
 
 		function link() {
 			let address = utils.getAddress();
@@ -113,7 +113,7 @@ export class RawApiImpl implements RawApi {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return [];
 
-		this.utils.trace("RAW | Get Soundsets");
+		this.utils.trace('RAW | Get Soundsets');
 
 		function link() {
 			let address = utils.getAddress();
@@ -132,7 +132,7 @@ export class RawApiImpl implements RawApi {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return [];
 
-		this.utils.trace("RAW | Get Global Elements");
+		this.utils.trace('RAW | Get Global Elements');
 
 		function link() {
 			let address = utils.getAddress();
@@ -149,7 +149,7 @@ export class RawApiImpl implements RawApi {
 	catchErr<T>(api: string): (e: any) => T[] {
 		let game = this.game;
 		return function <T>(e: any): T[] {
-			this.utils.error("RAW | " + api + " | Catched error", { e });
+			this.utils.error('RAW | ' + api + ' | Catched error', { e });
 			game.notifyError('SyrinControl | ' + api + ' : ' + e.message);
 			return [];
 		};
