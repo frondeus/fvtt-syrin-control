@@ -1,6 +1,7 @@
 /// <reference types="@league-of-foundry-developers/foundry-vtt-types" />
 import { injectable } from 'tsyringe';
 import { MODULE } from './utils';
+import type { Soundset, Mood } from '@/types';
 
 export interface Global {
 	playElement(id: number): Promise<void>;
@@ -71,6 +72,24 @@ export class FVTTGameImpl implements FVTTGame {
 
 	setSetting<T>(name: string, t: T) {
 		this.game.settings.set(MODULE, name, t);
+	}
+	
+	async createMoodMacro(soundset: Soundset, mood: Mood, folder) {
+		const commandArg = JSON.stringify({
+			soundset: {
+				id: soundset.id,
+				name: soundset.name
+			},
+			mood
+		});
+		const macro = await Macro.create({
+			name: mood.name,
+			type: 'script',
+			folder: folder,
+			img: 'icons/svg/sound.svg',
+			command: 'game.syrinscape.playMood(' + commandArg + ')'
+		});
+		return macro;
 	}
 }
 

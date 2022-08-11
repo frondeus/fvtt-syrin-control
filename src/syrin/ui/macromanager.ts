@@ -8,7 +8,7 @@ export class MacroManagerApplication extends Dialog {
 	constructor(context: Context, dialog: Partial<Dialog.Options> = {}) {
 		super(
 			{
-				title: 'Syrinscape: Macro Manager',
+				title: 'Syrinscape Online',
 				content: '',
 				buttons: {},
 				default: ''

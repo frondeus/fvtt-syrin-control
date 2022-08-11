@@ -79,7 +79,7 @@ export class Stores {
 		if (!soundsetId) return {};
 		if (!soundsets[soundsetId]) return {};
 
-		this.utils.trace('Select | Get Moods | soundset = ', soundsets[soundsetId]);
+		this.utils.trace('Stores | Get Moods | soundset = ', soundsets[soundsetId]);
 
 		let moods = soundsets[soundsetId].moods;
 		if (Object.keys(moods).length === 0) {
@@ -96,13 +96,21 @@ export class Stores {
 		if (!soundsets) return [];
 		if (!soundsets[soundsetId]) return [];
 
-		this.utils.trace('Select | Get Soundset Elements | soundset = ', soundsets[soundsetId]);
+		this.utils.trace('Stores | Get Soundset Elements | soundset = ', soundsets[soundsetId]);
 
 		const elements = soundsets[soundsetId].elements;
 		if (elements.length === 0) {
 			return await this.api.onlineElements(soundsetId);
 		}
 		return elements;
+	}
+	
+	isPlaying(mood: Mood | undefined) {
+		const current = get(this.currentlyPlaying);
+		this.utils.trace('Stores | Is Playing', { current, mood });
+		if (!current) return false;
+
+		return current?.mood?.id === mood?.id;
 	}
 }
 

@@ -237,8 +237,8 @@
 				<Toggable
 					on:click={openMM}
 					toggled={false}
-					on={['Macro Manager', 'terminal']}
-					off={['Macro Manager', 'terminal']}
+					on={['Open Soundset Search', 'music']}
+					off={['Open Soundset Search', 'music']}
 					disabled={false}
 				/>
 

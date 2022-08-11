@@ -95,10 +95,10 @@
 		let selectedMoods = Array.from(filteredSelectedSoundsets.values())
 			.filter((id) => id.includes(';'))
 			.map((id) => id.split(';'));
-		const folder = await Folder.create({
-			name: 'Syrinscape Soundsets',
-			type: 'Macro'
-		});
+		// const folder = await Folder.create({
+		// 	name: 'Syrinscape Soundsets',
+		// 	type: 'Macro'
+		// });
 		let folders = new Map();
 		for (const entry of selectedMoods) {
 			const [soundsetId, moodId] = entry;
@@ -112,26 +112,15 @@
 				ssFolder = await Folder.create({
 					name: soundset.name,
 					type: 'Macro',
-					parent: folder.id
+					// parent: folder.id
 				});
 				folders.set(soundset.id, ssFolder);
 			}
-			const commandArg = JSON.stringify({
-				soundset: {
-					id: soundset.id,
-					name: soundset.name
-				},
-				mood: mood
-			});
-			const macro = await Macro.create({
-				name: mood.name,
-				type: 'script',
-				folder: ssFolder.id,
-				img: 'icons/svg/sound.svg',
-				command: 'game.syrinscape.playMood(' + commandArg + ')'
-			});
+			ctx.game.createMoodMacro(soundset, mood, ssFolder.id);
 		}
-		ctx.game.notifyInfo(`SyrinControl | Created macro folder "${folder.name}"`)
+		Array.from(folders.values()).forEach((folder) => {
+			ctx.game.notifyInfo(`SyrinControl | Created macro folder "${folder.name}"`)
+		});
 	}
 
 	// Utils
@@ -161,7 +150,7 @@
 			<th class="actions-cell-header"></th>
 		</tr>
 		{#each soundsetsList as item, idx}
-			<MMSoundset {item} {filteredSelectedSoundsets} on:expand={onExpand(item)} />
+			<MMSoundset {item} {filteredSelectedSoundsets} on:expand={onExpand(item)}  />
 		{/each}
 	</table>
 	</div>
