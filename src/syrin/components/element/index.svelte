@@ -18,7 +18,7 @@
 			img: element.icon,
 			command: 'game.syrinscape.playElement(' + element.id + ')'
 		});
-		console.debug('SyrinControl | ', { macro });
+		ctx.utils.trace('Element | Macro = ', { macro });
 		ctx.game.notifyInfo(`SyrinControl | Created macro "${element.name}"`);
 	}
 </script>

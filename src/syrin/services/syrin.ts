@@ -2,14 +2,15 @@ import { Mood, Soundset } from '@/models';
 import { inject, injectable } from 'tsyringe';
 import { Api } from './api';
 import type { FVTTGame } from './game';
-import { MODULE } from './utils';
+import { MODULE, Utils } from './utils';
 
 @injectable()
 export class Syrin {
 	constructor(
+		private readonly utils: Utils,
 		@inject('FVTTGame')
 		public game: FVTTGame,
-		public api: Api
+		public api: Api,
 	) {}
 
 	async stopAll() {
@@ -17,7 +18,7 @@ export class Syrin {
 			return;
 		}
 
-		console.trace("SyrinControl | Syrin | StopAll");
+		this.utils.trace("Syrin | StopAll");
 
 		this.game.callHookAll('moodChange', undefined, undefined);
 
@@ -25,7 +26,7 @@ export class Syrin {
 	}
 
 	async setMood(soundset: Soundset, mood: Mood) {
-		console.trace("SyrinControl | Syrin | Set Mood", { soundset, mood });
+		this.utils.trace("Syrin | Set Mood", { soundset, mood });
 
 		this.game.callHookAll('moodChange', soundset, mood);
 
@@ -37,7 +38,7 @@ export class Syrin {
 			return;
 		}
 
-		console.trace("SyrinControl | Syrin | Set Active Mood");
+		this.utils.trace("Syrin | Set Active Mood");
 
 		let soundset = this.game.getActiveScene()?.getFlag(MODULE, 'soundset');
 		let mood = this.game.getActiveScene()?.getFlag(MODULE, 'mood');

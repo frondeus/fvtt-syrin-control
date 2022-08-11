@@ -16,12 +16,12 @@
 	const dispatcher = createEventDispatcher();
 
 	const getMoods = async (soundsetId: string | undefined) => {
-		console.trace("SyrinControl | Select | Get Moods", { soundsetId });
+		ctx.utils.trace("Select | Get Moods", { soundsetId });
 
 		if (!soundsetId) return {};
 		if (!$soundsets[soundsetId]) return {};
 
-		console.trace("SyrinControl | Select | Get Moods | soundset = ", $soundsets[soundsetId]);
+		ctx.utils.trace("Select | Get Moods | soundset = ", $soundsets[soundsetId]);
 
 		let moods = $soundsets[soundsetId].moods;
 		if (Object.keys(moods).length === 0) {
@@ -38,13 +38,13 @@
 	let moodsOptions: Mood[] | undefined;
 
   async function onSoundsetChange(soundset: Soundset | undefined) {
-  	console.trace("SyrinControl | Select | On Soundset Change", { selectedSoundset, soundset });
+  	ctx.utils.trace("Select | On Soundset Change", { selectedSoundset, soundset });
 		if (soundset !== undefined) {
 			selectedSoundset = soundsetsOptions.findIndex((s) => s.id === soundset?.id) + 1;
-	  	console.trace("SyrinControl | Select | On Soundset Change | new Selected Soundset = ", { selectedSoundset, soundset });
+	  	ctx.utils.trace("Select | On Soundset Change | new Selected Soundset = ", { selectedSoundset, soundset });
 		}
 		await selectMood();
-	  	console.trace("SyrinControl | Select | On Soundset Change  End ", { selectedSoundset, soundset });
+	  	ctx.utils.trace("Select | On Soundset Change  End ", { selectedSoundset, soundset });
   }
 
 	$: {
@@ -52,24 +52,24 @@
 	}
 
 	async function selectMood() {
-		console.trace("SyrinControl | Select | Select Mood");
+		ctx.utils.trace("Select | Select Mood");
 	 await getMoods(soundset?.id)
 		.then((m) => Object.values(m))
 		.then((moods) => {
 			const selected = moods.findIndex((m) => Number(m.id) === Number(mood?.id)) + 1;
-			// console.log("SyrinControl | Update moods");
+			// ctx.utils.log("Update moods");
 			if (selected > 0) {
 				selectedMood = selected;
 			} else {
 				selectedMood = 0;
 			}
-			console.trace("SyrinControl | Select | Select Mood | selectedMood = ", selectedMood);
+			ctx.utils.trace("Select | Select Mood | selectedMood = ", selectedMood);
 			moodsOptions = moods;
 		});
 	}
 
 	async function soundsetChange(event) {
-		console.trace("SyrinControl | Select | Soundset Change", { 
+		ctx.utils.trace("Select | Soundset Change", { 
 			soundsetsOptions, 
 			selectedSoundset, 
 			event: JSON.stringify(event), 
@@ -83,25 +83,25 @@
 		} else {
 			soundset = undefined;
 		}
-		console.trace("SyrinControl | Select | Soundset Change | mood = ", mood);
-		console.trace("SyrinControl | Select | Soundset Change | soundset = ", soundset);
+		ctx.utils.trace("Select | Soundset Change | mood = ", mood);
+		ctx.utils.trace("Select | Soundset Change | soundset = ", soundset);
 		dispatcher('moodChange', mood);
 		dispatcher('soundsetChange', soundset);
 	}
 
 	async function moodChange() {
-		console.trace("SyrinControl | Select | Mood Change", { moodsOptions, selectedMood });
+		ctx.utils.trace("Select | Mood Change", { moodsOptions, selectedMood });
 
 		if (!moodsOptions) {
 			return;
 		}
-		// console.log("SyrinControl | Mood Change");
+		// ctx.utils.log("Mood Change");
 		if (selectedMood > 0) {
 			mood = moodsOptions[selectedMood - 1];
 		} else {
 			mood = undefined;
 		}
-		console.trace("SyrinControl | Select | Mood Change | mood = ", mood);
+		ctx.utils.trace("Select | Mood Change | mood = ", mood);
 		dispatcher('moodChange', mood);
 	}
 </script>

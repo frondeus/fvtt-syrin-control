@@ -29,6 +29,15 @@ export function initSettings(ctx: Context) {
 		type: String,
 		default: 'https://syrinscape.com/online/frontend-api'
 	});
+	
+	game.registerSetting('debugTraces', {
+		name: 'Debug traces in SyrinControl',
+		hint: 'If you experience problems with the SyrinControl please enable this option so the maintainers can know what happened',
+		scope: 'client',
+		config: true,
+		type: Boolean,
+		default: false
+	});
 }
 
 export async function onCloseSettings(ctx: Context) {
