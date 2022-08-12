@@ -13,7 +13,7 @@ export class Api {
 	constructor(
 		private readonly utils: Utils,
 		@inject('RawApi')
-		private readonly raw: RawApi
+		public readonly raw: RawApi
 	) {}
 
 	async onlineMoods(soundsetId: string): Promise<Moods> {

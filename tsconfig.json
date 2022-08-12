@@ -25,12 +25,14 @@
 		"importsNotUsedAsValues": "remove",
 		"forceConsistentCasingInFileNames": true,
 		"allowSyntheticDefaultImports": true,
+		"allowJs": true,
 
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"baseUrl": "./src",
 		"paths": {
-			"@/*": ["./syrin/*"]
+			"@lib/*": ["./lib/*"],
+			"@/*": ["./syrin/*"],
 		}
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"]

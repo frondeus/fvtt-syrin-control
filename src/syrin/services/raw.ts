@@ -2,8 +2,10 @@ import { ApiElement, ApiMood, ApiSoundset } from '@/models';
 import type { FVTTGame } from './game';
 import { Utils } from './utils';
 import { inject, injectable } from 'tsyringe';
+// import { AudioContext } from '@lib/headlessPlayer.39eb2733bd1782ae3719';
 
 export interface RawApi {
+	onInit();
 	stopMood(): Promise<void>;
 	playMood(id: number): Promise<void>;
 	playElement(id: number): Promise<void>;
@@ -15,12 +17,55 @@ export interface RawApi {
 
 @injectable()
 export class RawApiImpl implements RawApi {
+	wasInitialized: boolean = false;
 	constructor(
 		@inject('FVTTGame')
 		private readonly game: FVTTGame,
 		private readonly utils: Utils
-	) {}
+	) {
+	}
+	onInit() {
+		if (this.wasInitialized) { return; };
+		this.wasInitialized = true;
+		const { game, utils } = this;
+		//TODO: Remove me when syrinscape publishes their changes
+		syrinscape.config.httpHostname = "syrinscape.com";
+		syrinscape.config.httpPort = "443";
+		syrinscape.config.httpProtocol = "https";
+		syrinscape.config.postMessageToken = "06feab08-0475-4199-be27-d507e5425561";
+		syrinscape.config.wsHostname = "s9.syrinscape.com";
+		syrinscape.config.wsPort = "443";
+		syrinscape.config.wsProtocol = "wss";
+		syrinscape.player.init({
+			configure() {
+				const audioContext = game.getAudioContext();
+				utils.warn("RAW Headless | Syrinscape | audio context", (audioContext === undefined));
+				syrinscape.config.audioContext = audioContext;
 
+				if(game.isGM()) {
+						syrinscape.config.token = utils.getAuth();
+						utils.setSessionId(syrinscape.config.sessionId);
+				}
+				else {
+						syrinscape.config.sessionId = utils.getSessionId();
+				}
+				
+				syrinscape.config.deviceName = game.getPlayerName();
+				syrinscape.events.startElement.addListener((event) => {
+					utils.trace("RAW Headless | Syrinscape | On Element Start", { event });
+				});
+				utils.warn("RAW Headless | Syrinscape | Init Configure", { syrinscape });
+			},
+			
+			onActive () {
+				utils.warn("RAW Headless | Syrinscape | On Active", { syrinscape });
+			},
+			
+			onInactive () {
+				utils.warn("RAW Headless | Syrinscape | On Inactive", { syrinscape });
+			}
+		});
+	}
 	fetchOptions() {
 		const api = this.utils.useAPI();
 		if (api) return undefined;
@@ -166,4 +211,6 @@ export class RawApiImpl implements RawApi {
 		}
 		return res;
 	}
-}
+};
+
+

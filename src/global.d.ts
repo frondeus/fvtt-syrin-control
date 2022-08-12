@@ -3,7 +3,10 @@ import { Global } from './services/game.ts';
 
 type FVTTModule = typeof MODULE;
 
+declare module "syrinscape";
+
 declare global {
+
 	interface QuickInsertProps {
 		startText: string;
 		allowMultiple: boolean;

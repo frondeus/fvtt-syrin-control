@@ -20,17 +20,18 @@ export class Syrin {
 
 		this.utils.trace('Syrin | StopAll');
 
+		await this.api.stopMood();
+
 		this.game.callHookAll('moodChange', undefined, undefined);
 
-		await this.api.stopMood();
 	}
 
 	async setMood(soundset: Soundset, mood: Mood) {
 		this.utils.trace('Syrin | Set Mood', { soundset, mood });
 
-		this.game.callHookAll('moodChange', soundset, mood);
-
 		await this.api.playMood(mood.id);
+
+		this.game.callHookAll('moodChange', soundset, mood);
 	}
 
 	async setActiveMood() {

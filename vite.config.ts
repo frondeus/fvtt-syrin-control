@@ -33,7 +33,8 @@ const config: UserConfig = {
 	},
 	resolve: {
 		alias: {
-			'@': path.resolve(__dirname, './src/syrin')
+			'@lib': path.resolve(__dirname, './src/lib'),
+			'@': path.resolve(__dirname, './src/syrin'),
 		}
 	},
 	plugins: [

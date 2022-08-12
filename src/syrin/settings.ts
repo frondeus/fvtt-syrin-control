@@ -42,6 +42,15 @@ export function initSettings(ctx: Context) {
 		default: 'https://syrinscape.com/online/frontend-api'
 	});
 
+	game.registerSetting('sessionId', {
+		name: 'Syrinscape API session id',
+		hint: 'ID of current session in Syrinscape Online',
+		scope: 'world',
+		config: false,
+		type: String,
+		default: ''
+	});
+
 	game.registerSetting('debugTraces', {
 		name: 'Debug traces in SyrinControl',
 		hint: 'If you experience problems with the SyrinControl please enable this option so the maintainers can know what happened',

@@ -20,7 +20,10 @@ export interface FVTTGame {
 	getActiveScene(): Scene | undefined;
 
 	localize(key: string): string;
+	
+	getAudioContext(): AudioContext | undefined;
 
+	getPlayerName(): string;
 	callHookAll(name: string, ...args: any[]): void;
 }
 
@@ -32,6 +35,10 @@ export class FVTTGameImpl implements FVTTGame {
 		this.game = getGame();
 	}
 
+	getPlayerName(): string {
+		return this.game.user?.name ?? "unknown";	
+	}
+	
 	localize(key: string): string {
 		return this.game.i18n.localize(key);
 	}
@@ -72,6 +79,13 @@ export class FVTTGameImpl implements FVTTGame {
 
 	setSetting<T>(name: string, t: T) {
 		this.game.settings.set(MODULE, name, t);
+	}
+	
+	getAudioContext(): AudioContext | undefined {
+		// console.log("FVTT AUDIO", this.game.audio);
+		const ctx = this.game.audio.getAudioContext();    
+		if(ctx === null) { return undefined; }
+		return ctx;
 	}
 	
 	async createMoodMacro(soundset: Soundset, mood: Mood, folder) {

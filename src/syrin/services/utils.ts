@@ -43,10 +43,17 @@ export class Utils {
 
 	traceEnabled(): boolean {
 		return this.game.getSetting<boolean>('debugTraces');
-		return true;
 	}
 
 	setIntersection<T>(sA: Set<T>, sB: Set<T>): Set<T> {
 		return new Set([...sA].filter((e) => sB.has(e)));
+	}
+	
+	setSessionId(id: string) {
+		this.game.setSetting<string>('sessionId', id);
+	}
+	
+	getSessionId(): string {
+		return this.game.getSetting<string>('sessionId');
 	}
 }

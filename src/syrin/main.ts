@@ -118,6 +118,10 @@ Hooks.on('init', function () {
 	});
 
 	Hooks.on('ready', async () => {
+		Hooks.on('globalAmbientVolumeChanged', () => {
+			console.log('SyrinControl | Global Volume Changed');
+			ctx.api.raw.onInit();
+		});
 		if (!ctx.game.isGM()) {
 			console.log('SyrinControl | Ready but not a GM.');
 			return;
