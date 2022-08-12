@@ -104,6 +104,16 @@ export class Api {
 			});
 	}
 
+	changePlayerVolume(volume: number): void {
+		 this.raw.changePlayerVolume(volume);
+	}
+	changeMoodVolume(volume: number): void {
+		 this.raw.changeMoodVolume(volume);
+	}
+	changeOneShotVolume(volume: number): void {
+		 this.raw.changeOneShotVolume(volume);
+	}
+
 	async playMood(id: number): Promise<void> {
 		this.utils.trace('API | Play Mood', { id });
 		await this.raw.playMood(id);

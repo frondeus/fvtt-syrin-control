@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Select from './Select.svelte';
 	import Toggable from './Toggable.svelte';
+	import VolumeSlider from './VolumeSlider.svelte';
 	import Context from '@/services/context';
 	import type { PlaylistItem, Mood, Soundset } from '@/models';
 	import PlaylistItemComponent from './PlaylistItem.svelte';
@@ -17,6 +18,8 @@
 	let soundset: Soundset | undefined;
 	let mood: Mood | undefined;
 	let collapsed = false;
+	let globalVolume = 0.5;
+	let oneshotsVolume = 0.5;
 
 	const isPlaying = (m: Mood | undefined, current: Mood | undefined) => {
 		if (!current) return false;
@@ -193,6 +196,13 @@
 			ctx.game.notifyInfo(`SyrinControl | Created macro "${mood.name}"`);
 		};
 	}
+
+	function onGlobalVolumeChange() { 
+			ctx.api.changeMoodVolume(globalVolume);
+  }
+	function onOneshotsVolumeChange() { 
+			ctx.api.changeOneShotVolume(oneshotsVolume);
+ }
 </script>
 
 <div>
@@ -206,6 +216,10 @@
 			</h4>
 		</header>
 		<ol class="syrin-to-collapse" style={collapsed ? 'display: none;' : 'display: block;'}>
+			<div class="volume">
+					<VolumeSlider name="syrinscapeGlobalVolume" title="Global"    bind:volume={globalVolume} on:change={ onGlobalVolumeChange }/>
+					<VolumeSlider name="syrinscapeGlobalVolume" title="One-Shots" bind:volume={oneshotsVolume} on:change={ onOneshotsVolumeChange }/>
+			</div>
 			<div class="syrin-search">
 				<Select dark bind:soundset bind:mood />
 			</div>
@@ -309,5 +323,8 @@
 
 	.syrin-search-controls.syrin-controls {
 		justify-content: space-around;
+	}
+	.volume {
+	margin-bottom: 1em;
 	}
 </style>

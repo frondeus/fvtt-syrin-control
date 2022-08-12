@@ -17,19 +17,8 @@ export interface ApiElement {
 	element_type: 'sfx' | 'oneshot';
 }
 
-interface CSVMood {
-	type: 'mood';
-	id: string;
-	name: string;
-	soundset: string;
+export interface ApiStatus {
+	global?: {
+		soundset_uuid?: string;
+	}
 }
-
-interface CSVElement {
-	type: 'element';
-	id: string;
-	name: string;
-	soundset: string;
-	icon?: string;
-}
-
-export type CSVData = CSVMood | CSVElement;

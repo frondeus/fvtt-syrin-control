@@ -31,7 +31,7 @@ export class Syrin {
 
 		await this.api.playMood(mood.id);
 
-		this.game.callHookAll('moodChange', soundset, mood);
+		// this.game.callHookAll('moodChange', soundset, mood);
 	}
 
 	async setActiveMood() {

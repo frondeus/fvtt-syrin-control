@@ -71,6 +71,8 @@ export class Stores {
 		this.soundsets.refresh();
 		this.playlist.refresh();
 	}
+	
+	getSoundsets() { return get(this.soundsets); }
 
 	async getMoods(soundsetId: string | undefined) {
 		this.utils.trace('Stores | Get Moods', { soundsetId });

@@ -25,9 +25,6 @@ Hooks.on('init', function () {
 	initSettings(ctx);
 
 	Hooks.on('renderPlaylistDirectory', async (_: any, html: JQuery<Element>) => {
-		if (!ctx.game.isGM()) {
-			return;
-		}
 		await onPlaylistTab(ctx, html);
 	});
 
@@ -55,6 +52,11 @@ Hooks.on('init', function () {
 			if (!ctx.game.isGM()) {
 				return;
 			}
+			// TODO: Terrible hack on soundset.
+			if (newSoundset !== undefined && newSoundset.name === undefined) {
+				newSoundset = ctx.stores.getSoundsets()[newSoundset.id];
+			}
+			
 			ctx.stores.currentlyPlaying.set({
 				mood: newMood,
 				soundset: newSoundset
@@ -118,10 +120,7 @@ Hooks.on('init', function () {
 	});
 
 	Hooks.on('ready', async () => {
-		Hooks.on('globalAmbientVolumeChanged', () => {
-			console.log('SyrinControl | Global Volume Changed');
-			ctx.api.raw.onInit();
-		});
+		ctx.api.raw.onInit();
 		if (!ctx.game.isGM()) {
 			console.log('SyrinControl | Ready but not a GM.');
 			return;
