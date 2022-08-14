@@ -45,13 +45,6 @@
 			<span role="button" class="syrin-control" on:click={onElements} title="Soundset Elements">
 				<i class="fas fa-drum" />
 			</span>
-
-			<Toggable
-				on:click={onAddOrRemove}
-				toggled={idx !== undefined}
-				on={['Remove Mood', 'trash']}
-				off={['Add Mood', 'plus']}
-			/>
 		</div>
 	</header>
 </li>
