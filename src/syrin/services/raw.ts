@@ -7,7 +7,7 @@ import { inject, injectable } from 'tsyringe';
 export type PlayerState = "active" | "inactive";
 
 export interface RawApi {
-	onInit();
+	onInit(): Promise<void>;
 	
 	getState(): PlayerState;
 	changePlayerVolume(volume: number): void;
@@ -39,11 +39,13 @@ export class RawApiImpl implements RawApi {
 		const { game, utils } = this;
 		let { playerState } = this;
 		const raw = this;
+		const audioContext = await game.getAudioContext();
+		if(audioContext === undefined) { return; }
+
 		syrinscape.player.init({
 			async configure() {
-				// const audioContext = game.getAudioContext(); // Wait for V10
-				// utils.warn("RAW Headless | Syrinscape | audio context", (audioContext === undefined));
-				// syrinscape.config.audioContext = audioContext;
+				utils.warn("RAW Headless | Syrinscape | audio context", (audioContext === undefined), { audioContext });
+				syrinscape.config.audioContext = audioContext;
 
 				if(game.isGM()) {
 						syrinscape.config.token = utils.getAuth();
@@ -54,9 +56,6 @@ export class RawApiImpl implements RawApi {
 				}
 				
 				syrinscape.config.deviceName = game.getPlayerName();
-				syrinscape.events.startElement.addListener((event) => {
-					utils.trace("RAW Headless | Syrinscape | On Element Start", { event });
-				});
 				utils.warn("RAW Headless | Syrinscape | Init Configure", { syrinscape });
 				
 				syrinscape.player.syncSystem.events.onChangeMood.addListener(async (event) => {
@@ -80,12 +79,21 @@ export class RawApiImpl implements RawApi {
 			},
 			
 			async onActive () {
-				utils.warn("RAW Headless | Syrinscape | On Active", { syrinscape});
+				utils.warn("RAW Headless | Syrinscape | On Active", { syrinscape, playerState });
 				playerState = "active";
+				// const gainNode = audioContext.createGain();
+				syrinscape.events.startElement.addListener((event) => {
+					utils.warn("RAW Headless | Syrinscape | On Element Start", { event });
+					const elementId = event.detail.elementId;
+					const elements = syrinscape.player.elementSystem.getElementsWithElementId(elementId)
+					.map(([_key, val]) => val)
+					.flat();
+					utils.warn("RAW Headless | Syrinscape | On Element Start | elements ", { elements });
+				});
 			},
 			
-			onInactive () {
-				utils.warn("RAW Headless | Syrinscape | On Inactive", { syrinscape });
+			async onInactive () {
+				utils.warn("RAW Headless | Syrinscape | On Inactive", { syrinscape, playerState });
 				playerState = "inactive";
 			}
 		});

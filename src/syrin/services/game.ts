@@ -21,7 +21,7 @@ export interface FVTTGame {
 
 	localize(key: string): string;
 	
-	getAudioContext(): Promise<AudioContext>;
+	getAudioContext(): Promise<AudioContext | undefined>;
 
 	getPlayerName(): string;
 	callHookAll(name: string, ...args: any[]): void;
@@ -81,18 +81,12 @@ export class FVTTGameImpl implements FVTTGame {
 		this.game.settings.set(MODULE, name, t);
 	}
 	
-	getAudioContext(): Promise<AudioContext> {
-		//TODO: Simplify it in V10
+	async getAudioContext(): Promise<AudioContext | undefined> {
 		const { game } = this;
-			return new Promise(function (resolve) {
-				(
-					function waitForContext() {
-							const context = game.audio.getAudioContext();
-							if (context !== null) return resolve(context);
-							setTimeout(waitForContext, 100);
-					}
-				)();
-			});
+		await game.audio.unlock;
+		const context = game.audio.getAudioContext();
+		if(context === null) return undefined;
+		return context;
 	}
 	
 	async createMoodMacro(soundset: Soundset, mood: Mood, folder) {

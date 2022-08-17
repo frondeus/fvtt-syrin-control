@@ -120,7 +120,7 @@ Hooks.on('init', function () {
 	});
 
 	Hooks.on('ready', async () => {
-		ctx.api.raw.onInit();
+		ctx.api.onInit();
 		if (!ctx.game.isGM()) {
 			console.log('SyrinControl | Ready but not a GM.');
 			return;

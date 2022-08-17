@@ -13,9 +13,13 @@ export class Api {
 	constructor(
 		private readonly utils: Utils,
 		@inject('RawApi')
-		public readonly raw: RawApi
+		private readonly raw: RawApi
 	) {}
 
+	async onInit(): Promise<void> {
+		return await this.raw.onInit();	
+	}
+	
 	async onlineMoods(soundsetId: string): Promise<Moods> {
 		if (!this.utils.useAPI()) {
 			return {};
