@@ -1,5 +1,6 @@
 // What we get from Syrinscape
 export interface ApiSoundset {
+	id: number;
 	uuid: string;
 	name: string;
 	full_name: string;

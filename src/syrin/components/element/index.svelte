@@ -14,13 +14,8 @@
 		ctx.api.playElement(element.id);
 	}
 
-	function macro() {
-		let macro = Macro.create({
-			name: element.name,
-			type: 'script',
-			img: element.icon,
-			command: 'game.syrinscape.playElement(' + element.id + ')'
-		});
+	async function macro() {
+		let macro = await ctx.game.createElementMacro(element);
 		ctx.utils.trace('Element | Macro = ', { macro });
 		ctx.game.notifyInfo(`SyrinControl | Created macro "${element.name}"`);
 	}

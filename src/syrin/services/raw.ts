@@ -60,21 +60,11 @@ export class RawApiImpl implements RawApi {
 				
 				syrinscape.player.syncSystem.events.onChangeMood.addListener(async (event) => {
 					utils.warn("RAW Headless | Syrinscape | On Change mood", { event });
-					const moodId = event.pk;
-					const moodName = event.title;
-					const mood = {
-							id: moodId,
-							name: moodName
-					};
-					const playing = await raw.getCurrentlyPlaying();
-					const soundset_id = playing?.global?.soundset_uuid;
-
-					if (soundset_id === undefined) { return ;}
-					const soundset = {
-							id: soundset_id
-					};
-					
-					game.callHookAll('moodChange', soundset, mood);
+					game.callHookAll('moodChange', event.pk);
+				});
+				syrinscape.player.syncSystem.events.onChangeSoundset.addListener(async (event) => {
+					utils.warn("RAW Headless | Syrinscape | On Change soundset", { event });
+					game.callHookAll('soundsetChange', event.pk);
 				});
 			},
 			

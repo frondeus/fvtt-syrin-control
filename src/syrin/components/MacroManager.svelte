@@ -116,7 +116,7 @@
 				});
 				folders.set(soundset.id, ssFolder);
 			}
-			ctx.game.createMoodMacro(soundset, mood, ssFolder.id);
+			ctx.game.createMoodMacro(mood, ssFolder.id);
 		}
 		Array.from(folders.values()).forEach((folder) => {
 			ctx.game.notifyInfo(`SyrinControl | Created macro folder "${folder.name}"`)

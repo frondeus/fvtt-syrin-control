@@ -52,6 +52,7 @@ export class Api {
 		return soundsets
 			.map((soundset) => {
 				return {
+					pid: soundset.id,
 					id: soundset.uuid,
 					name: soundset.full_name,
 					moods: [],

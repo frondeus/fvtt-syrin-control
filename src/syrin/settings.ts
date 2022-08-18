@@ -1,9 +1,5 @@
 import { Context } from './services/context';
-
-interface playMoodParams {
-	soundset: Soundset | undefined;
-	mood: Mood | undefined;
-}
+import { PlayMoodParams } from './services/game';
 
 export function initSettings(ctx: Context) {
 	const game = ctx.game;
@@ -12,12 +8,14 @@ export function initSettings(ctx: Context) {
 		playElement: async (id: number) => {
 			await api.playElement(id);
 		},
-		playMood: async (params: playMoodParams) => {
-			const { soundset, mood } = params;
-			console.log(soundset, mood);
+		playMood: async (params: PlayMoodParamss | number) => {
+			if (typeof(params) === "number") {
+					await ctx.syrin.setMood(params);
+					return;
+			}
+			const { mood } = params;
 
-			await ctx.syrin.setMood(soundset, mood);
-			// await api.playMood(moodId);
+			await ctx.syrin.setMood(mood.id);
 		},
 		refresh: () => {
 			ctx.stores.refresh();

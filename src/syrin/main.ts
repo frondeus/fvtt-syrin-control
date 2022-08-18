@@ -47,19 +47,53 @@ Hooks.on('init', function () {
 	});
 
 	Hooks.on(
+		MODULE + 'soundsetChange',
+		async function (soundsetId: number): Promise<void> {
+			if(!ctx.game.isGM()) {
+				return;
+			}
+			
+			const soundsets = Object.values(ctx.stores.getSoundsets());
+			const soundset = soundsets.find(soundset => soundset.pid === soundsetId);
+			if (!soundset) {
+				return;
+			}
+			ctx.stores.currentlyPlaying
+				.update(store => {
+					store.nextSoundset = soundset;
+					return store;
+				});
+		}
+	);
+	
+	Hooks.on(
 		MODULE + 'moodChange',
-		async function (newSoundset: Soundset | undefined, newMood: Mood | undefined): Promise<void> {
+		async function (moodId: number | undefined): Promise<void> {
 			if (!ctx.game.isGM()) {
 				return;
 			}
-			// TODO: Terrible hack on soundset.
-			if (newSoundset !== undefined && newSoundset.name === undefined) {
-				newSoundset = ctx.stores.getSoundsets()[newSoundset.id];
-			}
 			
-			ctx.stores.currentlyPlaying.set({
-				mood: newMood,
-				soundset: newSoundset
+			const newSoundset = ctx.stores.getCurrentlyPlaying().nextSoundset;
+			ctx.utils.warn("MOOD CHANGE", { moodId, newSoundset });
+
+			if (moodId === undefined || newSoundset === undefined) { 
+				ctx.stores.currentlyPlaying.update(store => {
+					store.mood = undefined;
+					store.soundset = undefined;
+					return store;
+				});
+				return;
+		  }
+
+			const moods = await ctx.stores.getMoods(newSoundset.id);
+			
+			const newMood = moods[moodId];
+			ctx.utils.warn("MOOD CHANGE | mood = ", { newMood });
+			
+			ctx.stores.currentlyPlaying.update(store => {
+					store.soundset = newSoundset;
+					store.mood = newMood;
+					return store;
 			});
 
 			const el = await ctx.api.onlineGlobalElements();

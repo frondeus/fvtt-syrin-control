@@ -1,5 +1,6 @@
 export interface Soundset {
 	id: string;
+	pid: number;
 	name: string;
 	moods: Moods;
 	elements: Element[];

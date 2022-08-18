@@ -14,6 +14,7 @@ import { ElementsApplication } from '@/ui/elements';
 import { inject, injectable } from 'tsyringe';
 import { Utils } from './utils';
 import { Api } from './api';
+import { MacroManagerApplication } from '@/ui/macromanager';
 
 export type FoundryStore<T> = Writable<T> & { get: () => T; refresh: () => void };
 
@@ -73,6 +74,7 @@ export class Stores {
 	}
 	
 	getSoundsets() { return get(this.soundsets); }
+	getCurrentlyPlaying() { return get(this.currentlyPlaying); }
 
 	async getMoods(soundsetId: string | undefined) {
 		this.utils.trace('Stores | Get Moods', { soundsetId });
@@ -119,6 +121,7 @@ export class Stores {
 export interface MoodStore {
 	mood?: Mood;
 	soundset?: Soundset;
+	nextSoundset?: Soundset;
 }
 
 export class ElementsAppStore {
@@ -149,36 +152,16 @@ export class ElementsAppStore {
 }
 
 export class MacroManagerAppStore {
-	app?: MacroManagerApplicationn;
+	app?: MacroManagerApplication;
 	filterSoundset: string;
 	filterCaseSensitive: boolean;
 	selectedSoundsets: Set<string>;
-	// filteredSelectedSoundsets: Set<string>;
-	// active: number;
-	// tabs: ElementsTabs;
 
 	constructor() {
 		this.filterSoundset = '';
 		this.filterCaseSensitive = false;
 		this.selectedSoundsets = new Set();
-		// this.filteredSelectedSoundsets = new Set();
-		// this.tabs = [{ kind: 'global' }];
-		// this.active = 0;
 	}
-
-	// addTab(tab: SoundsetElementsTab) {
-	// 	if (this.tabs.includes(tab)) {
-	// 		return;
-	// 	}
-	// 	this.tabs.push(tab);
-	// }
-
-	// removeTab(idx: number) {
-	// 	if (this.active === idx) {
-	// 		this.active -= 1;
-	// 	}
-	// 	this.tabs.splice(idx, 1);
-	// }
 }
 
 function createFoundryStore<T>(game: FVTTGame, name: string): FoundryStore<T> {

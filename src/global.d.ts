@@ -33,6 +33,11 @@ declare global {
 					onChangeMood: SyrinscapeEventListener<{
 						pk: string,
 						title: string
+					}>,
+					onChangeSoundset: SyrinscapeEventListener<{
+						pk: string,
+						artwork: string,
+						title: string
 					}>
 				},
 			},

@@ -1,10 +1,16 @@
 /// <reference types="@league-of-foundry-developers/foundry-vtt-types" />
 import { injectable } from 'tsyringe';
 import { MODULE } from './utils';
-import type { Soundset, Mood } from '@/types';
+import type { Soundset, Mood, Element } from '@/types';
+
+export interface PlayMoodParams {
+	soundset: Soundset | undefined;
+	mood: Mood | undefined;
+}
 
 export interface Global {
 	playElement(id: number): Promise<void>;
+	playMood(params: PlayMoodParams | number): Promise<void>;
 	refresh(): void;
 }
 
@@ -22,6 +28,8 @@ export interface FVTTGame {
 	localize(key: string): string;
 	
 	getAudioContext(): Promise<AudioContext | undefined>;
+	createMoodMacro(mood: Mood, folder: any): Promise<StoredDocument<Macro> | undefined>;
+	createElementMacro(element: Element): Promise<StoredDocument<Macro> | undefined>;
 
 	getPlayerName(): string;
 	callHookAll(name: string, ...args: any[]): void;
@@ -89,20 +97,23 @@ export class FVTTGameImpl implements FVTTGame {
 		return context;
 	}
 	
-	async createMoodMacro(soundset: Soundset, mood: Mood, folder) {
-		const commandArg = JSON.stringify({
-			soundset: {
-				id: soundset.id,
-				name: soundset.name
-			},
-			mood
-		});
+	async createMoodMacro(mood: Mood, folder: any): Promise<StoredDocument<Macro> | undefined> {
 		const macro = await Macro.create({
 			name: mood.name,
 			type: 'script',
 			folder: folder,
 			img: 'icons/svg/sound.svg',
-			command: 'game.syrinscape.playMood(' + commandArg + ')'
+			command: 'game.syrinscape.playMood(' + mood.id + '); // ' + mood.name
+		});
+		return macro;
+	}
+
+	async createElementMacro(element: Element): Promise<StoredDocument<Macro> | undefined> {
+		const macro = await Macro.create({
+			name: element.name,
+			type: 'script',
+			img: element.icon,
+			command: 'game.syrinscape.playElement(' + element.id + '); // ' + element.name
 		});
 		return macro;
 	}

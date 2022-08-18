@@ -47,7 +47,7 @@
 	}
 
   async function onCreateMacro() {
-    const macro = await ctx.game.createMoodMacro(soundset, mood, undefined);
+    const macro = await ctx.game.createMoodMacro(mood, undefined);
 		ctx.game.notifyInfo(`SyrinControl | Created macro "${macro.name}"`)
   }
 </script>
