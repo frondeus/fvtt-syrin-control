@@ -6,22 +6,22 @@
 	import type { PlaylistItem, Mood, Soundset } from '@/models';
 	import PlaylistItemComponent from './PlaylistItem.svelte';
 	import { openElements } from '@/ui/elements';
-	import { openMacroManager } from '@/ui/macromanager';
 
 	// Context
 	const ctx = Context();
-	const current = ctx.stores.currentlyPlaying;
-	const currentScene = ctx.stores.currentScene;
+	const currentMood = ctx.stores.currentMood;
+	const currentSoundset = ctx.stores.currentSoundset;
+	const soundsets = ctx.stores.soundsets;
+	// const current = ctx.stores.currentlyPlaying;
+	// const currentScene = ctx.stores.currentScene;
 
 	// Params & State
 	let collapsed = false;
-	let globalVolume = 0.5;
-	let oneshotsVolume = 0.5;
 
 	const isPlaying = (m: Mood | undefined, current: Mood | undefined) => {
-		if (!current) return false;
+		if (!currentMood) return false;
 
-		return current?.id === m?.id;
+		return currentMood?.id === m?.id;
 	};
 
 	type CurrentPlaylistItem = Partial<PlaylistItem> & {
@@ -32,9 +32,9 @@
 		shouldDisplay: false
 	};
 
-	let currentSceneItem: CurrentPlaylistItem = {
-		shouldDisplay: false
-	};
+	// let currentSceneItem: CurrentPlaylistItem = {
+	// 	shouldDisplay: false
+	// };
 
 	function intoItem(item: CurrentPlaylistItem): PlaylistItem {
 		return {
@@ -44,6 +44,18 @@
 		};
 	}
 
+	function isNotInPlaylist(mood: Mood | undefined) {
+		if (mood === undefined) { return false; }
+
+		const playlists = ctx.game.getPlaylists();
+		const soundInPlaylist = playlists?.filter(playlist =>  playlist?.data?.flags?.syrinscape !== undefined )
+			.map(p =>  p.data.sounds.filter(s => s?.data?.flags?.syrinscape?.type === "mood") )
+			.flat()
+			.find(s => s.data.flags.syrinscape.mood === mood?.id);
+
+		return soundInPlaylist === undefined;
+	} 
+
 	let isMood = {
 		playing: false,
 		inPlaylist: false
@@ -51,30 +63,29 @@
 
 	// Reactive Blocks
 	$: {
-		let currentMood = $current.mood;
-		let currentSoundset = $current.soundset;
-		let isPlaying = currentMood !== undefined;
+		let isPlaying = $currentMood !== undefined;
+		const shouldDisplay = isPlaying && isNotInPlaylist($currentMood);
 
 		currentItem = {
 			isPlaying,
-			mood: currentMood,
-			soundset: currentSoundset,
-			shouldDisplay: isPlaying
+			mood: $currentMood,
+			soundset: $currentSoundset,
+			shouldDisplay
 		};
 	}
 
-	$: {
-		let sceneMood = $currentScene.mood;
-		let sceneSoundset = $currentScene.soundset;
-		let isPlaying = sceneMood !== undefined && sceneMood === $current.mood;
+	// $: {
+	// 	let sceneMood = $currentScene.mood;
+	// 	let sceneSoundset = $currentScene.soundset;
+	// 	let isPlaying = sceneMood !== undefined && sceneMood === $current.mood;
 
-		currentSceneItem = {
-			isPlaying,
-			mood: sceneMood,
-			soundset: sceneSoundset,
-			shouldDisplay: sceneMood !== undefined && !isPlaying 
-		};
-	}
+	// 	currentSceneItem = {
+	// 		isPlaying,
+	// 		mood: sceneMood,
+	// 		soundset: sceneSoundset,
+	// 		shouldDisplay: sceneMood !== undefined && !isPlaying 
+	// 	};
+	// }
 
 	// Event handlers
 	function toggleCollapsed() {
@@ -82,7 +93,7 @@
 	}
 
 	function playMood(soundset: Soundset | undefined, mood: Mood | undefined) {
-		if (mood === undefined || soundset === undefined || isPlaying(mood, $current.mood)) {
+		if (mood === undefined || soundset === undefined || isPlaying(mood, $currentMood)) {
 			return async function () {
 				await ctx.syrin.stopAll();
 			};
@@ -107,18 +118,25 @@
 		openElements(ctx);
 	}
 
-	function openMM() {
-		openMacroManager(ctx);
+	async	function importItem(e : { detail: PlaylistItem }) {
+		const soundsetId = e.detail.soundset.id;
+
+		const soundset = await ctx.stores.hydrateSoundset(soundsetId);
+		const playlist = await ctx.game.createPlaylist(soundset, undefined);
+
+		console.warn("%}]", { soundset });
+		for (const mood of Object.values(soundset.moods)) {
+				await ctx.game.createPlaylistMoodSound(mood, playlist);
+		}
+
+		// Array.from(playlists.values()).forEach((playlist) => {
+		ctx.game.notifyInfo(`SyrinControl | Created playlist "${playlist.name}"`)
+		// });
 	}
 
-	function onGlobalVolumeChange() { 
-			ctx.api.changeMoodVolume(globalVolume);
-  }
-	function onOneshotsVolumeChange() { 
-			ctx.api.changeOneShotVolume(oneshotsVolume);
- }
 </script>
 
+				{#if currentItem.shouldDisplay}
 <div>
 	<div class="syrin-playlists global-control flexrow" class:collapsed>
 		<header class="playlist-header flexrow" on:click={toggleCollapsed}>
@@ -130,46 +148,18 @@
 			</h4>
 		</header>
 		<ol class="syrin-to-collapse" style={collapsed ? 'display: none;' : 'display: block;'}>
-			<div class="volume">
-					<VolumeSlider name="syrinscapeGlobalVolume" title="Global"    bind:volume={globalVolume} on:change={ onGlobalVolumeChange }/>
-					<VolumeSlider name="syrinscapeGlobalVolume" title="One-Shots" bind:volume={oneshotsVolume} on:change={ onOneshotsVolumeChange }/>
-			</div>
-			<div class="syrin-controls syrin-search-controls">
-				<Toggable
-					on:click={openGlobalElements}
-					toggled={false}
-					on={['Global Elements', 'drum']}
-					off={['Global Elements', 'drum']}
-					disabled={false}
-				/>
-
-				<Toggable
-					on:click={openMM}
-					toggled={false}
-					on={['Open Soundset Search', 'music']}
-					off={['Open Soundset Search', 'music']}
-					disabled={false}
-				/>
+			<div class="currently-playing">
+					<PlaylistItemComponent
+						item={intoItem(currentItem)}
+						on:play={playItem}
+						on:elements={openItemElements}
+						on:import={importItem}
+					/>
 			</div>
 		</ol>
 	</div>
-	<ol class="directory-list syrin-list">
-		{#if currentSceneItem.shouldDisplay}
-			<PlaylistItemComponent
-				item={intoItem(currentSceneItem)}
-				on:play={playItem}
-				on:elements={openItemElements}
-			/>
-		{/if}
-		{#if currentItem.shouldDisplay}
-			<PlaylistItemComponent
-				item={intoItem(currentItem)}
-				on:play={playItem}
-				on:elements={openItemElements}
-			/>
-		{/if}
-	</ol>
 </div>
+				{/if}
 
 <style>
 	.separator {
@@ -200,4 +190,7 @@
 	.volume {
 	margin-bottom: 1em;
 	}
+	.currently-playing {
+	
+}
 </style>

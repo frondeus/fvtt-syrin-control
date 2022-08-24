@@ -27,10 +27,14 @@
 	function onElements() {
 		dispatch('elements', item);
 	}
+
+	function onImport() {
+		dispatch('import', item);	
+	}
 </script>
 
 <li>
-	<header class="playlist-header flexrow">
+	<header class="flexrow">
 		<h4 class="playlist-name" title="{item.mood.name} - {item.soundset.name}">
 			{item.mood.name} - {item.soundset.name}
 		</h4>
@@ -44,6 +48,9 @@
 
 			<span role="button" class="syrin-control" on:click={onElements} title="Soundset Elements">
 				<i class="fas fa-drum" />
+			</span>
+			<span role="button" class="syrin-control" on:click={onImport} title="Import Soundset">
+				<i class="fas fa-file-import" />
 			</span>
 		</div>
 	</header>

@@ -53,10 +53,16 @@ declare global {
 				stopAll(): Promise<void>,
 				startMood(id: number): Promise<void>,
 				startElements(ids: number[]): Promise<void>
+				stopElements(ids: number[]): Promise<void>
 			}
 		},
 		events: {
 			startElement: SyrinscapeEventListener<{
+				detail: {
+					elementId: string,	
+				}
+			}>,
+			stopElement: SyrinscapeEventListener<{
 				detail: {
 					elementId: string,	
 				}
@@ -75,6 +81,8 @@ declare global {
 	interface ModuleData<ModuleData> {
 		elementsApp: any;
 	}
+	
+	interface PlaylistSoundData {}
 
 	namespace ClientSettings {
 		interface Values {

@@ -9,6 +9,11 @@ export interface ApiSoundset {
 export interface ApiMood {
 	pk: number;
 	name: string;
+	elements: ApiMoodElement[]
+}
+
+export interface ApiMoodElement {
+	element: string // Element url... last segment is pk
 }
 
 export interface ApiElement {

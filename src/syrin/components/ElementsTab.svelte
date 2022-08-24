@@ -37,6 +37,7 @@
 	function reactiveElementsPromise(global, globalPromise, soundset) {
 			ctx.utils.trace('ElementsTab | reactive elements promise', { global, globalPromise, soundset });
 			elementsPromise = global ? globalPromise : ctx.stores.getSoundsetElements(soundset?.id);
+			elementsPromise = elementsPromise.then(elements => elements.filter(e => e.type === "oneshot"));
 	}
 
 	$: reactiveSoundset(tab);

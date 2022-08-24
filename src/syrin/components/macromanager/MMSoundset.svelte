@@ -10,7 +10,6 @@
 	const ctx = Context();
 	const managerApp = ctx.stores.macroManagerApp;
 	const dispatcher = createEventDispatcher();
-	const current = ctx.stores.currentlyPlaying;
 
 	// Params & State
 	export let item: Soundset;
@@ -27,7 +26,7 @@
 		isSoundsetChecked = filteredSelectedSoundsets.has(item.id);
 	}; 
 	const reactiveIsSoundsetPartiallyChecked = (isSoundsetChecked, item, filteredSelectedSoundsets) => {
-		const len = item.moods.filter((mood) => filteredSelectedSoundsets.has(item.id + ';' + mood.id)).length;
+		const len = Object.values(item.moods).filter((mood) => filteredSelectedSoundsets.has(item.id + ';' + mood.id)).length;
     isSoundsetPartiallyChecked = item.moods.length > len && len > 0;
 	};
 	const reactiveSoundsetCheckboxTitle = (isSoundsetChecked, item) => {
@@ -104,7 +103,7 @@
 	</td>
 </tr>
 	{#if expanded}
-		{#each item.moods as mood}
+		{#each Object.values(item.moods) as mood}
 			<MMMood soundset={item} mood={mood} filteredSelectedSoundsets={filteredSelectedSoundsets}/>
 		{/each}
 	{/if}

@@ -8,7 +8,7 @@
 	const ctx = Context();
 	const managerApp = ctx.stores.macroManagerApp;
 	const dispatcher = createEventDispatcher();
-  const current = ctx.stores.currentlyPlaying;
+  const currentMood = ctx.stores.currentMood;
 
   // Params & State
   export let soundset: Soundset;
@@ -24,7 +24,7 @@
       ctx.utils.trace("MMMood | Is Playing Reaction | is = ", { isPlaying });
   };
 
-  $: reactiveIsPlaying($current, mood);
+  $: reactiveIsPlaying($currentMood, mood);
 
   // Event handlers
 	function onSelectMood(event) {
@@ -42,7 +42,7 @@
 			await ctx.syrin.stopAll();
 		}
     else {
-  		await ctx.syrin.setMood(soundset, mood);
+  		await ctx.syrin.setMood(mood.id);
     }
 	}
 
@@ -50,6 +50,17 @@
     const macro = await ctx.game.createMoodMacro(mood, undefined);
 		ctx.game.notifyInfo(`SyrinControl | Created macro "${macro.name}"`)
   }
+
+	async function onCreatePlaylist() {
+		const playlist = await ctx.game.createPlaylist(mood);
+		const elements = soundset.elements.filter(el => mood.elementsIds.includes(el.id));
+		for (const element of elements) {
+			const playlistSound = await ctx.game.createPlaylistSound(element, playlist);
+			ctx.utils.warn('MMMood | CreatePlaylist Sound', { mood, soundset, elements , playlistSound, element });
+		}
+		ctx.utils.warn('MMMood | CreatePlaylist ', { mood, soundset, elements });
+		ctx.game.notifyInfo(`SyrinControl | Created playlist "${playlist.name}"`)
+	}
 </script>
 
 <tr class="mood">
@@ -68,6 +79,9 @@
 	<td class="actions-cell">
 		<span class="macro-icon" role="button" title="Create Macro" on:click={onCreateMacro}>
 			<i class="fas fa-terminal" />
+		</span>
+		<span class="macro-icon" role="button" title="Create Playlist" on:click={onCreatePlaylist}>
+			<i class="fas fa-music" />
 		</span>
 		<Toggable 
 			on:click={onPlayMood}

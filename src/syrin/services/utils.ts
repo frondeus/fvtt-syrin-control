@@ -34,11 +34,13 @@ export class Utils {
 	}
 
 	error(...args: any[]) {
-		console.error(...args);
+		const first = 'SyrinControl | ' + args.shift();
+		console.error(first, ...args);
 	}
 
 	warn(...args: any[]) {
-		console.warn(...args);
+		const first = 'SyrinControl | ' + args.shift();
+		console.warn(first, ...args);
 	}
 
 	traceEnabled(): boolean {

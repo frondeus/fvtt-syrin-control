@@ -63,12 +63,11 @@
 	// Event handlers
 	function onExpand(soundset: Soundset) {
 		return async function () {
-			const moods = await ctx.stores.getMoods(soundset.id).then((m) => Object.values(m));
+			const hydrated = await ctx.stores.hydrateSoundset(soundset.id);
+			const moods = Object.values(hydrated.moods);
+  		// const moods = await ctx.stores.getMoods(soundset.id).then((m) => Object.values(m));
 
-			soundset.moods = moods;
-			console.debug('SyrinControl | expand', soundset);
-			$soundsets[soundset.id] = soundset;
-			$soundsets = $soundsets;
+			ctx.utils.trace('expand', { hydrated });
 
 			if (filteredSelectedSoundsets.has(soundset.id)) {
 				for (const mood of moods) {
@@ -103,7 +102,8 @@
 		for (const entry of selectedMoods) {
 			const [soundsetId, moodId] = entry;
 			const soundset = $soundsets[soundsetId];
-			const mood = soundset.moods.find((m) => m.id === Number(moodId));
+			const mood = soundset.moods[moodId];
+// .find((m) => m.id === Number(moodId));
 
 			let ssFolder;
 			if (folders.has(soundset.id)) {
@@ -123,11 +123,38 @@
 		});
 	}
 
+	async function onCreatePlaylist() {
+		let selectedMoods = Array.from(filteredSelectedSoundsets.values())
+			.filter((id) => id.includes(';'))
+			.map((id) => id.split(';'));
+
+		let playlists = new Map();
+		for (const entry of selectedMoods) {
+			const [soundsetId, moodId] = entry;
+			const soundset = $soundsets[soundsetId];
+			const mood = soundset.moods[moodId];
+
+			let ssPlaylist;
+			if (playlists.has(soundset.id)) {
+				ssPlaylist = playlists.get(soundset.id);
+			} else {
+				ssPlaylist = await ctx.game.createPlaylist(soundset, undefined);
+				playlists.set(soundset.id, ssPlaylist);
+			}
+
+			await ctx.game.createPlaylistMoodSound(mood, ssPlaylist);
+		}
+		Array.from(playlists.values()).forEach((playlist) => {
+			ctx.game.notifyInfo(`SyrinControl | Created playlist "${playlist.name}"`)
+		});
+	}
+
+
 	// Utils
 	function soundsetsListSet(soundsetsList) {
 		return new Set(
 			soundsetsList.flatMap((item) => {
-				return [item.id, ...item.moods.map((m) => item.id + ';' + m.id)];
+				return [item.id, ...Object.keys(item.moods).map((m) => item.id + ';' + m)];
 			})
 		);
 	}
@@ -159,6 +186,9 @@
 		<button type="submit" title="Create macro folder" on:click={onCreateMacro}>
 			Create Macro Folder
 		</button>
+		<button type="submit" title="Import playlists" on:click={onCreatePlaylist}>
+			Import Playlists
+		</button>
 	</div>
 	{/if}
 </div>
@@ -178,6 +208,9 @@
 	.header input[type="text"] {
 		flex: 4;
 		margin-right: 0.5em;
+	}
+	.footer {
+		display: flex;
 	}
 	.main {
 		overflow: auto;

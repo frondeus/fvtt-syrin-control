@@ -25,9 +25,9 @@ export class Context {
 }
 
 export function mocked(game: FVTTGame, raw: RawApi): Context {
-	const stores = new Stores(game);
 	const utils = new Utils(game);
 	const api = new Api(utils, raw);
+	const stores = new Stores(game, utils, api);
 	const syrin = new Syrin(utils, game, api);
 	return new Context(game, stores, api, syrin, utils);
 }

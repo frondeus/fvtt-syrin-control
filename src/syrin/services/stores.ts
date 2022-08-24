@@ -4,7 +4,6 @@ import type { FVTTGame } from './game';
 import {
 	Mood,
 	Soundset,
-	Playlist,
 	Elements,
 	Soundsets,
 	ElementsTabs,
@@ -20,10 +19,14 @@ export type FoundryStore<T> = Writable<T> & { get: () => T; refresh: () => void 
 
 @injectable()
 export class Stores {
-	currentlyPlaying: Writable<MoodStore>;
-	currentScene: Writable<MoodStore>;
+	currentMood: Writable<Mood | undefined>;
+	currentSoundset: Writable<Soundset | undefined>;
+	nextSoundset: Writable<Soundset | undefined>;
+	nextMood: Writable<Mood| undefined>;
+	// currentlyPlaying: Writable<MoodStore>;
+	// currentScene: Writable<MoodStore>;
 
-	playlist: FoundryStore<Playlist>;
+	// playlist: FoundryStore<Playlist>;
 	globalElements: FoundryStore<Elements>;
 	soundsets: FoundryStore<Soundsets>;
 
@@ -57,9 +60,17 @@ export class Stores {
 			default: { entries: [] }
 		});
 
-		this.currentlyPlaying = writable({});
-		this.currentScene = writable({});
-		this.playlist = createFoundryStore(game, 'playlist');
+		// this.currentlyPlaying = writable({
+		// 	elements: new Set()
+		// });
+		// this.currentScene = writable({
+		// 	elements: new Set()
+		// });
+		// this.playlist = createFoundryStore(game, 'playlist');
+		this.currentMood = writable(undefined);
+		this.currentSoundset= writable(undefined);
+		this.nextMood = writable(undefined);
+		this.nextSoundset = writable(undefined);
 		this.globalElements = createFoundryStore(game, 'elements');
 		this.soundsets = createFoundryStore(game, 'soundsets');
 
@@ -70,13 +81,35 @@ export class Stores {
 	refresh() {
 		this.globalElements.refresh();
 		this.soundsets.refresh();
-		this.playlist.refresh();
+		// this.playlist.refresh();
 	}
 	
 	getSoundsets() { return get(this.soundsets); }
-	getCurrentlyPlaying() { return get(this.currentlyPlaying); }
+	getCurrentlyPlaying() { 
+		return {
+			mood: get(this.currentMood),
+			soundset: get(this.currentSoundset),
+			nextMood: get(this.nextMood),
+			nextSoundset: get(this.nextSoundset),
+		};
+	}
 
-	async getMoods(soundsetId: string | undefined) {
+	async hydrateSoundset(soundsetId: string): Promise<Soundset> {
+		const moodsPromise = this.getMoods(soundsetId);
+		const elementsPromise = this.getSoundsetElements(soundsetId);
+		const [moods, elements] = await Promise.all([moodsPromise, elementsPromise]);
+		let result: Soundset;
+		this.soundsets.update( soundsets => {
+			const soundset = soundsets[soundsetId];
+			soundset.elements = elements;
+			soundset.moods = moods;
+			result = soundset;
+			return soundsets;
+		});
+		return result!;
+	}
+	
+	private async getMoods(soundsetId: string | undefined) {
 		this.utils.trace('Stores | Get Moods', { soundsetId });
 		const soundsets = get(this.soundsets);
 
@@ -92,7 +125,7 @@ export class Stores {
 		return moods;
 	}
 	
-	async getSoundsetElements(soundsetId: string | undefined) {
+	private async getSoundsetElements(soundsetId: string | undefined) {
 		this.utils.trace('Stores | Get Soundset Elements', { soundsetId });
 		const soundsets = get(this.soundsets);
 
@@ -110,11 +143,11 @@ export class Stores {
 	}
 	
 	isPlaying(mood: Mood | undefined) {
-		const current = get(this.currentlyPlaying);
+		const current = get(this.currentMood);
 		this.utils.trace('Stores | Is Playing', { current, mood });
 		if (!current) return false;
 
-		return current?.mood?.id === mood?.id;
+		return current?.id === mood?.id;
 	}
 }
 
@@ -122,6 +155,7 @@ export interface MoodStore {
 	mood?: Mood;
 	soundset?: Soundset;
 	nextSoundset?: Soundset;
+	elements: Set<number>;
 }
 
 export class ElementsAppStore {

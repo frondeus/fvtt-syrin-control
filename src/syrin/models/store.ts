@@ -3,13 +3,14 @@ export interface Soundset {
 	pid: number;
 	name: string;
 	moods: Moods;
-	elements: Element[];
+	elements: Elements;
 }
 
 export interface Mood {
 	id: number;
 	name: string;
 	soundset?: string;
+	elementsIds: number[];
 }
 
 export interface Moods {
@@ -33,6 +34,7 @@ export interface Element {
 	id: number;
 	name: string;
 	icon: string;
+	type: "oneshot" | "sfx" | "music";
 }
 
 export interface Module {

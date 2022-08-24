@@ -10,7 +10,9 @@ export interface PlayMoodParams {
 
 export interface Global {
 	playElement(id: number): Promise<void>;
+	stopElement(id: number): Promise<void>;
 	playMood(params: PlayMoodParams | number): Promise<void>;
+	isPlayerActive(): boolean;
 	refresh(): void;
 }
 
@@ -30,6 +32,11 @@ export interface FVTTGame {
 	getAudioContext(): Promise<AudioContext | undefined>;
 	createMoodMacro(mood: Mood, folder: any): Promise<StoredDocument<Macro> | undefined>;
 	createElementMacro(element: Element): Promise<StoredDocument<Macro> | undefined>;
+	createPlaylist(mood: Mood, folder: string | undefined): Promise<StoredDocument<Playlist> | undefined>;
+  createPlaylistSound(element: Element, parent: StoredDocument<Playlist>): Promise<StoredDocument<PlaylistSound> | undefined>;
+  createPlaylistMoodSound(mood: Mood, parent: StoredDocument<Playlist>): Promise<StoredDocument<PlaylistSound> | undefined>;
+	
+	getPlaylists(): Playlists | undefined;
 
 	getPlayerName(): string;
 	callHookAll(name: string, ...args: any[]): void;
@@ -65,6 +72,10 @@ export class FVTTGameImpl implements FVTTGame {
 		return this.game.scenes?.active;
 	}
 
+	getPlaylists(): Playlists | undefined {
+		return this.game.playlists;
+	}
+
 	callHookAll(name: string, ...args: any[]): void {
 		Hooks.callAll(MODULE + name, ...args);
 	}
@@ -88,13 +99,73 @@ export class FVTTGameImpl implements FVTTGame {
 	setSetting<T>(name: string, t: T) {
 		this.game.settings.set(MODULE, name, t);
 	}
+
+	async createPlaylist(soundset: Soundset, folder: string | undefined): Promise<StoredDocument<Playlist> | undefined> {
+		const playlist = await Playlist.create({
+			name: soundset.name,
+			description: "Created by SyrinControl",
+			mode: CONST.PLAYLIST_MODES.SIMULTANEOUS,
+			folder,
+ 			flags: {
+				syrinscape: {
+					soundset: soundset.id,
+				}
+			}
+		}, {
+				 });
+		return playlist;
+	}
+
+	async createPlaylistSound(element: Element, parent: StoredDocument<Playlist>): Promise<StoredDocument<PlaylistSound> | undefined> {
+		const sound = await PlaylistSound.create({
+			name: element.name,
+			description: "Created by SyrinControl",
+			path: "./syrinscape-not-a-real-path.wav",
+			sort: 0,
+			flags: {
+				syrinscape: {
+					type: "element",
+					element: element.id,
+				}
+			}
+		}, { parent });
+		return sound;
+	}
+
+	async createPlaylistMoodSound(mood: Mood, parent: StoredDocument<Playlist>): Promise<StoredDocument<PlaylistSound> | undefined> {
+		const sound = await PlaylistSound.create({
+			name: mood.name,
+			description: "Created by SyrinControl",
+			path: "./syrinscape-not-a-real-path.wav",
+			sort: 0,
+			flags: {
+				syrinscape: {
+					type: "mood",
+					mood: mood.id,
+				}
+			}
+		}, { parent });
+		return sound;
+	}
 	
 	async getAudioContext(): Promise<AudioContext | undefined> {
 		const { game } = this;
-		await game.audio.unlock;
-		const context = game.audio.getAudioContext();
-		if(context === null) return undefined;
-		return context;
+		if (game.audio.unlock !== undefined) { // V10
+			await game.audio.unlock;
+			const context = game.audio.getAudioContext();
+			if(context === null) return undefined;
+			return context;
+		} else { // V9 or lower
+			return await new Promise(function(resolve) {
+				(
+					function waitForCtx() {
+						const ctx = game.audio.getAudioContext();
+						if (ctx !== null) return resolve(ctx);
+						setTimeout(waitForCtx, 100);
+					}
+				)();
+			});
+			}
 	}
 	
 	async createMoodMacro(mood: Mood, folder: any): Promise<StoredDocument<Macro> | undefined> {

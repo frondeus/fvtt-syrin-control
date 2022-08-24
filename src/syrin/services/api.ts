@@ -32,7 +32,9 @@ export class Api {
 			.map((mood) => {
 				return {
 					id: mood.pk,
-					name: mood.name
+					name: mood.name,
+					elementsIds: mood.elements.map(element => 
+						Number(element.element.split('/').filter(t => t.trim().length > 0).pop()))
 				};
 			})
 			.reduce((moodsById, mood) => {
@@ -80,6 +82,7 @@ export class Api {
 			.filter((element) => element.element_type == 'oneshot')
 			.map((element) => {
 				return {
+					type: element.element_type,
 					id: element.pk,
 					name: element.name,
 					icon: element.icon ?? '/icons/svg/sound.svg'
@@ -99,10 +102,11 @@ export class Api {
 		this.utils.trace('API | Online Elements | elements = ', elements);
 
 		return elements
-			.filter((element) => element.element_type == 'oneshot')
+			// .filter((element) => element.element_type == 'oneshot')
 			.map((element) => {
 				return {
 					id: element.pk,
+					type: element.element_type,
 					name: element.name,
 					icon: element.icon ?? '/icons/svg/sound.svg'
 				};
@@ -129,8 +133,17 @@ export class Api {
 		await this.raw.playElement(id);
 	}
 
+	async stopElement(id: number): Promise<void> {
+		this.utils.trace('API | Stop Element', { id });
+		await this.raw.stopElement(id);
+	}
+
 	async stopMood(): Promise<void> {
 		this.utils.trace('API | Stop Mood');
 		await this.raw.stopMood();
+	}
+	
+	isPlayerActive(): boolean {
+		return this.raw.getState() === "active";
 	}
 }

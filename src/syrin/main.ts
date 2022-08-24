@@ -1,6 +1,6 @@
 import { container } from 'tsyringe';
-import { initSettings, onCloseSettings, onSettingsConfig } from './settings';
-import { Mood, Soundset } from './models';
+import { initSettings, onCloseSettings } from './settings';
+// import types { Mood, Soundset } from './models';
 
 import { onPlaylistTab } from './ui/playlist';
 import { onSceneConfig } from './ui/scene';
@@ -10,10 +10,12 @@ import { MODULE } from './services/utils';
 import { Context } from './services/context';
 import { FVTTGameImpl } from './services/game';
 import { RawApiImpl } from './services/raw';
+import { createProxies } from './sounds';
+// import { PlaylistSoundData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/module.mjs';
 
 Hooks.on('init', function () {
 	console.log('SyrinControl | Initializing...');
-	// CONFIG.debug.hooks = true;
+	CONFIG.debug.hooks = true;
 
 	container.register('FVTTGame', {
 		useClass: FVTTGameImpl
@@ -23,6 +25,9 @@ Hooks.on('init', function () {
 	});
 	const ctx = container.resolve(Context);
 	initSettings(ctx);
+	const proxies = createProxies(ctx);
+	CONFIG.PlaylistSound.documentClass = proxies.PlaylistSoundProxy;
+	CONFIG.Playlist.documentClass = proxies.PlaylistProxy;
 
 	Hooks.on('renderPlaylistDirectory', async (_: any, html: JQuery<Element>) => {
 		await onPlaylistTab(ctx, html);
@@ -58,13 +63,40 @@ Hooks.on('init', function () {
 			if (!soundset) {
 				return;
 			}
-			ctx.stores.currentlyPlaying
-				.update(store => {
-					store.nextSoundset = soundset;
-					return store;
-				});
+			ctx.stores.nextSoundset
+				.set(soundset);
 		}
 	);
+
+	// Hooks.on(
+	// 	MODULE + 'elementStarts',
+	// 	async function (elementId: number): Promise<void> {
+	// 		if(!ctx.game.isGM()) {
+	// 			return;
+	// 		}
+			
+	// 		ctx.stores.currentlyPlaying
+	// 			.update(store => {
+	// 				store.elements.add(elementId);
+	// 				return store;
+	// 			});
+	// 	}
+	// );
+
+	// Hooks.on(
+	// 	MODULE + 'elementStops',
+	// 	async function (elementId: number): Promise<void> {
+	// 		if(!ctx.game.isGM()) {
+	// 			return;
+	// 		}
+			
+	// 		ctx.stores.currentlyPlaying
+	// 			.update(store => {
+	// 				store.elements.delete(elementId);
+	// 				return store;
+	// 			});
+	// 	}
+	// );
 	
 	Hooks.on(
 		MODULE + 'moodChange',
@@ -73,28 +105,32 @@ Hooks.on('init', function () {
 				return;
 			}
 			
-			const newSoundset = ctx.stores.getCurrentlyPlaying().nextSoundset;
-			ctx.utils.warn("MOOD CHANGE", { moodId, newSoundset });
+			const currentlyPlaying = ctx.stores.getCurrentlyPlaying();
+			const oldMood = currentlyPlaying.mood?.id;
+			if (oldMood === moodId) {
+				ctx.utils.trace("Hooks on | Mood Change | The same mood!", { moodId });
+				return;
+			}
+			const newSoundset = currentlyPlaying.nextSoundset;
+			
+			
+			ctx.utils.trace("Hooks on | Mood Change", { moodId, newSoundset });
 
 			if (moodId === undefined || newSoundset === undefined) { 
-				ctx.stores.currentlyPlaying.update(store => {
-					store.mood = undefined;
-					store.soundset = undefined;
-					return store;
-				});
+				ctx.stores.currentSoundset.set(undefined);
+				ctx.stores.currentMood.set(undefined);
 				return;
 		  }
 
-			const moods = await ctx.stores.getMoods(newSoundset.id);
+			const soundset = await ctx.stores.hydrateSoundset(newSoundset.id);
 			
-			const newMood = moods[moodId];
-			ctx.utils.warn("MOOD CHANGE | mood = ", { newMood });
+			// const moods = await ctx.stores.getMoods(newSoundset.id);
 			
-			ctx.stores.currentlyPlaying.update(store => {
-					store.soundset = newSoundset;
-					store.mood = newMood;
-					return store;
-			});
+			const newMood = soundset.moods[moodId];
+			ctx.utils.trace("Hooks on | Mood Change | mood = ", { newMood });
+			
+			ctx.stores.currentSoundset.set(newSoundset);
+			ctx.stores.currentMood.set(newMood);
 
 			const el = await ctx.api.onlineGlobalElements();
 			if (el.length !== 0) {
@@ -135,23 +171,23 @@ Hooks.on('init', function () {
 		ctx.syrin.setActiveMood();
 	});
 
-	Hooks.on('canvasReady', (canvas) => {
-		if (!ctx.game.isGM()) {
-			return;
-		}
-		const scene = canvas?.scene;
-		const soundset = scene?.getFlag(MODULE, 'soundset');
-		const mood = scene?.getFlag(MODULE, 'mood');
+	// Hooks.on('canvasReady', (canvas) => {
+	// 	if (!ctx.game.isGM()) {
+	// 		return;
+	// 	}
+	// 	const scene = canvas?.scene;
+	// 	const soundset = scene?.getFlag(MODULE, 'soundset');
+	// 	const mood = scene?.getFlag(MODULE, 'mood');
 
-		ctx.stores.currentScene.set({ soundset, mood });
-	});
+	// 	// ctx.stores.currentScene.set({ soundset, mood });
+	// });
 
-	Hooks.on('renderSceneConfig', async (obj: SceneConfig, html: JQuery<Element>) => {
-		if (!ctx.game.isGM()) {
-			return;
-		}
-		await onSceneConfig(obj, ctx, html);
-	});
+	// Hooks.on('renderSceneConfig', async (obj: SceneConfig, html: JQuery<Element>) => {
+	// 	if (!ctx.game.isGM()) {
+	// 		return;
+	// 	}
+	// 	await onSceneConfig(obj, ctx, html);
+	// });
 
 	Hooks.on('ready', async () => {
 		ctx.api.onInit();

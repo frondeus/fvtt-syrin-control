@@ -1,5 +1,5 @@
 import { Context } from './services/context';
-import { PlayMoodParams } from './services/game';
+import type { PlayMoodParams } from './services/game';
 
 export function initSettings(ctx: Context) {
 	const game = ctx.game;
@@ -8,7 +8,10 @@ export function initSettings(ctx: Context) {
 		playElement: async (id: number) => {
 			await api.playElement(id);
 		},
-		playMood: async (params: PlayMoodParamss | number) => {
+		stopElement: async (id: number) => {
+			await api.stopElement(id);
+		},
+		playMood: async (params: PlayMoodParams | number) => {
 			if (typeof(params) === "number") {
 					await ctx.syrin.setMood(params);
 					return;
@@ -16,6 +19,9 @@ export function initSettings(ctx: Context) {
 			const { mood } = params;
 
 			await ctx.syrin.setMood(mood.id);
+		},
+		isPlayerActive: () => {
+			return api.isPlayerActive();
 		},
 		refresh: () => {
 			ctx.stores.refresh();
@@ -55,7 +61,7 @@ export function initSettings(ctx: Context) {
 		scope: 'client',
 		config: true,
 		type: Boolean,
-		default: false
+		default: 'false'
 	});
 }
 

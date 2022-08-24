@@ -1,4 +1,4 @@
-import { Mood, Soundset } from '@/models';
+// import { Mood, Soundset } from '@/models';
 import { inject, injectable } from 'tsyringe';
 import { Api } from './api';
 import type { FVTTGame } from './game';
@@ -51,6 +51,7 @@ export class Syrin {
 			return;
 		}
 
-		await this.setMood(soundset, mood);
+		await this.setMood(mood);
 	}
+	
 }
