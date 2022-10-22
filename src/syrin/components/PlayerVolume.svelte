@@ -7,7 +7,7 @@
 
 
   // Params & State
-  let volume;
+  let volume = 50;
 
   // Event handlers
   function onVolumeChange() {

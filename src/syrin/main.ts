@@ -15,7 +15,7 @@ import { createProxies } from './sounds';
 
 Hooks.on('init', function () {
 	console.log('SyrinControl | Initializing...');
-	CONFIG.debug.hooks = true;
+	// CONFIG.debug.hooks = true;
 
 	container.register('FVTTGame', {
 		useClass: FVTTGameImpl

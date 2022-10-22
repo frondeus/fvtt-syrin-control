@@ -48,10 +48,10 @@
 		if (mood === undefined) { return false; }
 
 		const playlists = ctx.game.getPlaylists();
-		const soundInPlaylist = playlists?.filter(playlist =>  playlist?.data?.flags?.syrinscape !== undefined )
-			.map(p =>  p.data.sounds.filter(s => s?.data?.flags?.syrinscape?.type === "mood") )
+		const soundInPlaylist = playlists?.filter(playlist =>  playlist?.flags?.syrinscape !== undefined )
+			.map(p =>  p.sounds.filter(s => s?.flags?.syrinscape?.type === "mood") )
 			.flat()
-			.find(s => s.data.flags.syrinscape.mood === mood?.id);
+			.find(s => s.flags.syrinscape.mood === mood?.id);
 
 		return soundInPlaylist === undefined;
 	} 

@@ -6,8 +6,8 @@
   const ctx = Context();
 
   // Params & State
-  let globalVolume;
-  let oneshotsVolume;
+  let globalVolume = 50;
+  let oneshotsVolume = 50;
 
   // Event handlers
 	function onGlobalVolumeChange() { 
