@@ -15,7 +15,7 @@ interface MoodSoundFlags {
 type SyrinPlaylistSoundFlags = ElementSoundFlags | MoodSoundFlags;
 
 class SyrinPlaylistSound extends PlaylistSound {
-    flags: SyrinPlaylistSoundFlags;
+    syrinFlags: SyrinPlaylistSoundFlags;
     ctx: Context;
     currentlyPlayingMood?: number;
     unsubsriber?: Unsubscriber;
@@ -28,17 +28,20 @@ class SyrinPlaylistSound extends PlaylistSound {
       context?: ConstructorParameters<typeof foundry.documents.BasePlaylistSound>[1]
     ) {
       super(data, context);
-      this.flags = data!.flags!.syrinscape as SyrinPlaylistSoundFlags;
+      this.syrinFlags = data!.flags!.syrinscape as SyrinPlaylistSoundFlags;
       this.ctx = (context as any).ctx;
       this.ctx.utils.trace("Creating syrinscape playlist sound", { data, context });
-      if (this.flags.type === "mood") {
+      if (this.syrinFlags.type === "mood") {
         this.unsubsriber = this.ctx.stores.currentMood.subscribe((mood) => {
-          if (this.flags.type === "mood") {
-            const playing = mood?.id === this.flags.mood;
+          if (this.id !== null) {
+          
+          if (this.syrinFlags.type === "mood") {
+            const playing = mood?.id === this.syrinFlags.mood;
             this.ctx.utils.trace("Playlist Item | Update Subscribe", { item: this, playing, mood });
             this.currentlyPlayingMood = mood?.id;
             this.update({ playing });
           }
+        }
         });
       }
     
@@ -54,27 +57,27 @@ class SyrinPlaylistSound extends PlaylistSound {
       if(!this.ctx.api.isPlayerActive()) {
         return;
       }
-        // console.warn("Syrin! Sync!", {flags: this.flags, data: this.data, that: this});
-      switch (this.flags.type) {
+        // console.warn("Syrin! Sync!", {flags: this.syrinFlags, that: this});
+      switch (this.syrinFlags.type) {
         case "mood": {
-          if(this.data.playing) {
-            if(this.flags.mood !== this.currentlyPlayingMood) {
-              this.ctx.utils.trace("Playlist Item | Play Mood", { item: this, })
-              await this.ctx.api.playMood(this.flags.mood);
+          if(this.playing) {
+            if(this.syrinFlags.mood !== this.currentlyPlayingMood) {
+              this.ctx.utils.warn("Playlist Item | Play Mood", { item: this, })
+              await this.ctx.api.playMood(this.syrinFlags.mood);
             }
           } else {
-            if(this.flags.mood === this.currentlyPlayingMood) {
-              this.ctx.utils.trace("Playlist Item | Stop Mood", { item: this, })
+            if(this.syrinFlags.mood === this.currentlyPlayingMood) {
+              this.ctx.utils.warn("Playlist Item | Stop Mood", { item: this, })
               await this.ctx.api.stopMood();
             }
           }
           break;
         }
         case "element": {
-          if(this.data.playing) {
-            await this.ctx.api.playElement(this.flags.element);
+          if(this.playing) {
+            await this.ctx.api.playElement(this.syrinFlags.element);
           } else {
-            await this.ctx.api.stopElement(this.flags.element);
+            await this.ctx.api.stopElement(this.syrinFlags.element);
           }
           break;
         }
@@ -94,7 +97,7 @@ interface SyrinPlaylistFlags {
 }
 
 class SyrinPlaylist extends Playlist {
-    flags: SyrinPlaylistFlags;
+    syrinFlags: SyrinPlaylistFlags;
     ctx: Context;
     unsubsriber?: Unsubscriber;
 
@@ -103,13 +106,16 @@ class SyrinPlaylist extends Playlist {
       context?: ConstructorParameters<typeof foundry.documents.BasePlaylist>[1]
     ) {
       super(data, context);
-      this.flags = data!.flags!.syrinscape as SyrinPlaylistFlags;
+      this.syrinFlags = data!.flags!.syrinscape as SyrinPlaylistFlags;
       this.ctx = (context as any).ctx;
 
-      this.unsubsriber = this.ctx.stores.currentSoundset.subscribe((soundset) => {
-          const playing = soundset?.id === this.flags.soundset;
-          this.update({ playing });
-      });
+        this.unsubsriber = this.ctx.stores.currentSoundset.subscribe((soundset) => {
+            if(this.id !== null) {
+              const playing = soundset?.id === this.syrinFlags.soundset;
+              // debugger;
+              this.update({ playing });
+            } 
+        });
       // this.ctx.stores.currentlyPlaying.subscribe((currentlyPlaying) => {
       //   const playing = currentlyPlaying.soundset?.id === this.flags.soundset;
       //   // const updateData = { };
@@ -145,6 +151,7 @@ class SyrinPlaylist extends Playlist {
     }
   
     override _onDelete(options: DocumentModificationOptions, userId: string): void {
+      // debugger;
       this.unsubsriber?.call([]);
       this.sounds.clear();
       super._onDelete(options, userId);

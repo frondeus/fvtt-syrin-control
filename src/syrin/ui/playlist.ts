@@ -32,7 +32,6 @@ export async function onPlaylistTab(ctx: Context, $tab: JQuery<Element>) {
 	});
 	
 	const buttonsTarget = $tab.find('.action-buttons');
-	console.warn("BUTTONS", buttonsTarget);
 	const importButton = $('<button class="import-syrinscape">\
 		<i class="fas fa-file-import"></i>\
 		Import Soundsets\

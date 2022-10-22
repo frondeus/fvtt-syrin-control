@@ -60,7 +60,7 @@
 			$managerApp.selectedSoundsets.add(item.id);
 		} else {
 			$managerApp.selectedSoundsets.delete(item.id);
-			for (const mood of item.moods) {
+			for (const mood of Object.values(item.moods)) {
 				$managerApp.selectedSoundsets.delete(item.id + ';' + mood.id);
 			}
 		}
