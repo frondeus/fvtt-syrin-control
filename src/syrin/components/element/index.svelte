@@ -10,7 +10,7 @@
 
 	// Event handlers
 	function play() {
-		ctx.game.notifyInfo(`SyrinControl | Playing "${element.name}"`);
+		if(utils.notificationsEnabled)ctx.game.notifyInfo(`SyrinControl | Playing "${element.name}"`);
 		ctx.api.playElement(element.id);
 	}
 

@@ -63,6 +63,16 @@ export function initSettings(ctx: Context) {
 		type: Boolean,
 		default: 'false'
 	});
+
+
+	game.registerSetting('showNotifications', {
+		name: 'Show Notifications',
+		hint: 'Uncheck if you don\'t want to see any notification when SyrinControl plays a sound',
+		scope: 'world',
+		config: true,
+		type: Boolean,
+		default: true
+	});
 }
 
 export async function onCloseSettings(ctx: Context) {

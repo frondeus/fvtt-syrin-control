@@ -58,4 +58,8 @@ export class Utils {
 	getSessionId(): string {
 		return this.game.getSetting<string>('sessionId');
 	}
+
+	notificationsEnabled(): boolean {
+		return this.game.getSetting<boolean>('showNotifications');
+	}
 }
