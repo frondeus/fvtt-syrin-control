@@ -5,7 +5,7 @@ export class ElementsApplication extends Dialog {
 	component?: ElementsComponent;
 	context: Context;
 
-	constructor(context: Context, dialog: Partial<Dialog.Options> = {}) {
+	constructor(context: Context, dialog: Partial<DialogOptions> = {}) {
 		super(
 			{
 				title: 'Syrinscape: Elements',

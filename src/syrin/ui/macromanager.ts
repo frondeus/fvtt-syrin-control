@@ -5,7 +5,7 @@ export class MacroManagerApplication extends Dialog {
 	component?: MacroManagerComponent;
 	context: Context;
 
-	constructor(context: Context, dialog: Partial<Dialog.Options> = {}) {
+	constructor(context: Context, dialog: Partial<DialogOptions> = {}) {
 		super(
 			{
 				title: 'Syrinscape Online',

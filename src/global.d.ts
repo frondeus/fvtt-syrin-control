@@ -15,6 +15,11 @@ declare global {
 	}
 	
 	interface Syrinscape {
+		log: {
+			getLogger(scope: string): {
+				setLevel(level: string)
+			}
+		},
 		config: {
 			audioContext: AudioContext | undefined,
 			token: string,

@@ -13,7 +13,6 @@
 			"url": "https://github.com/frondeus"
 		}
 	],
-	"dependencies": [],
 	"conflicts": [],
 	"esmodules": ["index.js"],
 	"scripts": [],

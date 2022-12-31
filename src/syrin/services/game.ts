@@ -1,11 +1,11 @@
 /// <reference types="@league-of-foundry-developers/foundry-vtt-types" />
 import { injectable } from 'tsyringe';
 import { MODULE } from './utils';
-import type { Soundset, Mood, Element } from '@/types';
+import type { Soundset, Mood, Element } from '@/models';
 
 export interface PlayMoodParams {
 	soundset: Soundset | undefined;
-	mood: Mood | undefined;
+	mood: Mood;
 }
 
 export interface Global {
@@ -32,7 +32,7 @@ export interface FVTTGame {
 	getAudioContext(): Promise<AudioContext | undefined>;
 	createMoodMacro(mood: Mood, folder: any): Promise<StoredDocument<Macro> | undefined>;
 	createElementMacro(element: Element): Promise<StoredDocument<Macro> | undefined>;
-	createPlaylist(mood: Mood, folder: string | undefined): Promise<StoredDocument<Playlist> | undefined>;
+	createPlaylist(mood: Soundset, folder: string | undefined): Promise<StoredDocument<Playlist> | undefined>;
   createPlaylistSound(element: Element, parent: StoredDocument<Playlist>): Promise<StoredDocument<PlaylistSound> | undefined>;
   createPlaylistMoodSound(mood: Mood, parent: StoredDocument<Playlist>): Promise<StoredDocument<PlaylistSound> | undefined>;
 	
@@ -64,7 +64,7 @@ export class FVTTGameImpl implements FVTTGame {
 		// console.error("SET GLOBAL");
 	}
 
-	registerSetting(name: string, options: ClientSettings.PartialSetting<any>) {
+	registerSetting(name: string, options: any) {
 		this.game.settings.register(MODULE, name, options);
 	}
 
@@ -81,7 +81,9 @@ export class FVTTGameImpl implements FVTTGame {
 	}
 
 	notifyInfo(msg: string): void {
-		ui.notifications?.info(msg);
+		if (this.getSetting<boolean>('showNotifications')) {
+			ui.notifications?.info(msg);
+		}
 	}
 
 	notifyError(msg: string): void {
@@ -120,7 +122,7 @@ export class FVTTGameImpl implements FVTTGame {
 		const sound = await PlaylistSound.create({
 			name: element.name,
 			description: "Created by SyrinControl",
-			path: "./syrinscape-not-a-real-path.wav",
+			path: `syrinscape:element:${element.id}.wav`,
 			sort: 0,
 			flags: {
 				syrinscape: {
@@ -136,7 +138,7 @@ export class FVTTGameImpl implements FVTTGame {
 		const sound = await PlaylistSound.create({
 			name: mood.name,
 			description: "Created by SyrinControl",
-			path: "./syrinscape-not-a-real-path.wav",
+			path: `syrinscape:mood:${mood.id}.wav`,
 			sort: 0,
 			flags: {
 				syrinscape: {
@@ -150,8 +152,9 @@ export class FVTTGameImpl implements FVTTGame {
 	
 	async getAudioContext(): Promise<AudioContext | undefined> {
 		const { game } = this;
-		if (game.audio.unlock !== undefined) { // V10
-			await game.audio.unlock;
+		const audio = game.audio as any;
+		if (audio.unlock !== undefined) { // V10
+			await audio.unlock;
 			const context = game.audio.getAudioContext();
 			if(context === null) return undefined;
 			return context;

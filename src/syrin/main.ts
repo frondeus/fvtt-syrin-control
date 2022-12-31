@@ -3,7 +3,6 @@ import { initSettings, onCloseSettings } from './settings';
 // import types { Mood, Soundset } from './models';
 
 import { onPlaylistTab } from './ui/playlist';
-import { onSceneConfig } from './ui/scene';
 import { openElements } from './ui/elements';
 
 import { MODULE } from './services/utils';
@@ -28,6 +27,7 @@ Hooks.on('init', function () {
 	const proxies = createProxies(ctx);
 	CONFIG.PlaylistSound.documentClass = proxies.PlaylistSoundProxy;
 	CONFIG.Playlist.documentClass = proxies.PlaylistProxy;
+	CONFIG.AmbientSound.objectClass = proxies.AmbientSoundProxy;
 
 	Hooks.on('renderPlaylistDirectory', async (_: any, html: JQuery<Element>) => {
 		await onPlaylistTab(ctx, html);

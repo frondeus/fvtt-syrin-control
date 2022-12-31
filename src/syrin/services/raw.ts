@@ -45,6 +45,10 @@ export class RawApiImpl implements RawApi {
 		syrinscape.player.init({
 			async configure() {
 				utils.trace("RAW Headless | Syrinscape | audio context", (audioContext === undefined), { audioContext });
+				syrinscape.log.getLogger("audioSystem").setLevel("silent");
+				syrinscape.log.getLogger("sampleSpawnSystem").setLevel("silent");
+				syrinscape.log.getLogger("elementSpawnSystem").setLevel("silent");
+				syrinscape.log.getLogger("audioEffectSystem").setLevel("silent");
 				syrinscape.config.audioContext = audioContext;
 
 				if(game.isGM()) {

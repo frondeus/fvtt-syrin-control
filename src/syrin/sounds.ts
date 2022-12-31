@@ -1,6 +1,103 @@
 import { DocumentModificationOptions } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/document.mjs";
 import { Unsubscriber } from "svelte/store";
+import { container } from "tsyringe";
 import { Context } from "./services/context";
+
+type SyrinAmbientSoundFlags = ElementSoundFlags | MoodSoundFlags;
+
+class SyrinAmbientSound extends AmbientSound {
+  syrinFlags?: SyrinAmbientSoundFlags;
+  ctx: Context;
+  currentlyPlayingMood?: number;
+  unsubsriber?: Unsubscriber;
+  isCurrentlyPlaying: boolean;
+  
+  constructor(
+    data: AmbientSoundDocument,
+    ctx: any
+  ) {
+    // console.error("Creating syrinscape ambient sound", data);
+    super(data);
+    // this.syrinFlags = data!.!.syrinscape as SyrinAmbientSoundFlags;
+    if (ctx === undefined || ctx === null) {
+    	ctx = container.resolve(Context);
+      ctx.utils.warn("Ambient Sound context was undefined. Fixing it!");
+   }
+    this.ctx = (ctx as any).ctx;
+    this.isCurrentlyPlaying = false;
+    const path = (data as any).path as string;
+    const splitted = path.split(':');
+    const ty = splitted[1];
+    const id = Number(splitted[2].split('.')[0]);
+    // console.warn({ splitted, ty, id });
+    
+    if(ty === "mood") {
+      this.syrinFlags = { type: "mood", mood: id };
+    } else if (ty === "element") {
+      this.syrinFlags = { type: "element", element: id };
+    } else {
+      return;
+    }
+
+
+    if (this.syrinFlags.type === "mood") {
+  
+        this.unsubsriber = this.ctx.stores.currentMood.subscribe((mood) => {
+          if (this.id !== null) {
+          
+            if (this.syrinFlags?.type === "mood") {
+              const playing = mood?.id === this.syrinFlags.mood;
+              this.ctx.utils.trace("Ambient Sound | Update Subscribe", { item: this, playing, mood });
+              this.currentlyPlayingMood = mood?.id;
+              // this.update({ playing });
+            }
+        }
+      });
+    }
+    // this.syrinFlags = 
+    // this.ctx.utils.error("Creating syrinscape ambient sound");
+
+  }
+
+  override _createSound(): null {
+    return null;
+  }
+  
+  override async sync(isAudible: boolean, _volume: number, _options?: Partial<AmbientSound.SyncOptions>): Promise<void> {
+      // console.warn("Sync ambient sound", { isAudible, volume, options, flags: this.syrinFlags });
+      if(!this.ctx.api.isPlayerActive()) {
+        return;
+      }
+      // if (isAudible && )
+      switch (this.syrinFlags?.type) {
+        case "mood": {
+          if(isAudible && !this.isCurrentlyPlaying) {
+            this.isCurrentlyPlaying = true;
+            if(this.syrinFlags.mood !== this.currentlyPlayingMood) {
+              this.ctx.utils.trace("Playlist Item | Play Mood", { item: this, })
+              await this.ctx.api.playMood(this.syrinFlags.mood);
+            }
+          } else if(!isAudible && this.isCurrentlyPlaying) {
+            this.isCurrentlyPlaying = false;
+            if(this.syrinFlags.mood === this.currentlyPlayingMood) {
+              this.ctx.utils.trace("Playlist Item | Stop Mood", { item: this, })
+              await this.ctx.api.stopMood();
+            }
+          }
+          break;
+        }
+        case "element": {
+          if(isAudible) {
+            await this.ctx.api.playElement(this.syrinFlags.element);
+          } else {
+            await this.ctx.api.stopElement(this.syrinFlags.element);
+          }
+          break;
+        }
+      }
+  }
+  
+}
 
 interface ElementSoundFlags {
   type: "element",
@@ -32,6 +129,12 @@ class SyrinPlaylistSound extends PlaylistSound {
       this.ctx = (context as any).ctx;
       this.ctx.utils.trace("Creating syrinscape playlist sound", { data, context });
       if (this.syrinFlags.type === "mood") {
+        const flagsMoodId = this.syrinFlags.mood;
+        if (this.path === "./syrinscape-not-a-real-path.wav") {
+          setTimeout(() => {
+            this.update({path: `syrinscape:${this.syrinFlags.type}:${flagsMoodId}.wav`});
+          },10);
+        }
         this.unsubsriber = this.ctx.stores.currentMood.subscribe((mood) => {
           if (this.id !== null) {
           
@@ -62,12 +165,12 @@ class SyrinPlaylistSound extends PlaylistSound {
         case "mood": {
           if(this.playing) {
             if(this.syrinFlags.mood !== this.currentlyPlayingMood) {
-              this.ctx.utils.warn("Playlist Item | Play Mood", { item: this, })
+              this.ctx.utils.trace("Playlist Item | Play Mood", { item: this, })
               await this.ctx.api.playMood(this.syrinFlags.mood);
             }
           } else {
             if(this.syrinFlags.mood === this.currentlyPlayingMood) {
-              this.ctx.utils.warn("Playlist Item | Stop Mood", { item: this, })
+              this.ctx.utils.trace("Playlist Item | Stop Mood", { item: this, })
               await this.ctx.api.stopMood();
             }
           }
@@ -90,6 +193,7 @@ class SyrinPlaylistSound extends PlaylistSound {
       this.unsubsriber?.call([]);
       super._onDelete(options, userId);
     }
+  
 }
 
 interface SyrinPlaylistFlags {
@@ -161,8 +265,13 @@ class SyrinPlaylist extends Playlist {
 function handler< T extends object & (new (...args: any[]) => any), S extends object & (new (...args: any[]) => any) >(ctx: Context, t: T, s: S): ProxyHandler<T> {
   return {
     construct(_: T, args: ConstructorParameters<T>) {
+      // console.log("ARGS",  args);
       const syrinscapeFlags = args[0]?.flags?.syrinscape;
-      if (syrinscapeFlags === undefined) {
+      const syrinscapePath: string | undefined = args[0]?.path;
+      const isSyrinscapeControlled = 
+        syrinscapePath?.startsWith("syrinscape:") ||
+        syrinscapeFlags !== undefined;
+      if (!isSyrinscapeControlled) {
         return new t(...args);
       }
 
@@ -179,9 +288,11 @@ function handler< T extends object & (new (...args: any[]) => any), S extends ob
 export function createProxies(ctx: Context) {
   const PlaylistSoundProxy: typeof PlaylistSound = new Proxy(PlaylistSound, handler(ctx, PlaylistSound, SyrinPlaylistSound));
   const PlaylistProxy: typeof Playlist = new Proxy(Playlist, handler(ctx, Playlist, SyrinPlaylist));
+  const AmbientSoundProxy: typeof AmbientSound = new Proxy(AmbientSound, handler(ctx, AmbientSound, SyrinAmbientSound));
 
   return {
     PlaylistSoundProxy,
-    PlaylistProxy
+    PlaylistProxy,
+    AmbientSoundProxy
   }
 };
