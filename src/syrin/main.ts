@@ -1,6 +1,5 @@
 import { container } from 'tsyringe';
 import { initSettings, onCloseSettings } from './settings';
-// import types { Mood, Soundset } from './models';
 
 import { onPlaylistTab } from './ui/playlist';
 import { openElements } from './ui/elements';
@@ -10,11 +9,10 @@ import { Context } from './services/context';
 import { FVTTGameImpl } from './services/game';
 import { RawApiImpl } from './services/raw';
 import { createProxies } from './sounds';
-// import { PlaylistSoundData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/module.mjs';
+import { get } from 'svelte/store';
 
 Hooks.on('init', function () {
 	console.log('SyrinControl | Initializing...');
-	// CONFIG.debug.hooks = true;
 
 	container.register('FVTTGame', {
 		useClass: FVTTGameImpl
@@ -68,36 +66,6 @@ Hooks.on('init', function () {
 		}
 	);
 
-	// Hooks.on(
-	// 	MODULE + 'elementStarts',
-	// 	async function (elementId: number): Promise<void> {
-	// 		if(!ctx.game.isGM()) {
-	// 			return;
-	// 		}
-			
-	// 		ctx.stores.currentlyPlaying
-	// 			.update(store => {
-	// 				store.elements.add(elementId);
-	// 				return store;
-	// 			});
-	// 	}
-	// );
-
-	// Hooks.on(
-	// 	MODULE + 'elementStops',
-	// 	async function (elementId: number): Promise<void> {
-	// 		if(!ctx.game.isGM()) {
-	// 			return;
-	// 		}
-			
-	// 		ctx.stores.currentlyPlaying
-	// 			.update(store => {
-	// 				store.elements.delete(elementId);
-	// 				return store;
-	// 			});
-	// 	}
-	// );
-	
 	Hooks.on(
 		MODULE + 'moodChange',
 		async function (moodId: number | undefined): Promise<void> {
@@ -124,7 +92,6 @@ Hooks.on('init', function () {
 
 			const soundset = await ctx.stores.hydrateSoundset(newSoundset.id);
 			
-			// const moods = await ctx.stores.getMoods(newSoundset.id);
 			
 			const newMood = soundset.moods[moodId];
 			ctx.utils.trace("Hooks on | Mood Change | mood = ", { newMood });
@@ -171,23 +138,6 @@ Hooks.on('init', function () {
 		ctx.syrin.setActiveMood();
 	});
 
-	// Hooks.on('canvasReady', (canvas) => {
-	// 	if (!ctx.game.isGM()) {
-	// 		return;
-	// 	}
-	// 	const scene = canvas?.scene;
-	// 	const soundset = scene?.getFlag(MODULE, 'soundset');
-	// 	const mood = scene?.getFlag(MODULE, 'mood');
-
-	// 	// ctx.stores.currentScene.set({ soundset, mood });
-	// });
-
-	// Hooks.on('renderSceneConfig', async (obj: SceneConfig, html: JQuery<Element>) => {
-	// 	if (!ctx.game.isGM()) {
-	// 		return;
-	// 	}
-	// 	await onSceneConfig(obj, ctx, html);
-	// });
 
 	Hooks.on('ready', async () => {
 		ctx.api.onInit();
