@@ -29,7 +29,8 @@ export class Utils {
 	trace(...args: any[]) {
 		if (this.traceEnabled()) {
 			const first = 'SyrinControl | ' + args.shift();
-			console.trace(first, ...args);
+			// console.trace(first, ...args);
+			console.info(first, ...args);
 		}
 	}
 

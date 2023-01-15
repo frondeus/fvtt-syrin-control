@@ -6,6 +6,16 @@ export interface Soundset {
 	elements: Elements;
 }
 
+// export interface NextMood {
+// 	moodId?: number;
+// 	soundsetId?: number;
+// }
+
+export interface CurrentlyPlaying {
+	mood: Mood;
+	soundset: Soundset;
+}
+
 export interface Mood {
 	id: number;
 	name: string;
@@ -59,4 +69,22 @@ export interface PlaylistItem {
 	isPlaying: boolean;
 	mood: Mood;
 	soundset: Soundset;
+}
+
+export interface AmbientSounds {
+	[index: string]: AmbientSound
+}
+
+export type AmbientSound = MoodAmbientSound | ElementAmbientSound;
+
+export interface MoodAmbientSound {
+	kind: 'mood';
+	volume: number;
+	moodId: number;
+}
+
+export interface ElementAmbientSound {
+	kind: 'element';
+	volume: number;
+	elementId: number;
 }

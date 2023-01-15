@@ -44,7 +44,7 @@ export class RawApiImpl implements RawApi {
 
 		syrinscape.player.init({
 			async configure() {
-				utils.trace("RAW Headless | Syrinscape | audio context", (audioContext === undefined), { audioContext });
+				// utils.trace("RAW Headless | Syrinscape | audio context", (audioContext === undefined), { audioContext });
 				syrinscape.log.getLogger("audioSystem").setLevel("silent");
 				syrinscape.log.getLogger("sampleSpawnSystem").setLevel("silent");
 				syrinscape.log.getLogger("elementSpawnSystem").setLevel("silent");
@@ -60,20 +60,20 @@ export class RawApiImpl implements RawApi {
 				}
 				
 				syrinscape.config.deviceName = game.getPlayerName();
-				utils.trace("RAW Headless | Syrinscape | Init Configure", { syrinscape });
+				// utils.trace("RAW Headless | Syrinscape | Init Configure", { syrinscape });
 				
 				syrinscape.player.syncSystem.events.onChangeMood.addListener(async (event) => {
 					utils.trace("RAW Headless | Syrinscape | On Change mood", { event });
 					game.callHookAll('moodChange', event.pk);
 				});
 				syrinscape.player.syncSystem.events.onChangeSoundset.addListener(async (event) => {
-					utils.trace("RAW Headless | Syrinscape | On Change soundset", { event });
+					// utils.trace("RAW Headless | Syrinscape | On Change soundset", { event });
 					game.callHookAll('soundsetChange', event.pk);
 				});
 			},
 			
 			async onActive () {
-				utils.trace("RAW Headless | Syrinscape | On Active", { syrinscape });
+				// utils.trace("RAW Headless | Syrinscape | On Active", { syrinscape });
 				raw.playerState = "active";
 				// const gainNode = audioContext.createGain();
 				// syrinscape.events.startElement.addListener((event) => {
@@ -95,7 +95,7 @@ export class RawApiImpl implements RawApi {
 			},
 			
 			async onInactive () {
-				utils.trace("RAW Headless | Syrinscape | On Inactive", { syrinscape });
+				// utils.trace("RAW Headless | Syrinscape | On Inactive", { syrinscape });
 				raw.playerState = "inactive";
 			}
 		});
@@ -106,17 +106,17 @@ export class RawApiImpl implements RawApi {
 	}
 
 	changePlayerVolume(volume: number): void {
-		this.utils.trace("RAW Headless | Syrinscape | Change Local Volume", { volume });
+		// this.utils.trace("RAW Headless | Syrinscape | Change Local Volume", { volume });
 		syrinscape.player.audioSystem.setLocalVolume(volume);
 	}
 
 	changeMoodVolume(volume: number): void {
-		this.utils.trace("RAW Headless | Syrinscape | Change Global Mood Volume", { volume });
+		// this.utils.trace("RAW Headless | Syrinscape | Change Global Mood Volume", { volume });
 		syrinscape.player.controlSystem.setGlobalVolume(volume);
 	}
 
 	changeOneShotVolume(volume: number): void {
-		this.utils.trace("RAW Headless | Syrinscape | Change Oneshot Volume", { volume });
+		// this.utils.trace("RAW Headless | Syrinscape | Change Oneshot Volume", { volume });
 		syrinscape.player.controlSystem.setOneshotVolume(volume);
 	}
 	
@@ -143,46 +143,45 @@ export class RawApiImpl implements RawApi {
 			.then((res) => res.json())
 			.catch(this.catchErr('getCurrentlyPlaying'));
 		
-		utils.trace("RAW | Syrinscape | Currently Playing", { playing });
+		// utils.trace("RAW | Syrinscape | Currently Playing", { playing });
 		return playing;
 	}
 
 	async stopMood(): Promise<void> {
+		// this.utils.trace('RAW | Stop Mood!', this.game.isGM(), this.utils.hasAuth());
 		if (!this.game.isGM() || !this.utils.hasAuth()) return;
-		this.utils.trace('RAW | Stop Mood');
+		// this.utils.trace('RAW | Stop Mood');
 
-		await syrinscape.player.controlSystem.stopAll();
-		// let utils = this.utils;
-		// function link() {
-		// 	let address = utils.getAddress();
-		// 	let authToken = utils.getAuth();
-		// 	return `${address}/stop-all/?auth_token=${authToken}`;
-		// }
+		let utils = this.utils;
+		function link() {
+			let address = utils.getAddress();
+			let authToken = utils.getAuth();
+			return `${address}/stop-all/?auth_token=${authToken}`;
+		}
 
-		// await fetch(link(), this.fetchOptions()).catch(this.catchErr('stopMood'));
+		await fetch(link(), this.fetchOptions()).catch(this.catchErr('stopMood'));
 	}
 
 	async playMood(id: number): Promise<void> {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return;
 
-		this.utils.trace('RAW | Play Mood', { id });
+		// this.utils.trace('RAW | Play Mood', { id });
 
-		await syrinscape.player.controlSystem.startMood(id);
-		// function link(id: number) {
-		// 	let address = utils.getAddress();
-		// 	let authToken = utils.getAuth();
-		// 	return `${address}/moods/${id}/play/?auth_token=${authToken}`;
-		// }
+		function link(id: number) {
+			let address = utils.getAddress();
+			let authToken = utils.getAuth();
+			return `${address}/moods/${id}/play/?auth_token=${authToken}`;
+		}
 
-		// await fetch(link(id), this.fetchOptions()).catch(this.catchErr('playMood'));
+		await fetch(link(id), this.fetchOptions()).catch(this.catchErr('playMood'));
 	}
 
 	async playElement(id: number): Promise<void> {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return;
 
-		this.utils.trace('RAW | Play Element', { id });
+		// this.utils.trace('RAW | Play Element', { id });
 
 		await syrinscape.player.controlSystem.startElements([id]);
 		// function link(id: number) {
@@ -207,7 +206,7 @@ export class RawApiImpl implements RawApi {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return [];
 
-		this.utils.trace('RAW | Get Moods', { soundsetId });
+		// this.utils.trace('RAW | Get Moods', { soundsetId });
 
 		function link() {
 			let address = utils.getAddress();
@@ -225,7 +224,7 @@ export class RawApiImpl implements RawApi {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return [];
 
-		this.utils.trace('RAW | Get Elements', { soundsetId });
+		// this.utils.trace('RAW | Get Elements', { soundsetId });
 
 		function link() {
 			let address = utils.getAddress();
@@ -243,7 +242,7 @@ export class RawApiImpl implements RawApi {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return [];
 
-		this.utils.trace('RAW | Get Soundsets');
+		// this.utils.trace('RAW | Get Soundsets');
 
 		function link() {
 			let address = utils.getAddress();
@@ -262,7 +261,7 @@ export class RawApiImpl implements RawApi {
 		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return [];
 
-		this.utils.trace('RAW | Get Global Elements');
+		// this.utils.trace('RAW | Get Global Elements');
 
 		function link() {
 			let address = utils.getAddress();

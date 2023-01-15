@@ -1,28 +1,15 @@
 <script lang="ts">
-	import Select from './Select.svelte';
-	import Toggable from './Toggable.svelte';
-	import VolumeSlider from './VolumeSlider.svelte';
 	import Context from '@/services/context';
-	import type { PlaylistItem, Mood, Soundset } from '@/models';
+	import type { PlaylistItem, Mood } from '@/models';
 	import PlaylistItemComponent from './PlaylistItem.svelte';
 	import { openElements } from '@/ui/elements';
 
 	// Context
 	const ctx = Context();
-	const currentMood = ctx.stores.currentMood;
-	const currentSoundset = ctx.stores.currentSoundset;
-	const soundsets = ctx.stores.soundsets;
-	// const current = ctx.stores.currentlyPlaying;
-	// const currentScene = ctx.stores.currentScene;
+	const currentlyPlaying = ctx.stores.currentlyPlaying;
 
 	// Params & State
 	let collapsed = false;
-
-	const isPlaying = (m: Mood | undefined, current: Mood | undefined) => {
-		if (!currentMood) return false;
-
-		return currentMood?.id === m?.id;
-	};
 
 	type CurrentPlaylistItem = Partial<PlaylistItem> & {
 		shouldDisplay: boolean;
@@ -32,9 +19,6 @@
 		shouldDisplay: false
 	};
 
-	// let currentSceneItem: CurrentPlaylistItem = {
-	// 	shouldDisplay: false
-	// };
 
 	function intoItem(item: CurrentPlaylistItem): PlaylistItem {
 		return {
@@ -48,73 +32,42 @@
 		if (mood === undefined) { return false; }
 
 		const playlists = ctx.game.getPlaylists();
-		const soundInPlaylist = playlists?.filter(playlist =>  playlist?.flags?.syrinscape !== undefined )
-			.map(p =>  p.sounds.filter(s => s?.flags?.syrinscape?.type === "mood") )
+		const soundInPlaylist = playlists?.filter(playlist =>  (playlist as any)?.flags?.syrinscape !== undefined )
+			.map(p =>  p.sounds.filter(s => (s as any)?.flags?.syrinscape?.type === "mood") )
 			.flat()
-			.find(s => s.flags.syrinscape.mood === mood?.id);
+			.find(s => ((s as any)?.flags as any).syrinscape.mood === mood?.id);
 
 		return soundInPlaylist === undefined;
 	} 
 
-	let isMood = {
-		playing: false,
-		inPlaylist: false
-	};
 
 	// Reactive Blocks
 	$: {
-		let isPlaying = $currentMood !== undefined;
-		const shouldDisplay = isPlaying && isNotInPlaylist($currentMood);
+		let isPlaying = $currentlyPlaying !== undefined;
+		const shouldDisplay = isPlaying && isNotInPlaylist($currentlyPlaying?.mood);
 
 		currentItem = {
 			isPlaying,
-			mood: $currentMood,
-			soundset: $currentSoundset,
+			mood: $currentlyPlaying?.mood,
+			soundset: $currentlyPlaying?.soundset,
 			shouldDisplay
 		};
 	}
-
-	// $: {
-	// 	let sceneMood = $currentScene.mood;
-	// 	let sceneSoundset = $currentScene.soundset;
-	// 	let isPlaying = sceneMood !== undefined && sceneMood === $current.mood;
-
-	// 	currentSceneItem = {
-	// 		isPlaying,
-	// 		mood: sceneMood,
-	// 		soundset: sceneSoundset,
-	// 		shouldDisplay: sceneMood !== undefined && !isPlaying 
-	// 	};
-	// }
 
 	// Event handlers
 	function toggleCollapsed() {
 		collapsed = !collapsed;
 	}
 
-	function playMood(soundset: Soundset | undefined, mood: Mood | undefined) {
-		if (mood === undefined || soundset === undefined || isPlaying(mood, $currentMood)) {
-			return async function () {
-				await ctx.syrin.stopAll();
-			};
-		}
-		return async function () {
-			await ctx.syrin.setMood(soundset, mood);
-		};
+  function stopMood() {
+		ctx.syrin.stopAll();
 	}
 
-	function playItem(e: { detail: PlaylistItem }) {
-		playMood(e.detail.soundset, e.detail.mood)();
-	}
 	function openItemElements(e: { detail: PlaylistItem }) {
 		ctx.stores.elementsApp.update((p) => {
 			p.addTab({ soundset: e.detail.soundset, kind: 'soundset' });
 			return p;
 		});
-		openElements(ctx);
-	}
-
-	function openGlobalElements() {
 		openElements(ctx);
 	}
 
@@ -124,14 +77,13 @@
 		const soundset = await ctx.stores.hydrateSoundset(soundsetId);
 		const playlist = await ctx.game.createPlaylist(soundset, undefined);
 
-		console.warn("%}]", { soundset });
 		for (const mood of Object.values(soundset.moods)) {
-				await ctx.game.createPlaylistMoodSound(mood, playlist);
+				if (playlist !== undefined) {
+					await ctx.game.createPlaylistMoodSound(mood, playlist);
+				}
 		}
 
-		// Array.from(playlists.values()).forEach((playlist) => {
-		ctx.game.notifyInfo(`SyrinControl | Created playlist "${playlist.name}"`)
-		// });
+		ctx.game.notifyInfo(`SyrinControl | Created playlist "${playlist?.name}"`)
 	}
 
 </script>
@@ -151,7 +103,7 @@
 			<div class="currently-playing">
 					<PlaylistItemComponent
 						item={intoItem(currentItem)}
-						on:play={playItem}
+						on:playMood={stopMood}
 						on:elements={openItemElements}
 						on:import={importItem}
 					/>

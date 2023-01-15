@@ -13,12 +13,12 @@ export function initSettings(ctx: Context) {
 		},
 		playMood: async (params: PlayMoodParams | number) => {
 			if (typeof(params) === "number") {
-					await ctx.syrin.setMood(params);
+					ctx.syrin.setMood(params);
 					return;
 			}
 			const { mood } = params;
 
-			await ctx.syrin.setMood(mood.id);
+			ctx.syrin.setMood(mood.id);
 		},
 		isPlayerActive: () => {
 			return api.isPlayerActive();

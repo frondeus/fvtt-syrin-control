@@ -19,9 +19,7 @@
 
   // Reactive Blocks
   const reactiveIsPlaying = (current, mood) => {
-      ctx.utils.trace("MMMood | Is Playing Reaction | is = ", { isPlaying });
       isPlaying = ctx.stores.isPlaying(mood);
-      ctx.utils.trace("MMMood | Is Playing Reaction | is = ", { isPlaying });
   };
 
   $: reactiveIsPlaying($currentMood, mood);
@@ -39,10 +37,10 @@
 
 	async function onPlayMood() {
 		if(isPlaying) {
-			await ctx.syrin.stopAll();
+			ctx.syrin.stopAll();
 		}
     else {
-  		await ctx.syrin.setMood(mood.id);
+  		ctx.syrin.setMood(mood.id);
     }
 	}
 

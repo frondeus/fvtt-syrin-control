@@ -183,9 +183,6 @@
 	</div>
 	{#if isAnySelected }
 	<div class="footer">
-		<button type="submit" title="Create macro folder" on:click={onCreateMacro}>
-			Create Macro Folder
-		</button>
 		<button type="submit" title="Import playlists" on:click={onCreatePlaylist}>
 			Import Playlists
 		</button>

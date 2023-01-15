@@ -15,7 +15,7 @@ class SyrinAmbientSound extends AmbientSound {
   ) {
     super(data);
     if (ctx === undefined || ctx === null) {
-    	ctx = container.resolve(Context);
+    	ctx = { ctx: container.resolve(Context) };
       ctx.utils.warn("Ambient Sound context was undefined. Fixing it!");
     }
     this.ctx = (ctx as any).ctx;
@@ -24,6 +24,8 @@ class SyrinAmbientSound extends AmbientSound {
     const ty = splitted[1];
     const id = Number(splitted[2].split('.')[0]);
     
+    this.document.update({ easing: true, volume: 1.0 });
+    // this.ctx.utils.trace('Create ambient', { data, ctx });
     if(ty === "mood") {
       this.syrinFlags = { type: "mood", mood: id };
     } else if (ty === "element") {
@@ -37,31 +39,42 @@ class SyrinAmbientSound extends AmbientSound {
     return null;
   }
   
-  override async sync(isAudible: boolean, _volume: number, _options?: Partial<AmbientSound.SyncOptions>): Promise<void> {
+  override async sync(isAudible: boolean, volume: number, options?: Partial<AmbientSound.SyncOptions>): Promise<void> {
       if(!this.ctx.api.isPlayerActive()) {
         return;
       }
-      let currentlyPlaying = this.ctx.stores.getCurrentlyPlaying();
-      switch (this.syrinFlags?.type) {
-        case "mood": {
-            let isCurrentlyPlaying = currentlyPlaying.mood?.id  === this.syrinFlags.mood;
-            if(isAudible &&  !isCurrentlyPlaying) {
-              this.ctx.utils.trace("Ambient Sound | Play Mood", { item: this, });
-              await this.ctx.api.playMood(this.syrinFlags.mood);
-          } else if(!isAudible && isCurrentlyPlaying) {
-              this.ctx.utils.trace("Ambient Sound | Stop Mood", { item: this, });
-              await this.ctx.syrin.stopAll();
+
+      const power = (1.0 - volume) * this.radius;
+
+      if (isAudible) {
+        switch (this.syrinFlags?.type) {
+          case "mood": {
+            const moodId = this.syrinFlags.mood;
+            // this.ctx.utils.trace("Ambient | sync | mood ", { volume, moodId, that: this , options });
+            this.ctx.stores.possibleAmbientSounds.update(p => ({ ...p, [this.id]: { 
+              kind: 'mood',
+              volume: power,
+              moodId
+            }}));
+            break;
           }
-          break;
-        }
-        case "element": {
-          if(isAudible) {
-            await this.ctx.api.playElement(this.syrinFlags.element);
-          } else {
-            await this.ctx.api.stopElement(this.syrinFlags.element);
+          case "element": {
+            const elementId = this.syrinFlags.element;
+            this.ctx.stores.possibleAmbientSounds.update(p => ({ ...p, [this.id]: { 
+              kind: 'element',
+              volume: power,
+              elementId
+            }}));
+            break;
           }
-          break;
         }
+      }
+      else {
+        // this.ctx.utils.trace("Ambient | sync | stop", { volume });
+        this.ctx.stores.possibleAmbientSounds.update(p => {
+          delete p[this.id];
+          return p;
+        });
       }
   }
 }
@@ -82,6 +95,7 @@ class SyrinPlaylistSound extends PlaylistSound {
     syrinFlags: SyrinPlaylistSoundFlags;
     ctx: Context;
     unsubsriber?: Unsubscriber;
+    wasPlaying: boolean;
     /**
      * @param data   - Initial data provided to construct the PlaylistSound document
      * @param parent - The parent Playlist document to which this result belongs
@@ -93,7 +107,8 @@ class SyrinPlaylistSound extends PlaylistSound {
       super(data, context);
       this.syrinFlags = data!.flags!.syrinscape as SyrinPlaylistSoundFlags;
       this.ctx = (context as any).ctx;
-      this.ctx.utils.trace("Creating syrinscape playlist sound", { data, context });
+      this.wasPlaying = false;
+      // this.ctx.utils.trace("Creating syrinscape playlist sound", { data, context });
       if (this.syrinFlags.type === "mood") {
         const flagsMoodId = this.syrinFlags.mood;
         if (this.path === "./syrinscape-not-a-real-path.wav") {
@@ -101,14 +116,18 @@ class SyrinPlaylistSound extends PlaylistSound {
             this.update({path: `syrinscape:${this.syrinFlags.type}:${flagsMoodId}.wav`});
           },10);
         }
-        this.unsubsriber = this.ctx.stores.currentMood.subscribe((mood) => {
+        this.unsubsriber = this.ctx.stores.currentlyPlaying.subscribe(playing => {
+          const mood = playing?.mood;
           if (this.id !== null) {
             if (this.syrinFlags.type === "mood") {
               const playing = mood?.id === this.syrinFlags.mood;
               this.update({ playing });
+              this.wasPlaying = playing;
             }
           }
         });
+        // this.unsubsriber = this.ctx.stores.currentMood.subscribe((mood) => {
+        // });
       }
     }
   
@@ -116,27 +135,18 @@ class SyrinPlaylistSound extends PlaylistSound {
       if(!this.ctx.api.isPlayerActive()) {
         return;
       }
-      let currentlyPlaying = this.ctx.stores.getCurrentlyPlaying();
-      this.ctx.utils.trace("Sync: Playlist Sound", { playing: this.playing, currentlyPlaying: currentlyPlaying, that: this })
-      switch (this.syrinFlags.type) {
-        case "mood": {
-          let isCurrentlyPlaying = currentlyPlaying.mood?.id  === this.syrinFlags.mood;
-          if(this.playing && !isCurrentlyPlaying) {
-              this.ctx.utils.trace("Playlist Item | Play Mood", { item: this, })
-              await this.ctx.api.playMood(this.syrinFlags.mood);
-          } else if(!this.playing && isCurrentlyPlaying){
-              this.ctx.utils.trace("Playlist Item | Stop Mood", { item: this, })
-              await this.ctx.syrin.stopAll();
+
+      if (this.playing !== this.wasPlaying) {
+        switch (this.syrinFlags.type) {
+          case 'mood': {
+            if (this.playing) {
+              this.ctx.syrin.setMood(this.syrinFlags.mood);
+            }
+            else {
+              this.ctx.syrin.stopAll();
+            }
+            break;
           }
-          break;
-        }
-        case "element": {
-          if(this.playing) {
-            await this.ctx.api.playElement(this.syrinFlags.element);
-          } else {
-            await this.ctx.api.stopElement(this.syrinFlags.element);
-          }
-          break;
         }
       }
     }
@@ -167,7 +177,8 @@ class SyrinPlaylist extends Playlist {
       this.syrinFlags = data!.flags!.syrinscape as SyrinPlaylistFlags;
       this.ctx = (context as any).ctx;
 
-      this.unsubsriber = this.ctx.stores.currentSoundset.subscribe((soundset) => {
+      this.unsubsriber = this.ctx.stores.currentlyPlaying.subscribe((playing) => {
+        const soundset = playing?.soundset;
           if(this.id !== null) {
             const playing = soundset?.id === this.syrinFlags.soundset;
             this.update({ playing });
@@ -180,8 +191,8 @@ class SyrinPlaylist extends Playlist {
     }
     
     override async stopAll(): Promise<undefined> {
-      this.ctx.utils.trace("Playlist | Stop Mood");
-      await this.ctx.syrin.stopAll();
+      // this.ctx.utils.trace("Playlist | Stop Mood");
+      this.ctx.syrin.stopAll();
       return undefined;
     }
   

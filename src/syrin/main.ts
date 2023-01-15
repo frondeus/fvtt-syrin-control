@@ -9,7 +9,7 @@ import { Context } from './services/context';
 import { FVTTGameImpl } from './services/game';
 import { RawApiImpl } from './services/raw';
 import { createProxies } from './sounds';
-import { get } from 'svelte/store';
+// import { openDebug } from './ui/debug';
 
 Hooks.on('init', function () {
 	console.log('SyrinControl | Initializing...');
@@ -56,13 +56,7 @@ Hooks.on('init', function () {
 				return;
 			}
 			
-			const soundsets = Object.values(ctx.stores.getSoundsets());
-			const soundset = soundsets.find(soundset => soundset.pid === soundsetId);
-			if (!soundset) {
-				return;
-			}
-			ctx.stores.nextSoundset
-				.set(soundset);
+			ctx.stores.nextSoundset.set(soundsetId);
 		}
 	);
 
@@ -73,46 +67,10 @@ Hooks.on('init', function () {
 				return;
 			}
 			
-			const currentlyPlaying = ctx.stores.getCurrentlyPlaying();
-			const oldMood = currentlyPlaying.mood?.id;
-			if (oldMood === moodId) {
-				ctx.utils.trace("Hooks on | Mood Change | The same mood!", { moodId });
-				return;
-			}
-			const newSoundset = currentlyPlaying.nextSoundset;
-			
-			
-			ctx.utils.trace("Hooks on | Mood Change", { moodId, newSoundset });
-
-			if (moodId === undefined || newSoundset === undefined) { 
-				ctx.stores.currentSoundset.set(undefined);
-				ctx.stores.currentMood.set(undefined);
-				return;
-		  }
-
-			const soundset = await ctx.stores.hydrateSoundset(newSoundset.id);
-			
-			
-			const newMood = soundset.moods[moodId];
-			ctx.utils.trace("Hooks on | Mood Change | mood = ", { newMood });
-			
-			ctx.stores.currentSoundset.set(newSoundset);
-			ctx.stores.currentMood.set(newMood);
-
-			const el = await ctx.api.onlineGlobalElements();
-			if (el.length !== 0) {
-				ctx.stores.globalElements.set(el);
-			}
-
-			if (newMood) {
-				ctx.game.notifyInfo(
-					`SyrinControl | Playing "${newMood.name}" from "${
-						newSoundset?.name ?? 'unknown soundset'
-					}"`
-				);
-			}
+			ctx.stores.nextPlaylistMood.set(moodId);
 		}
 	);
+
 
 	Hooks.on('closeSettingsConfig', async () => {
 		if (!ctx.game.isGM()) {
@@ -120,24 +78,6 @@ Hooks.on('init', function () {
 		}
 		await onCloseSettings(ctx);
 	});
-	Hooks.on('updateScene', (scene: Scene) => {
-		if (!ctx.game.isGM()) {
-			return;
-		}
-
-		if (scene.getFlag(MODULE, 'soundset')?.id === null) {
-			scene.unsetFlag(MODULE, 'soundset');
-			scene.unsetFlag(MODULE, 'mood');
-			return;
-		}
-		if (scene.getFlag(MODULE, 'mood')?.id === null) {
-			scene.unsetFlag(MODULE, 'mood');
-			return;
-		}
-		if (!scene.active) return;
-		ctx.syrin.setActiveMood();
-	});
-
 
 	Hooks.on('ready', async () => {
 		ctx.api.onInit();
@@ -145,9 +85,8 @@ Hooks.on('init', function () {
 			console.log('SyrinControl | Ready but not a GM.');
 			return;
 		}
+		// openDebug(ctx);
 		console.log('SyrinControl | Ready...');
-
-		ctx.syrin.setActiveMood();
 
 		const soundsets = await ctx.api.onlineSoundsets();
 		if (Object.keys(soundsets).length !== 0) {
@@ -158,5 +97,16 @@ Hooks.on('init', function () {
 		if (el.length !== 0) {
 			ctx.stores.globalElements.set(el);
 		}
+
+
+		ctx.stores.nextMood.subscribe(next => {
+			ctx.utils.trace('Subscribe | next mood: ', next);
+			if (next !== undefined) {
+				ctx.api.playMood(next);
+			}
+			else {
+				ctx.api.stopMood();
+			}
+		});
 	});
 });
