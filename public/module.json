@@ -1,21 +1,23 @@
 {
-	"name": "fvtt-syrin-control",
+	"id": "fvtt-syrin-control",
 	"title": "Syrinscape Control",
 	"description": "Syrinscape Online synchronization and control",
-	"version": "0.0.1",
-	"library": "false",
-	"manifestPlusVersion": "1.0.0",
-	"minimumCoreVersion": "0.8.8",
-	"compatibleCoreVersion": "10",
 	"authors": [
 		{
 			"name": "Wojciech polak",
 			"url": "https://github.com/frondeus"
 		}
 	],
-	"conflicts": [],
+	"version": "0.1.0",
+	"compatibility": {
+		"minimum": 9,
+		"verified": "10",
+		"maximum": "10"
+	},
+	"library": false,
 	"esmodules": ["index.js"],
 	"scripts": [],
+	"socket": true,
 	"styles": ["style.css"],
 	"languages": [
 		{
@@ -27,5 +29,15 @@
 	"url": "This is auto replaced",
 	"manifest": "This is auto replaced",
 	"download": "This is auto replaced",
-	"media": []
+	"media": [],
+	"relationships": {
+		"requires": [{
+			"id": "socketlib",
+			"type": "module",
+			"manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/v1.0.12/module.json",
+			"compability": {
+				"verified": "1.0.12"
+			}
+		}]
+	}
 }

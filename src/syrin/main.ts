@@ -5,13 +5,43 @@ import { onPlaylistTab } from './ui/playlist';
 import { openElements } from './ui/elements';
 
 import { MODULE } from './services/utils';
-import { Context } from './services/context';
+import { Context, resolve } from './services/context';
 import { FVTTGameImpl } from './services/game';
 import { RawApiImpl } from './services/raw';
 import { createProxies } from './sounds';
+import { SocketCalls } from './socket';
 // import { openDebug } from './ui/debug';
 
-Hooks.on('init', function () {
+
+function setupSocket(ctx: Context): Promise<void> {
+	return new Promise((resolve) => {
+		const interval = setInterval(() => {
+			let socket = ctx.game.socket;
+			if(socket !== undefined) {
+				if (ctx.game.isGM()) {
+					ctx.game.socket?.register(SocketCalls.PlayAmbient, (id, sound) => {
+						// ctx.utils.warn("Request from Player | please play this ambient", {id, sound});
+						ctx.syrin.playAmbientSound(id, sound);
+					});
+					ctx.game.socket?.register(SocketCalls.StopAmbient, (id, userId) => {
+						// ctx.utils.warn("Request from Player | please stop this ambient", {id });
+						ctx.syrin.stopAmbientSound(id, userId);
+					});
+					ctx.utils.info("SocketLib registered | GM");
+				}
+				else {
+					ctx.game.socket?.register(SocketCalls.PlayAmbient, (_id, _sound) => { });
+					ctx.game.socket?.register(SocketCalls.StopAmbient, (_id, _userId) => { });
+					ctx.utils.info("SocketLib registered | Player");
+				}
+				clearInterval(interval);
+				resolve();
+			}
+		}, 200); 
+	});
+}
+
+Hooks.once('init', function () {
 	console.log('SyrinControl | Initializing...');
 
 	container.register('FVTTGame', {
@@ -20,12 +50,36 @@ Hooks.on('init', function () {
 	container.register('RawApi', {
 		useClass: RawApiImpl
 	});
-	const ctx = container.resolve(Context);
+	const ctx = resolve();
 	initSettings(ctx);
 	const proxies = createProxies(ctx);
 	CONFIG.PlaylistSound.documentClass = proxies.PlaylistSoundProxy;
 	CONFIG.Playlist.documentClass = proxies.PlaylistProxy;
 	CONFIG.AmbientSound.objectClass = proxies.AmbientSoundProxy;
+
+	// CONFIG.debug.hooks = true;
+	if(!game.modules.get("socketlib")?.active) {
+		ctx.utils.error("The `socketlib` module isn't enabled, but it's required for SyrinControl to operate properly");
+			
+		Hooks.once('ready', () => {
+		if (ctx.game.isGM()) {
+			new Dialog({
+				title: game.i18n.localize(MODULE + ".dependencies.socketlib.title"),
+				content: `<h2>${game.i18n.localize(
+					MODULE + ".dependencies.socketlib.title",
+				)}</h2><p>${game.i18n.localize(MODULE + ".dependencies.socketlib.text")}</p>`,
+				buttons: {
+					ok: {
+						icon: '<i class="fas fa-check"></i>',
+						label: game.i18n.localize(MODULE + ".dependencies.ok"),
+					},
+				},
+			}).render(true);
+		}
+		});
+	}
+	
+	const socketPromise = setupSocket(ctx);
 
 	Hooks.on('renderPlaylistDirectory', async (_: any, html: JQuery<Element>) => {
 		await onPlaylistTab(ctx, html);
@@ -79,14 +133,14 @@ Hooks.on('init', function () {
 		await onCloseSettings(ctx);
 	});
 
-	Hooks.on('ready', async () => {
+	Hooks.once('ready', async () => {
+		await socketPromise;
 		ctx.api.onInit();
 		if (!ctx.game.isGM()) {
-			console.log('SyrinControl | Ready but not a GM.');
+			ctx.utils.info('Ready but not a GM...');
 			return;
 		}
-		// openDebug(ctx);
-		console.log('SyrinControl | Ready...');
+		ctx.utils.info('Ready...');
 
 		const soundsets = await ctx.api.onlineSoundsets();
 		if (Object.keys(soundsets).length !== 0) {

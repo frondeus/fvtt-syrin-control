@@ -15,6 +15,7 @@ class SyrinAmbientSound extends AmbientSound {
   ) {
     super(data);
     if (ctx === undefined || ctx === null) {
+      debugger;
     	ctx = { ctx: container.resolve(Context) };
       ctx.utils.warn("Ambient Sound context was undefined. Fixing it!");
     }
@@ -45,36 +46,35 @@ class SyrinAmbientSound extends AmbientSound {
       }
 
       const power = (1.0 - volume) * this.radius;
+      const userId = this.ctx.game.userId() ?? "";
 
       if (isAudible) {
         switch (this.syrinFlags?.type) {
           case "mood": {
             const moodId = this.syrinFlags.mood;
-            // this.ctx.utils.trace("Ambient | sync | mood ", { volume, moodId, that: this , options });
-            this.ctx.stores.possibleAmbientSounds.update(p => ({ ...p, [this.id]: { 
+            this.ctx.syrin.playAmbientSound(this.id, {
               kind: 'mood',
               volume: power,
-              moodId
-            }}));
+              moodId,
+              userId
+            });
             break;
           }
           case "element": {
             const elementId = this.syrinFlags.element;
-            this.ctx.stores.possibleAmbientSounds.update(p => ({ ...p, [this.id]: { 
+            this.ctx.syrin.playAmbientSound(this.id, { 
               kind: 'element',
               volume: power,
-              elementId
-            }}));
+              elementId,
+              userId
+            });
             break;
           }
         }
       }
       else {
         // this.ctx.utils.trace("Ambient | sync | stop", { volume });
-        this.ctx.stores.possibleAmbientSounds.update(p => {
-          delete p[this.id];
-          return p;
-        });
+        this.ctx.syrin.stopAmbientSound(this.id, userId);
       }
   }
 }
@@ -109,7 +109,7 @@ class SyrinPlaylistSound extends PlaylistSound {
       this.ctx = (context as any).ctx;
       this.wasPlaying = false;
       // this.ctx.utils.trace("Creating syrinscape playlist sound", { data, context });
-      if (this.syrinFlags.type === "mood") {
+      if (this.syrinFlags.type === "mood" && this.ctx.game.isGM()) {
         const flagsMoodId = this.syrinFlags.mood;
         if (this.path === "./syrinscape-not-a-real-path.wav") {
           setTimeout(() => {

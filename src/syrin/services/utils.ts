@@ -34,6 +34,12 @@ export class Utils {
 		}
 	}
 
+	info(...args: any[]) {
+			const first = 'SyrinControl | ' + args.shift();
+			// console.trace(first, ...args);
+			console.info(first, ...args);
+	}
+
 	error(...args: any[]) {
 		const first = 'SyrinControl | ' + args.shift();
 		console.error(first, ...args);

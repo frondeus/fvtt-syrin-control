@@ -5,17 +5,17 @@ import { Stores } from './stores';
 import { Api } from './api';
 import { Syrin } from './syrin';
 import type { RawApi } from './raw';
-import { inject, injectable } from 'tsyringe';
+import { container, inject, injectable } from 'tsyringe';
 
 @injectable()
 export class Context {
 	constructor(
 		@inject('FVTTGame')
 		public game: FVTTGame,
-		public stores: Stores,
+		public utils: Utils,
 		public api: Api,
+		public stores: Stores,
 		public syrin: Syrin,
-		public utils: Utils
 	) {}
 
 	map(): Map<string, any> {
@@ -24,12 +24,22 @@ export class Context {
 	}
 }
 
+export function resolve(): Context {
+	// const game = container.resolve<FVTTGame>("FVTTGame");
+	// const utils = container.resolve(Utils);
+	// const api = container.resolve(Api);
+	// const stores = container.resolve(Stores);
+	// const syrin = container.resolve(Syrin);
+	return container.resolve(Context);
+	// return new Context(game, utils, api, stores, syrin);
+}
+
 export function mocked(game: FVTTGame, raw: RawApi): Context {
 	const utils = new Utils(game);
 	const api = new Api(utils, raw);
 	const stores = new Stores(game, utils, api);
-	const syrin = new Syrin(utils, game, api);
-	return new Context(game, stores, api, syrin, utils);
+	const syrin = new Syrin(game, utils, stores);
+	return new Context(game, utils, api, stores, syrin);
 }
 
 export default function context(): Context {

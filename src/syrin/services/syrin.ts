@@ -1,16 +1,19 @@
 // import { Mood, Soundset } from '@/models';
 import { inject, injectable } from 'tsyringe';
-import { Api } from './api';
 import type { FVTTGame } from './game';
+import { Stores } from './stores';
 import { Utils } from './utils';
+import {AmbientSound} from '@/models';
+import { SocketCalls } from '@/socket';
+// import { SocketCalls } from '@/socket';
 
 @injectable()
 export class Syrin {
 	constructor(
-		private readonly utils: Utils,
 		@inject('FVTTGame')
-		public game: FVTTGame,
-		public api: Api
+		private readonly game: FVTTGame,
+		private readonly utils: Utils,
+		private readonly stores: Stores
 	) {}
 
 	 stopAll() {
@@ -34,5 +37,25 @@ export class Syrin {
 
 	}
 
+	playAmbientSound(id: string, sound: AmbientSound) {
+			if(!this.game.isGM()) {
+				const key = id + sound.userId;
+				this.game.socket?.executeAsGM(SocketCalls.PlayAmbient, key, sound);
+				return;
+			}
+      this.stores.possibleAmbientSounds.update(p => ({ ...p, [id]: sound}));
+	}
+
+	stopAmbientSound(id: string, userId: string) {
+			if(!this.game.isGM()) {
+				const key = id + userId;
+				this.game.socket?.executeAsGM(SocketCalls.StopAmbient, key);
+				return;
+			}
+      this.stores.possibleAmbientSounds.update(p => {
+        delete p[id];
+        return p;
+      });
+	}
 	
 }

@@ -1,5 +1,6 @@
 import { Context } from './services/context';
 import type { PlayMoodParams } from './services/game';
+import { openDebug } from './ui/debug';
 
 export function initSettings(ctx: Context) {
 	const game = ctx.game;
@@ -19,6 +20,9 @@ export function initSettings(ctx: Context) {
 			const { mood } = params;
 
 			ctx.syrin.setMood(mood.id);
+		},
+		openDebug: () => {
+			openDebug(ctx);
 		},
 		isPlayerActive: () => {
 			return api.isPlayerActive();

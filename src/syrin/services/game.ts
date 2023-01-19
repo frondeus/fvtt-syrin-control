@@ -2,6 +2,7 @@
 import { injectable } from 'tsyringe';
 import { MODULE } from './utils';
 import type { Soundset, Mood, Element } from '@/models';
+import { socket } from '@/socket';
 
 export interface PlayMoodParams {
 	soundset: Soundset | undefined;
@@ -12,6 +13,7 @@ export interface Global {
 	playElement(id: number): Promise<void>;
 	stopElement(id: number): Promise<void>;
 	playMood(params: PlayMoodParams | number): Promise<void>;
+	openDebug(): void;
 	isPlayerActive(): boolean;
 	refresh(): void;
 }
@@ -22,9 +24,12 @@ export interface FVTTGame {
 	getSetting<T>(name: string): T;
 	setSetting<T>(name: string, t: T): void;
 
+	get socket(): SocketlibSocket | undefined;
+
 	notifyInfo(msg: string): void;
 	notifyError(msg: string): void;
 	isGM(): boolean;
+	userId(): string | null;
 	getActiveScene(): Scene | undefined;
 
 	localize(key: string): string;
@@ -48,6 +53,10 @@ export class FVTTGameImpl implements FVTTGame {
 
 	constructor() {
 		this.game = getGame();
+	}
+
+	get socket(): SocketlibSocket | undefined {
+		return socket;
 	}
 
 	getPlayerName(): string {
@@ -90,6 +99,10 @@ export class FVTTGameImpl implements FVTTGame {
 		ui.notifications?.error(msg);
 	}
 
+	userId(): string | null {
+		return this.game.userId;
+	}
+	
 	isGM(): boolean {
 		return this.game.user?.isGM === true;
 	}

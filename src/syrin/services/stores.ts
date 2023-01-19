@@ -14,7 +14,7 @@ import {
     // CurrentlyPlaying
 } from '@/models';
 import { ElementsApplication } from '@/ui/elements';
-import { inject, injectable } from 'tsyringe';
+import { inject, singleton } from 'tsyringe';
 import { Utils } from './utils';
 import { Api } from './api';
 import { MacroManagerApplication } from '@/ui/macromanager';
@@ -22,7 +22,7 @@ import { MacroManagerApplication } from '@/ui/macromanager';
 export type FoundryStore<T> = Writable<T> & { get: () => T; refresh: () => void };
 declare type Invalidator<T> = (value?: T) => void;
 
-@injectable()
+@singleton()
 export class Stores {
 	// currentMood: Writable<Mood | undefined>;
 	// currentSoundset: Writable<Soundset | undefined>;
@@ -37,8 +37,14 @@ export class Stores {
 	globalElements: FoundryStore<Elements>;
 	soundsets: FoundryStore<Soundsets>;
 
+	playerVolume: FoundryStore<number>;
+	globalVolume: FoundryStore<number>;
+	oneshotsVolume: FoundryStore<number>;
+
 	elementsApp: Writable<ElementsAppStore>;
 	macroManagerApp: Writable<MacroManagerAppStore>;
+
+	id: string;
 
 	constructor(
 		@inject('FVTTGame')
@@ -46,6 +52,7 @@ export class Stores {
 		private readonly utils: Utils,
 		private readonly api: Api
 	) {
+		this.id = `syrin-${Math.random() * 10}`
 		game.registerSetting('soundsets', {
 			name: 'Soundsets',
 			scope: 'world',
@@ -66,9 +73,30 @@ export class Stores {
 			config: false,
 			default: { entries: [] }
 		});
+		game.registerSetting('playerVolume', {
+			name: 'PlayerVolume',
+			scope: 'client',
+			config: false,
+			default: 50
+		});
+		game.registerSetting('globalVolume', {
+			name: 'GlobalVolume',
+			scope: 'world',
+			config: false,
+			default: 50
+		});
+		game.registerSetting('oneshotsVolume', {
+			name: 'OneShotsVolume',
+			scope: 'world',
+			config: false,
+			default: 50
+		});
 
 		this.globalElements = createFoundryStore(game, 'elements');
 		this.soundsets = createFoundryStore(game, 'soundsets');
+		this.playerVolume = createFoundryStore(game, 'playerVolume');
+		this.globalVolume = createFoundryStore(game, 'globalVolume');
+		this.oneshotsVolume = createFoundryStore(game, 'oneshotsVolume');
 
 		this.elementsApp = writable(new ElementsAppStore());
 		this.macroManagerApp = writable(new MacroManagerAppStore());
@@ -79,7 +107,6 @@ export class Stores {
 		this.possibleAmbientSounds = delayed({}, 100);
 		this.nextAmbientMood = deduped_readable(derived(this.possibleAmbientSounds, (sounds, set) => {
 				const sortedAmbients = Object.values(sounds).sort((a, b) => (a.volume - b.volume));
-				// utils.trace('Derived Store | ambient sound', sortedAmbients);
 				const loudestAmbient = sortedAmbients.shift();
 				if (loudestAmbient !== undefined) {
 					switch (loudestAmbient.kind) {
@@ -275,18 +302,29 @@ export class MacroManagerAppStore {
 function delayed<T>(initial: T, delay: number): Writable<T> {
 	const store = writable<T>(initial);
 	let last: { val: T } | undefined = undefined;
+	let lastValue = initial;
 	setInterval(() => {
 		if (last !== undefined) {
 			store.set(last.val);
+			last = undefined;
 		}
 	}, delay);
 	const set = (fresh: T) => {
 		last = { val: fresh };
+		lastValue = fresh;
+	};
+	const update = (updater: Updater<T>) => {
+		const fresh = updater(lastValue);
+		lastValue = fresh;
+		last = { val: fresh };
+	};
+	const subscribe = (run: Subscriber<T>, invalidator?: Invalidator<T> | undefined) : Unsubscriber => {
+		return store.subscribe(run, invalidator);
 	};
 	return {
 		set: set,
-		update: store.update,
-		subscribe: store.subscribe
+		update: update,
+		subscribe: subscribe
 	}
 }
 
@@ -295,6 +333,7 @@ export function deduped_readable<T>(other: Readable<T>): Readable<T> {
 		
 		let prev: { value: T; } | undefined = undefined;
 		return other.subscribe((t) => {
+			// console.warn("SyrinStore | DEDUP", { prev, t });
 			if (prev !== undefined && _.isEqual(t, prev.value)) {
 				return;
 			}
@@ -333,7 +372,7 @@ function createFoundryStore<T>(game: FVTTGame, name: string): FoundryStore<T> {
 
 	const refresh = () => {
 		let loaded = game.getSetting<T>(name);
-		console.warn('SyrinControl | Refreshing', { name, loaded });
+		// console.warn('SyrinControl | Refreshing', { name, loaded });
 		store.set(loaded);
 	};
 

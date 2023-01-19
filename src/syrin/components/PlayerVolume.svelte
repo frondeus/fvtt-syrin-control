@@ -7,13 +7,13 @@
 
 
   // Params & State
-  let volume = 50;
+  let volume = ctx.stores.playerVolume;
 
   // Event handlers
   function onVolumeChange() {
-    ctx.api.changePlayerVolume(volume);
+    ctx.api.changePlayerVolume($volume);
   }
 </script>
 
-<VolumeSlider name="globalSyrinscapeVolume" title="Syrinscape" bind:volume={volume} on:change={onVolumeChange}/>
+<VolumeSlider name="globalSyrinscapeVolume" title="Syrinscape" bind:volume={$volume} on:change={onVolumeChange}/>
 

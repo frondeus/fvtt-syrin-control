@@ -6,17 +6,17 @@
   const ctx = Context();
 
   // Params & State
-  let globalVolume = 50;
-  let oneshotsVolume = 50;
+  let globalVolume = ctx.stores.globalVolume;
+  let oneshotsVolume = ctx.stores.oneshotsVolume;
 
   // Event handlers
 	function onGlobalVolumeChange() { 
-			ctx.api.changeMoodVolume(globalVolume);
+			ctx.api.changeMoodVolume($globalVolume);
   }
 	function onOneshotsVolumeChange() { 
-			ctx.api.changeOneShotVolume(oneshotsVolume);
+			ctx.api.changeOneShotVolume($oneshotsVolume);
   }
 </script>
 
-<VolumeSlider name="syrinscapeGlobalVolume" title="Global"    bind:volume={globalVolume} on:change={ onGlobalVolumeChange }/>
-<VolumeSlider name="syrinscapeGlobalVolume" title="One-Shots" bind:volume={oneshotsVolume} on:change={ onOneshotsVolumeChange }/>
+<VolumeSlider name="syrinscapeGlobalVolume" title="Global"    bind:volume={$globalVolume} on:change={ onGlobalVolumeChange }/>
+<VolumeSlider name="syrinscapeGlobalVolume" title="One-Shots" bind:volume={$oneshotsVolume} on:change={ onOneshotsVolumeChange }/>

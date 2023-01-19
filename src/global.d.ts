@@ -77,6 +77,25 @@ declare global {
 	
 	const syrinscape: Syrinscape;
 
+	type SocketLibCallback = (...args: any[]) => any;
+	interface SocketlibSocket {
+		register					 (handler: SocketCalls, func: SocketLibCallback);
+
+		executeAsGM				 (handler: SocketCalls, ...parameters: any[]): Promise<any>;
+		executeAsUser			 (handler: SocketCalls, userId: any, ...parameters: any[]): Promise<any>;
+		executeForAllGMs	 (handler: SocketCalls, ...parameters: any[]): Promise<any>;
+		executeForOtherGMs (handler: SocketCalls, ...parameters: any[]): Promise<any>;
+		executeForEveryone (handler: SocketCalls, ...parameters: any[]): Promise<any>;
+		executeForOthers	 (handler: SocketCalls, ...parameters: any[]): Promise<any>;
+		executeForUsers		 (handler: SocketCalls, recipients: any[], ...parameters: any[]): Promise<any>;
+	}
+	
+	interface Socketlib {
+		registerModule(moduleName: string): SocketlibSocket;
+	}
+
+	const socketlib: Socketlib;
+
 	interface SyrinControl {}
 
 	interface Game {

@@ -1,7 +1,7 @@
 import { ApiElement, ApiMood, ApiSoundset, ApiStatus } from '@/models';
 import type { FVTTGame } from './game';
 import { Utils } from './utils';
-import { inject, injectable } from 'tsyringe';
+import { inject, singleton } from 'tsyringe';
 // import { AudioContext } from '@lib/headlessPlayer.39eb2733bd1782ae3719';
 
 export type PlayerState = "active" | "inactive";
@@ -24,7 +24,7 @@ export interface RawApi {
 	getGlobalElements(): Promise<ApiElement[]>;
 }
 
-@injectable()
+@singleton()
 export class RawApiImpl implements RawApi {
 	wasInitialized: boolean = false;
 	playerState: PlayerState = "inactive";
@@ -62,14 +62,15 @@ export class RawApiImpl implements RawApi {
 				syrinscape.config.deviceName = game.getPlayerName();
 				// utils.trace("RAW Headless | Syrinscape | Init Configure", { syrinscape });
 				
-				syrinscape.player.syncSystem.events.onChangeMood.addListener(async (event) => {
-					utils.trace("RAW Headless | Syrinscape | On Change mood", { event });
-					game.callHookAll('moodChange', event.pk);
-				});
-				syrinscape.player.syncSystem.events.onChangeSoundset.addListener(async (event) => {
-					// utils.trace("RAW Headless | Syrinscape | On Change soundset", { event });
-					game.callHookAll('soundsetChange', event.pk);
-				});
+				if (game.isGM()) {
+					syrinscape.player.syncSystem.events.onChangeMood.addListener(async (event) => {
+						utils.trace("RAW Headless | Syrinscape | On Change mood", { event });
+						game.callHookAll('moodChange', event.pk);
+					});
+					syrinscape.player.syncSystem.events.onChangeSoundset.addListener(async (event) => {
+						game.callHookAll('soundsetChange', event.pk);
+					});
+				}
 			},
 			
 			async onActive () {

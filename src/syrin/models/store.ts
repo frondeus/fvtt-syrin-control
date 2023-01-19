@@ -81,10 +81,12 @@ export interface MoodAmbientSound {
 	kind: 'mood';
 	volume: number;
 	moodId: number;
+	userId: string;
 }
 
 export interface ElementAmbientSound {
 	kind: 'element';
 	volume: number;
 	elementId: number;
+	userId: string;
 }

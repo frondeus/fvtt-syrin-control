@@ -23,7 +23,7 @@ export async function onPlaylistTab(ctx: Context, $tab: JQuery<Element>) {
 
 	let target = $tab.find('.directory-list');
 
-	ctx.utils.trace('On Playlist Tab', { $tab });
+	// ctx.utils.trace('On Playlist Tab', { $tab });
 	
 
 	new PlaylistComponent({
