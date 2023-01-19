@@ -3,7 +3,7 @@ import { MODULE } from "./services/utils";
 export enum SocketCalls {
   PlayAmbient = "playAmbient",
   StopAmbient = "stopAmbient",
-  InitSession = "initSession"
+	PlayerJoined = "playerJoined"
 };
 
 export let socket: SocketlibSocket | undefined = undefined;

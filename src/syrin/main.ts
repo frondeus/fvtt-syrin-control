@@ -13,29 +13,31 @@ import { SocketCalls } from './socket';
 // import { openDebug } from './ui/debug';
 
 
-function setupSocket(ctx: Context): Promise<void> {
+function setupSocket(ctx: Context): Promise<SocketlibSocket> {
 	return new Promise((resolve) => {
 		const interval = setInterval(() => {
 			let socket = ctx.game.socket;
 			if(socket !== undefined) {
 				if (ctx.game.isGM()) {
 					ctx.game.socket?.register(SocketCalls.PlayAmbient, (id, sound) => {
-						// ctx.utils.warn("Request from Player | please play this ambient", {id, sound});
 						ctx.syrin.playAmbientSound(id, sound);
 					});
 					ctx.game.socket?.register(SocketCalls.StopAmbient, (id, userId) => {
-						// ctx.utils.warn("Request from Player | please stop this ambient", {id });
 						ctx.syrin.stopAmbientSound(id, userId);
+					});
+					ctx.game.socket?.register(SocketCalls.PlayerJoined, (name) => {
+						return ctx.api.playerJoined(name);
 					});
 					ctx.utils.info("SocketLib registered | GM");
 				}
 				else {
 					ctx.game.socket?.register(SocketCalls.PlayAmbient, (_id, _sound) => { });
 					ctx.game.socket?.register(SocketCalls.StopAmbient, (_id, _userId) => { });
+					ctx.game.socket?.register(SocketCalls.PlayerJoined, () => {});
 					ctx.utils.info("SocketLib registered | Player");
 				}
 				clearInterval(interval);
-				resolve();
+				resolve(socket);
 			}
 		}, 200); 
 	});
@@ -58,20 +60,18 @@ Hooks.once('init', function () {
 	CONFIG.AmbientSound.objectClass = proxies.AmbientSoundProxy;
 
 	// CONFIG.debug.hooks = true;
-	if(!game.modules.get("socketlib")?.active) {
+	if(!ctx.game.hasActiveModule("socketlib")) {
 		ctx.utils.error("The `socketlib` module isn't enabled, but it's required for SyrinControl to operate properly");
 			
 		Hooks.once('ready', () => {
 		if (ctx.game.isGM()) {
 			new Dialog({
-				title: game.i18n.localize(MODULE + ".dependencies.socketlib.title"),
-				content: `<h2>${game.i18n.localize(
-					MODULE + ".dependencies.socketlib.title",
-				)}</h2><p>${game.i18n.localize(MODULE + ".dependencies.socketlib.text")}</p>`,
+				title: ctx.game.localize("dependencies.socketlib.title"),
+				content: `<h2>${ctx.game.localize("dependencies.socketlib.title")}</h2><p>${ctx.game.localize("dependencies.socketlib.text")}</p>`,
 				buttons: {
 					ok: {
 						icon: '<i class="fas fa-check"></i>',
-						label: game.i18n.localize(MODULE + ".dependencies.ok"),
+						label: ctx.game.localize("dependencies.ok"),
 					},
 				},
 			}).render(true);
@@ -135,7 +135,7 @@ Hooks.once('init', function () {
 
 	Hooks.once('ready', async () => {
 		await socketPromise;
-		ctx.api.onInit();
+		await ctx.api.onInit();
 		if (!ctx.game.isGM()) {
 			ctx.utils.info('Ready but not a GM...');
 			return;

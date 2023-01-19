@@ -32,9 +32,14 @@ export function initSettings(ctx: Context) {
 		}
 	});
 
+	const settingsPrefix = 'fvtt-syrin-control.settings.';
+	const localize = (name: string) => ({
+		name: settingsPrefix + name + ".name", 
+		hint: settingsPrefix + name + ".hint", 
+	}) 
+
 	game.registerSetting('authToken', {
-		name: 'Auth Token',
-		hint: 'Authentication token to Syrinscape Online API',
+		...localize("authToken"),
 		scope: 'world',
 		config: true,
 		type: String,
@@ -42,39 +47,54 @@ export function initSettings(ctx: Context) {
 	});
 
 	game.registerSetting('address', {
-		name: 'Syrinscape API address',
-		hint: 'Address to Syrinscape Online. Can be replaced by proxy',
 		scope: 'world',
 		config: false,
 		type: String,
 		default: 'https://syrinscape.com/online/frontend-api'
 	});
 
-	game.registerSetting('sessionId', {
-		name: 'Syrinscape API session id',
-		hint: 'ID of current session in Syrinscape Online',
-		scope: 'world',
-		config: false,
-		type: String,
-		default: ''
-	});
-
 	game.registerSetting('debugTraces', {
-		name: 'Debug traces in SyrinControl',
-		hint: 'If you experience problems with the SyrinControl please enable this option so the maintainers can know what happened',
+		...localize("debugTraces"),
 		scope: 'client',
 		config: true,
 		type: Boolean,
 		default: 'false'
 	});
 	
-	game.registerSetting('showNotifications', {
-		name: 'Show notifications',
-		hint: 'Uncheck if you don\'t want to see any notification when SyrinControl plays a sound',
+	game.registerSetting('soundsets', {
 		scope: 'world',
-		config: true,
-		type: Boolean,
-		default: true
+		config: false,
+		default: {}
+	});
+
+	game.registerSetting('elements', {
+		scope: 'world',
+		config: false,
+		default: []
+	});
+
+	game.registerSetting('playlist', {
+		scope: 'world',
+		config: false,
+		default: { entries: [] }
+	});
+
+	game.registerSetting('playerVolume', {
+		scope: 'client',
+		config: false,
+		default: 50
+	});
+
+	game.registerSetting('globalVolume', {
+		scope: 'world',
+		config: false,
+		default: 50
+	});
+
+	game.registerSetting('oneshotsVolume', {
+		scope: 'world',
+		config: false,
+		default: 50
 	});
 }
 

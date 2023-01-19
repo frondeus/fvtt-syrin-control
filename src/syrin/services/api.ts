@@ -146,4 +146,8 @@ export class Api {
 	isPlayerActive(): boolean {
 		return this.raw.getState() === "active";
 	}
+
+	playerJoined(name: string) {
+		return this.raw.playerJoined(name);
+	}
 }

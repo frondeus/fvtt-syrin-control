@@ -1,0 +1,48 @@
+{
+	"fvtt-syrin-control": {
+		"dependencies": {
+			"ok": "OK",
+			"socketlib": {
+				"title": "brak modułu Socketlib",
+				"text": "SyrinControl wymaga do pracy modułu socketlib. Proszę aktywować moduł socketlib w tym świecie."
+			}
+		},
+		"settings": {
+			"authToken": {
+				"name": "Token Autoryzacyjny",
+				"hint": "Token autoryzacyjny do API Syrinscape Online"
+			},
+			"debugTraces": {
+				"name": "Debug traces in SyrinControl",
+				"hint": "Jeśli doświadzasz błędnego działania SyrinControl, proszę aktywuj tą opcję i prześlij logi do twórcy, by mógł on zbadać co się stało"
+			}
+		},
+		"playlist": {
+			"importSoundsets": "Importuj Zestaw Dźwięków",
+			"globalVolume": "Globalne",
+			"oneShotsVolume": "Jednostrzały",
+			"created": "Utworzono playlistę \"{playlistName}\""
+		},
+		"importer": {
+			"importPlaylists": "Importuj Playlistę",
+			"caseSensitive": "Uwzględnij wielkość liter",
+			"searchForSoundset": "Szukaj zestawu dźwięków",
+			"soundsets": "Zestawy",
+			"elements": "Elementy zestawu",
+			"createdMacro": "Utworzono makro \"{macroName}\"",
+			"createdFolder": "Utworzono folder z makrami \"{folderName}\""
+		},
+		"commands": {
+			"playMood": "Graj nastrój",
+			"playElement": "Graj: {elementName}",
+			"stopMood": "Zatrzymaj nastrój",
+			"createMacro": "Utwórz makro",
+			"createPlaylist": "Utwórz playlistę"
+		},
+		"elements": {
+			"zeroFound": "Brak elementów"
+		},
+		"loading": "Ładowanie...",
+		"createdBy": "Utworzone i zarządzane przez SyrinControl"
+	}
+}

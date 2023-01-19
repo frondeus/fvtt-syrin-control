@@ -47,10 +47,10 @@
 
 {#if active}
 	{#await elementsPromise}
-		Loading...
+		{ctx.game.localize("loading")}
 	{:then elements}
 		{#if elements.length === 0}
-			No elements found
+			{ctx.game.localize("elements.zeroFound")}
 		{/if}
 		<form class="syrin-elements">
 			{#each elements as element}

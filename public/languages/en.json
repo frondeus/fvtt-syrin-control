@@ -1,3 +1,48 @@
 {
-	"MODULE.hello": "hello"
+	"fvtt-syrin-control": {
+		"dependencies": {
+			"ok": "OK",
+			"socketlib": {
+				"title": "Socketlib module missing",
+				"text": "SyrinControl requires the socketlib module to work properly. Please activate the socketlib module in this world."
+			}
+		},
+		"settings": {
+			"authToken": {
+				"name": "Auth Token",
+				"hint": "Authentication token to Syrinscape Online API"
+			},
+			"debugTraces": {
+				"name": "Debug traces in SyrinControl",
+				"hint": "If you experience problems with the SyrinControl please enable this option so the maintainers can know what happened"
+			}
+		},
+		"playlist": {
+			"importSoundsets": "Import Soundsets",
+			"globalVolume": "Global",
+			"oneShotsVolume": "One-Shots",
+			"created": "Created playlist \"{playlistName}\""
+		},
+		"importer": {
+			"importPlaylists": "Import Playlists",
+			"caseSensitive": "Case Sensitive",
+			"searchForSoundset": "Search for soundset",
+			"soundsets": "Soundsets",
+			"elements": "Soundset Elements",
+			"createdMacro": "Created macro \"{macroName}\"",
+			"createdFolder": "Created macro folder \"{folderName}\""
+		},
+		"commands": {
+			"playMood": "Play Mood",
+			"stopMood": "Stop Mood",
+			"playElement": "Play: {elementName}",
+			"createMacro": "Create Macro",
+			"createPlaylist": "Create Playlist"
+		},
+		"elements": {
+			"zeroFound": "No elements found"
+		},
+		"loading": "Loading...",
+		"createdBy": "Created & Managed by SyrinControl"
+	}
 }

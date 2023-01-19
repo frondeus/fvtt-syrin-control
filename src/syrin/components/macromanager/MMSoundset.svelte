@@ -91,12 +91,12 @@
 	<span role="button" title={soundsetButtonTitle} on:click={onExpand}>
 		{item.name}
 		{#if loading}
-				(Loading ...)
+				({ctx.game.localize("loading")})
 		{/if}
 	</span>
 	</td>
 	<td class="actions-cell">
-		<span role="button" title="Soundset Elements" on:click={onSoundsetElements}>
+		<span role="button" title={ctx.game.localize("importer.elements")} on:click={onSoundsetElements}>
 			<i class="fas fa-drum" />
 		</span>
 

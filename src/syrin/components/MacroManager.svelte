@@ -119,7 +119,7 @@
 			ctx.game.createMoodMacro(mood, ssFolder.id);
 		}
 		Array.from(folders.values()).forEach((folder) => {
-			ctx.game.notifyInfo(`SyrinControl | Created macro folder "${folder.name}"`)
+			ctx.game.notifyInfo(`SyrinControl | ${ctx.game.localize("importer.createdFolder", { "folderName": folder.name })}`)
 		});
 	}
 
@@ -145,7 +145,7 @@
 			await ctx.game.createPlaylistMoodSound(mood, ssPlaylist);
 		}
 		Array.from(playlists.values()).forEach((playlist) => {
-			ctx.game.notifyInfo(`SyrinControl | Created playlist "${playlist.name}"`)
+			ctx.game.notifyInfo(`SyrinControl | ${ctx.game.localize("playlist.created", { "playlistName": playlist.name })}`)
 		});
 	}
 
@@ -163,8 +163,8 @@
 
 <div class="container">
 	<div class="header">
-		<input type="text" placeholder="Search for soundset" bind:value={$managerApp.filterSoundset} />
-		<label> Case Sensitive </label>
+		<input type="text" placeholder={ctx.game.localize("importer.searchForSoundset")} bind:value={$managerApp.filterSoundset} />
+		<label> {ctx.game.localize("importer.caseSensitive")} </label>
 		<input type="checkbox" bind:checked={$managerApp.filterCaseSensitive} />
 	</div>
 	<div class="main">
@@ -173,7 +173,7 @@
 			<th class="checkbox-cell">
 				<input type="checkbox" checked={isSelectedAll} on:click={onSelectAll} />
 			</th>
-		  <th>Soundsets</th>
+		  <th>{ctx.game.localize("importer.soundsets")}</th>
 			<th class="actions-cell-header"></th>
 		</tr>
 		{#each soundsetsList as item, idx}
@@ -184,7 +184,7 @@
 	{#if isAnySelected }
 	<div class="footer">
 		<button type="submit" title="Import playlists" on:click={onCreatePlaylist}>
-			Import Playlists
+			{ctx.game.localize("import.importPlaylists")}
 		</button>
 	</div>
 	{/if}

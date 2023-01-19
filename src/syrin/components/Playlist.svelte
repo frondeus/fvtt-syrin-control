@@ -83,7 +83,7 @@
 				}
 		}
 
-		ctx.game.notifyInfo(`SyrinControl | Created playlist "${playlist?.name}"`)
+		ctx.game.notifyInfo('playlist.created', { playlistName: playlist?.name || "" });
 	}
 
 </script>

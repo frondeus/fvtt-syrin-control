@@ -26,13 +26,15 @@ export interface FVTTGame {
 
 	get socket(): SocketlibSocket | undefined;
 
-	notifyInfo(msg: string): void;
-	notifyError(msg: string): void;
+	notifyInfo(msg: string, args?: any): void;
+	notifyError(msg: string, args?: any): void;
 	isGM(): boolean;
+	isReady(): boolean;
 	userId(): string | null;
 	getActiveScene(): Scene | undefined;
 
-	localize(key: string): string;
+	hasActiveModule(name: string): boolean;
+	localize(key: string, args?: any): string;
 	
 	getAudioContext(): Promise<AudioContext | undefined>;
 	createMoodMacro(mood: Mood, folder: any): Promise<StoredDocument<Macro> | undefined>;
@@ -63,8 +65,15 @@ export class FVTTGameImpl implements FVTTGame {
 		return this.game.user?.name ?? "unknown";	
 	}
 	
-	localize(key: string): string {
-		return this.game.i18n.localize(key);
+	hasActiveModule(name: string): boolean {
+		return game.modules.get(name)?.active === true;
+	}
+
+	localize(key: string, args?: any): string {
+		if (args === undefined) {
+			return this.game.i18n.localize(MODULE + "." + key);
+		}
+		return this.game.i18n.format(MODULE + "." + key, args);
 	}
 
 	setGlobal(global: Global): void {
@@ -89,14 +98,12 @@ export class FVTTGameImpl implements FVTTGame {
 		Hooks.callAll(MODULE + name, ...args);
 	}
 
-	notifyInfo(msg: string): void {
-		if (this.getSetting<boolean>('showNotifications')) {
-			ui.notifications?.info(msg);
-		}
+	notifyInfo(msg: string, args?: any): void {
+		ui.notifications?.info("SyrinControl | " + this.localize(msg, args));
 	}
 
-	notifyError(msg: string): void {
-		ui.notifications?.error(msg);
+	notifyError(msg: string, args?: any): void {
+		ui.notifications?.error("SyrinControl | " + this.localize(msg, args));
 	}
 
 	userId(): string | null {
@@ -105,6 +112,10 @@ export class FVTTGameImpl implements FVTTGame {
 	
 	isGM(): boolean {
 		return this.game.user?.isGM === true;
+	}
+
+	isReady(): boolean {
+		return this.game.ready;
 	}
 
 	getSetting<T>(name: string): T {
@@ -118,7 +129,7 @@ export class FVTTGameImpl implements FVTTGame {
 	async createPlaylist(soundset: Soundset, folder: string | undefined): Promise<StoredDocument<Playlist> | undefined> {
 		const playlist = await Playlist.create({
 			name: soundset.name,
-			description: "Created by SyrinControl",
+			description: this.localize("createdBy"),
 			mode: CONST.PLAYLIST_MODES.SIMULTANEOUS,
 			folder,
  			flags: {
@@ -134,7 +145,7 @@ export class FVTTGameImpl implements FVTTGame {
 	async createPlaylistSound(element: Element, parent: StoredDocument<Playlist>): Promise<StoredDocument<PlaylistSound> | undefined> {
 		const sound = await PlaylistSound.create({
 			name: element.name,
-			description: "Created by SyrinControl",
+			description: this.localize("createdBy"),
 			path: `syrinscape:element:${element.id}.wav`,
 			sort: 0,
 			flags: {
@@ -150,7 +161,7 @@ export class FVTTGameImpl implements FVTTGame {
 	async createPlaylistMoodSound(mood: Mood, parent: StoredDocument<Playlist>): Promise<StoredDocument<PlaylistSound> | undefined> {
 		const sound = await PlaylistSound.create({
 			name: mood.name,
-			description: "Created by SyrinControl",
+			description: this.localize("createdBy"),
 			path: `syrinscape:mood:${mood.id}.wav`,
 			sort: 0,
 			flags: {

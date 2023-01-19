@@ -10,14 +10,13 @@
 
 	// Event handlers
 	function play() {
-		ctx.game.notifyInfo(`SyrinControl | Playing "${element.name}"`);
 		ctx.api.playElement(element.id);
 	}
 
 	async function macro() {
 		let macro = await ctx.game.createElementMacro(element);
 		ctx.utils.trace('Element | Macro = ', { macro });
-		ctx.game.notifyInfo(`SyrinControl | Created macro "${element.name}"`);
+		ctx.game.notifyInfo('importer.createdMacro', {macroName: element.name});
 	}
 </script>
 
@@ -25,7 +24,7 @@
 	<span
 		role="button"
 		class="syrin-control syrin-play-element"
-		title="Play: {element.name}"
+		title={ctx.game.localize("commands.playElement", {elementName: element.name})}
 		on:click={play}
 	>
 		<img alt="icon" src={element.icon} />
@@ -36,7 +35,7 @@
 		role="button"
 		on:click={macro}
 		class="syrin-control syrin-macro-element"
-		title="Create Macro: {element.name}"
+		title={ctx.game.localize("commands.createMacro")}
 	>
 		<i class="fas fa-terminal" />
 	</span>

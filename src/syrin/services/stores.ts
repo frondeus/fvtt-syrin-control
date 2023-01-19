@@ -53,50 +53,12 @@ export class Stores {
 		private readonly api: Api
 	) {
 		this.id = `syrin-${Math.random() * 10}`
-		game.registerSetting('soundsets', {
-			name: 'Soundsets',
-			scope: 'world',
-			config: false,
-			default: {}
-		});
 
-		game.registerSetting('elements', {
-			name: 'Elements',
-			scope: 'world',
-			config: false,
-			default: []
-		});
-
-		game.registerSetting('playlist', {
-			name: 'Playlist',
-			scope: 'world',
-			config: false,
-			default: { entries: [] }
-		});
-		game.registerSetting('playerVolume', {
-			name: 'PlayerVolume',
-			scope: 'client',
-			config: false,
-			default: 50
-		});
-		game.registerSetting('globalVolume', {
-			name: 'GlobalVolume',
-			scope: 'world',
-			config: false,
-			default: 50
-		});
-		game.registerSetting('oneshotsVolume', {
-			name: 'OneShotsVolume',
-			scope: 'world',
-			config: false,
-			default: 50
-		});
-
-		this.globalElements = createFoundryStore(game, 'elements');
-		this.soundsets = createFoundryStore(game, 'soundsets');
-		this.playerVolume = createFoundryStore(game, 'playerVolume');
-		this.globalVolume = createFoundryStore(game, 'globalVolume');
-		this.oneshotsVolume = createFoundryStore(game, 'oneshotsVolume');
+		this.globalElements = createFoundryStore(game, 'elements', []);
+		this.soundsets = createFoundryStore(game, 'soundsets', {});
+		this.playerVolume = createFoundryStore(game, 'playerVolume', 50);
+		this.globalVolume = createFoundryStore(game, 'globalVolume', 50);
+		this.oneshotsVolume = createFoundryStore(game, 'oneshotsVolume', 50);
 
 		this.elementsApp = writable(new ElementsAppStore());
 		this.macroManagerApp = writable(new MacroManagerAppStore());
@@ -349,32 +311,48 @@ export function deduped_readable<T>(other: Readable<T>): Readable<T> {
 	}
 }
 
-function createFoundryStore<T>(game: FVTTGame, name: string): FoundryStore<T> {
-	const initial: T = game.getSetting(name);
-	const store = writable<T>(initial);
+function createFoundryStore<T>(game: FVTTGame, name: string, initial: T): FoundryStore<T> {
+	const getSetting = (n: string) => {
+		if(!game.isReady()) { return initial; }
+		return game.getSetting<T>(n);
+	};
+	const setSetting = (n: string, v: T) => {
+		if(game.isReady()) { 
+			game.setSetting<T>(n, v);
+		}
+	};
+
+	const value: T = getSetting(name);
+
+	const store = writable<T>(value);
+
 
 	const set = (updated: T) => {
-		game.setSetting(name, updated);
+		setSetting(name, updated);
 		store.set(updated);
 	};
 
 	const get = () => {
-		return game.getSetting<T>(name);
+		return getSetting(name);
 	};
 
 	const update = (func: Updater<T>) => {
 		store.update((state) => {
 			const updated = func(state);
-			game.setSetting(name, updated);
+			setSetting(name, updated);
 			return updated;
 		});
 	};
 
 	const refresh = () => {
-		let loaded = game.getSetting<T>(name);
+		let loaded = getSetting(name);
 		// console.warn('SyrinControl | Refreshing', { name, loaded });
 		store.set(loaded);
 	};
+
+	Hooks.once('ready', async () => {
+		refresh();
+	});
 
 	return {
 		set,

@@ -18,5 +18,5 @@
   }
 </script>
 
-<VolumeSlider name="syrinscapeGlobalVolume" title="Global"    bind:volume={$globalVolume} on:change={ onGlobalVolumeChange }/>
-<VolumeSlider name="syrinscapeGlobalVolume" title="One-Shots" bind:volume={$oneshotsVolume} on:change={ onOneshotsVolumeChange }/>
+<VolumeSlider name="syrinscapeGlobalVolume" title={ctx.game.localize("playlist.globalVolume")}    bind:volume={$globalVolume} on:change={ onGlobalVolumeChange }/>
+<VolumeSlider name="oneShotsVolume" 			  title={ctx.game.localize("playlist.oneShotsVolume")} bind:volume={$oneshotsVolume} on:change={ onOneshotsVolumeChange }/>

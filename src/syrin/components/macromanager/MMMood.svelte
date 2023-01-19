@@ -46,18 +46,21 @@
 
   async function onCreateMacro() {
     const macro = await ctx.game.createMoodMacro(mood, undefined);
-		ctx.game.notifyInfo(`SyrinControl | Created macro "${macro.name}"`)
+		ctx.game.notifyInfo('importer.createdMacro', { macroName: macro?.name || "" });
   }
 
 	async function onCreatePlaylist() {
-		const playlist = await ctx.game.createPlaylist(mood);
+		const playlist = await ctx.game.createPlaylist(soundset, undefined);
+		if(playlist === undefined) {
+			return;
+		}
 		const elements = soundset.elements.filter(el => mood.elementsIds.includes(el.id));
 		for (const element of elements) {
 			const playlistSound = await ctx.game.createPlaylistSound(element, playlist);
 			ctx.utils.warn('MMMood | CreatePlaylist Sound', { mood, soundset, elements , playlistSound, element });
 		}
 		ctx.utils.warn('MMMood | CreatePlaylist ', { mood, soundset, elements });
-		ctx.game.notifyInfo(`SyrinControl | Created playlist "${playlist.name}"`)
+		ctx.game.notifyInfo('playlist.created', { playlistName: playlist?.name || ""});
 	}
 </script>
 
@@ -75,17 +78,17 @@
 	</span>
 	</td>
 	<td class="actions-cell">
-		<span class="macro-icon" role="button" title="Create Macro" on:click={onCreateMacro}>
+		<span class="macro-icon" role="button" title={ctx.game.localize("commands.createMacro")} on:click={onCreateMacro}>
 			<i class="fas fa-terminal" />
 		</span>
-		<span class="macro-icon" role="button" title="Create Playlist" on:click={onCreatePlaylist}>
+		<span class="macro-icon" role="button" title={ctx.game.localize("commands.createPlaylist")} on:click={onCreatePlaylist}>
 			<i class="fas fa-music" />
 		</span>
 		<Toggable 
 			on:click={onPlayMood}
 			toggled={isPlaying}
-			on={['Stop Mood', 'stop']}
-			off={['Play Mood', 'play']}
+			on={[ ctx.game.localize('commands.stopMood'), 'stop']}
+			off={[ctx.game.localize('commands.playMood'), 'play']}
 		/>
 	</td>
 </tr>
