@@ -1,21 +1,40 @@
-import { inject, injectable } from 'tsyringe';
+import { inject, singleton } from 'tsyringe';
 import type { FVTTGame } from './game';
 import { Stores } from './stores';
 import { Utils } from './utils';
 import {AmbientSound} from '@/models';
 import { SocketCalls } from '@/socket';
 import { Api } from './api';
+import { Context } from './context';
 
-@injectable()
+export enum SyrinComponent {
+	PlayerVolume,
+	GMVolume,
+	Playlist
+}
+
+@singleton()
 export class Syrin {
+	private components: Map<SyrinComponent, any> = new Map();
+
 	constructor(
 		@inject('FVTTGame')
 		private readonly game: FVTTGame,
 		private readonly utils: Utils,
 		private readonly api: Api,
-		private readonly stores: Stores
+		private readonly stores: Stores,
 	) {}
 
+	renderComponent(ctx: Context, name: SyrinComponent, con: ConstructorOf<any>, target: Element) {
+		if(!this.components.has(name)) {
+			const component = new con({
+				target,
+				context: ctx.map()
+			});
+			this.components.set(name, component); 	
+		}
+	}
+	
 	 stopAll() {
 		if (!this.game.isGM()) {
 			this.game.socket!.executeAsGM(SocketCalls.StopAll);

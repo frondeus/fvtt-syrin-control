@@ -1,14 +1,12 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-  import type { Mood, Soundset } from '@/models';
+  import type { CurrentlyPlaying, Mood, Soundset } from '@/models';
 	import Context from '@/services/context';
 	import Toggable from '@/components/Toggable.svelte';
 
 	// Context
 	const ctx = Context();
-	const managerApp = ctx.stores.macroManagerApp;
-	const dispatcher = createEventDispatcher();
-  const currentMood = ctx.stores.currentMood;
+	const importerApp = ctx.stores.importerApp;
+  const currentlyPlaying = ctx.stores.currentlyPlaying;
 
   // Params & State
   export let soundset: Soundset;
@@ -18,21 +16,21 @@
   let isPlaying = false;
 
   // Reactive Blocks
-  const reactiveIsPlaying = (current, mood) => {
+  const reactiveIsPlaying = (_currentlyPlaying: CurrentlyPlaying | undefined, mood: Mood) => {
       isPlaying = ctx.stores.isPlaying(mood);
   };
 
-  $: reactiveIsPlaying($currentMood, mood);
+  $: reactiveIsPlaying($currentlyPlaying, mood);
 
   // Event handlers
-	function onSelectMood(event) {
+	function onSelectMood(event: MouseEvent) {
 		const key = soundset.id + ';' + mood.id;
-			if (event.target.checked) {
-				$managerApp.selectedSoundsets.add(key);
+			if ((event.target as any)?.checked) {
+				$importerApp.selectedSoundsets.add(key);
 			} else {
-				$managerApp.selectedSoundsets.delete(key);
+				$importerApp.selectedSoundsets.delete(key);
 			}
-			$managerApp = $managerApp;
+			$importerApp = $importerApp;
 	}
 
 	async function onPlayMood() {
@@ -78,10 +76,10 @@
 	</span>
 	</td>
 	<td class="actions-cell">
-		<span class="macro-icon" role="button" title={ctx.game.localize("commands.createMacro")} on:click={onCreateMacro}>
+		<span class="macro-icon" role="button" title={ctx.game.localize("commands.createMacro")} on:click={onCreateMacro} on:keypress={onCreateMacro}>
 			<i class="fas fa-terminal" />
 		</span>
-		<span class="macro-icon" role="button" title={ctx.game.localize("commands.createPlaylist")} on:click={onCreatePlaylist}>
+		<span class="macro-icon" role="button" title={ctx.game.localize("commands.createPlaylist")} on:click={onCreatePlaylist} on:keypress={onCreatePlaylist}>
 			<i class="fas fa-music" />
 		</span>
 		<Toggable 
@@ -96,9 +94,6 @@
 <style>
 	.mood > td >  .name {
 		padding-left: 2em;
-	}
-	.checkbox-cell {
-		text-align: left;
 	}
 	.actions-cell {
 		text-align: center;

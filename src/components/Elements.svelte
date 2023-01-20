@@ -2,21 +2,26 @@
 	import Context from '@/services/context';
 	import ElementsTabComponent from './ElementsTab.svelte';
 	import type { ElementsTab } from '@/models';
+import { ElementsAppStore } from '@/services/stores';
 
 	// Context
 	const ctx = Context();
 	const elementsApp = ctx.stores.elementsApp;
 
 	// Params & State
-	let active: boolean = false;
-	let tabs: [{ title: string, global: boolean }] = [];
+	interface Tab {
+		title: string,
+		global: boolean
+	}
+	let active: number = 0;
+	let tabs: Tab[] = [];
 
 	// Reactive Blocks
-	const reactiveActive = (elementsApp) => {
+	const reactiveActive = (elementsApp: ElementsAppStore) => {
 		active = elementsApp.active;
 	};
 
-	const reactiveTabs = (elementsApp) => {
+	const reactiveTabs = (elementsApp: ElementsAppStore) => {
 		tabs = elementsApp.tabs.map((tab: ElementsTab) => ({
 			title: tab.kind === 'soundset' ? tab.soundset.name : 'Global',
 			global: tab.kind === 'global'
@@ -49,11 +54,14 @@
 					on:click={() => {
 						$elementsApp.active = idx;
 					}}
+					on:keypress={() => {
+						$elementsApp.active = idx;
+					}}
 				>
 					{tab.title}
 				</span>
 				{#if !tab.global}
-					<span class="close" role="button" on:click={remove(idx)}>
+					<span class="close" role="button" on:click={remove(idx)} on:keypress={remove(idx)}>
 						<i class="fas fa-times" />
 					</span>
 				{/if}

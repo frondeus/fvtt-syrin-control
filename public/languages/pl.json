@@ -30,7 +30,11 @@
 			"soundsets": "Zestawy",
 			"elements": "Elementy zestawu",
 			"createdMacro": "Utworzono makro \"{macroName}\"",
-			"createdFolder": "Utworzono folder z makrami \"{folderName}\""
+			"createdFolder": "Utworzono folder z makrami \"{folderName}\"",
+			"collapse": "Zwiń: ",
+			"expand": "Rozwiń: ",
+			"removeSelection": "Usuń zaznaczenie: ",
+			"expandAndSelect": "Rozwiń i zaznacz: "
 		},
 		"commands": {
 			"playMood": "Graj nastrój",

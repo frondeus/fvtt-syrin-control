@@ -9,19 +9,10 @@
 
 	// Params & State
 	export let item: PlaylistItem;
-	export let idx: number | undefined = undefined;
 
 	// Event handlers
 	function onPlay() {
 		dispatch('play', item);
-	}
-
-	function onAddOrRemove() {
-		if (idx === undefined) {
-			dispatch('add', item);
-		} else {
-			dispatch('remove', idx);
-		}
 	}
 
 	function onElements() {
@@ -46,10 +37,10 @@
 				off={['Play Mood', 'play']}
 			/>
 
-			<span role="button" class="syrin-control" on:click={onElements} title="Soundset Elements">
+			<span role="button" class="syrin-control" on:click={onElements} on:keypress={onElements} title="Soundset Elements">
 				<i class="fas fa-drum" />
 			</span>
-			<span role="button" class="syrin-control" on:click={onImport} title="Import Soundset">
+			<span role="button" class="syrin-control" on:click={onImport} on:keypress={onImport} title="Import Soundset">
 				<i class="fas fa-file-import" />
 			</span>
 		</div>
@@ -57,9 +48,6 @@
 </li>
 
 <style>
-	.playlist-header {
-		padding: 3px;
-	}
 	.playlist-name {
 		flex: 4;
 		word-break: break-all;
@@ -67,11 +55,6 @@
 		text-align: left;
 		overflow: hidden;
 		margin: 0;
-	}
-
-	.playlist-header {
-		align-items: center;
-		justify-content: middle;
 	}
 
 	.syrin-controls {

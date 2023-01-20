@@ -91,7 +91,7 @@
 				{#if currentItem.shouldDisplay}
 <div>
 	<div class="syrin-playlists global-control flexrow" class:collapsed>
-		<header class="playlist-header flexrow" on:click={toggleCollapsed}>
+		<header class="playlist-header flexrow" on:click={toggleCollapsed} on:keypress={toggleCollapsed}>
 			<h4>
 				Syrinscape Online <i
 					class:collapse={collapsed}
@@ -114,15 +114,6 @@
 				{/if}
 
 <style>
-	.separator {
-		border-bottom: 1px dashed;
-		margin: 1em;
-	}
-
-	.syrin-list {
-		padding: 3px;
-	}
-
 	.syrin-to-collapse {
 		list-style: none;
 		margin: 0;
@@ -130,19 +121,4 @@
 		flex: 0 0 100%;
 	}
 
-	.syrin-controls {
-		padding: 6px;
-		display: flex;
-		flex-direction: row;
-	}
-
-	.syrin-search-controls.syrin-controls {
-		justify-content: space-around;
-	}
-	.volume {
-	margin-bottom: 1em;
-	}
-	.currently-playing {
-	
-}
 </style>

@@ -1,5 +1,5 @@
 import { derived, get, Readable, Subscriber, Unsubscriber, writable, Writable } from 'svelte/store';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import type { Updater } from 'svelte/store';
 import type { FVTTGame } from './game';
 import {
@@ -15,9 +15,8 @@ import {
 } from '@/models';
 import { ElementsApplication } from '@/ui/elements';
 import { inject, singleton } from 'tsyringe';
-import { Utils } from './utils';
 import { Api } from './api';
-import { MacroManagerApplication } from '@/ui/macromanager';
+import { ImporterApplication } from '@/ui/importer';
 
 export type FoundryStore<T> = Writable<T> & { get: () => T; refresh: () => void };
 declare type Invalidator<T> = (value?: T) => void;
@@ -42,14 +41,13 @@ export class Stores {
 	oneshotsVolume: FoundryStore<number>;
 
 	elementsApp: Writable<ElementsAppStore>;
-	macroManagerApp: Writable<MacroManagerAppStore>;
+	importerApp: Writable<ImporterAppStore>;
 
 	id: string;
 
 	constructor(
 		@inject('FVTTGame')
 		game: FVTTGame,
-		private readonly utils: Utils,
 		private readonly api: Api
 	) {
 		this.id = `syrin-${Math.random() * 10}`
@@ -61,7 +59,7 @@ export class Stores {
 		this.oneshotsVolume = createFoundryStore(game, 'oneshotsVolume', 50);
 
 		this.elementsApp = writable(new ElementsAppStore());
-		this.macroManagerApp = writable(new MacroManagerAppStore());
+		this.importerApp = writable(new ImporterAppStore());
 
 
 		this.nextPlaylistMood = writable(undefined);
@@ -186,7 +184,7 @@ export class Stores {
 		return moods;
 	}
 	
-	private async getMoods(soundsetId: string | undefined) {
+	async getMoods(soundsetId: string | undefined) {
 		const soundsets = get(this.soundsets);
 
 		return await this.getMoodsInner(soundsetId, soundsets);
@@ -207,7 +205,7 @@ export class Stores {
 		return elements;
 	}
 	
-	private async getSoundsetElements(soundsetId: string | undefined) {
+	async getSoundsetElements(soundsetId: string | undefined) {
 		const soundsets = get(this.soundsets);
 		return await this.getSoundsetElementsInner(soundsetId, soundsets);
 	}
@@ -248,8 +246,8 @@ export class ElementsAppStore {
 	}
 }
 
-export class MacroManagerAppStore {
-	app?: MacroManagerApplication;
+export class ImporterAppStore {
+	app?: ImporterApplication;
 	filterSoundset: string;
 	filterCaseSensitive: boolean;
 	selectedSoundsets: Set<string>;

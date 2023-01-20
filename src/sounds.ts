@@ -40,7 +40,7 @@ class SyrinAmbientSound extends AmbientSound {
     return null;
   }
   
-  override async sync(isAudible: boolean, volume: number, options?: Partial<AmbientSound.SyncOptions>): Promise<void> {
+  override async sync(isAudible: boolean, volume: number, _options?: Partial<AmbientSound.SyncOptions>): Promise<void> {
       if(!this.ctx.api.isPlayerActive()) {
         return;
       }
@@ -96,10 +96,7 @@ class SyrinPlaylistSound extends PlaylistSound {
     ctx: Context;
     unsubsriber?: Unsubscriber;
     wasPlaying: boolean;
-    /**
-     * @param data   - Initial data provided to construct the PlaylistSound document
-     * @param parent - The parent Playlist document to which this result belongs
-     */
+
     constructor(
       data: ConstructorParameters<typeof foundry.documents.BasePlaylistSound>[0],
       context?: ConstructorParameters<typeof foundry.documents.BasePlaylistSound>[1]

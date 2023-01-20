@@ -26,6 +26,7 @@
 		class="syrin-control syrin-play-element"
 		title={ctx.game.localize("commands.playElement", {elementName: element.name})}
 		on:click={play}
+		on:keypress={play}
 	>
 		<img alt="icon" src={element.icon} />
 		<!-- <h4> {element.name} </h4> -->
@@ -34,6 +35,7 @@
 	<span
 		role="button"
 		on:click={macro}
+		on:keypress={macro}
 		class="syrin-control syrin-macro-element"
 		title={ctx.game.localize("commands.createMacro")}
 	>

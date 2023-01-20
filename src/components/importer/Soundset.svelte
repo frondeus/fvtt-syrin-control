@@ -1,14 +1,13 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import type { Mood, Soundset } from '@/models';
+	import type { Soundset } from '@/models';
 	import Context from '@/services/context';
-	import Toggable from '@/components/Toggable.svelte';
-	import MMMood from './MMMood.svelte';
+	import MoodComponent from './Mood.svelte';
 	import { openElements } from '@/ui/elements';
 
 	// Context
 	const ctx = Context();
-	const managerApp = ctx.stores.macroManagerApp;
+	const importerApp = ctx.stores.importerApp;
 	const dispatcher = createEventDispatcher();
 
 	// Params & State
@@ -22,21 +21,21 @@
 	let loading = false;
 
 	// Reactive Blocks
-	const reactiveIsSoundsetChecked = (filteredSelectedSoundsets, item) => {
+	const reactiveIsSoundsetChecked = (filteredSelectedSoundsets: Set<string>, item: Soundset) => {
 		isSoundsetChecked = filteredSelectedSoundsets.has(item.id);
 	}; 
-	const reactiveIsSoundsetPartiallyChecked = (isSoundsetChecked, item, filteredSelectedSoundsets) => {
+	const reactiveIsSoundsetPartiallyChecked = (_isSoundsetChecked: boolean, item: Soundset, filteredSelectedSoundsets: Set<string>) => {
 		const len = Object.values(item.moods).filter((mood) => filteredSelectedSoundsets.has(item.id + ';' + mood.id)).length;
-    isSoundsetPartiallyChecked = item.moods.length > len && len > 0;
+    isSoundsetPartiallyChecked = Object.values(item.moods).length > len && len > 0;
 	};
-	const reactiveSoundsetCheckboxTitle = (isSoundsetChecked, item) => {
+	const reactiveSoundsetCheckboxTitle = (isSoundsetChecked: boolean, item: Soundset) => {
 		soundsetCheckboxTitle =
-			(isSoundsetChecked ? 'Remove selection: ' : 'Expand and select: ') + item.name;
+			(isSoundsetChecked ? ctx.game.localize("importer.removeSelection") : ctx.game.localize("importer.expandAndSelect")) + item.name;
 	};
-	const reactiveButtonTitle = (expanded, item) => {
-		soundsetButtonTitle = (expanded ? 'Collapse: ' : 'Expand: ') + item.name;
+	const reactiveButtonTitle = (expanded: boolean, item: Soundset) => {
+		soundsetButtonTitle = (expanded ? ctx.game.localize("importer.collapse") : ctx.game.localize("importer.expand")) + item.name;
 	};
-	const reactiveLoading = (item) => {
+	const reactiveLoading = (_item: Soundset) => {
 		loading = false;
 	};
 
@@ -55,16 +54,16 @@
 		}
 	}
 
-	function onSelectSoundset(event) {
-		if (event.target.checked) {
-			$managerApp.selectedSoundsets.add(item.id);
+	function onSelectSoundset(event: MouseEvent) {
+		if ((event.target as any)?.checked) {
+			$importerApp.selectedSoundsets.add(item.id);
 		} else {
-			$managerApp.selectedSoundsets.delete(item.id);
+			$importerApp.selectedSoundsets.delete(item.id);
 			for (const mood of Object.values(item.moods)) {
-				$managerApp.selectedSoundsets.delete(item.id + ';' + mood.id);
+				$importerApp.selectedSoundsets.delete(item.id + ';' + mood.id);
 			}
 		}
-		$managerApp = $managerApp;
+		$importerApp = $importerApp;
 		dispatcher('expand', item);
 	}
 
@@ -88,7 +87,7 @@
 	/>
 	</td>
 	<td>
-	<span role="button" title={soundsetButtonTitle} on:click={onExpand}>
+	<span role="button" title={soundsetButtonTitle} on:click={onExpand} on:keypress={onExpand}>
 		{item.name}
 		{#if loading}
 				({ctx.game.localize("loading")})
@@ -96,7 +95,7 @@
 	</span>
 	</td>
 	<td class="actions-cell">
-		<span role="button" title={ctx.game.localize("importer.elements")} on:click={onSoundsetElements}>
+		<span role="button" title={ctx.game.localize("importer.elements")} on:click={onSoundsetElements} on:keypress={onSoundsetElements}>
 			<i class="fas fa-drum" />
 		</span>
 
@@ -104,7 +103,7 @@
 </tr>
 	{#if expanded}
 		{#each Object.values(item.moods) as mood}
-			<MMMood soundset={item} mood={mood} filteredSelectedSoundsets={filteredSelectedSoundsets}/>
+			<MoodComponent soundset={item} mood={mood} filteredSelectedSoundsets={filteredSelectedSoundsets}/>
 		{/each}
 	{/if}
 
@@ -118,5 +117,6 @@
 
 	input[type="checkbox"]:indeterminate {
 		-webkit-filter: grayscale(100%);
+		filter: grayscale(100%);
 	}
 </style>

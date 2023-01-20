@@ -9,10 +9,10 @@
 	let icon = "";
 
 	// Reactive Blocks
-	const reactiveTitle = (toggled, on, off) => {
+	const reactiveTitle = (toggled: boolean, on: string[], off: string[]) => {
 		title = toggled ? on[0] : off[0];
 	};
-	const reactiveIcon = (toggled, on, off) => {
+	const reactiveIcon = (toggled: boolean, on: string[], off: string[]) => {
 		icon = toggled ? on[1] : off[1];
 	};
 
@@ -21,7 +21,7 @@
 </script>
 
 {#if !disabled}
-	<span role="button" class="syrin-control" on:click {title}>
+	<span role="button" class="syrin-control" on:click on:keypress {title}>
 		<i class="fas fa-{icon}" />
 	</span>
 {/if}

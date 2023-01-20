@@ -5,7 +5,6 @@
 
 	// Context
 	const ctx = Context();
-	const soundsets = ctx.stores.soundsets;
 	const globalElements = ctx.stores.globalElements;
 
 	// Params & State
@@ -28,13 +27,13 @@
 		ctx.utils.trace('ElementsTab | reactive soundset | soundset = ', soundset);
 	}
 
-	function reactivePromise(globalElements) {
+	function reactivePromise(globalElements: Elements) {
 		globalPromise = new Promise((resolve) => {
 			resolve(globalElements);
 		});
 	}
 
-	function reactiveElementsPromise(global, globalPromise, soundset) {
+	function reactiveElementsPromise(global: boolean, globalPromise: Promise<Elements>, soundset: Soundset | undefined) {
 			ctx.utils.trace('ElementsTab | reactive elements promise', { global, globalPromise, soundset });
 			elementsPromise = global ? globalPromise : ctx.stores.getSoundsetElements(soundset?.id);
 			elementsPromise = elementsPromise.then(elements => elements.filter(e => e.type === "oneshot"));

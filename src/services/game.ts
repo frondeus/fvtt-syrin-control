@@ -69,7 +69,7 @@ export class FVTTGameImpl implements FVTTGame {
 	}
 	
 	hasActiveModule(name: string): boolean {
-		return game.modules.get(name)?.active === true;
+		return (game as any).modules.get(name)?.active === true;
 	}
 
 	localize(key: string, args?: any): string {

@@ -2,34 +2,26 @@ import PlaylistComponent from '@/components/Playlist.svelte';
 import PlayerVolumeComponent from '@/components/PlayerVolume.svelte';
 import GMVolumeComponent from '@/components/GMVolume.svelte';
 import { Context } from '@/services/context';
-import { openMacroManager } from '@/ui/macromanager';
+import { openImporter } from '@/ui/importer';
+import { SyrinComponent } from '@/services/syrin';
 
 export async function onPlaylistTab(ctx: Context, $tab: JQuery<Element>) {
 	let volumeTarget = $tab.find('.playlist-sounds');
 	
-	new PlayerVolumeComponent({
-		target: volumeTarget.get(0)!,
-		context: ctx.map()
-	});
+	ctx.syrin.renderComponent(ctx, SyrinComponent.PlayerVolume, PlayerVolumeComponent, volumeTarget.get(0)!);
 
 	if (!ctx.game.isGM()) {
 		return;
 	}
 	
-	new GMVolumeComponent({
-		target: volumeTarget.get(0)!,
-		context: ctx.map()
-	});
+	ctx.syrin.renderComponent(ctx, SyrinComponent.GMVolume, GMVolumeComponent, volumeTarget.get(0)!);
 
 	let target = $tab.find('.directory-list');
 
 	// ctx.utils.trace('On Playlist Tab', { $tab });
 	
 
-	new PlaylistComponent({
-		target: target.get(0)!,
-		context: ctx.map()
-	});
+	ctx.syrin.renderComponent(ctx, SyrinComponent.Playlist, PlaylistComponent, target.get(0)!);
 	
 	const buttonsTarget = $tab.find('.action-buttons');
 	const importButton = $(`<button class="import-syrinscape">\
@@ -39,7 +31,7 @@ export async function onPlaylistTab(ctx: Context, $tab: JQuery<Element>) {
 		`);
 	
 	importButton.on('click', () => {
-		openMacroManager(ctx);
+		openImporter(ctx);
 	});
 	
 	buttonsTarget.append(importButton);

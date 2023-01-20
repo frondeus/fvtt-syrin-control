@@ -1,8 +1,8 @@
-import MacroManagerComponent from '@/components/MacroManager.svelte';
+import ImporterComponent from '@/components/Importer.svelte';
 import { Context } from '@/services/context';
 
-export class MacroManagerApplication extends Dialog {
-	component?: MacroManagerComponent;
+export class ImporterApplication extends Dialog {
+	component?: ImporterComponent;
 	context: Context;
 
 	constructor(context: Context, dialog: Partial<DialogOptions> = {}) {
@@ -19,7 +19,7 @@ export class MacroManagerApplication extends Dialog {
 	}
 
 	activateListeners(html: JQuery<HTMLElement>) {
-		this.component = new MacroManagerComponent({
+		this.component = new ImporterComponent({
 			target: html.get(0)!,
 			context: this.context.map()
 		});
@@ -28,12 +28,12 @@ export class MacroManagerApplication extends Dialog {
 	}
 }
 
-export function openMacroManager(ctx: Context) {
-	ctx.stores.macroManagerApp.update((store) => {
+export function openImporter(ctx: Context) {
+	ctx.stores.importerApp.update((store) => {
 		if (!store.app) {
-			store.app = new MacroManagerApplication(ctx, {}).render(true) as MacroManagerApplication;
+			store.app = new ImporterApplication(ctx, {}).render(true) as ImporterApplication;
 		} else {
-			store.app = store.app.render(true) as MacroManagerApplication;
+			store.app = store.app.render(true) as ImporterApplication;
 		}
 		return store;
 	});

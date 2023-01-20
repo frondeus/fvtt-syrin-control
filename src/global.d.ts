@@ -100,6 +100,15 @@ declare global {
 
 	interface Game {
 		syrinscape: Global;
+		modules: Modules;
+	}
+
+	interface Modules {
+		get(name: string): ModuleInfo | undefined;
+	}
+
+	interface ModuleInfo {
+		active: boolean;
 	}
 
 	interface ModuleData<ModuleData> {

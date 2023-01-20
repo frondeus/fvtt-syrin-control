@@ -30,7 +30,11 @@
 			"soundsets": "Soundsets",
 			"elements": "Soundset Elements",
 			"createdMacro": "Created macro \"{macroName}\"",
-			"createdFolder": "Created macro folder \"{folderName}\""
+			"createdFolder": "Created macro folder \"{folderName}\"",
+			"collapse": "Collapse: ",
+			"expand": "Expand: ",
+			"removeSelection": "Remove selection: ",
+			"expandAndSelect": "Expand and select: "
 		},
 		"commands": {
 			"playMood": "Play Mood",

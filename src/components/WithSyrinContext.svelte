@@ -1,3 +1,4 @@
+<!--
 <script lang="ts">
 	import { setContext } from 'svelte';
 	import { SvelteComponent } from 'svelte/internal';
@@ -10,3 +11,4 @@
 </script>
 
 <svelte:component this={Component} {...$$restProps} />
+-->

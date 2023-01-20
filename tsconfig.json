@@ -31,8 +31,7 @@
 		"experimentalDecorators": true,
 		"baseUrl": "./src",
 		"paths": {
-			"@lib/*": ["./lib/*"],
-			"@/*": ["./syrin/*"],
+			"@/*": ["./*"]
 		}
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.svelte"]
