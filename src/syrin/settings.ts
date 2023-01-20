@@ -5,21 +5,22 @@ import { openDebug } from './ui/debug';
 export function initSettings(ctx: Context) {
 	const game = ctx.game;
 	const api = ctx.api;
+	const syrin = ctx.syrin;
 	game.setGlobal({
 		playElement: async (id: number) => {
-			await api.playElement(id);
+			await syrin.playElement(id);
 		},
 		stopElement: async (id: number) => {
-			await api.stopElement(id);
+			await syrin.stopElement(id);
 		},
 		playMood: async (params: PlayMoodParams | number) => {
 			if (typeof(params) === "number") {
-					ctx.syrin.setMood(params);
+					syrin.setMood(params);
 					return;
 			}
 			const { mood } = params;
 
-			ctx.syrin.setMood(mood.id);
+			syrin.setMood(mood.id);
 		},
 		openDebug: () => {
 			openDebug(ctx);

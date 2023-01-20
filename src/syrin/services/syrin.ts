@@ -1,11 +1,10 @@
-// import { Mood, Soundset } from '@/models';
 import { inject, injectable } from 'tsyringe';
 import type { FVTTGame } from './game';
 import { Stores } from './stores';
 import { Utils } from './utils';
 import {AmbientSound} from '@/models';
 import { SocketCalls } from '@/socket';
-// import { SocketCalls } from '@/socket';
+import { Api } from './api';
 
 @injectable()
 export class Syrin {
@@ -13,11 +12,13 @@ export class Syrin {
 		@inject('FVTTGame')
 		private readonly game: FVTTGame,
 		private readonly utils: Utils,
+		private readonly api: Api,
 		private readonly stores: Stores
 	) {}
 
 	 stopAll() {
 		if (!this.game.isGM()) {
+			this.game.socket!.executeAsGM(SocketCalls.StopAll);
 			return;
 		}
 
@@ -29,6 +30,8 @@ export class Syrin {
 
 	setMood(moodId: number) {
 		if (!this.game.isGM()) {
+			const key = moodId;
+			this.game.socket!.executeAsGM(SocketCalls.PlayMood, key);
 			return;
 		}
 
@@ -56,6 +59,24 @@ export class Syrin {
         delete p[id];
         return p;
       });
+	}
+
+	async playElement(id: number) {
+		if (!this.game.isGM()) {
+			const key = id;
+			await this.game.socket!.executeAsGM(SocketCalls.PlayElement, key);
+			return;
+		}
+		await this.api.playElement(id);
+	}
+
+	async stopElement(id: number) {
+		if (!this.game.isGM()) {
+			const key = id;
+			await this.game.socket!.executeAsGM(SocketCalls.StopElement, key);
+			return;
+		}
+		await this.api.stopElement(id);
 	}
 	
 }
