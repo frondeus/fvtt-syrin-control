@@ -1,7 +1,7 @@
 /// <reference types="@league-of-foundry-developers/foundry-vtt-types" />
 import { injectable } from 'tsyringe';
 import { MODULE } from './utils';
-import type { Soundset, Mood, Element } from '@/models';
+import type { Soundset, Mood, Element, Soundsets } from '@/models';
 import { socket } from '@/socket';
 
 export interface PlayMoodParams {
@@ -16,6 +16,9 @@ export interface Global {
 	openDebug(): void;
 	isPlayerActive(): boolean;
 	refresh(): void;
+	soundSources(): Promise<Soundsets>;
+	onlineElements(id: string): Promise<Element[]>;
+	onlineGlobalElements(): Promise<Element[]>;
 }
 
 export interface FVTTGame {

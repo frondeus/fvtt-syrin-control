@@ -30,6 +30,15 @@ export function initSettings(ctx: Context) {
 		},
 		refresh: () => {
 			ctx.stores.refresh();
+		},
+		soundSources: async () => {
+			return await api.onlineSoundsets();
+		},
+		onlineElements: async (id: string) =>  {
+			return await api.onlineElements(id);
+		},
+		onlineGlobalElements: async() => {
+			return await api.onlineGlobalElements();
 		}
 	});
 
