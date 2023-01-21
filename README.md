@@ -4,6 +4,8 @@
 
 # SyrinControl - provides control mechanisms for Syrinscape Online
 
+![](https://github.com/frondeus/fvtt-syrin-control/blob/next/docs/Readme.png?raw=true)
+
 ## Useful links:
 
 - [Frequently Asked Questions](https://github.com/frondeus/fvtt-syrin-control/wiki/Frequently-Asked-Questions)
