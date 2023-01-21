@@ -38,14 +38,23 @@ export interface FVTTGame {
 
 	hasActiveModule(name: string): boolean;
 	localize(key: string, args?: any): string;
-	
+
 	getAudioContext(): Promise<AudioContext | undefined>;
 	createMoodMacro(mood: Mood, folder: any): Promise<StoredDocument<Macro> | undefined>;
 	createElementMacro(element: Element): Promise<StoredDocument<Macro> | undefined>;
-	createPlaylist(mood: Soundset, folder: string | undefined): Promise<StoredDocument<Playlist> | undefined>;
-  createPlaylistSound(element: Element, parent: StoredDocument<Playlist>): Promise<StoredDocument<PlaylistSound> | undefined>;
-  createPlaylistMoodSound(mood: Mood, parent: StoredDocument<Playlist>): Promise<StoredDocument<PlaylistSound> | undefined>;
-	
+	createPlaylist(
+		mood: Soundset,
+		folder: string | undefined
+	): Promise<StoredDocument<Playlist> | undefined>;
+	createPlaylistSound(
+		element: Element,
+		parent: StoredDocument<Playlist>
+	): Promise<StoredDocument<PlaylistSound> | undefined>;
+	createPlaylistMoodSound(
+		mood: Mood,
+		parent: StoredDocument<Playlist>
+	): Promise<StoredDocument<PlaylistSound> | undefined>;
+
 	getPlaylists(): Playlists | undefined;
 
 	getPlayerName(): string;
@@ -65,18 +74,18 @@ export class FVTTGameImpl implements FVTTGame {
 	}
 
 	getPlayerName(): string {
-		return this.game.user?.name ?? "unknown";	
+		return this.game.user?.name ?? 'unknown';
 	}
-	
+
 	hasActiveModule(name: string): boolean {
 		return (game as any).modules.get(name)?.active === true;
 	}
 
 	localize(key: string, args?: any): string {
 		if (args === undefined) {
-			return this.game.i18n.localize(MODULE + "." + key);
+			return this.game.i18n.localize(MODULE + '.' + key);
 		}
-		return this.game.i18n.format(MODULE + "." + key, args);
+		return this.game.i18n.format(MODULE + '.' + key, args);
 	}
 
 	setGlobal(global: Global): void {
@@ -102,17 +111,17 @@ export class FVTTGameImpl implements FVTTGame {
 	}
 
 	notifyInfo(msg: string, args?: any): void {
-		ui.notifications?.info("SyrinControl | " + this.localize(msg, args));
+		ui.notifications?.info('SyrinControl | ' + this.localize(msg, args));
 	}
 
 	notifyError(msg: string, args?: any): void {
-		ui.notifications?.error("SyrinControl | " + this.localize(msg, args));
+		ui.notifications?.error('SyrinControl | ' + this.localize(msg, args));
 	}
 
 	userId(): string | null {
 		return this.game.userId;
 	}
-	
+
 	isGM(): boolean {
 		return this.game.user?.isGM === true;
 	}
@@ -129,75 +138,92 @@ export class FVTTGameImpl implements FVTTGame {
 		this.game.settings.set(MODULE, name, t);
 	}
 
-	async createPlaylist(soundset: Soundset, folder: string | undefined): Promise<StoredDocument<Playlist> | undefined> {
-		const playlist = await Playlist.create({
-			name: soundset.name,
-			description: this.localize("createdBy"),
-			mode: CONST.PLAYLIST_MODES.SIMULTANEOUS,
-			folder,
- 			flags: {
-				syrinscape: {
-					soundset: soundset.id,
+	async createPlaylist(
+		soundset: Soundset,
+		folder: string | undefined
+	): Promise<StoredDocument<Playlist> | undefined> {
+		const playlist = await Playlist.create(
+			{
+				name: soundset.name,
+				description: this.localize('createdBy'),
+				mode: CONST.PLAYLIST_MODES.SIMULTANEOUS,
+				folder,
+				flags: {
+					syrinscape: {
+						soundset: soundset.id
+					}
 				}
-			}
-		}, {
-				 });
+			},
+			{}
+		);
 		return playlist;
 	}
 
-	async createPlaylistSound(element: Element, parent: StoredDocument<Playlist>): Promise<StoredDocument<PlaylistSound> | undefined> {
-		const sound = await PlaylistSound.create({
-			name: element.name,
-			description: this.localize("createdBy"),
-			path: `syrinscape:element:${element.id}.wav`,
-			sort: 0,
-			flags: {
-				syrinscape: {
-					type: "element",
-					element: element.id,
+	async createPlaylistSound(
+		element: Element,
+		parent: StoredDocument<Playlist>
+	): Promise<StoredDocument<PlaylistSound> | undefined> {
+		const sound = await PlaylistSound.create(
+			{
+				name: element.name,
+				description: this.localize('createdBy'),
+				path: `syrinscape:element:${element.id}.wav`,
+				sort: 0,
+				flags: {
+					syrinscape: {
+						type: 'element',
+						element: element.id
+					}
 				}
-			}
-		}, { parent });
+			},
+			{ parent }
+		);
 		return sound;
 	}
 
-	async createPlaylistMoodSound(mood: Mood, parent: StoredDocument<Playlist>): Promise<StoredDocument<PlaylistSound> | undefined> {
-		const sound = await PlaylistSound.create({
-			name: mood.name,
-			description: this.localize("createdBy"),
-			path: `syrinscape:mood:${mood.id}.wav`,
-			sort: 0,
-			flags: {
-				syrinscape: {
-					type: "mood",
-					mood: mood.id,
+	async createPlaylistMoodSound(
+		mood: Mood,
+		parent: StoredDocument<Playlist>
+	): Promise<StoredDocument<PlaylistSound> | undefined> {
+		const sound = await PlaylistSound.create(
+			{
+				name: mood.name,
+				description: this.localize('createdBy'),
+				path: `syrinscape:mood:${mood.id}.wav`,
+				sort: 0,
+				flags: {
+					syrinscape: {
+						type: 'mood',
+						mood: mood.id
+					}
 				}
-			}
-		}, { parent });
+			},
+			{ parent }
+		);
 		return sound;
 	}
-	
+
 	async getAudioContext(): Promise<AudioContext | undefined> {
 		const { game } = this;
 		const audio = game.audio as any;
-		if (audio.unlock !== undefined) { // V10
+		if (audio.unlock !== undefined) {
+			// V10
 			await audio.unlock;
 			const context = game.audio.getAudioContext();
-			if(context === null) return undefined;
+			if (context === null) return undefined;
 			return context;
-		} else { // V9 or lower
-			return await new Promise(function(resolve) {
-				(
-					function waitForCtx() {
-						const ctx = game.audio.getAudioContext();
-						if (ctx !== null) return resolve(ctx);
-						setTimeout(waitForCtx, 100);
-					}
-				)();
+		} else {
+			// V9 or lower
+			return await new Promise(function (resolve) {
+				(function waitForCtx() {
+					const ctx = game.audio.getAudioContext();
+					if (ctx !== null) return resolve(ctx);
+					setTimeout(waitForCtx, 100);
+				})();
 			});
-			}
+		}
 	}
-	
+
 	async createMoodMacro(mood: Mood, folder: any): Promise<StoredDocument<Macro> | undefined> {
 		const macro = await Macro.create({
 			name: mood.name,

@@ -20,9 +20,8 @@
 		ctx.utils.trace('ElementsTab | reactive soundset', { tab });
 		if (tab.kind === 'soundset') {
 			soundset = tab.soundset;
-		}
-		else {
-				soundset = undefined;
+		} else {
+			soundset = undefined;
 		}
 		ctx.utils.trace('ElementsTab | reactive soundset | soundset = ', soundset);
 	}
@@ -33,10 +32,16 @@
 		});
 	}
 
-	function reactiveElementsPromise(global: boolean, globalPromise: Promise<Elements>, soundset: Soundset | undefined) {
-			ctx.utils.trace('ElementsTab | reactive elements promise', { global, globalPromise, soundset });
-			elementsPromise = global ? globalPromise : ctx.stores.getSoundsetElements(soundset?.id);
-			elementsPromise = elementsPromise.then(elements => elements.filter(e => e.type === "oneshot"));
+	function reactiveElementsPromise(
+		global: boolean,
+		globalPromise: Promise<Elements>,
+		soundset: Soundset | undefined
+	) {
+		ctx.utils.trace('ElementsTab | reactive elements promise', { global, globalPromise, soundset });
+		elementsPromise = global ? globalPromise : ctx.stores.getSoundsetElements(soundset?.id);
+		elementsPromise = elementsPromise.then((elements) =>
+			elements.filter((e) => e.type === 'oneshot')
+		);
 	}
 
 	$: reactiveSoundset(tab);
@@ -46,10 +51,10 @@
 
 {#if active}
 	{#await elementsPromise}
-		{ctx.game.localize("loading")}
+		{ctx.game.localize('loading')}
 	{:then elements}
 		{#if elements.length === 0}
-			{ctx.game.localize("elements.zeroFound")}
+			{ctx.game.localize('elements.zeroFound')}
 		{/if}
 		<form class="syrin-elements">
 			{#each elements as element}

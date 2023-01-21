@@ -17,9 +17,9 @@ export class Api {
 	) {}
 
 	async onInit(): Promise<void> {
-		return await this.raw.onInit();	
+		return await this.raw.onInit();
 	}
-	
+
 	async onlineMoods(soundsetId: string): Promise<Moods> {
 		if (!this.utils.useAPI()) {
 			return {};
@@ -33,8 +33,14 @@ export class Api {
 				return {
 					id: mood.pk,
 					name: mood.name,
-					elementsIds: mood.elements.map(element => 
-						Number(element.element.split('/').filter(t => t.trim().length > 0).pop()))
+					elementsIds: mood.elements.map((element) =>
+						Number(
+							element.element
+								.split('/')
+								.filter((t) => t.trim().length > 0)
+								.pop()
+						)
+					)
 				};
 			})
 			.reduce((moodsById, mood) => {
@@ -101,26 +107,28 @@ export class Api {
 
 		// this.utils.trace('API | Online Elements | elements = ', elements);
 
-		return elements
-			// .filter((element) => element.element_type == 'oneshot')
-			.map((element) => {
-				return {
-					id: element.pk,
-					type: element.element_type,
-					name: element.name,
-					icon: element.icon ?? '/icons/svg/sound.svg'
-				};
-			});
+		return (
+			elements
+				// .filter((element) => element.element_type == 'oneshot')
+				.map((element) => {
+					return {
+						id: element.pk,
+						type: element.element_type,
+						name: element.name,
+						icon: element.icon ?? '/icons/svg/sound.svg'
+					};
+				})
+		);
 	}
 
 	changePlayerVolume(volume: number): void {
-		 this.raw.changePlayerVolume(volume);
+		this.raw.changePlayerVolume(volume);
 	}
 	changeMoodVolume(volume: number): void {
-		 this.raw.changeMoodVolume(volume);
+		this.raw.changeMoodVolume(volume);
 	}
 	changeOneShotVolume(volume: number): void {
-		 this.raw.changeOneShotVolume(volume);
+		this.raw.changeOneShotVolume(volume);
 	}
 
 	async playMood(id: number): Promise<void> {
@@ -142,9 +150,9 @@ export class Api {
 		// this.utils.trace('API | Stop Mood');
 		await this.raw.stopMood();
 	}
-	
+
 	isPlayerActive(): boolean {
-		return this.raw.getState() === "active";
+		return this.raw.getState() === 'active';
 	}
 
 	playerJoined(name: string) {

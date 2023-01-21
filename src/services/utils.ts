@@ -35,9 +35,9 @@ export class Utils {
 	}
 
 	info(...args: any[]) {
-			const first = 'SyrinControl | ' + args.shift();
-			// console.trace(first, ...args);
-			console.info(first, ...args);
+		const first = 'SyrinControl | ' + args.shift();
+		// console.trace(first, ...args);
+		console.info(first, ...args);
 	}
 
 	error(...args: any[]) {
@@ -57,11 +57,11 @@ export class Utils {
 	setIntersection<T>(sA: Set<T>, sB: Set<T>): Set<T> {
 		return new Set([...sA].filter((e) => sB.has(e)));
 	}
-	
+
 	setSessionId(id: string) {
 		this.game.setSetting<string>('sessionId', id);
 	}
-	
+
 	getSessionId(): string {
 		return this.game.getSetting<string>('sessionId');
 	}

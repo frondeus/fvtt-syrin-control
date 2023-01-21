@@ -16,24 +16,34 @@
 	let expanded = false;
 	let isSoundsetChecked = false;
 	let isSoundsetPartiallyChecked = false;
-	let soundsetCheckboxTitle: string = "";
-	let soundsetButtonTitle: string = "";
+	let soundsetCheckboxTitle: string = '';
+	let soundsetButtonTitle: string = '';
 	let loading = false;
 
 	// Reactive Blocks
 	const reactiveIsSoundsetChecked = (filteredSelectedSoundsets: Set<string>, item: Soundset) => {
 		isSoundsetChecked = filteredSelectedSoundsets.has(item.id);
-	}; 
-	const reactiveIsSoundsetPartiallyChecked = (_isSoundsetChecked: boolean, item: Soundset, filteredSelectedSoundsets: Set<string>) => {
-		const len = Object.values(item.moods).filter((mood) => filteredSelectedSoundsets.has(item.id + ';' + mood.id)).length;
-    isSoundsetPartiallyChecked = Object.values(item.moods).length > len && len > 0;
+	};
+	const reactiveIsSoundsetPartiallyChecked = (
+		_isSoundsetChecked: boolean,
+		item: Soundset,
+		filteredSelectedSoundsets: Set<string>
+	) => {
+		const len = Object.values(item.moods).filter((mood) =>
+			filteredSelectedSoundsets.has(item.id + ';' + mood.id)
+		).length;
+		isSoundsetPartiallyChecked = Object.values(item.moods).length > len && len > 0;
 	};
 	const reactiveSoundsetCheckboxTitle = (isSoundsetChecked: boolean, item: Soundset) => {
 		soundsetCheckboxTitle =
-			(isSoundsetChecked ? ctx.game.localize("importer.removeSelection") : ctx.game.localize("importer.expandAndSelect")) + item.name;
+			(isSoundsetChecked
+				? ctx.game.localize('importer.removeSelection')
+				: ctx.game.localize('importer.expandAndSelect')) + item.name;
 	};
 	const reactiveButtonTitle = (expanded: boolean, item: Soundset) => {
-		soundsetButtonTitle = (expanded ? ctx.game.localize("importer.collapse") : ctx.game.localize("importer.expand")) + item.name;
+		soundsetButtonTitle =
+			(expanded ? ctx.game.localize('importer.collapse') : ctx.game.localize('importer.expand')) +
+			item.name;
 	};
 	const reactiveLoading = (_item: Soundset) => {
 		loading = false;
@@ -43,7 +53,7 @@
 	$: reactiveIsSoundsetPartiallyChecked(isSoundsetChecked, item, filteredSelectedSoundsets);
 	$: reactiveSoundsetCheckboxTitle(isSoundsetChecked, item);
 	$: reactiveButtonTitle(expanded, item);
-  $: reactiveLoading(item);
+	$: reactiveLoading(item);
 
 	// Event handlers
 	function onExpand() {
@@ -67,45 +77,49 @@
 		dispatcher('expand', item);
 	}
 
-  async function onSoundsetElements() {
-    ctx.stores.elementsApp.update(p => {
-      p.addTab({ soundset: item, kind: 'soundset' });
-      return p;
-    });
-    openElements(ctx);
-  }
+	async function onSoundsetElements() {
+		ctx.stores.elementsApp.update((p) => {
+			p.addTab({ soundset: item, kind: 'soundset' });
+			return p;
+		});
+		openElements(ctx);
+	}
 </script>
 
 <tr class="soundset">
 	<td class="checkbox-cell">
-	<input
-		type="checkbox"
-		title={soundsetCheckboxTitle}
-		on:click={onSelectSoundset}
-		checked={isSoundsetChecked}
-		indeterminate={isSoundsetPartiallyChecked}
-	/>
+		<input
+			type="checkbox"
+			title={soundsetCheckboxTitle}
+			on:click={onSelectSoundset}
+			checked={isSoundsetChecked}
+			indeterminate={isSoundsetPartiallyChecked}
+		/>
 	</td>
 	<td>
-	<span role="button" title={soundsetButtonTitle} on:click={onExpand} on:keypress={onExpand}>
-		{item.name}
-		{#if loading}
-				({ctx.game.localize("loading")})
-		{/if}
-	</span>
+		<span role="button" title={soundsetButtonTitle} on:click={onExpand} on:keypress={onExpand}>
+			{item.name}
+			{#if loading}
+				({ctx.game.localize('loading')})
+			{/if}
+		</span>
 	</td>
 	<td class="actions-cell">
-		<span role="button" title={ctx.game.localize("importer.elements")} on:click={onSoundsetElements} on:keypress={onSoundsetElements}>
+		<span
+			role="button"
+			title={ctx.game.localize('importer.elements')}
+			on:click={onSoundsetElements}
+			on:keypress={onSoundsetElements}
+		>
 			<i class="fas fa-drum" />
 		</span>
-
 	</td>
 </tr>
-	{#if expanded}
-		{#each Object.values(item.moods) as mood}
-			<MoodComponent soundset={item} mood={mood} filteredSelectedSoundsets={filteredSelectedSoundsets}/>
-		{/each}
-	{/if}
+{#if expanded}
+	{#each Object.values(item.moods) as mood}
+		<MoodComponent soundset={item} {mood} {filteredSelectedSoundsets} />
+	{/each}
+{/if}
 
 <style>
 	.checkbox-cell {
@@ -115,7 +129,7 @@
 		text-align: center;
 	}
 
-	input[type="checkbox"]:indeterminate {
+	input[type='checkbox']:indeterminate {
 		-webkit-filter: grayscale(100%);
 		filter: grayscale(100%);
 	}

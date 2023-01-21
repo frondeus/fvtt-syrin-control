@@ -18,10 +18,14 @@
 
 	// Reactive Blocks
 	const reactiveFilterSoundsetList = (importerApp: ImporterAppStore) => {
-	   filterSoundsetList = importerApp.filterSoundset.trim().split(/\s+/);
+		filterSoundsetList = importerApp.filterSoundset.trim().split(/\s+/);
 	};
 
-	const reactiveSoundsetList = (importerApp: ImporterAppStore, soundsets: Soundsets, filterSoundsetList: string[]) => {
+	const reactiveSoundsetList = (
+		importerApp: ImporterAppStore,
+		soundsets: Soundsets,
+		filterSoundsetList: string[]
+	) => {
 		soundsetsList = Object.values(soundsets).filter((item) => {
 			if (filterSoundsetList.length === 0) {
 				return true;
@@ -36,23 +40,28 @@
 		});
 	};
 
-	const reactiveFilteredSelectedSoundsets = (importerApp: ImporterAppStore, soundsetsList: Soundset[]) => {
-			filteredSelectedSoundsets = ctx.utils.setIntersection(
-				importerApp.selectedSoundsets,
-				soundsetsListSet(soundsetsList)
-			);
+	const reactiveFilteredSelectedSoundsets = (
+		importerApp: ImporterAppStore,
+		soundsetsList: Soundset[]
+	) => {
+		filteredSelectedSoundsets = ctx.utils.setIntersection(
+			importerApp.selectedSoundsets,
+			soundsetsListSet(soundsetsList)
+		);
 	};
 
-	const reactiveIsSelectedAll = (filteredSelectedSoundsets: Set<string>, soundsetsList: Soundset[]) => {
-		isSelectedAll = filteredSelectedSoundsets.size === soundsetsList.reduce((acc, current) => 
-				acc + 1 + Object.values(current.moods).length
-		, 0);
+	const reactiveIsSelectedAll = (
+		filteredSelectedSoundsets: Set<string>,
+		soundsetsList: Soundset[]
+	) => {
+		isSelectedAll =
+			filteredSelectedSoundsets.size ===
+			soundsetsList.reduce((acc, current) => acc + 1 + Object.values(current.moods).length, 0);
 	};
-	
+
 	const reactiveIsAnySelected = (filteredSelectedSoundsets: Set<string>) => {
 		isAnySelected = filteredSelectedSoundsets.size > 0;
 	};
-
 
 	$: reactiveFilterSoundsetList($importerApp);
 	$: reactiveSoundsetList($importerApp, $soundsets, filterSoundsetList);
@@ -60,13 +69,12 @@
 	$: reactiveIsSelectedAll(filteredSelectedSoundsets, soundsetsList);
 	$: reactiveIsAnySelected(filteredSelectedSoundsets);
 
-
 	// Event handlers
 	function onExpand(soundset: Soundset) {
 		return async function () {
 			const hydrated = await ctx.stores.hydrateSoundset(soundset.id);
 			const moods = Object.values(hydrated.moods);
-  		// const moods = await ctx.stores.getMoods(soundset.id).then((m) => Object.values(m));
+			// const moods = await ctx.stores.getMoods(soundset.id).then((m) => Object.values(m));
 
 			ctx.utils.trace('expand', { hydrated });
 
@@ -117,7 +125,6 @@
 		});
 	}
 
-
 	// Utils
 	function soundsetsListSet(soundsetsList: Soundset[]): Set<string> {
 		return new Set(
@@ -126,35 +133,38 @@
 			})
 		);
 	}
-
 </script>
 
 <div class="container">
 	<div class="header">
-		<input type="text" placeholder={ctx.game.localize("importer.searchForSoundset")} bind:value={$importerApp.filterSoundset} />
-		<label for="caseSensitive"> {ctx.game.localize("importer.caseSensitive")} </label>
+		<input
+			type="text"
+			placeholder={ctx.game.localize('importer.searchForSoundset')}
+			bind:value={$importerApp.filterSoundset}
+		/>
+		<label for="caseSensitive"> {ctx.game.localize('importer.caseSensitive')} </label>
 		<input name="caseSensitive" type="checkbox" bind:checked={$importerApp.filterCaseSensitive} />
 	</div>
 	<div class="main">
-	<table class="list">
-		<tr> 
-			<th class="checkbox-cell">
-				<input type="checkbox" checked={isSelectedAll} on:click={onSelectAll} />
-			</th>
-		  <th>{ctx.game.localize("importer.soundsets")}</th>
-			<th class="actions-cell-header"></th>
-		</tr>
-		{#each soundsetsList as item}
-			<SoundsetComponent {item} {filteredSelectedSoundsets} on:expand={onExpand(item)}  />
-		{/each}
-	</table>
+		<table class="list">
+			<tr>
+				<th class="checkbox-cell">
+					<input type="checkbox" checked={isSelectedAll} on:click={onSelectAll} />
+				</th>
+				<th>{ctx.game.localize('importer.soundsets')}</th>
+				<th class="actions-cell-header" />
+			</tr>
+			{#each soundsetsList as item}
+				<SoundsetComponent {item} {filteredSelectedSoundsets} on:expand={onExpand(item)} />
+			{/each}
+		</table>
 	</div>
-	{#if isAnySelected }
-	<div class="footer">
-		<button type="submit" title="Import playlists" on:click={onCreatePlaylist}>
-			{ctx.game.localize("import.importPlaylists")}
-		</button>
-	</div>
+	{#if isAnySelected}
+		<div class="footer">
+			<button type="submit" title="Import playlists" on:click={onCreatePlaylist}>
+				{ctx.game.localize('import.importPlaylists')}
+			</button>
+		</div>
 	{/if}
 </div>
 
@@ -166,11 +176,11 @@
 		display: flex;
 		flex-direction: column;
 	}
-	.header { 
-		display: flex; 
+	.header {
+		display: flex;
 		align-items: center;
 	}
-	.header input[type="text"] {
+	.header input[type='text'] {
 		flex: 4;
 		margin-right: 0.5em;
 	}

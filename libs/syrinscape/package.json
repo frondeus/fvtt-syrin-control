@@ -1,11 +1,11 @@
 {
-  "name": "syrinscape",
-  "version": "0.1.0",
-  "description": "",
-  "main": "headlessPlayer.88c4c86b231dc842cc3d.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Syrinscape.com",
-  "license": "SEE LICENSE IN LICENSE.txt"
+	"name": "syrinscape",
+	"version": "0.1.0",
+	"description": "",
+	"main": "headlessPlayer.88c4c86b231dc842cc3d.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Syrinscape.com",
+	"license": "SEE LICENSE IN LICENSE.txt"
 }

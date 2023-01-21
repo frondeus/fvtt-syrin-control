@@ -10,8 +10,8 @@
 	"scripts": {
 		"build": "npx vite build",
 		"dev": "npx vite serve --https",
-		"check": "svelte-check --tsconfig ./tsconfig.json  --ignore ./src/lib/* --watch",
-		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
+		"check": "svelte-check --tsconfig ./tsconfig.json  --ignore ./libs/* --watch",
+		"format": "prettier --ignore-path .gitignore --ignore-path libs/ --write --plugin-search-dir=. .",
 		"test": "jest",
 		"cypress:open": "./cypress/scripts/run.sh",
 		"cypress:clear": "./cypress/scripts/clear.sh",

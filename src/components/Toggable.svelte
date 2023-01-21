@@ -5,8 +5,8 @@
 	export let disabled = false;
 	export let toggled: boolean = false;
 
-	let title = "";
-	let icon = "";
+	let title = '';
+	let icon = '';
 
 	// Reactive Blocks
 	const reactiveTitle = (toggled: boolean, on: string[], off: string[]) => {
@@ -16,8 +16,8 @@
 		icon = toggled ? on[1] : off[1];
 	};
 
-	$: reactiveTitle(toggled, on, off);	
-	$: reactiveIcon(toggled, on, off);	
+	$: reactiveTitle(toggled, on, off);
+	$: reactiveIcon(toggled, on, off);
 </script>
 
 {#if !disabled}

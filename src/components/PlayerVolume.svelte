@@ -1,19 +1,22 @@
 <script lang="ts">
 	import Context from '@/services/context';
-  import VolumeSlider from './VolumeSlider.svelte';
+	import VolumeSlider from './VolumeSlider.svelte';
 
-  // Context
-  const ctx = Context();
+	// Context
+	const ctx = Context();
 
+	// Params & State
+	let volume = ctx.stores.playerVolume;
 
-  // Params & State
-  let volume = ctx.stores.playerVolume;
-
-  // Event handlers
-  function onVolumeChange() {
-    ctx.api.changePlayerVolume($volume);
-  }
+	// Event handlers
+	function onVolumeChange() {
+		ctx.api.changePlayerVolume($volume);
+	}
 </script>
 
-<VolumeSlider name="globalSyrinscapeVolume" title="Syrinscape" bind:volume={$volume} on:change={onVolumeChange}/>
-
+<VolumeSlider
+	name="globalSyrinscapeVolume"
+	title="Syrinscape"
+	bind:volume={$volume}
+	on:change={onVolumeChange}
+/>

@@ -2,7 +2,7 @@
 	import Context from '@/services/context';
 	import ElementsTabComponent from './ElementsTab.svelte';
 	import type { ElementsTab } from '@/models';
-import { ElementsAppStore } from '@/services/stores';
+	import { ElementsAppStore } from '@/services/stores';
 
 	// Context
 	const ctx = Context();
@@ -10,8 +10,8 @@ import { ElementsAppStore } from '@/services/stores';
 
 	// Params & State
 	interface Tab {
-		title: string,
-		global: boolean
+		title: string;
+		global: boolean;
 	}
 	let active: number = 0;
 	let tabs: Tab[] = [];

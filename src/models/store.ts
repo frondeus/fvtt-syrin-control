@@ -44,7 +44,7 @@ export interface Element {
 	id: number;
 	name: string;
 	icon: string;
-	type: "oneshot" | "sfx" | "music";
+	type: 'oneshot' | 'sfx' | 'music';
 }
 
 export interface Module {
@@ -72,7 +72,7 @@ export interface PlaylistItem {
 }
 
 export interface AmbientSounds {
-	[index: string]: AmbientSound
+	[index: string]: AmbientSound;
 }
 
 export type AmbientSound = MoodAmbientSound | ElementAmbientSound;

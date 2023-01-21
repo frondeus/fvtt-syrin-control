@@ -36,13 +36,15 @@
 	"download": "This is auto replaced",
 	"media": [],
 	"relationships": {
-		"requires": [{
-			"id": "socketlib",
-			"type": "module",
-			"manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/v1.0.12/module.json",
-			"compability": {
-				"verified": "1.0.12"
+		"requires": [
+			{
+				"id": "socketlib",
+				"type": "module",
+				"manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/v1.0.12/module.json",
+				"compability": {
+					"verified": "1.0.12"
+				}
 			}
-		}]
+		]
 	}
 }

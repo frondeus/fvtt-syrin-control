@@ -15,7 +15,7 @@ export class Context {
 		public utils: Utils,
 		public api: Api,
 		public stores: Stores,
-		public syrin: Syrin,
+		public syrin: Syrin
 	) {}
 
 	map(): Map<string, any> {

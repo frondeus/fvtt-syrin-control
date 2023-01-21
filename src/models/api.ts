@@ -9,11 +9,11 @@ export interface ApiSoundset {
 export interface ApiMood {
 	pk: number;
 	name: string;
-	elements: ApiMoodElement[]
+	elements: ApiMoodElement[];
 }
 
 export interface ApiMoodElement {
-	element: string // Element url... last segment is pk
+	element: string; // Element url... last segment is pk
 }
 
 export interface ApiElement {
@@ -26,5 +26,5 @@ export interface ApiElement {
 export interface ApiStatus {
 	global?: {
 		soundset_uuid?: string;
-	}
+	};
 }

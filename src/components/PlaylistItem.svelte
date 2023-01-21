@@ -20,7 +20,7 @@
 	}
 
 	function onImport() {
-		dispatch('import', item);	
+		dispatch('import', item);
 	}
 </script>
 
@@ -37,10 +37,22 @@
 				off={['Play Mood', 'play']}
 			/>
 
-			<span role="button" class="syrin-control" on:click={onElements} on:keypress={onElements} title="Soundset Elements">
+			<span
+				role="button"
+				class="syrin-control"
+				on:click={onElements}
+				on:keypress={onElements}
+				title="Soundset Elements"
+			>
 				<i class="fas fa-drum" />
 			</span>
-			<span role="button" class="syrin-control" on:click={onImport} on:keypress={onImport} title="Import Soundset">
+			<span
+				role="button"
+				class="syrin-control"
+				on:click={onImport}
+				on:keypress={onImport}
+				title="Import Soundset"
+			>
 				<i class="fas fa-file-import" />
 			</span>
 		</div>

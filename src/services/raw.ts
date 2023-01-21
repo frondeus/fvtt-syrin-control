@@ -5,11 +5,11 @@ import { inject, singleton } from 'tsyringe';
 import { SocketCalls } from '@/socket';
 // import { AudioContext } from '@lib/headlessPlayer.39eb2733bd1782ae3719';
 
-export type PlayerState = "active" | "inactive";
+export type PlayerState = 'active' | 'inactive';
 
 export interface RawApi {
 	onInit(): Promise<void>;
-	
+
 	getState(): PlayerState;
 	changePlayerVolume(volume: number): void;
 	changeMoodVolume(volume: number): void;
@@ -26,78 +26,83 @@ export interface RawApi {
 	getGlobalElements(): Promise<ApiElement[]>;
 }
 
-type PlayerJoinedCallback = (name: string) => (string | null);
+type PlayerJoinedCallback = (name: string) => string | null;
 
 @singleton()
 export class RawApiImpl implements RawApi {
 	wasInitialized: boolean = false;
-	playerState: PlayerState = "inactive";
+	playerState: PlayerState = 'inactive';
 	playerJoinedCallback: PlayerJoinedCallback | undefined;
 	constructor(
 		@inject('FVTTGame')
 		private readonly game: FVTTGame,
 		private readonly utils: Utils
-	) {
-	}
+	) {}
 	async onInit(): Promise<void> {
-		if (this.wasInitialized) { return; };
+		if (this.wasInitialized) {
+			return;
+		}
 		this.wasInitialized = true;
 		const { game, utils } = this;
 		const raw = this;
 		const audioContext = await game.getAudioContext();
-		if(audioContext === undefined) { return; }
+		if (audioContext === undefined) {
+			return;
+		}
 
-		return new Promise(resolve => {
+		return new Promise((resolve) => {
 			syrinscape.player.init({
 				async configure() {
 					// utils.trace("RAW Headless | Syrinscape | audio context", (audioContext === undefined), { audioContext });
-					syrinscape.log.getLogger("audioSystem").setLevel("error");
-					syrinscape.log.getLogger("sampleSpawnSystem").setLevel("error");
-					syrinscape.log.getLogger("elementSpawnSystem").setLevel("error");
-					syrinscape.log.getLogger("audioEffectSystem").setLevel("error");
+					syrinscape.log.getLogger('audioSystem').setLevel('error');
+					syrinscape.log.getLogger('sampleSpawnSystem').setLevel('error');
+					syrinscape.log.getLogger('elementSpawnSystem').setLevel('error');
+					syrinscape.log.getLogger('audioEffectSystem').setLevel('error');
 					syrinscape.config.audioContext = audioContext;
 
-					if(game.isGM()) {
-							syrinscape.config.token = utils.getAuth();
-							raw.playerJoinedCallback = (name: string) => {
-								utils.info(`Player ${name} joined`);
-								return syrinscape.config.sessionId;
-							};
-					}
-					else {
-							utils.info("Waiting for session...");
-							const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
-							const backoff = [100, 500, 1 * 1000, 5 * 1000];
-							let i = 0;
-							while(true) {
-								try {
-									const newSessionId = await game.socket?.executeAsGM(SocketCalls.PlayerJoined, game.getPlayerName());
-									if (newSessionId === null) {
-										continue;
-									}
-									syrinscape.config.sessionId = newSessionId;
-									utils.info("Session found");
-									break;
-								} catch(err) {
-									utils.error(err);
-									let ms = backoff[i];
-									if (i < backoff.length - 1) {
-										i++;
-									}
-									await sleep(ms);
-
+					if (game.isGM()) {
+						syrinscape.config.token = utils.getAuth();
+						raw.playerJoinedCallback = (name: string) => {
+							utils.info(`Player ${name} joined`);
+							return syrinscape.config.sessionId;
+						};
+					} else {
+						utils.info('Waiting for session...');
+						const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+						const backoff = [100, 500, 1 * 1000, 5 * 1000];
+						let i = 0;
+						while (true) {
+							try {
+								const newSessionId = await game.socket?.executeAsGM(
+									SocketCalls.PlayerJoined,
+									game.getPlayerName()
+								);
+								if (newSessionId === null) {
 									continue;
 								}
+								syrinscape.config.sessionId = newSessionId;
+								utils.info('Session found');
+								break;
+							} catch (err) {
+								utils.error(err);
+								let ms = backoff[i];
+								if (i < backoff.length - 1) {
+									i++;
+								}
+								await sleep(ms);
+
+								continue;
 							}
-							// syrinscape.config.sessionId = utils.getSessionId();
+						}
+						// syrinscape.config.sessionId = utils.getSessionId();
 					}
-				
+
 					syrinscape.config.deviceName = game.getPlayerName();
 					// utils.trace("RAW Headless | Syrinscape | Init Configure", { syrinscape });
-				
+
 					if (game.isGM()) {
 						syrinscape.player.syncSystem.events.onChangeMood.addListener(async (event) => {
-							utils.trace("RAW Headless | Syrinscape | On Change mood", { event });
+							utils.trace('RAW Headless | Syrinscape | On Change mood', { event });
 							game.callHookAll('moodChange', event.pk);
 						});
 						syrinscape.player.syncSystem.events.onChangeSoundset.addListener(async (event) => {
@@ -106,10 +111,10 @@ export class RawApiImpl implements RawApi {
 					}
 					resolve();
 				},
-			
-				async onActive () {
+
+				async onActive() {
 					// utils.trace("RAW Headless | Syrinscape | On Active", { syrinscape });
-					raw.playerState = "active";
+					raw.playerState = 'active';
 					// const gainNode = audioContext.createGain();
 					// syrinscape.events.startElement.addListener((event) => {
 					// 	utils.warn("RAW Headless | Syrinscape | On Element Start", { event });
@@ -128,10 +133,10 @@ export class RawApiImpl implements RawApi {
 					// 	game.callHookAll('elementStops', elementId);
 					// });
 				},
-			
-				async onInactive () {
+
+				async onInactive() {
 					// utils.trace("RAW Headless | Syrinscape | On Inactive", { syrinscape });
-					raw.playerState = "inactive";
+					raw.playerState = 'inactive';
 				}
 			});
 		});
@@ -140,10 +145,10 @@ export class RawApiImpl implements RawApi {
 	playerJoined(name: string) {
 		if (this.playerJoinedCallback === undefined) {
 			return null;
-		} 
+		}
 		return this.playerJoinedCallback(name);
 	}
-	
+
 	getState(): PlayerState {
 		return this.playerState;
 	}
@@ -162,7 +167,7 @@ export class RawApiImpl implements RawApi {
 		// this.utils.trace("RAW Headless | Syrinscape | Change Oneshot Volume", { volume });
 		syrinscape.player.controlSystem.setOneshotVolume(volume);
 	}
-	
+
 	fetchOptions() {
 		const api = this.utils.useAPI();
 		if (api) return undefined;
@@ -170,9 +175,9 @@ export class RawApiImpl implements RawApi {
 			mode: 'no-cors' as const
 		};
 	}
-	
+
 	async getCurrentlyPlaying(): Promise<ApiStatus | undefined> {
-				let utils = this.utils;
+		let utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return undefined;
 
 		function link() {
@@ -185,7 +190,7 @@ export class RawApiImpl implements RawApi {
 			.then(this.handleErr)
 			.then((res) => res.json())
 			.catch(this.catchErr('getCurrentlyPlaying'));
-		
+
 		// utils.trace("RAW | Syrinscape | Currently Playing", { playing });
 		return playing;
 	}
@@ -321,7 +326,9 @@ export class RawApiImpl implements RawApi {
 	catchErr<T>(api: string): (e: any) => T[] {
 		let game = this.game;
 		return function <T>(e: any): T[] {
-			console.error('SyrinControl | RAW | ' + api + ' | Catched error', { error: JSON.stringify(e) });
+			console.error('SyrinControl | RAW | ' + api + ' | Catched error', {
+				error: JSON.stringify(e)
+			});
 			game.notifyError('errors.apiError', { api, error: e.message });
 			return [];
 		};
@@ -338,6 +345,4 @@ export class RawApiImpl implements RawApi {
 		}
 		return res;
 	}
-};
-
-
+}

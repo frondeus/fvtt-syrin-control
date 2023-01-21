@@ -14,9 +14,9 @@ export function initSettings(ctx: Context) {
 			await syrin.stopElement(id);
 		},
 		playMood: async (params: PlayMoodParams | number) => {
-			if (typeof(params) === "number") {
-					syrin.setMood(params);
-					return;
+			if (typeof params === 'number') {
+				syrin.setMood(params);
+				return;
 			}
 			const { mood } = params;
 
@@ -34,22 +34,22 @@ export function initSettings(ctx: Context) {
 		soundSources: async () => {
 			return await api.onlineSoundsets();
 		},
-		onlineElements: async (id: string) =>  {
+		onlineElements: async (id: string) => {
 			return await api.onlineElements(id);
 		},
-		onlineGlobalElements: async() => {
+		onlineGlobalElements: async () => {
 			return await api.onlineGlobalElements();
 		}
 	});
 
 	const settingsPrefix = 'fvtt-syrin-control.settings.';
 	const localize = (name: string) => ({
-		name: settingsPrefix + name + ".name", 
-		hint: settingsPrefix + name + ".hint", 
-	}) 
+		name: settingsPrefix + name + '.name',
+		hint: settingsPrefix + name + '.hint'
+	});
 
 	game.registerSetting('authToken', {
-		...localize("authToken"),
+		...localize('authToken'),
 		scope: 'world',
 		config: true,
 		type: String,
@@ -64,13 +64,13 @@ export function initSettings(ctx: Context) {
 	});
 
 	game.registerSetting('debugTraces', {
-		...localize("debugTraces"),
+		...localize('debugTraces'),
 		scope: 'client',
 		config: true,
 		type: Boolean,
 		default: 'false'
 	});
-	
+
 	game.registerSetting('soundsets', {
 		scope: 'world',
 		config: false,

@@ -2,7 +2,7 @@ import { inject, singleton } from 'tsyringe';
 import type { FVTTGame } from './game';
 import { Stores } from './stores';
 import { Utils } from './utils';
-import {AmbientSound} from '@/models';
+import { AmbientSound } from '@/models';
 import { SocketCalls } from '@/socket';
 import { Api } from './api';
 import { Context } from './context';
@@ -22,20 +22,20 @@ export class Syrin {
 		private readonly game: FVTTGame,
 		private readonly utils: Utils,
 		private readonly api: Api,
-		private readonly stores: Stores,
+		private readonly stores: Stores
 	) {}
 
 	renderComponent(ctx: Context, name: SyrinComponent, con: ConstructorOf<any>, target: Element) {
-		if(!this.components.has(name)) {
+		if (!this.components.has(name)) {
 			const component = new con({
 				target,
 				context: ctx.map()
 			});
-			this.components.set(name, component); 	
+			this.components.set(name, component);
 		}
 	}
-	
-	 stopAll() {
+
+	stopAll() {
 		if (!this.game.isGM()) {
 			this.game.socket!.executeAsGM(SocketCalls.StopAll);
 			return;
@@ -44,7 +44,6 @@ export class Syrin {
 		this.utils.trace('Syrin | StopAll');
 
 		this.game.callHookAll('moodChange', undefined);
-
 	}
 
 	setMood(moodId: number) {
@@ -56,28 +55,27 @@ export class Syrin {
 
 		this.utils.trace('Syrin | Set Mood', { moodId });
 		this.game.callHookAll('moodChange', moodId);
-
 	}
 
 	playAmbientSound(id: string, sound: AmbientSound) {
-			if(!this.game.isGM()) {
-				const key = id + sound.userId;
-				this.game.socket?.executeAsGM(SocketCalls.PlayAmbient, key, sound);
-				return;
-			}
-      this.stores.possibleAmbientSounds.update(p => ({ ...p, [id]: sound}));
+		if (!this.game.isGM()) {
+			const key = id + sound.userId;
+			this.game.socket?.executeAsGM(SocketCalls.PlayAmbient, key, sound);
+			return;
+		}
+		this.stores.possibleAmbientSounds.update((p) => ({ ...p, [id]: sound }));
 	}
 
 	stopAmbientSound(id: string, userId: string) {
-			if(!this.game.isGM()) {
-				const key = id + userId;
-				this.game.socket?.executeAsGM(SocketCalls.StopAmbient, key);
-				return;
-			}
-      this.stores.possibleAmbientSounds.update(p => {
-        delete p[id];
-        return p;
-      });
+		if (!this.game.isGM()) {
+			const key = id + userId;
+			this.game.socket?.executeAsGM(SocketCalls.StopAmbient, key);
+			return;
+		}
+		this.stores.possibleAmbientSounds.update((p) => {
+			delete p[id];
+			return p;
+		});
 	}
 
 	async playElement(id: number) {
@@ -97,5 +95,4 @@ export class Syrin {
 		}
 		await this.api.stopElement(id);
 	}
-	
 }

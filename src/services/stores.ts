@@ -10,8 +10,8 @@ import {
 	ElementsTabs,
 	SoundsetElementsTab,
 	AmbientSounds,
-    CurrentlyPlaying,
-    // CurrentlyPlaying
+	CurrentlyPlaying
+	// CurrentlyPlaying
 } from '@/models';
 import { ElementsApplication } from '@/ui/elements';
 import { inject, singleton } from 'tsyringe';
@@ -50,7 +50,7 @@ export class Stores {
 		game: FVTTGame,
 		private readonly api: Api
 	) {
-		this.id = `syrin-${Math.random() * 10}`
+		this.id = `syrin-${Math.random() * 10}`;
 
 		this.globalElements = createFoundryStore(game, 'elements', []);
 		this.soundsets = createFoundryStore(game, 'soundsets', {});
@@ -61,71 +61,78 @@ export class Stores {
 		this.elementsApp = writable(new ElementsAppStore());
 		this.importerApp = writable(new ImporterAppStore());
 
-
 		this.nextPlaylistMood = writable(undefined);
 		this.nextSoundset = writable(undefined);
 		this.possibleAmbientSounds = delayed({}, 100);
-		this.nextAmbientMood = deduped_readable(derived(this.possibleAmbientSounds, (sounds, set) => {
-				const sortedAmbients = Object.values(sounds).sort((a, b) => (a.volume - b.volume));
+		this.nextAmbientMood = deduped_readable(
+			derived(this.possibleAmbientSounds, (sounds, set) => {
+				const sortedAmbients = Object.values(sounds).sort((a, b) => a.volume - b.volume);
 				const loudestAmbient = sortedAmbients.shift();
 				if (loudestAmbient !== undefined) {
 					switch (loudestAmbient.kind) {
 						case 'mood': {
 							const moodId = loudestAmbient.moodId;
-							set(moodId)
+							set(moodId);
 							break;
 						}
 					}
-				}
-				else {
+				} else {
 					set(undefined);
 				}
-		}));
-		this.nextMood = deduped_readable(derived([this.nextPlaylistMood, this.nextAmbientMood], ([playlistMood, ambientMood], set) => {
-			// utils.trace('Derived Store | next mood', { playlistMood, ambientMood });
-			if (ambientMood !== undefined) {
-				set(ambientMood);
-				return;
-			}
-			if (playlistMood !== undefined) {
-				set(playlistMood);	
-				return;
-			}
-			set(undefined);
-		}));
-
-		this.currentlyPlaying = deduped_readable(derived([this.nextMood, this.nextSoundset, this.soundsets], 
-		([nextMood, nextSoundset, soundsets], set) => {
-			// utils.trace('Derived Store | currently playing', { nextMood, nextSoundset, soundsets });
-			if (nextMood === undefined && nextSoundset === undefined) {
+			})
+		);
+		this.nextMood = deduped_readable(
+			derived([this.nextPlaylistMood, this.nextAmbientMood], ([playlistMood, ambientMood], set) => {
+				// utils.trace('Derived Store | next mood', { playlistMood, ambientMood });
+				if (ambientMood !== undefined) {
+					set(ambientMood);
+					return;
+				}
+				if (playlistMood !== undefined) {
+					set(playlistMood);
+					return;
+				}
 				set(undefined);
-				return;
-			}
-			if (nextMood === undefined || nextSoundset === undefined) {
-				return;
-			}
-			
-			const soundsetList = Object.values(soundsets);
-			let soundset = soundsetList.find(s => s.pid === nextSoundset);
-			if (!soundset) {
-				// utils.trace('Derived Store | currently playing | clean soundset');
-				this.nextSoundset.set(undefined);
-				return;
-			}
-			this.hydrateSoundsetInner(soundset.id, soundsets).then(soundset => {
-					const mood = soundset.moods[nextMood];
-					set({ soundset, mood });
-			});
-		}));
+			})
+		);
 
+		this.currentlyPlaying = deduped_readable(
+			derived(
+				[this.nextMood, this.nextSoundset, this.soundsets],
+				([nextMood, nextSoundset, soundsets], set) => {
+					// utils.trace('Derived Store | currently playing', { nextMood, nextSoundset, soundsets });
+					if (nextMood === undefined && nextSoundset === undefined) {
+						set(undefined);
+						return;
+					}
+					if (nextMood === undefined || nextSoundset === undefined) {
+						return;
+					}
+
+					const soundsetList = Object.values(soundsets);
+					let soundset = soundsetList.find((s) => s.pid === nextSoundset);
+					if (!soundset) {
+						// utils.trace('Derived Store | currently playing | clean soundset');
+						this.nextSoundset.set(undefined);
+						return;
+					}
+					this.hydrateSoundsetInner(soundset.id, soundsets).then((soundset) => {
+						const mood = soundset.moods[nextMood];
+						set({ soundset, mood });
+					});
+				}
+			)
+		);
 	}
 
 	refresh() {
 		this.globalElements.refresh();
 		this.soundsets.refresh();
 	}
-	
-	getSoundsets() { return get(this.soundsets); }
+
+	getSoundsets() {
+		return get(this.soundsets);
+	}
 
 	private async hydrateSoundsetInner(soundsetId: string, soundsets: Soundsets): Promise<Soundset> {
 		const moodsPromise = this.getMoodsInner(soundsetId, soundsets);
@@ -141,11 +148,11 @@ export class Stores {
 			changed = true;
 		}
 
-		if(changed) {
+		if (changed) {
 			result.elements = elements;
 			result.moods = moods;
 			setTimeout(() => {
-				this.soundsets.update( soundsets => {
+				this.soundsets.update((soundsets) => {
 					soundsets[soundsetId] = result;
 					return soundsets;
 				});
@@ -153,13 +160,13 @@ export class Stores {
 		}
 		return result;
 	}
-	
+
 	async hydrateSoundset(soundsetId: string): Promise<Soundset> {
 		const moodsPromise = this.getMoods(soundsetId);
 		const elementsPromise = this.getSoundsetElements(soundsetId);
 		const [moods, elements] = await Promise.all([moodsPromise, elementsPromise]);
 		let result: Soundset;
-		this.soundsets.update( soundsets => {
+		this.soundsets.update((soundsets) => {
 			const soundset = soundsets[soundsetId];
 			soundset.elements = elements;
 			soundset.moods = moods;
@@ -183,13 +190,13 @@ export class Stores {
 		}
 		return moods;
 	}
-	
+
 	async getMoods(soundsetId: string | undefined) {
 		const soundsets = get(this.soundsets);
 
 		return await this.getMoodsInner(soundsetId, soundsets);
 	}
-	
+
 	private async getSoundsetElementsInner(soundsetId: string | undefined, soundsets: Soundsets) {
 		// this.utils.trace('Stores | Get Soundset Elements', { soundsetId });
 		if (!soundsetId) return [];
@@ -204,12 +211,12 @@ export class Stores {
 		}
 		return elements;
 	}
-	
+
 	async getSoundsetElements(soundsetId: string | undefined) {
 		const soundsets = get(this.soundsets);
 		return await this.getSoundsetElementsInner(soundsetId, soundsets);
 	}
-	
+
 	isPlaying(mood: Mood | undefined) {
 		const current = get(this.currentlyPlaying)?.mood;
 		// this.utils.trace('Stores | Is Playing', { current, mood });
@@ -278,20 +285,22 @@ function delayed<T>(initial: T, delay: number): Writable<T> {
 		lastValue = fresh;
 		last = { val: fresh };
 	};
-	const subscribe = (run: Subscriber<T>, invalidator?: Invalidator<T> | undefined) : Unsubscriber => {
+	const subscribe = (
+		run: Subscriber<T>,
+		invalidator?: Invalidator<T> | undefined
+	): Unsubscriber => {
 		return store.subscribe(run, invalidator);
 	};
 	return {
 		set: set,
 		update: update,
 		subscribe: subscribe
-	}
+	};
 }
 
 export function deduped_readable<T>(other: Readable<T>): Readable<T> {
 	const subscribe = (run: Subscriber<T>, invalidate?: Invalidator<T> | undefined): Unsubscriber => {
-		
-		let prev: { value: T; } | undefined = undefined;
+		let prev: { value: T } | undefined = undefined;
 		return other.subscribe((t) => {
 			// console.warn("SyrinStore | DEDUP", { prev, t });
 			if (prev !== undefined && _.isEqual(t, prev.value)) {
@@ -306,16 +315,18 @@ export function deduped_readable<T>(other: Readable<T>): Readable<T> {
 
 	return {
 		subscribe
-	}
+	};
 }
 
 function createFoundryStore<T>(game: FVTTGame, name: string, initial: T): FoundryStore<T> {
 	const getSetting = (n: string) => {
-		if(!game.isReady()) { return initial; }
+		if (!game.isReady()) {
+			return initial;
+		}
 		return game.getSetting<T>(n);
 	};
 	const setSetting = (n: string, v: T) => {
-		if(game.isReady()) { 
+		if (game.isReady()) {
 			game.setSetting<T>(n, v);
 		}
 	};
@@ -323,7 +334,6 @@ function createFoundryStore<T>(game: FVTTGame, name: string, initial: T): Foundr
 	const value: T = getSetting(name);
 
 	const store = writable<T>(value);
-
 
 	const set = (updated: T) => {
 		setSetting(name, updated);

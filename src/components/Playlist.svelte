@@ -19,7 +19,6 @@
 		shouldDisplay: false
 	};
 
-
 	function intoItem(item: CurrentPlaylistItem): PlaylistItem {
 		return {
 			isPlaying: item.isPlaying!,
@@ -29,17 +28,19 @@
 	}
 
 	function isNotInPlaylist(mood: Mood | undefined) {
-		if (mood === undefined) { return false; }
+		if (mood === undefined) {
+			return false;
+		}
 
 		const playlists = ctx.game.getPlaylists();
-		const soundInPlaylist = playlists?.filter(playlist =>  (playlist as any)?.flags?.syrinscape !== undefined )
-			.map(p =>  p.sounds.filter(s => (s as any)?.flags?.syrinscape?.type === "mood") )
+		const soundInPlaylist = playlists
+			?.filter((playlist) => (playlist as any)?.flags?.syrinscape !== undefined)
+			.map((p) => p.sounds.filter((s) => (s as any)?.flags?.syrinscape?.type === 'mood'))
 			.flat()
-			.find(s => ((s as any)?.flags as any).syrinscape.mood === mood?.id);
+			.find((s) => ((s as any)?.flags as any).syrinscape.mood === mood?.id);
 
 		return soundInPlaylist === undefined;
-	} 
-
+	}
 
 	// Reactive Blocks
 	$: {
@@ -59,7 +60,7 @@
 		collapsed = !collapsed;
 	}
 
-  function stopMood() {
+	function stopMood() {
 		ctx.syrin.stopAll();
 	}
 
@@ -71,47 +72,50 @@
 		openElements(ctx);
 	}
 
-	async	function importItem(e : { detail: PlaylistItem }) {
+	async function importItem(e: { detail: PlaylistItem }) {
 		const soundsetId = e.detail.soundset.id;
 
 		const soundset = await ctx.stores.hydrateSoundset(soundsetId);
 		const playlist = await ctx.game.createPlaylist(soundset, undefined);
 
 		for (const mood of Object.values(soundset.moods)) {
-				if (playlist !== undefined) {
-					await ctx.game.createPlaylistMoodSound(mood, playlist);
-				}
+			if (playlist !== undefined) {
+				await ctx.game.createPlaylistMoodSound(mood, playlist);
+			}
 		}
 
-		ctx.game.notifyInfo('playlist.created', { playlistName: playlist?.name || "" });
+		ctx.game.notifyInfo('playlist.created', { playlistName: playlist?.name || '' });
 	}
-
 </script>
 
-				{#if currentItem.shouldDisplay}
-<div>
-	<div class="syrin-playlists global-control flexrow" class:collapsed>
-		<header class="playlist-header flexrow" on:click={toggleCollapsed} on:keypress={toggleCollapsed}>
-			<h4>
-				Syrinscape Online <i
-					class:collapse={collapsed}
-					class="fa {collapsed ? 'fa-angle-up' : 'fa-angle-down'}"
-				/>
-			</h4>
-		</header>
-		<ol class="syrin-to-collapse" style={collapsed ? 'display: none;' : 'display: block;'}>
-			<div class="currently-playing">
+{#if currentItem.shouldDisplay}
+	<div>
+		<div class="syrin-playlists global-control flexrow" class:collapsed>
+			<header
+				class="playlist-header flexrow"
+				on:click={toggleCollapsed}
+				on:keypress={toggleCollapsed}
+			>
+				<h4>
+					Syrinscape Online <i
+						class:collapse={collapsed}
+						class="fa {collapsed ? 'fa-angle-up' : 'fa-angle-down'}"
+					/>
+				</h4>
+			</header>
+			<ol class="syrin-to-collapse" style={collapsed ? 'display: none;' : 'display: block;'}>
+				<div class="currently-playing">
 					<PlaylistItemComponent
 						item={intoItem(currentItem)}
 						on:playMood={stopMood}
 						on:elements={openItemElements}
 						on:import={importItem}
 					/>
-			</div>
-		</ol>
+				</div>
+			</ol>
+		</div>
 	</div>
-</div>
-				{/if}
+{/if}
 
 <style>
 	.syrin-to-collapse {
@@ -120,5 +124,4 @@
 		padding: 6px;
 		flex: 0 0 100%;
 	}
-
 </style>
