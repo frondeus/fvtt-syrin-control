@@ -2,8 +2,8 @@ import type { UserConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import swc from 'unplugin-swc';
-
-const path = require('path');
+import path from 'path';
+import basicSsl from '@vitejs/plugin-basic-ssl';
 
 const config: UserConfig = {
 	root: 'src/',
@@ -33,11 +33,11 @@ const config: UserConfig = {
 	},
 	resolve: {
 		alias: {
-			'@lib': path.resolve(__dirname, './src/lib'),
-			'@': path.resolve(__dirname, './src/syrin'),
+			'@': path.resolve(__dirname, './src')
 		}
 	},
 	plugins: [
+		basicSsl(),
 		tsconfigPaths(),
 		swc.vite(),
 		svelte({
