@@ -12,7 +12,6 @@ class SyrinAmbientSound extends AmbientSound {
 	constructor(data: AmbientSoundDocument, ctx: any) {
 		super(data);
 		if (ctx === undefined || ctx === null) {
-			debugger;
 			ctx = { ctx: container.resolve(Context) };
 			ctx.utils.warn('Ambient Sound context was undefined. Fixing it!');
 		}
