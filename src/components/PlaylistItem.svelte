@@ -3,8 +3,10 @@
 
 	import type { PlaylistItem } from '@/models';
 	import Toggable from './Toggable.svelte';
+  import Context from '@/services/context';
 
 	// Context
+	const ctx = Context();
 	const dispatch = createEventDispatcher();
 
 	// Params & State
@@ -42,7 +44,7 @@
 				class="syrin-control"
 				on:click={onElements}
 				on:keypress={onElements}
-				title="Soundset Elements"
+				title={ctx.game.localize('elements')}
 			>
 				<i class="fas fa-drum" />
 			</span>
@@ -51,7 +53,7 @@
 				class="syrin-control"
 				on:click={onImport}
 				on:keypress={onImport}
-				title="Import Soundset"
+				title={ctx.game.localize('importSoundset')}
 			>
 				<i class="fas fa-file-import" />
 			</span>

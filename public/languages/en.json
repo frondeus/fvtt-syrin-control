@@ -21,7 +21,9 @@
 			"importSoundsets": "Import Soundsets",
 			"globalVolume": "Global",
 			"oneShotsVolume": "One-Shots",
-			"created": "Created playlist \"{playlistName}\""
+			"created": "Created playlist \"{playlistName}\"",
+			"importSoundset": "Import Soundset",
+			"elements": "Soundset Elements"
 		},
 		"importer": {
 			"importPlaylists": "Import Playlists",
