@@ -15,7 +15,6 @@ export enum SyrinComponent {
 
 @singleton()
 export class Syrin {
-	private components: Map<SyrinComponent, any> = new Map();
 
 	constructor(
 		@inject('FVTTGame')
@@ -26,13 +25,10 @@ export class Syrin {
 	) {}
 
 	renderComponent(ctx: Context, name: SyrinComponent, con: ConstructorOf<any>, target: Element) {
-		if (!this.components.has(name)) {
-			const component = new con({
-				target,
-				context: ctx.map()
-			});
-			this.components.set(name, component);
-		}
+		new con({
+			target,
+			context: ctx.map()
+		});
 	}
 
 	stopAll() {
