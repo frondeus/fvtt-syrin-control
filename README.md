@@ -2,7 +2,7 @@
 ![Latest Release Download Count](https://img.shields.io/github/downloads/frondeus/fvtt-syrin-control/latest/module.zip)
 ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Ffvtt-syrin-control&colorB=4aa94a)
 
-# SyrinControl - provides control mechanisms for Syrinscape Online
+# SyrinControl - provides integration with Syrinscape Online
 
 ![](https://github.com/frondeus/fvtt-syrin-control/blob/next/docs/Readme.png?raw=true)
 
