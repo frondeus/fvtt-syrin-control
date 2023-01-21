@@ -54,7 +54,7 @@
 		const elements = soundset.elements.filter((el) => mood.elementsIds.includes(el.id));
 		for (const element of elements) {
 			const playlistSound = await ctx.game.createPlaylistSound(element, playlist);
-			ctx.utils.warn('MMMood | CreatePlaylist Sound', {
+			ctx.utils.warn('Mood | CreatePlaylist Sound', {
 				mood,
 				soundset,
 				elements,
@@ -62,7 +62,7 @@
 				element
 			});
 		}
-		ctx.utils.warn('MMMood | CreatePlaylist ', { mood, soundset, elements });
+		ctx.utils.warn('Mood | CreatePlaylist ', { mood, soundset, elements });
 		ctx.game.notifyInfo('playlist.created', { playlistName: playlist?.name || '' });
 	}
 </script>
