@@ -12,10 +12,7 @@
 		"dev": "npx vite serve --https",
 		"check": "svelte-check --tsconfig ./tsconfig.json  --ignore ./libs/* --watch",
 		"format": "prettier --ignore-path .gitignore --ignore-path libs/ --write --plugin-search-dir=. .",
-		"test": "jest",
-		"cypress:open": "./cypress/scripts/run.sh",
-		"cypress:clear": "./cypress/scripts/clear.sh",
-		"cypress:prepare": "./cypress/scripts/prepare.sh"
+		"test": "jest"
 	},
 	"devDependencies": {
 		"@babel/preset-env": "^7.20.2",
