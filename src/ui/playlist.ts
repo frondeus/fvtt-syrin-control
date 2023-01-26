@@ -28,7 +28,7 @@ export async function onPlaylistTab(ctx: Context, $tab: JQuery<Element>) {
 	ctx.syrin.renderComponent(ctx, SyrinComponent.Playlist, PlaylistComponent, target.get(0)!);
 
 	const buttonsTarget = $tab.find('.action-buttons');
-	const importButton = $(`<button class="import-syrinscape">\
+	const importButton = $(`<button class="import-syrinscape" data-test="syrin-import-btn">\
 		<i class="fas fa-file-import"></i>\
 		${ctx.game.localize('playlist.importSoundsets')}\
 		</button>\

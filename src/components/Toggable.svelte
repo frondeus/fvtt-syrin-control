@@ -4,6 +4,7 @@
 	export let off: string[];
 	export let disabled = false;
 	export let toggled: boolean = false;
+	export let test: string;
 
 	let title = '';
 	let icon = '';
@@ -21,7 +22,7 @@
 </script>
 
 {#if !disabled}
-	<span role="button" class="syrin-control" on:click on:keypress {title}>
+	<span role="button" data-test={test} class="syrin-control" on:click on:keypress {title}>
 		<i class="fas fa-{icon}" />
 	</span>
 {/if}

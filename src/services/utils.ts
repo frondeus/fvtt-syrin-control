@@ -18,10 +18,6 @@ export class Utils {
 		return this.game.getSetting<string>('authToken');
 	}
 
-	useAPI(): boolean {
-		return true;
-	}
-
 	hasAuth(): boolean {
 		return this.game.getSetting<string>('authToken').trim() !== '';
 	}

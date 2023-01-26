@@ -67,7 +67,7 @@
 	}
 </script>
 
-<tr class="mood">
+<tr class="mood" data-test="syrin-mood-row">
 	<td>
 		<input
 			type="checkbox"
@@ -76,7 +76,7 @@
 		/>
 	</td>
 	<td>
-		<span class="name">
+		<span class="name" data-test="syrin-mood-name">
 			{mood.name}
 		</span>
 	</td>
@@ -84,6 +84,7 @@
 		<span
 			class="macro-icon"
 			role="button"
+			data-test="syrin-create-macro-btn"
 			title={ctx.game.localize('commands.createMacro')}
 			on:click={onCreateMacro}
 			on:keypress={onCreateMacro}
@@ -93,6 +94,7 @@
 		<span
 			class="macro-icon"
 			role="button"
+			data-test="syrin-create-playlist-btn"
 			title={ctx.game.localize('commands.createPlaylist')}
 			on:click={onCreatePlaylist}
 			on:keypress={onCreatePlaylist}
@@ -102,6 +104,7 @@
 		<Toggable
 			on:click={onPlayMood}
 			toggled={isPlaying}
+			test="syrin-play-btn"
 			on={[ctx.game.localize('commands.stopMood'), 'stop']}
 			off={[ctx.game.localize('commands.playMood'), 'play']}
 		/>

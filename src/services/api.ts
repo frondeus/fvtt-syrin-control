@@ -20,10 +20,12 @@ export class Api {
 		return await this.raw.onInit();
 	}
 
+	async soundsetIdForMood(moodId: number): Promise<string | undefined> {
+		const mood = await this.raw.getMood(moodId);
+		return mood?.soundset_uuid;
+	}
+	
 	async onlineMoods(soundsetId: string): Promise<Moods> {
-		if (!this.utils.useAPI()) {
-			return {};
-		}
 		// this.utils.trace('API | Online Moods', { soundsetId });
 
 		const moods = await this.raw.getMoods(soundsetId);
@@ -50,9 +52,6 @@ export class Api {
 	}
 
 	async onlineSoundsets(): Promise<Soundsets> {
-		if (!this.utils.useAPI()) {
-			return {};
-		}
 		// this.utils.trace('API | Online Soundsets');
 
 		const soundsets = await this.raw.getSoundsets();
@@ -74,9 +73,6 @@ export class Api {
 	}
 
 	async onlineGlobalElements(): Promise<Element[]> {
-		if (!this.utils.useAPI()) {
-			return [];
-		}
 
 		// this.utils.trace('API | Online Global Elements');
 
@@ -97,9 +93,6 @@ export class Api {
 	}
 
 	async onlineElements(soundsetId: string): Promise<Element[]> {
-		if (!this.utils.useAPI()) {
-			return [];
-		}
 
 		// this.utils.trace('API | Online Elements', { soundsetId });
 

@@ -77,13 +77,12 @@ Hooks.once('init', function () {
 		});
 	});
 
-	Hooks.on(MODULE + 'soundsetChange', async function (soundsetId: number): Promise<void> {
-		if (!ctx.game.isGM()) {
-			return;
-		}
+	// Hooks.on(MODULE + 'soundsetChange', async function (soundsetId: number): Promise<void> {
+	// 	if (!ctx.game.isGM()) {
+	// 		return;
+	// 	}
 
-		ctx.stores.nextSoundset.set(soundsetId);
-	});
+	// });
 
 	Hooks.on(MODULE + 'moodChange', async function (moodId: number | undefined): Promise<void> {
 		if (!ctx.game.isGM()) {

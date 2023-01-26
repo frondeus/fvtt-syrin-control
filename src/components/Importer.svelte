@@ -135,21 +135,22 @@
 	}
 </script>
 
-<div class="container">
+<div class="container" data-test="syrin-importer">
 	<div class="header">
 		<input
 			type="text"
+			data-test="syrin-search-field"
 			placeholder={ctx.game.localize('importer.searchForSoundset')}
 			bind:value={$importerApp.filterSoundset}
 		/>
 		<label for="caseSensitive"> {ctx.game.localize('importer.caseSensitive')} </label>
-		<input name="caseSensitive" type="checkbox" bind:checked={$importerApp.filterCaseSensitive} />
+		<input name="caseSensitive" data-test="syrin-case-sensitive" type="checkbox" bind:checked={$importerApp.filterCaseSensitive} />
 	</div>
 	<div class="main">
-		<table class="list">
+		<table class="list" data-test="syrin-soundsets-list">
 			<tr>
 				<th class="checkbox-cell">
-					<input type="checkbox" checked={isSelectedAll} on:click={onSelectAll} />
+					<input type="checkbox" data-test="syrin-select-all" checked={isSelectedAll} on:click={onSelectAll} />
 				</th>
 				<th>{ctx.game.localize('importer.soundsets')}</th>
 				<th class="actions-cell-header" />

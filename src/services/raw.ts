@@ -20,6 +20,7 @@ export interface RawApi {
 	playMood(id: number): Promise<void>;
 	playElement(id: number): Promise<void>;
 	stopElement(id: number): Promise<void>;
+	getMood(moodId: number): Promise<ApiMood | undefined>;
 	getMoods(soundsetId: string): Promise<ApiMood[]>;
 	getElements(soundsetId: string): Promise<ApiElement[]>;
 	getSoundsets(): Promise<ApiSoundset[]>;
@@ -27,6 +28,7 @@ export interface RawApi {
 }
 
 type PlayerJoinedCallback = (name: string) => string | null;
+type UnauthorisedCallback<T> = () => T;
 
 @singleton()
 export class RawApiImpl implements RawApi {
@@ -100,15 +102,15 @@ export class RawApiImpl implements RawApi {
 					syrinscape.config.deviceName = game.getPlayerName();
 					// utils.trace("RAW Headless | Syrinscape | Init Configure", { syrinscape });
 
-					if (game.isGM()) {
-						syrinscape.player.syncSystem.events.onChangeMood.addListener(async (event) => {
-							utils.trace('RAW Headless | Syrinscape | On Change mood', { event });
-							game.callHookAll('moodChange', event.pk);
-						});
-						syrinscape.player.syncSystem.events.onChangeSoundset.addListener(async (event) => {
-							game.callHookAll('soundsetChange', event.pk);
-						});
-					}
+					// if (game.isGM()) {
+					// 	syrinscape.player.syncSystem.events.onChangeMood.addListener(async (event) => {
+					// 		utils.trace('RAW Headless | Syrinscape | On Change mood', { event });
+					// 		game.callHookAll('moodChange', event.pk);
+					// 	});
+					// 	syrinscape.player.syncSystem.events.onChangeSoundset.addListener(async (event) => {
+					// 		game.callHookAll('soundsetChange', event.pk);
+					// 	});
+					// }
 					resolve();
 				},
 
@@ -168,61 +170,16 @@ export class RawApiImpl implements RawApi {
 		syrinscape.player.controlSystem.setOneshotVolume(volume);
 	}
 
-	fetchOptions() {
-		const api = this.utils.useAPI();
-		if (api) return undefined;
-		return {
-			mode: 'no-cors' as const
-		};
-	}
-
 	async getCurrentlyPlaying(): Promise<ApiStatus | undefined> {
-		let utils = this.utils;
-		if (!this.game.isGM() || !utils.hasAuth()) return undefined;
-
-		function link() {
-			let address = utils.getAddress();
-			let authToken = utils.getAuth();
-			return `${address}/state/?auth_token=${authToken}`;
-		}
-
-		const playing = await fetch(link(), this.fetchOptions())
-			.then(this.handleErr)
-			.then((res) => res.json())
-			.catch(this.catchErr('getCurrentlyPlaying'));
-
-		// utils.trace("RAW | Syrinscape | Currently Playing", { playing });
-		return playing;
+		return await this.apiCall('getCurrentlyPlaying', 'state/', () => undefined);
 	}
 
 	async stopMood(): Promise<void> {
-		// this.utils.trace('RAW | Stop Mood!', this.game.isGM(), this.utils.hasAuth());
-		if (!this.game.isGM() || !this.utils.hasAuth()) return;
-		// this.utils.trace('RAW | Stop Mood');
-
-		let utils = this.utils;
-		function link() {
-			let address = utils.getAddress();
-			let authToken = utils.getAuth();
-			return `${address}/stop-all/?auth_token=${authToken}`;
-		}
-
-		await fetch(link(), this.fetchOptions()).catch(this.catchErr('stopMood'));
+		return await this.apiCallFF('stopMood', 'stop-all/');
 	}
 
 	async playMood(id: number): Promise<void> {
-		let utils = this.utils;
-		if (!this.game.isGM() || !utils.hasAuth()) return;
-
-		// this.utils.trace('RAW | Play Mood', { id });
-
-		function link(id: number) {
-			let address = utils.getAddress();
-			let authToken = utils.getAuth();
-			return `${address}/moods/${id}/play/?auth_token=${authToken}`;
-		}
-
-		await fetch(link(id), this.fetchOptions()).catch(this.catchErr('playMood'));
+		return await this.apiCallFF('playMood', `moods/${id}/play/`);
 	}
 
 	async playElement(id: number): Promise<void> {
@@ -250,77 +207,53 @@ export class RawApiImpl implements RawApi {
 		await syrinscape.player.controlSystem.stopElements([id]);
 	}
 
+	async getMood(moodId: number): Promise<ApiMood | undefined> {
+		return await this.apiCall('getMood', `moods/${moodId}/`, () => undefined);
+	}
+
+
 	async getMoods(soundsetId: string): Promise<ApiMood[]> {
-		let utils = this.utils;
-		if (!this.game.isGM() || !utils.hasAuth()) return [];
-
-		// this.utils.trace('RAW | Get Moods', { soundsetId });
-
-		function link() {
-			let address = utils.getAddress();
-			let authToken = utils.getAuth();
-			return `${address}/moods/?soundset__uuid=${soundsetId}&auth_token=${authToken}`;
-		}
-
-		return await fetch(link(), this.fetchOptions())
-			.then(this.handleErr)
-			.then((res) => res.json())
-			.catch(this.catchErr('getMoods'));
+		return await this.apiCall('getMoods', `moods/?soundset__uuid=${soundsetId}`, () => []);
 	}
 
 	async getElements(soundsetId: string): Promise<ApiElement[]> {
-		let utils = this.utils;
-		if (!this.game.isGM() || !utils.hasAuth()) return [];
-
-		// this.utils.trace('RAW | Get Elements', { soundsetId });
-
-		function link() {
-			let address = utils.getAddress();
-			let authToken = utils.getAuth();
-			return `${address}/elements/?soundset__uuid=${soundsetId}&auth_token=${authToken}`;
-		}
-
-		return await fetch(link(), this.fetchOptions())
-			.then(this.handleErr)
-			.then((res) => res.json())
-			.catch(this.catchErr('getElements'));
+		return await this.apiCall('getElements', `elements/?soundset__uuid=${soundsetId}`, () => []);
 	}
 
 	async getSoundsets(): Promise<ApiSoundset[]> {
-		let utils = this.utils;
-		if (!this.game.isGM() || !utils.hasAuth()) return [];
-
-		// this.utils.trace('RAW | Get Soundsets');
-
-		function link() {
-			let address = utils.getAddress();
-			let authToken = utils.getAuth();
-			//this.utils.warn("Address: ", address);
-			return `${address}/soundsets/?auth_token=${authToken}`;
-		}
-
-		return await fetch(link(), this.fetchOptions())
-			.then(this.handleErr)
-			.then((res) => res.json())
-			.catch(this.catchErr('getSoundsets'));
+		return await this.apiCall('getSoundsets', `soundsets/`, () => []);
 	}
 
 	async getGlobalElements(): Promise<ApiElement[]> {
-		let utils = this.utils;
-		if (!this.game.isGM() || !utils.hasAuth()) return [];
+		return await this.apiCall('getGlobalElements', `global-elements/`, () => []);
+	}
 
-		// this.utils.trace('RAW | Get Global Elements');
+	async apiCall<T>(name: string, url: string, onUnauthorised: UnauthorisedCallback<T>): Promise<T> {
+		const utils = this.utils;
+		if (!this.game.isGM() || !utils.hasAuth()) return onUnauthorised();
 
-		function link() {
-			let address = utils.getAddress();
-			let authToken = utils.getAuth();
-			return `${address}/global-elements/?auth_token=${authToken}`;
-		}
+		const authToken = utils.getAuth();
+		const address = utils.getAddress();
+		const headers = new Headers();
+		headers.append('authorization', 'token ' + authToken);
+		
+		return await fetch(`${address}/${url}`, {
+			headers
+		}).then(this.handleErr).then((res) => res.json()) .catch(this.catchErr(name));
+	}
 
-		return await fetch(link(), this.fetchOptions())
-			.then(this.handleErr)
-			.then((res) => res.json())
-			.catch(this.catchErr('getGlobalElements'));
+	async apiCallFF(name: string, url: string): Promise<void> {
+		const utils = this.utils;
+		if (!this.game.isGM() || !utils.hasAuth()) return;
+
+		const authToken = utils.getAuth();
+		const address = utils.getAddress();
+		const headers = new Headers();
+		headers.append('authorization', 'token ' + authToken);
+		
+
+		await fetch(`${address}/${url}`, { headers })
+		.catch(this.catchErr(name));
 	}
 
 	catchErr<T>(api: string): (e: any) => T[] {

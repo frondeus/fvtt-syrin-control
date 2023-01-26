@@ -24,7 +24,7 @@ export class Syrin {
 		private readonly stores: Stores
 	) {}
 
-	renderComponent(ctx: Context, name: SyrinComponent, con: ConstructorOf<any>, target: Element) {
+	renderComponent(ctx: Context, _name: SyrinComponent, con: ConstructorOf<any>, target: Element) {
 		new con({
 			target,
 			context: ctx.map()
