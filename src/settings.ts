@@ -31,6 +31,9 @@ export function initSettings(ctx: Context) {
 		refresh: () => {
 			ctx.stores.refresh();
 		},
+		clear: () => {
+			ctx.stores.clear();
+		},
 		soundSources: async () => {
 			return await api.onlineSoundsets();
 		},

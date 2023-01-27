@@ -77,18 +77,18 @@ Hooks.once('init', function () {
 		});
 	});
 
-	Hooks.on(MODULE + 'soundsetChange', async function (soundsetId: number): Promise<void> {
-		if (!ctx.game.isGM()) {
-			return;
-		}
+	// Hooks.on(MODULE + 'soundsetChange', async function (soundsetId: number): Promise<void> {
+	// 	if (!ctx.game.isGM()) {
+	// 		return;
+	// 	}
 
-		ctx.stores.nextSoundset.set(soundsetId);
-	});
+	// });
 
 	Hooks.on(MODULE + 'moodChange', async function (moodId: number | undefined): Promise<void> {
 		if (!ctx.game.isGM()) {
 			return;
 		}
+		ctx.utils.info('on mood change');
 
 		ctx.stores.nextPlaylistMood.set(moodId);
 	});
@@ -102,6 +102,14 @@ Hooks.once('init', function () {
 
 	Hooks.once('ready', async () => {
 		await socketPromise;
+		ctx.stores.nextMood.subscribe((next) => {
+			ctx.utils.trace('Subscribe | next mood: ', next);
+			if (next !== undefined) {
+				ctx.api.playMood(next);
+			} else {
+				ctx.api.stopMood();
+			}
+		});
 		await ctx.api.onInit();
 		if (!ctx.game.isGM()) {
 			ctx.utils.info('Ready but not a GM...');
@@ -119,13 +127,5 @@ Hooks.once('init', function () {
 			ctx.stores.globalElements.set(el);
 		}
 
-		ctx.stores.nextMood.subscribe((next) => {
-			ctx.utils.trace('Subscribe | next mood: ', next);
-			if (next !== undefined) {
-				ctx.api.playMood(next);
-			} else {
-				ctx.api.stopMood();
-			}
-		});
 	});
 });

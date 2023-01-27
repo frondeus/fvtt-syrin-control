@@ -35,6 +35,7 @@
 			<Toggable
 				on:click={onPlay}
 				toggled={item.isPlaying}
+				test="syrin-play-btn"
 				on={['Stop Mood', 'stop']}
 				off={['Play Mood', 'play']}
 			/>

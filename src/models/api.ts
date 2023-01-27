@@ -10,6 +10,7 @@ export interface ApiMood {
 	pk: number;
 	name: string;
 	elements: ApiMoodElement[];
+	soundset_uuid: string;
 }
 
 export interface ApiMoodElement {

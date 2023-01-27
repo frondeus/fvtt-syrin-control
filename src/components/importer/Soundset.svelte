@@ -86,7 +86,7 @@
 	}
 </script>
 
-<tr class="soundset">
+<tr class="soundset" data-test="syrin-soundset-row">
 	<td class="checkbox-cell">
 		<input
 			type="checkbox"
@@ -97,7 +97,7 @@
 		/>
 	</td>
 	<td>
-		<span role="button" title={soundsetButtonTitle} on:click={onExpand} on:keypress={onExpand}>
+		<span role="button" data-test="syrin-soundset-name" title={soundsetButtonTitle} on:click={onExpand} on:keypress={onExpand}>
 			{item.name}
 			{#if loading}
 				({ctx.game.localize('loading')})

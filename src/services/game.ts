@@ -16,6 +16,7 @@ export interface Global {
 	openDebug(): void;
 	isPlayerActive(): boolean;
 	refresh(): void;
+	clear(): void;
 	soundSources(): Promise<Soundsets>;
 	onlineElements(id: string): Promise<Element[]>;
 	onlineGlobalElements(): Promise<Element[]>;
@@ -26,6 +27,7 @@ export interface FVTTGame {
 	registerSetting(name: string, options: any): void;
 	getSetting<T>(name: string): T;
 	setSetting<T>(name: string, t: T): void;
+	setSettingToDefault(name: string): void;
 
 	get socket(): SocketlibSocket | undefined;
 
@@ -136,6 +138,10 @@ export class FVTTGameImpl implements FVTTGame {
 
 	setSetting<T>(name: string, t: T) {
 		this.game.settings.set(MODULE, name, t);
+	}
+
+	setSettingToDefault(name: string): void {
+		this.game.settings.set(MODULE, name, (this.game.settings.get(MODULE, name) as any).default);
 	}
 
 	async createPlaylist(

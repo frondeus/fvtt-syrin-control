@@ -18,7 +18,7 @@ import { inject, singleton } from 'tsyringe';
 import { Api } from './api';
 import { ImporterApplication } from '@/ui/importer';
 
-export type FoundryStore<T> = Writable<T> & { get: () => T; refresh: () => void };
+export type FoundryStore<T> = Writable<T> & { get: () => T; refresh: () => void; clear: () => void; };
 declare type Invalidator<T> = (value?: T) => void;
 
 @singleton()
@@ -29,7 +29,6 @@ export class Stores {
 	nextPlaylistMood: Writable<number | undefined>;
 	nextAmbientMood: Readable<number | undefined>;
 	nextMood: Readable<number | undefined>;
-	nextSoundset: Writable<number | undefined>;
 
 	currentlyPlaying: Readable<CurrentlyPlaying | undefined>;
 
@@ -62,7 +61,6 @@ export class Stores {
 		this.importerApp = writable(new ImporterAppStore());
 
 		this.nextPlaylistMood = writable(undefined);
-		this.nextSoundset = writable(undefined);
 		this.possibleAmbientSounds = delayed({}, 100);
 		this.nextAmbientMood = deduped_readable(
 			derived(this.possibleAmbientSounds, (sounds, set) => {
@@ -98,28 +96,27 @@ export class Stores {
 
 		this.currentlyPlaying = deduped_readable(
 			derived(
-				[this.nextMood, this.nextSoundset, this.soundsets],
-				([nextMood, nextSoundset, soundsets], set) => {
+				[this.nextMood, this.soundsets],
+				([nextMood, soundsets], set) => {
 					// utils.trace('Derived Store | currently playing', { nextMood, nextSoundset, soundsets });
-					if (nextMood === undefined && nextSoundset === undefined) {
+					if (nextMood === undefined) {
 						set(undefined);
 						return;
 					}
-					if (nextMood === undefined || nextSoundset === undefined) {
-						return;
-					}
 
-					const soundsetList = Object.values(soundsets);
-					let soundset = soundsetList.find((s) => s.pid === nextSoundset);
-					if (!soundset) {
-						// utils.trace('Derived Store | currently playing | clean soundset');
-						this.nextSoundset.set(undefined);
-						return;
-					}
-					this.hydrateSoundsetInner(soundset.id, soundsets).then((soundset) => {
-						const mood = soundset.moods[nextMood];
-						set({ soundset, mood });
-					});
+					console.warn('nextMood', { nextMood});
+
+					this.api.soundsetIdForMood(nextMood)
+						.then(nextSoundset => {
+							console.warn('nextSoundset', { nextSoundset, soundsets });
+							if (nextSoundset !== undefined) {
+								this.hydrateSoundsetInner(nextSoundset, soundsets).then((soundset) => {
+									const mood = soundset.moods[nextMood];
+									set({ soundset, mood });
+								});
+							}
+						});
+
 				}
 			)
 		);
@@ -128,6 +125,19 @@ export class Stores {
 	refresh() {
 		this.globalElements.refresh();
 		this.soundsets.refresh();
+	}
+
+	clear() {
+		this.globalElements.clear();
+		this.soundsets.clear();
+		this.playerVolume.clear();
+		this.globalVolume.clear();
+		this.oneshotsVolume.clear();
+		this.elementsApp.set(new ElementsAppStore());
+		this.importerApp.set(new ImporterAppStore());
+
+		this.nextPlaylistMood.set(undefined);
+		this.possibleAmbientSounds.set({});
 	}
 
 	getSoundsets() {
@@ -358,6 +368,12 @@ function createFoundryStore<T>(game: FVTTGame, name: string, initial: T): Foundr
 		store.set(loaded);
 	};
 
+	const clear = () => {
+		if (game.isReady()) {
+			game.setSettingToDefault(name);
+		}
+	};
+
 	Hooks.once('ready', async () => {
 		refresh();
 	});
@@ -367,6 +383,7 @@ function createFoundryStore<T>(game: FVTTGame, name: string, initial: T): Foundr
 		get,
 		update,
 		refresh,
+		clear,
 		subscribe: store.subscribe
 	};
 }
