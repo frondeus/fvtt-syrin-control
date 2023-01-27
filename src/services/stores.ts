@@ -108,7 +108,7 @@ export class Stores {
 
 					this.api.soundsetIdForMood(nextMood)
 						.then(nextSoundset => {
-						console.warn('nextSoundset', { nextSoundset });
+							console.warn('nextSoundset', { nextSoundset, soundsets });
 							if (nextSoundset !== undefined) {
 								this.hydrateSoundsetInner(nextSoundset, soundsets).then((soundset) => {
 									const mood = soundset.moods[nextMood];

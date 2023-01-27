@@ -1,7 +1,7 @@
 describe('importer.search', () => {
   beforeEach(() => {
     cy.login('Gamemaster');
-    cy.clearStores();
+    cy.clearWorld();
     cy.mockAPI();
   });
 

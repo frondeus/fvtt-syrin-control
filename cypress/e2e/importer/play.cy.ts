@@ -1,46 +1,85 @@
 describe('importer.playing mood', () => {
   beforeEach(() => {
     cy.login('Gamemaster');
-    cy.clearStores();
+    cy.clearWorld();
     cy.mockAPI();
   });
 
   it('should show play button when mood is not currently playing', () => {
     cy.openImporter();
     cy.wait('@requestSoundsets');
-    const firstSoundset = cy.get('[data-test="syrin-soundsets-list"] > [data-test="syrin-soundset-row"]:first');
 
-    firstSoundset.find('[data-test="syrin-soundset-name"]').click();
+    cy.importerExpandSoundset('first');
     cy.wait('@requestMoods');
-    const firstMood = cy.get('[data-test="syrin-soundsets-list"] > [data-test="syrin-mood-row"]:first');
-    const playBtn = firstMood.find('[data-test="syrin-play-btn"]');
-    playBtn.should('be.visible')
-      .and('have.attr', 'title', 'Play Mood');
-    playBtn.click();
+
+    const playBtn = cy.importerGetMood('first')
+      .find('[data-test="syrin-play-btn"]');
+
+    playBtn
+      .should('be.visible')
+      .and('have.attr', 'title', 'Play Mood')
+      .click();
+
     cy.wait('@requestPlay');
     cy.wait('@requestMoodDetails');
     cy.wait(500);
+
     playBtn.should('have.attr', 'title', 'Stop Mood');
   });
 
-  it.only('should show stop button when mood is currently playing', () => {
-    cy.callSyrinHook('moodChange', 1234);
+  it('should show stop button when mood is currently playing', () => {
+    cy.onHook('ready', () => {
+      cy.callSyrinHook('moodChange', 1234);
+    });
 
     cy.openImporter();
     cy.wait('@requestSoundsets');
-    const firstSoundset = cy.get('[data-test="syrin-soundsets-list"] > [data-test="syrin-soundset-row"]:first');
 
-    firstSoundset.find('[data-test="syrin-soundset-name"]').click();
+    cy.importerExpandSoundset('first');
     cy.wait('@requestMoods');
-    const firstMood = cy.get('[data-test="syrin-soundsets-list"] > [data-test="syrin-mood-row"]:first');
-    const playBtn = firstMood.find('[data-test="syrin-play-btn"]');
+
+    const playBtn = cy.importerGetMood('first')
+      .find('[data-test="syrin-play-btn"]');
+
     playBtn.should('be.visible')
-      .and('have.attr', 'title', 'Stop Mood');
-    // playBtn.click();
-    // cy.wait('@requestPlay');
-    // cy.wait('@requestMoodDetails');
-    // cy.wait(500);
-    // playBtn.should('have.attr', 'title', 'Stop Mood');
-    
+      .and('have.attr', 'title', 'Stop Mood')
+      .click();
+
+    cy.wait('@requestStopAll');
+    cy.wait(500);
+
+    playBtn.should('have.attr', 'title', 'Play Mood');
+  });
+
+  it('should show only one playing mood at the time', () => {
+    cy.openImporter();
+    cy.wait('@requestSoundsets');
+
+    cy.importerExpandSoundset('first');
+    cy.wait('@requestMoods');
+
+    const firstPlayBtn= cy.importerGetMood('first')
+      .find('[data-test="syrin-play-btn"]');
+
+    const secondPlayBtn= cy.importerGetMood('nth(1)')
+      .find('[data-test="syrin-play-btn"]');
+
+    firstPlayBtn.click();
+
+    cy.wait('@requestPlay');
+    cy.wait('@requestMoodDetails');
+    cy.wait(500);
+
+    firstPlayBtn.should('have.attr', 'title', 'Stop Mood');
+    secondPlayBtn.should('have.attr', 'title', 'Play Mood');
+
+    secondPlayBtn.click();
+
+    cy.wait('@requestPlay');
+    cy.wait('@requestMoodDetails');
+    cy.wait(500);
+
+    firstPlayBtn.should('have.attr', 'title', 'Play Mood');
+    secondPlayBtn.should('have.attr', 'title', 'Stop Mood');
   });
 });

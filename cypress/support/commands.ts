@@ -36,9 +36,10 @@ Cypress.Commands.add('openImporter', () => {
     cy.get('[data-test="syrin-import-btn"]').click();
 });
 
-Cypress.Commands.add('clearStores', () => {
+Cypress.Commands.add('clearWorld', () => {
   cy.onHook('ready', (win) => {
     win.game.syrinscape.clear();
+    win.game.playlists.forEach(t => { t.delete(); });
   });
 });
 
@@ -53,13 +54,23 @@ Cypress.Commands.add('onSyrinHook', (hookName: string, cb: HookCallback) => {
 });
 
 Cypress.Commands.add('callHook', (hookName: string, ...args: any[]) => {
-  cy.onHook('ready', (win) => {
-    win.Hooks.callHookAll(hookName, ...args);
+  cy.window().then(win => {
+    win.Hooks.callAll(hookName, ...args);
   });
 });
 
 Cypress.Commands.add('callSyrinHook', (hookName: string, ...args: any[]) => {
   cy.callHook('fvtt-syrin-control' + hookName, ...args);
+});
+
+Cypress.Commands.add('debugHooks', () => {
+  cy.onHook('init', (win) => {
+    win.CONFIG.debug.hooks = true;
+  });
+});
+
+Cypress.Commands.add('game', () => {
+  return cy.window().then(win => win.game);
 });
 
 Cypress.Commands.add('mockAPI', () => {
@@ -76,3 +87,13 @@ Cypress.Commands.add('mockAPI', () => {
     cy.intercept(`${FRONTEND_API}/global-elements/`, { fixture: "global.json" }).as('requestGlobalElements');
     cy.intercept(`${FRONTEND_API}/elements/?*`, { fixture: "elements.json" }).as('requestElements');
 });
+
+Cypress.Commands.add('importerExpandSoundset', (selector: string) => {
+    const item = cy.get(`[data-test="syrin-soundsets-list"] > [data-test="syrin-soundset-row"]:${selector}`);
+    item.find('[data-test="syrin-soundset-name"]').click();
+    return item;
+});
+
+Cypress.Commands.add('importerGetMood', (selector: string) => {
+    return cy.get('[data-test="syrin-soundsets-list"] > [data-test="syrin-mood-row"]:' + selector);
+}); 
