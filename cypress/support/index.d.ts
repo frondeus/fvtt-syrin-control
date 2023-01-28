@@ -20,6 +20,7 @@ declare namespace Cypress {
 
     importerExpandSoundset(selector: string, as?: string): Chainable<JQuery<HTMLElement>>;
     importerGetMood(selector: string): Chainable<JQuery<HTMLElement>>;
+    importerGetSoundset(selector: string): Chainable<JQuery<HTMLElement>>;
     
   }
 }

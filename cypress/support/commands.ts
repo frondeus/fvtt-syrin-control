@@ -89,12 +89,16 @@ Cypress.Commands.add('mockAPI', () => {
 });
 
 Cypress.Commands.add('importerExpandSoundset', (selector: string, as?: string) => {
-    let item = cy.get(`[data-test="syrin-soundsets-list"] > [data-test="syrin-soundset-row"]:${selector}`);
+    let item = cy.importerGetSoundset(selector);
     if (as !== undefined) {
       item = item.as(as);
     }
     item.find('[data-test="syrin-soundset-name"]').click();
     return item;
+});
+
+Cypress.Commands.add('importerGetSoundset', (selector: string) => {
+    return cy.get(`[data-test="syrin-soundsets-list"] > [data-test="syrin-soundset-row"]:${selector}`);
 });
 
 Cypress.Commands.add('importerGetMood', (selector: string) => {
