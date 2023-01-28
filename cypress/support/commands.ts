@@ -88,8 +88,11 @@ Cypress.Commands.add('mockAPI', () => {
     cy.intercept(`${FRONTEND_API}/elements/?*`, { fixture: "elements.json" }).as('requestElements');
 });
 
-Cypress.Commands.add('importerExpandSoundset', (selector: string) => {
-    const item = cy.get(`[data-test="syrin-soundsets-list"] > [data-test="syrin-soundset-row"]:${selector}`);
+Cypress.Commands.add('importerExpandSoundset', (selector: string, as?: string) => {
+    let item = cy.get(`[data-test="syrin-soundsets-list"] > [data-test="syrin-soundset-row"]:${selector}`);
+    if (as !== undefined) {
+      item = item.as(as);
+    }
     item.find('[data-test="syrin-soundset-name"]').click();
     return item;
 });

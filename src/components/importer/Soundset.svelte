@@ -90,6 +90,7 @@
 	<td class="checkbox-cell">
 		<input
 			type="checkbox"
+			data-test="syrin-soundset-checkbox"
 			title={soundsetCheckboxTitle}
 			on:click={onSelectSoundset}
 			checked={isSoundsetChecked}

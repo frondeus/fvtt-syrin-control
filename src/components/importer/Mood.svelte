@@ -45,32 +45,13 @@
 		const macro = await ctx.game.createMoodMacro(mood, undefined);
 		ctx.game.notifyInfo('importer.createdMacro', { macroName: macro?.name || '' });
 	}
-
-	async function onCreatePlaylist() {
-		const playlist = await ctx.game.createPlaylist(soundset, undefined);
-		if (playlist === undefined) {
-			return;
-		}
-		const elements = soundset.elements.filter((el) => mood.elementsIds.includes(el.id));
-		for (const element of elements) {
-			const playlistSound = await ctx.game.createPlaylistSound(element, playlist);
-			ctx.utils.warn('Mood | CreatePlaylist Sound', {
-				mood,
-				soundset,
-				elements,
-				playlistSound,
-				element
-			});
-		}
-		ctx.utils.warn('Mood | CreatePlaylist ', { mood, soundset, elements });
-		ctx.game.notifyInfo('playlist.created', { playlistName: playlist?.name || '' });
-	}
 </script>
 
 <tr class="mood" data-test="syrin-mood-row">
 	<td>
 		<input
 			type="checkbox"
+			data-test="syrin-mood-checkbox"
 			on:click={onSelectMood}
 			checked={filteredSelectedSoundsets.has(soundset.id + ';' + mood.id)}
 		/>
@@ -90,16 +71,6 @@
 			on:keypress={onCreateMacro}
 		>
 			<i class="fas fa-terminal" />
-		</span>
-		<span
-			class="macro-icon"
-			role="button"
-			data-test="syrin-create-playlist-btn"
-			title={ctx.game.localize('commands.createPlaylist')}
-			on:click={onCreatePlaylist}
-			on:keypress={onCreatePlaylist}
-		>
-			<i class="fas fa-music" />
 		</span>
 		<Toggable
 			on:click={onPlayMood}

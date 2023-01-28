@@ -12,19 +12,21 @@ describe('importer.playing mood', () => {
     cy.importerExpandSoundset('first');
     cy.wait('@requestMoods');
 
-    const playBtn = cy.importerGetMood('first')
-      .find('[data-test="syrin-play-btn"]');
+    cy.importerGetMood('first')
+      .find('[data-test="syrin-play-btn"]')
+      .as('playBtn');
 
-    playBtn
+    cy.get('@playBtn')
       .should('be.visible')
-      .and('have.attr', 'title', 'Play Mood')
-      .click();
+      .and('have.attr', 'title', 'Play Mood');
+    
+    cy.get('@playBtn').click();
 
     cy.wait('@requestPlay');
     cy.wait('@requestMoodDetails');
     cy.wait(500);
 
-    playBtn.should('have.attr', 'title', 'Stop Mood');
+    cy.get('@playBtn').should('have.attr', 'title', 'Stop Mood');
   });
 
   it('should show stop button when mood is currently playing', () => {
@@ -38,17 +40,19 @@ describe('importer.playing mood', () => {
     cy.importerExpandSoundset('first');
     cy.wait('@requestMoods');
 
-    const playBtn = cy.importerGetMood('first')
-      .find('[data-test="syrin-play-btn"]');
+    cy.importerGetMood('first')
+      .find('[data-test="syrin-play-btn"]')
+      .as('playBtn')
 
-    playBtn.should('be.visible')
-      .and('have.attr', 'title', 'Stop Mood')
-      .click();
+    cy.get('@playBtn').should('be.visible')
+      .and('have.attr', 'title', 'Stop Mood');
+    
+    cy.get('@playBtn').click();
 
     cy.wait('@requestStopAll');
     cy.wait(500);
 
-    playBtn.should('have.attr', 'title', 'Play Mood');
+    cy.get('@playBtn').should('have.attr', 'title', 'Play Mood');
   });
 
   it('should show only one playing mood at the time', () => {
@@ -58,28 +62,30 @@ describe('importer.playing mood', () => {
     cy.importerExpandSoundset('first');
     cy.wait('@requestMoods');
 
-    const firstPlayBtn= cy.importerGetMood('first')
-      .find('[data-test="syrin-play-btn"]');
+    cy.importerGetMood('first')
+      .find('[data-test="syrin-play-btn"]')
+      .as('firstBtn');
 
-    const secondPlayBtn= cy.importerGetMood('nth(1)')
-      .find('[data-test="syrin-play-btn"]');
+    cy.importerGetMood('nth(1)')
+      .find('[data-test="syrin-play-btn"]')
+      .as('secondBtn');
 
-    firstPlayBtn.click();
-
-    cy.wait('@requestPlay');
-    cy.wait('@requestMoodDetails');
-    cy.wait(500);
-
-    firstPlayBtn.should('have.attr', 'title', 'Stop Mood');
-    secondPlayBtn.should('have.attr', 'title', 'Play Mood');
-
-    secondPlayBtn.click();
+    cy.get('@firstBtn').click();
 
     cy.wait('@requestPlay');
     cy.wait('@requestMoodDetails');
     cy.wait(500);
 
-    firstPlayBtn.should('have.attr', 'title', 'Play Mood');
-    secondPlayBtn.should('have.attr', 'title', 'Stop Mood');
+    cy.get('@firstBtn').should('have.attr', 'title', 'Stop Mood');
+    cy.get('@secondBtn').should('have.attr', 'title', 'Play Mood');
+
+    cy.get('@secondBtn').click();
+
+    cy.wait('@requestPlay');
+    cy.wait('@requestMoodDetails');
+    cy.wait(500);
+
+    cy.get('@firstBtn').should('have.attr', 'title', 'Play Mood');
+    cy.get('@secondBtn').should('have.attr', 'title', 'Stop Mood');
   });
 });

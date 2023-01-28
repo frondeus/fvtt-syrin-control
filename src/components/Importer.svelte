@@ -162,8 +162,12 @@
 	</div>
 	{#if isAnySelected}
 		<div class="footer">
-			<button type="submit" title="Import playlists" on:click={onCreatePlaylist}>
-				{ctx.game.localize('import.importPlaylists')}
+			<button 
+				type="submit" 
+				data-test="syrin-import-playlists-btn"
+				title={ctx.game.localize('importer.importPlaylists')} 
+				on:click={onCreatePlaylist}>
+				{ctx.game.localize('importer.importPlaylists')}
 			</button>
 		</div>
 	{/if}
