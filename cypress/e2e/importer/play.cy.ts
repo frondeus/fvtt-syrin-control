@@ -3,12 +3,10 @@ describe('importer.playing mood', () => {
     cy.login('Gamemaster');
     cy.clearWorld();
     cy.mockAPI();
+    cy.openImporter();
   });
 
   it('should show play button when mood is not currently playing', () => {
-    cy.openImporter();
-    cy.wait('@requestSoundsets');
-
     cy.importerExpandSoundset('first');
     cy.wait('@requestMoods');
 
@@ -34,9 +32,6 @@ describe('importer.playing mood', () => {
       cy.callSyrinHook('moodChange', 1234);
     });
 
-    cy.openImporter();
-    cy.wait('@requestSoundsets');
-
     cy.importerExpandSoundset('first');
     cy.wait('@requestMoods');
 
@@ -56,9 +51,6 @@ describe('importer.playing mood', () => {
   });
 
   it('should show only one playing mood at the time', () => {
-    cy.openImporter();
-    cy.wait('@requestSoundsets');
-
     cy.importerExpandSoundset('first');
     cy.wait('@requestMoods');
 

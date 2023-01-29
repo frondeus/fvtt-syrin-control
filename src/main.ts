@@ -116,16 +116,5 @@ Hooks.once('init', function () {
 			return;
 		}
 		ctx.utils.info('Ready...');
-
-		const soundsets = await ctx.api.onlineSoundsets();
-		if (Object.keys(soundsets).length !== 0) {
-			ctx.stores.soundsets.set(soundsets);
-		}
-
-		const el = await ctx.api.onlineGlobalElements();
-		if (el.length !== 0) {
-			ctx.stores.globalElements.set(el);
-		}
-
 	});
 });

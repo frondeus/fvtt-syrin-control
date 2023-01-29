@@ -26,6 +26,7 @@
 			"elements": "Soundset Elements"
 		},
 		"importer": {
+			"refresh": "Fetch from Syrinscape",
 			"importPlaylists": "Import Playlists",
 			"caseSensitive": "Case Sensitive",
 			"searchForSoundset": "Search for soundset",

@@ -40,38 +40,23 @@
 			ctx.syrin.setMood(mood.id);
 		}
 	}
-
-	async function onCreateMacro() {
-		const macro = await ctx.game.createMoodMacro(mood, undefined);
-		ctx.game.notifyInfo('importer.createdMacro', { macroName: macro?.name || '' });
-	}
 </script>
 
 <tr class="mood" data-test="syrin-mood-row">
-	<td>
-		<input
-			type="checkbox"
-			data-test="syrin-mood-checkbox"
-			on:click={onSelectMood}
-			checked={filteredSelectedSoundsets.has(soundset.id + ';' + mood.id)}
-		/>
+	<td class="empty-cell">
 	</td>
-	<td>
+	<td class="main-cell">
+			<input
+				type="checkbox"
+				data-test="syrin-mood-checkbox"
+				on:click={onSelectMood}
+				checked={filteredSelectedSoundsets.has(soundset.id + ';' + mood.id)}
+			/>
 		<span class="name" data-test="syrin-mood-name">
 			{mood.name}
 		</span>
 	</td>
 	<td class="actions-cell">
-		<span
-			class="macro-icon"
-			role="button"
-			data-test="syrin-create-macro-btn"
-			title={ctx.game.localize('commands.createMacro')}
-			on:click={onCreateMacro}
-			on:keypress={onCreateMacro}
-		>
-			<i class="fas fa-terminal" />
-		</span>
 		<Toggable
 			on:click={onPlayMood}
 			toggled={isPlaying}
@@ -83,19 +68,23 @@
 </tr>
 
 <style>
-	.mood > td > .name {
-		padding-left: 2em;
+	tr {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+	.main-cell {
+		flex-grow: 1;
+		display: flex;
+		align-items: center;
+	}
+	.main-cell input {
+		margin: 0 1em;
+	}
+	.empty-cell {
+		min-width: 2em;
 	}
 	.actions-cell {
-		text-align: center;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding-right: 2em;
-	}
-	.actions-cell .macro-icon {
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
+		padding: 0 1em;
 	}
 </style>

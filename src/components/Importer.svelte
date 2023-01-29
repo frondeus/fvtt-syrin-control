@@ -15,8 +15,16 @@
 	let filteredSelectedSoundsets: Set<string> = new Set();
 	let isSelectedAll: boolean = false;
 	let isAnySelected: boolean = false;
+	let loading: boolean = false;
+	let faSpin: string = "";
 
-	// Reactive Blocks
+	if (Object.values($soundsets).length === 0) {
+		onRefresh();
+	}
+	const reactiveFaSpin = (loading: boolean) => {
+		faSpin = loading ? "fa-spin": "";
+	};
+
 	const reactiveFilterSoundsetList = (importerApp: ImporterAppStore) => {
 		filterSoundsetList = importerApp.filterSoundset.trim().split(/\s+/);
 	};
@@ -68,6 +76,7 @@
 	$: reactiveFilteredSelectedSoundsets($importerApp, soundsetsList);
 	$: reactiveIsSelectedAll(filteredSelectedSoundsets, soundsetsList);
 	$: reactiveIsAnySelected(filteredSelectedSoundsets);
+	$: reactiveFaSpin(loading);
 
 	// Event handlers
 	function onExpand(soundset: Soundset) {
@@ -125,6 +134,17 @@
 		});
 	}
 
+	async function onRefresh() {
+		loading = true;
+		const [soundsets, el] = await Promise.all([
+			ctx.api.onlineSoundsets(), 
+			ctx.api.onlineGlobalElements()
+		]);
+		ctx.stores.globalElements.set(el);
+		ctx.stores.soundsets.set(soundsets);
+		loading = false;
+	}
+
 	// Utils
 	function soundsetsListSet(soundsetsList: Soundset[]): Set<string> {
 		return new Set(
@@ -145,19 +165,26 @@
 		/>
 		<label for="caseSensitive"> {ctx.game.localize('importer.caseSensitive')} </label>
 		<input name="caseSensitive" data-test="syrin-case-sensitive" type="checkbox" bind:checked={$importerApp.filterCaseSensitive} />
+		<span role="button" data-test="syrin-importer-refresh" on:click={onRefresh} on:keypress={onRefresh} title={ctx.game.localize('importer.refresh')}>
+			<i class={"fas fa-refresh " + faSpin} />
+		</span> 
 	</div>
 	<div class="main">
 		<table class="list" data-test="syrin-soundsets-list">
+			<thead>
 			<tr>
-				<th class="checkbox-cell">
+				<th class="checkbox-cell-header">
 					<input type="checkbox" data-test="syrin-select-all" checked={isSelectedAll} on:click={onSelectAll} />
 				</th>
-				<th>{ctx.game.localize('importer.soundsets')}</th>
+				<th class="name-cell-header">{ctx.game.localize('importer.soundsets')}</th>
 				<th class="actions-cell-header" />
 			</tr>
+			</thead>
+			<tbody>
 			{#each soundsetsList as item}
 				<SoundsetComponent {item} {filteredSelectedSoundsets} on:expand={onExpand(item)} />
 			{/each}
+			</tbody>
 		</table>
 	</div>
 	{#if isAnySelected}
@@ -175,8 +202,6 @@
 
 <style>
 	.container {
-		min-height: 500px;
-		max-height: 500px;
 		height: 100%;
 		display: flex;
 		flex-direction: column;
@@ -197,10 +222,16 @@
 		margin: 1em;
 		flex-grow: 1;
 	}
-	.checkbox-cell {
-		text-align: left;
+	.main thead tr {
+		display: flex;
+	}
+	.name-cell-header {
+		flex-grow: 1;
+	}
+	.checkbox-cell-header {
+		padding: 0 1em;
 	}
 	.actions-cell-header {
-		min-width: 50px;
+		padding: 0 1em;
 	}
 </style>

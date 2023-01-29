@@ -34,18 +34,27 @@ Cypress.Commands.add('openSidebar', (tab: string) => {
 Cypress.Commands.add('openImporter', () => {
     cy.openSidebar('playlists');
     cy.get('[data-test="syrin-import-btn"]').click();
+    cy.get('[data-test="syrin-importer-refresh"]').click();
+    cy.wait('@requestSoundsets');
 });
 
 Cypress.Commands.add('clearWorld', () => {
-  cy.onHook('ready', (win) => {
+  return cy.onHook('ready', (win) => {
     win.game.syrinscape.clear();
     win.game.playlists.forEach(t => { t.delete(); });
   });
 });
 
 Cypress.Commands.add('onHook', (hookName: string, cb: HookCallback) => {
-    cy.window().then(win => {
-      win.Hooks.on(hookName, (...args: any[]) => cb(win, ...args));
+    return cy.window().then(win => {
+      return new Cypress.Promise((res, _rej) => {
+        win.Hooks.on(hookName, (...args: any[]) => {
+          const result = cb(win, ...args);
+          cy.log('onHook: ', hookName);
+          res(result);
+          return result;
+        });
+      })
     });
 });
 
@@ -98,9 +107,9 @@ Cypress.Commands.add('importerExpandSoundset', (selector: string, as?: string) =
 });
 
 Cypress.Commands.add('importerGetSoundset', (selector: string) => {
-    return cy.get(`[data-test="syrin-soundsets-list"] > [data-test="syrin-soundset-row"]:${selector}`);
+    return cy.get(`[data-test="syrin-soundsets-list"] [data-test="syrin-soundset-row"]:${selector}`);
 });
 
 Cypress.Commands.add('importerGetMood', (selector: string) => {
-    return cy.get('[data-test="syrin-soundsets-list"] > [data-test="syrin-mood-row"]:' + selector);
+    return cy.get('[data-test="syrin-soundsets-list"] [data-test="syrin-mood-row"]:' + selector);
 }); 

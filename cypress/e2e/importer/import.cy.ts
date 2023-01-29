@@ -3,14 +3,15 @@ describe('importer.import', () => {
     cy.login('Gamemaster');
     cy.clearWorld();
     cy.mockAPI();
+
+    cy.openImporter();
   });
 
   it('should be checkbox to import all visible soundsets', () => {
-    cy.openImporter();
-    cy.wait('@requestSoundsets');
 
     cy.importerGetSoundset('first').as('soundset');
     cy.get('@soundset').find('[data-test="syrin-soundset-name"]').click();
+    cy.wait('@requestMoods');
     
     cy.get('@soundset').find('[data-test="syrin-soundset-checkbox"]')
       .as('soundsetCheckbox');
@@ -88,9 +89,6 @@ describe('importer.import', () => {
   });
   
   it('should be checkbox to import whole soundset', () => {
-    cy.openImporter();
-    cy.wait('@requestSoundsets');
-
     cy.importerGetSoundset('first').as('soundset');
     cy.get('@soundset').find('[data-test="syrin-soundset-name"]').click();
     cy.wait('@requestMoods');
@@ -160,9 +158,6 @@ describe('importer.import', () => {
   });
   
   it('should be checkbox to import a single mood', () => {
-    cy.openImporter();
-    cy.wait('@requestSoundsets');
-
     cy.importerExpandSoundset('first', 'soundset');
     cy.wait('@requestMoods');
 

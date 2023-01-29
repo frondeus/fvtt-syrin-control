@@ -13,7 +13,7 @@ export class ImporterApplication extends Dialog {
 				buttons: {},
 				default: ''
 			},
-			Object.assign({ width: 790 }, dialog)
+			Object.assign({ width: 760, height: 500, resizable: true, classes: ["syrin-dialog"] }, dialog)
 		);
 		this.context = context;
 	}

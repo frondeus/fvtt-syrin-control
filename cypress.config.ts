@@ -5,7 +5,7 @@ export default defineConfig({
   viewportHeight: 700,
   videoCompression: false,
   retries: {
-    openMode: 1,
+    openMode: 0,
     runMode: 2
   },
   e2e: {
