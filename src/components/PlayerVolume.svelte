@@ -10,7 +10,7 @@
 
 	// Event handlers
 	function onVolumeChange() {
-		ctx.api.changePlayerVolume($volume);
+		ctx.api.changePlayerVolume($volume * 0.01);
 	}
 </script>
 

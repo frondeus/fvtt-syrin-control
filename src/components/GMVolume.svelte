@@ -11,10 +11,10 @@
 
 	// Event handlers
 	function onGlobalVolumeChange() {
-		ctx.api.changeMoodVolume($globalVolume);
+		ctx.api.changeMoodVolume($globalVolume * 0.01);
 	}
 	function onOneshotsVolumeChange() {
-		ctx.api.changeOneShotVolume($oneshotsVolume);
+		ctx.api.changeOneShotVolume($oneshotsVolume * 0.01);
 	}
 </script>
 
