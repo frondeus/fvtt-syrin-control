@@ -71,7 +71,7 @@ export class RawApiImpl implements RawApi {
 					} else {
 						utils.info('Waiting for session...');
 						const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-						const backoff = [100, 500, 1 * 1000, 5 * 1000];
+						const backoff = [100, 500, 1 * 1000];
 						let i = 0;
 						while (true) {
 							try {
