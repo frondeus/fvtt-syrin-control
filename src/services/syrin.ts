@@ -10,7 +10,8 @@ import { Context } from './context';
 export enum SyrinComponent {
 	PlayerVolume,
 	GMVolume,
-	Playlist
+	Playlist,
+	Password
 }
 
 @singleton()

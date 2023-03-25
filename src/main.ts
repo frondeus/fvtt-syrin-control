@@ -5,6 +5,7 @@ import { initSettings, onCloseSettings } from './settings';
 
 import { onPlaylistTab } from './ui/playlist';
 import { openElements } from './ui/elements';
+import { onSettings } from './ui/settings';
 
 import { MODULE } from './services/utils';
 import { resolve } from './services/context';
@@ -92,6 +93,9 @@ Hooks.once('init', function () {
 		ctx.stores.nextPlaylistMood.set(moodId);
 	});
 
+	Hooks.on('renderSettingsConfig', async (config, init) => {
+		await onSettings(ctx, init);
+	});
 	Hooks.on('closeSettingsConfig', async () => {
 		if (!ctx.game.isGM()) {
 			return;
