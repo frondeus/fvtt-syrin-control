@@ -175,7 +175,9 @@ class SyrinPlaylist extends Playlist {
 			const soundset = playing?.soundset;
 			if (this.id !== null) {
 				const playing = soundset?.id === this.syrinFlags.soundset;
-				this.update({ _id: this.id, playing });
+				if (this.ctx.game.isGM()) {
+					this.update({ _id: this.id, playing });
+				}
 			}
 		});
 	}
