@@ -112,27 +112,4 @@ declare global {
 	}
 
 	interface PlaylistSoundData {}
-
-	namespace ClientSettings {
-		interface Values {
-			'fvtt-syrin-control.soundsets': Soundsets;
-			'fvtt-syrin-control.elements': Element[];
-			'fvtt-syrin-control.playlist': Playlist;
-			'fvtt-syrin-control.currentSoundset': Soundset;
-			'fvtt-syrin-control.currentMood': Mood;
-
-			'fvtt-syrin-control.authToken': string;
-			'fvtt-syrin-control.address': string;
-			'fvtt-syrin-control.syncMethod': 'yes' | 'no';
-		}
-	}
-
-	interface FlagConfig {
-		Scene: {
-			'fvtt-syrin-control': {
-				mood?: Mood;
-				soundset?: Soundset;
-			};
-		};
-	}
 }

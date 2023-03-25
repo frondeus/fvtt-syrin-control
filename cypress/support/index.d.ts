@@ -18,8 +18,9 @@ declare namespace Cypress {
     openSidebar(tab: string): Chainable<void>;
     openImporter(): Chainable<void>;
 
-    importerExpandSoundset(selector: string): Chainable<JQuery<HTMLElement>>;
+    importerExpandSoundset(selector: string, as?: string): Chainable<JQuery<HTMLElement>>;
     importerGetMood(selector: string): Chainable<JQuery<HTMLElement>>;
+    importerGetSoundset(selector: string): Chainable<JQuery<HTMLElement>>;
     
   }
 }

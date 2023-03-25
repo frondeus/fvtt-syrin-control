@@ -1,0 +1,8 @@
+.syrin-dialog .window-content .dialog-content {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.syrin-dialog .window-content .dialog-buttons {
+  flex: 0;
+}

@@ -90,17 +90,18 @@
 	<td class="checkbox-cell">
 		<input
 			type="checkbox"
+			data-test="syrin-soundset-checkbox"
 			title={soundsetCheckboxTitle}
 			on:click={onSelectSoundset}
 			checked={isSoundsetChecked}
 			indeterminate={isSoundsetPartiallyChecked}
 		/>
 	</td>
-	<td>
+	<td class="name-cell">
 		<span role="button" data-test="syrin-soundset-name" title={soundsetButtonTitle} on:click={onExpand} on:keypress={onExpand}>
 			{item.name}
 			{#if loading}
-				({ctx.game.localize('loading')})
+				<i class="fas fa-refresh fa-spin" />
 			{/if}
 		</span>
 	</td>
@@ -122,11 +123,19 @@
 {/if}
 
 <style>
+	tr {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+	.name-cell {
+		flex-grow: 1;
+	}
 	.checkbox-cell {
-		text-align: left;
+		padding: 0 1em;
 	}
 	.actions-cell {
-		text-align: center;
+		padding: 0 1em;
 	}
 
 	input[type='checkbox']:indeterminate {

@@ -16,3 +16,5 @@ fvtt-syrin-control.lock
 
 dist
 cypress.env.json
+cypress/screenshots
+cypress/videos

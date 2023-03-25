@@ -364,13 +364,15 @@ function createFoundryStore<T>(game: FVTTGame, name: string, initial: T): Foundr
 
 	const refresh = () => {
 		let loaded = getSetting(name);
-		// console.warn('SyrinControl | Refreshing', { name, loaded });
+		console.warn('SyrinControl | Refreshing', { name, loaded });
 		store.set(loaded);
 	};
 
 	const clear = () => {
 		if (game.isReady()) {
-			game.setSettingToDefault(name);
+			let t = game.setSettingToDefault<T>(name);
+			console.warn('SyrinControl | Clearing', { name, t });
+			store.set(t);
 		}
 	};
 

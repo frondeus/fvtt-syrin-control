@@ -9,5 +9,5 @@ popd
 tmux new-session -s "syrincontrol" \; \
   send-keys "yarn dev --no-open" C-m \; \
   split-window -v \; \
-  send-keys "yarn run cypress open --e2e -b chrome" C-m \; \
+  send-keys "yarn run cypress open --e2e -b firefox" C-m \; \
   select-layout tiled;

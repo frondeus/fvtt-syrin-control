@@ -27,7 +27,7 @@ export interface FVTTGame {
 	registerSetting(name: string, options: any): void;
 	getSetting<T>(name: string): T;
 	setSetting<T>(name: string, t: T): void;
-	setSettingToDefault(name: string): void;
+	setSettingToDefault<T>(name: string): T;
 
 	get socket(): SocketlibSocket | undefined;
 
@@ -140,8 +140,12 @@ export class FVTTGameImpl implements FVTTGame {
 		this.game.settings.set(MODULE, name, t);
 	}
 
-	setSettingToDefault(name: string): void {
-		this.game.settings.set(MODULE, name, (this.game.settings.get(MODULE, name) as any).default);
+	setSettingToDefault<T>(name: string): T {
+		const def = 
+			(this.game.settings.settings.get(MODULE + "." + name) as any).default;
+		console.warn("Set setting to default", {def});
+		this.game.settings.set(MODULE, name, def);
+		return def;
 	}
 
 	async createPlaylist(
