@@ -53,7 +53,6 @@ Hooks.once('init', function () {
 		});
 	}
 
-	const socketPromise = setupSocket(ctx);
 
 	Hooks.on('renderPlaylistDirectory', async (_: any, html: JQuery<Element>) => {
 		await onPlaylistTab(ctx, html);
@@ -101,6 +100,7 @@ Hooks.once('init', function () {
 	});
 
 	Hooks.once('ready', async () => {
+		const socketPromise = setupSocket(ctx);
 		await socketPromise;
 		ctx.stores.nextMood.subscribe((next) => {
 			ctx.utils.trace('Subscribe | next mood: ', next);

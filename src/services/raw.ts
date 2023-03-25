@@ -79,11 +79,10 @@ export class RawApiImpl implements RawApi {
 									SocketCalls.PlayerJoined,
 									game.getPlayerName()
 								);
-								if (newSessionId === null) {
-									continue;
+								if (newSessionId === null || newSessionId === undefined) {
+									throw new String("Session not found");
 								}
 								syrinscape.config.sessionId = newSessionId;
-								utils.info('Session found');
 								break;
 							} catch (err) {
 								utils.error(err);
@@ -100,6 +99,7 @@ export class RawApiImpl implements RawApi {
 					}
 
 					syrinscape.config.deviceName = game.getPlayerName();
+					utils.info('Connecting to the session ', syrinscape.config.sessionId);
 					// utils.trace("RAW Headless | Syrinscape | Init Configure", { syrinscape });
 
 					// if (game.isGM()) {

@@ -1,9 +1,10 @@
 import type { UserConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import swc from 'unplugin-swc';
+import {swcUnpluginTs} from 'unplugin-swc';
 import path from 'path';
 import basicSsl from '@vitejs/plugin-basic-ssl';
+
 
 const config: UserConfig = {
 	root: 'src/',
@@ -39,7 +40,7 @@ const config: UserConfig = {
 	plugins: [
 		basicSsl(),
 		tsconfigPaths(),
-		swc.vite(),
+		swcUnpluginTs.vite(),
 		svelte({
 			configFile: '../svelte.config.cjs'
 		})
