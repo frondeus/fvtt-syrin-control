@@ -4,7 +4,8 @@
 
 # SyrinControl - provides integration with Syrinscape Online
 
-![](https://github.com/frondeus/fvtt-syrin-control/blob/next/docs/Readme.png?raw=true)
+[![SyrinControl 0.4 walk-through](http://img.youtube.com/vi/nHGWU5m5atU/0.jpg)](https://youtu.be/nHGWU5m5atU "SyrinControl 0.4")
+
 
 ## Useful links:
 
