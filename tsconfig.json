@@ -4,13 +4,14 @@
 		"target": "es2022",
 		"isolatedModules": false,
 		"module": "es2022",
-		"sourceMap": true,
+		"sourceMap": false,
 		"lib": ["DOM", "ESNext"],
 		"types": ["svelte", "jest", "cypress"],
 		"moduleResolution": "node",
 		"strictNullChecks": true,
 		"esModuleInterop": true,
 		"noEmit": true,
+		"resolveJsonModule": true,
 
 		"alwaysStrict": true,
 		"strict": true,
@@ -25,13 +26,14 @@
 		"importsNotUsedAsValues": "remove",
 		"forceConsistentCasingInFileNames": true,
 		"allowSyntheticDefaultImports": true,
+		"allowJs": true,
 
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"baseUrl": "./src",
 		"paths": {
-			"@/*": ["./syrin/*"]
+			"@/*": ["./*"]
 		}
 	},
-	"include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"]
+	"include": ["src/**/*.d.ts", "**/*.ts", "src/**/*.svelte"]
 }

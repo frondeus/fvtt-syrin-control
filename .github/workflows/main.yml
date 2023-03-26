@@ -2,7 +2,7 @@ name: Release Creation
 
 on:
   release:
-    types: [published]
+    types: [published, edited]
 
 jobs:
   build:
@@ -15,15 +15,15 @@ jobs:
         id: get_version
         uses: battila7/get-version-action@v2
 
-      - name: install deps
-        uses: borales/actions-yarn@v3.0.0
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
-          cmd: install
+          node-version: 18.x
+      - name: install deps
+        run: npm install
 
       - name: build
-        uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: run build
+        run: npm run build
 
       # Substitute the Manifest and Download URLs in the module.json
       - name: Substitute Manifest and Download Links For Versioned Ones

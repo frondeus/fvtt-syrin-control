@@ -1,0 +1,32 @@
+[
+  {
+    "pk": 1234,
+    "name": "My mood in room",
+    "elements": [
+      {
+        "url": "https://syrinscape.com/online/frontend-api/moodelements/01234/",
+        "mood": "https://syrinscape.com/online/frontend-api/moods/1234/",
+        "element": "https://syrinscape.com/online/frontend-api/elements/12345/"
+      }
+    ],
+    "unity_id": "mood_1234",
+    "url": "https://syrinscape.com/online/frontend-api/moods/1234/",
+    "soundset": "https://syrinscape.com/online/frontend-api/soundsets/1234/",
+    "soundset_uuid": "5536c041-e57b-449b-976f-0485b9fc9a26"
+  },
+  {
+    "pk": 4321,
+    "name": "My mood in kitchen",
+    "elements": [
+      {
+        "url": "https://syrinscape.com/online/frontend-api/moodelements/43210/",
+        "mood": "https://syrinscape.com/online/frontend-api/moods/4321/",
+        "element": "https://syrinscape.com/online/frontend-api/elements/54321/"
+      }
+    ],
+    "unity_id": "mood_4321",
+    "url": "https://syrinscape.com/online/frontend-api/moods/4321/",
+    "soundset": "https://syrinscape.com/online/frontend-api/soundsets/1234/",
+    "soundset_uuid": "5536c041-e57b-449b-976f-0485b9fc9a26"
+  }
+]

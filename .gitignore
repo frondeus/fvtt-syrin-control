@@ -15,5 +15,6 @@ yarn-error.log*
 fvtt-syrin-control.lock
 
 dist
-run.sh
 cypress.env.json
+cypress/screenshots
+cypress/videos
