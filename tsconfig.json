@@ -11,6 +11,7 @@
 		"strictNullChecks": true,
 		"esModuleInterop": true,
 		"noEmit": true,
+		"resolveJsonModule": true,
 
 		"alwaysStrict": true,
 		"strict": true,
