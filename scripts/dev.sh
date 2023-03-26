@@ -2,8 +2,8 @@
 
 pushd ./docs/foundry
 
-docker-compose up -d foundry --remove-orphans
+docker compose up -d foundry --remove-orphans
 
 popd
 
-yarn dev "$@"
+npm run dev "$@"

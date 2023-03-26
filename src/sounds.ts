@@ -115,7 +115,7 @@ class SyrinPlaylistSound extends PlaylistSound {
 				if (this.id !== null) {
 					if (this.syrinFlags.type === 'mood') {
 						const playing = mood?.id === this.syrinFlags.mood;
-						this.update({ _id: this.id, playing });
+						this.update({ playing });
 						this.wasPlaying = playing;
 					}
 				}
@@ -126,7 +126,7 @@ class SyrinPlaylistSound extends PlaylistSound {
 	}
 
 	override async sync(): Promise<void> {
-		if (!this.ctx.api.isPlayerActive()) {
+		if (!this.ctx.api.isPlayerActive() || !this.ctx.game.isGM()) {
 			return;
 		}
 
@@ -176,7 +176,7 @@ class SyrinPlaylist extends Playlist {
 			if (this.id !== null) {
 				const playing = soundset?.id === this.syrinFlags.soundset;
 				if (this.ctx.game.isGM()) {
-					this.update({ _id: this.id, playing });
+					this.update({ playing });
 				}
 			}
 		});
