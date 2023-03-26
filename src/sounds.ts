@@ -39,7 +39,7 @@ class SyrinAmbientSound extends AmbientSound {
 		volume: number,
 		_options?: Partial<AmbientSound.SyncOptions>
 	): Promise<void> {
-		if (!this.ctx.api.isPlayerActive()) {
+		if (!this.ctx.api.isPlayerActive() || !this.ctx.game.isGM()) {
 			return;
 		}
 
@@ -126,7 +126,7 @@ class SyrinPlaylistSound extends PlaylistSound {
 	}
 
 	override async sync(): Promise<void> {
-		if (!this.ctx.api.isPlayerActive()) {
+		if (!this.ctx.api.isPlayerActive() || !this.ctx.game.isGM()) {
 			return;
 		}
 
