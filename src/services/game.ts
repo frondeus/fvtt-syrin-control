@@ -17,6 +17,7 @@ export interface Global {
 	isPlayerActive(): boolean;
 	refresh(): void;
 	clear(): void;
+	stopAll(): Promise<void>;
 	soundSources(): Promise<Soundsets>;
 	onlineElements(id: string): Promise<Element[]>;
 	onlineGlobalElements(): Promise<Element[]>;

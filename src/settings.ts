@@ -13,6 +13,9 @@ export function initSettings(ctx: Context) {
 		stopElement: async (id: number) => {
 			await syrin.stopElement(id);
 		},
+		stopAll: async () => {
+			await syrin.stopAll();
+		},
 		playMood: async (params: PlayMoodParams | number) => {
 			if (typeof params === 'number') {
 				syrin.setMood(params);
