@@ -31,6 +31,7 @@ export function setupSocket(ctx: Context): Promise<SocketlibSocket> {
 						ctx.syrin.playAmbientSound(id, sound);
 					});
 					ctx.game.socket?.register(SocketCalls.StopAmbient, (id, userId) => {
+						ctx.utils.info("Socket got stop ambient", { id, userId });
 						ctx.syrin.stopAmbientSound(id, userId);
 					});
 					ctx.game.socket?.register(SocketCalls.PlayElement, async (id) => {

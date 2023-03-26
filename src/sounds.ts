@@ -39,7 +39,7 @@ class SyrinAmbientSound extends AmbientSound {
 		volume: number,
 		_options?: Partial<AmbientSound.SyncOptions>
 	): Promise<void> {
-		if (!this.ctx.api.isPlayerActive() || !this.ctx.game.isGM()) {
+		if (!this.ctx.api.isPlayerActive()) {
 			return;
 		}
 
@@ -115,7 +115,7 @@ class SyrinPlaylistSound extends PlaylistSound {
 				if (this.id !== null) {
 					if (this.syrinFlags.type === 'mood') {
 						const playing = mood?.id === this.syrinFlags.mood;
-						this.update({ _id: this.id, playing });
+						this.update({ playing });
 						this.wasPlaying = playing;
 					}
 				}
@@ -176,7 +176,7 @@ class SyrinPlaylist extends Playlist {
 			if (this.id !== null) {
 				const playing = soundset?.id === this.syrinFlags.soundset;
 				if (this.ctx.game.isGM()) {
-					this.update({ _id: this.id, playing });
+					this.update({ playing });
 				}
 			}
 		});

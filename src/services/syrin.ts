@@ -66,7 +66,7 @@ export class Syrin {
 
 	stopAmbientSound(id: string, userId: string) {
 		if (!this.game.isGM()) {
-			this.game.socket?.executeAsGM(SocketCalls.StopAmbient, id, userId);
+			this.game.socket?.executeAsGM(SocketCalls.StopAmbient, id + userId, userId);
 			return;
 		}
 		this.utils.info('Syrin | Stop Ambient Sound', { id, userId });
