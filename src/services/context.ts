@@ -36,7 +36,7 @@ export function resolve(): Context {
 
 export function mocked(game: FVTTGame, raw: RawApi): Context {
 	const utils = new Utils(game);
-	const api = new Api(utils, raw);
+	const api = new Api(raw);
 	const stores = new Stores(game, api);
 	const syrin = new Syrin(game, utils, api, stores);
 	return new Context(game, utils, api, stores, syrin);

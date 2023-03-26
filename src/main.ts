@@ -93,8 +93,8 @@ Hooks.once('init', function () {
 		ctx.stores.nextPlaylistMood.set(moodId);
 	});
 
-	Hooks.on('renderSettingsConfig', async (config, init) => {
-		await onSettings(ctx, init);
+	Hooks.on('renderSettingsConfig', async (_: any, init: any) => {
+		await onSettings(init);
 	});
 	Hooks.on('closeSettingsConfig', async () => {
 		if (!ctx.game.isGM()) {
