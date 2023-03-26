@@ -1,5 +1,5 @@
 import { Moods, Soundsets, Element } from '@/models';
-import { MODULE, Utils } from './utils';
+import { MODULE } from './utils';
 import type { RawApi } from './raw';
 import { getContext } from 'svelte';
 import { inject, injectable } from 'tsyringe';
@@ -11,7 +11,6 @@ export default function api(): Api {
 @injectable()
 export class Api {
 	constructor(
-		private readonly utils: Utils,
 		@inject('RawApi')
 		private readonly raw: RawApi
 	) {}

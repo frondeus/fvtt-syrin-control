@@ -39,14 +39,15 @@ Cypress.Commands.add('openImporter', () => {
 });
 
 Cypress.Commands.add('clearWorld', () => {
-  return cy.onHook('ready', (win) => {
+  return cy.onHook('ready', (win: any) => {
     win.game.syrinscape.clear();
-    win.game.playlists.forEach(t => { t.delete(); });
+    win.game.playlists.forEach((t: any) => { t.delete(); });
   });
 });
 
+// @ts-ignore
 Cypress.Commands.add('onHook', (hookName: string, cb: HookCallback) => {
-    return cy.window().then(win => {
+    return cy.window().then((win: any) => {
       return new Cypress.Promise((res, _rej) => {
         win.Hooks.on(hookName, (...args: any[]) => {
           const result = cb(win, ...args);
@@ -63,7 +64,7 @@ Cypress.Commands.add('onSyrinHook', (hookName: string, cb: HookCallback) => {
 });
 
 Cypress.Commands.add('callHook', (hookName: string, ...args: any[]) => {
-  cy.window().then(win => {
+  cy.window().then((win: any) => {
     win.Hooks.callAll(hookName, ...args);
   });
 });
@@ -73,13 +74,13 @@ Cypress.Commands.add('callSyrinHook', (hookName: string, ...args: any[]) => {
 });
 
 Cypress.Commands.add('debugHooks', () => {
-  cy.onHook('init', (win) => {
+  cy.onHook('init', (win: any) => {
     win.CONFIG.debug.hooks = true;
   });
 });
 
 Cypress.Commands.add('game', () => {
-  return cy.window().then(win => win.game);
+  return cy.window().then((win:any) => win.game);
 });
 
 Cypress.Commands.add('mockAPI', () => {
