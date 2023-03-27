@@ -177,7 +177,7 @@ export class FVTTGameImpl implements FVTTGame {
 			{
 				name: element.name,
 				description: this.localize('createdBy'),
-				path: `syrinscape:element:${element.id}.wav`,
+				path: 'syrinscape.wav',
 				sort: 0,
 				flags: {
 					syrinscape: {
@@ -199,7 +199,7 @@ export class FVTTGameImpl implements FVTTGame {
 			{
 				name: mood.name,
 				description: this.localize('createdBy'),
-				path: `syrinscape:mood:${mood.id}.wav`,
+				path: 'syrinscape.wav',
 				sort: 0,
 				flags: {
 					syrinscape: {

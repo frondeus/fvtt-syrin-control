@@ -3,7 +3,7 @@ import { Unsubscriber } from 'svelte/store';
 import { container } from 'tsyringe';
 import { Context } from './services/context';
 
-type SyrinAmbientSoundFlags = ElementSoundFlags | MoodSoundFlags;
+export type SyrinAmbientSoundFlags = ElementSoundFlags | MoodSoundFlags;
 
 class SyrinAmbientSound extends AmbientSound {
 	syrinFlags?: SyrinAmbientSoundFlags;
@@ -13,21 +13,15 @@ class SyrinAmbientSound extends AmbientSound {
 		super(data);
 		if (ctx === undefined || ctx === null) {
 			ctx = { ctx: container.resolve(Context) };
-			ctx.utils.warn('Ambient Sound context was undefined. Fixing it!');
+			ctx.ctx.utils.warn('Ambient Sound context was undefined. Fixing it!');
 		}
 		this.ctx = (ctx as any).ctx;
-		const path = (data as any).path as string;
-		const splitted = path.split(':');
-		const ty = splitted[1];
-		const id = Number(splitted[2].split('.')[0]);
 
-		if (ty === 'mood') {
-			this.syrinFlags = { type: 'mood', mood: id };
-		} else if (ty === 'element') {
-			this.syrinFlags = { type: 'element', element: id };
-		} else {
-			return;
-		}
+			
+		
+		this.syrinFlags = (data as any).flags?.syrinscape;
+
+		console.log('Creating an ambient sound', { data, syrinFlags: this.syrinFlags });
 	}
 
 	override _createSound(): null {
@@ -104,15 +98,6 @@ class SyrinPlaylistSound extends PlaylistSound {
 		this.wasPlaying = false;
 		// this.ctx.utils.trace("Creating syrinscape playlist sound", { data, context });
 		if (this.syrinFlags.type === 'mood' && this.ctx.game.isGM()) {
-			const flagsMoodId = this.syrinFlags.mood;
-			if (this.path === './syrinscape-not-a-real-path.wav') {
-				setTimeout(() => {
-					this.update({
-						_id: this.id,
-						path: `syrinscape:${this.syrinFlags.type}:${flagsMoodId}.wav`
-					});
-				}, 10);
-			}
 			this.unsubsriber = this.ctx.stores.currentlyPlaying.subscribe((playing) => {
 				const mood = playing?.mood;
 				if (this.id !== null) {
@@ -209,9 +194,7 @@ function handler<
 	return {
 		construct(_: T, args: ConstructorParameters<T>) {
 			const syrinscapeFlags = args[0]?.flags?.syrinscape;
-			const syrinscapePath: string | undefined = args[0]?.path;
-			const isSyrinscapeControlled =
-				syrinscapePath?.startsWith('syrinscape:') || syrinscapeFlags !== undefined;
+			const isSyrinscapeControlled = syrinscapeFlags !== undefined;
 			if (!isSyrinscapeControlled) {
 				return new t(...args);
 			}

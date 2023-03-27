@@ -143,7 +143,7 @@ export class Stores {
 		return get(this.soundsets);
 	}
 
-	private async hydrateSoundsetInner(soundsetId: string, soundsets: Soundsets): Promise<Soundset> {
+	async hydrateSoundsetInner(soundsetId: string, soundsets: Soundsets): Promise<Soundset> {
 		const moodsPromise = this.getMoodsInner(soundsetId, soundsets);
 		const elementsPromise = this.getSoundsetElementsInner(soundsetId, soundsets);
 		const [moods, elements] = await Promise.all([moodsPromise, elementsPromise]);
