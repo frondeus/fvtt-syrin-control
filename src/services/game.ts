@@ -41,6 +41,7 @@ export interface FVTTGame {
 
 	hasActiveModule(name: string): boolean;
 	localize(key: string, args?: any): string;
+	localizeCore(key: string, args?: any): string;
 
 	getAudioContext(): Promise<AudioContext | undefined>;
 	createMoodMacro(mood: Mood, folder: any): Promise<StoredDocument<Macro> | undefined>;
@@ -89,6 +90,13 @@ export class FVTTGameImpl implements FVTTGame {
 			return this.game.i18n.localize(MODULE + '.' + key);
 		}
 		return this.game.i18n.format(MODULE + '.' + key, args);
+	}
+
+	localizeCore(key: string, args?: any): string {
+		if (args === undefined) {
+			return this.game.i18n.localize(key);
+		}
+		return this.game.i18n.format(key, args);
 	}
 
 	setGlobal(global: Global): void {

@@ -28,26 +28,26 @@
 <div class={class_} style={style}>
   <div>
   <div class="form-group">
-    <label>Playlist Name</label>
-    <input type="text" name="name" placeholder="Soundset name" bind:value={name}/>
+    <label>{ctx.game.localizeCore("PLAYLIST.Name")}</label>
+    <input type="text" name="name" placeholder={ctx.game.localizeCore("PLAYLIST.Name")} bind:value={name}/>
   </div>
   <div class="form-group">
-      <label>Soundset</label>
-      <input type="text" disabled value={soundsetName}/>
+      <label>{ctx.game.localize("config.soundset")}</label>
+      <input type="text" disabled value={soundsetName} title={soundsetName}/>
   </div>
   <div class="form-group">
-    <label>Sort Mode</label>
+    <label>{ctx.game.localizeCore("PLAYLIST.SortMode")}</label>
     <select name="sorting" bind:value={sorting}>
-      <option value="a">Alphabetical</option>
-      <option value="m">Manual</option>
+      <option value="a">{ctx.game.localizeCore("PLAYLIST.SortAlphabetical")}</option>
+      <option value="m">{ctx.game.localizeCore("PLAYLIST.SortManual")}</option>
     </select>
   </div>
   </div>
   <div>
-    This playlist is controlled by SyrinControl.
+    {ctx.game.localize("config.controlled", { name: ctx.game.localize("config.playlist") })}
     <button type="submit">
       <i class="far fa-save"></i>
-      Update Playlist
+      {ctx.game.localizeCore("PLAYLIST.Update")}
     </button>
   </div>
 </div>

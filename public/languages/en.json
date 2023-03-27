@@ -17,6 +17,14 @@
 				"hint": "If you experience problems with the SyrinControl please enable this option so the maintainers can know what happened"
 			}
 		},
+		"config": {
+			"soundset": "Soundset",
+			"mood": "Mood",
+			"controlled": "This {name} is controlled by SyrinControl",
+			"playlist": "playlist",
+			"playlistSound": "playlist sound",
+			"ambientSound": "ambient sound"
+		},
 		"playlist": {
 			"importSoundsets": "Import Soundsets",
 			"globalVolume": "Global",

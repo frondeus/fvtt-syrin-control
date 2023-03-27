@@ -17,6 +17,14 @@
 				"hint": "Jeśli doświadzasz błędnego działania SyrinControl, proszę aktywuj tą opcję i prześlij logi do twórcy, by mógł on zbadać co się stało"
 			}
 		},
+		"config": {
+			"soundset": "Zestaw Dźwięków",
+			"mood": "Nastrój",
+			"controlled": "{name} jest pod kontrolą SyrinControl",
+			"playlist": "Ta playlista",
+			"playlistSound": "Ten dźwięk playlisty",
+			"ambientSound": "Ten dźwięk tła"
+		},
 		"playlist": {
 			"importSoundsets": "Importuj Zestaw Dźwięków",
 			"globalVolume": "Globalne",

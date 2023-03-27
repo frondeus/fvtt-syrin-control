@@ -8,6 +8,7 @@
   export let name: string;
   export let moodId: string;
   let soundsets = ctx.stores.soundsets;
+  let soundsetName;
   let moodName;
   let style;
   let class_ = "inner";
@@ -20,6 +21,7 @@
 
       const mood = soundset.moods[moodId];
       moodName = mood.name;
+      soundsetName = soundset.name;
       if(soundset.artworkUrl !== undefined) {
         style = `background-image: url('${soundset.artworkUrl}');`;
         class_ = "inner inner-invert";
@@ -32,21 +34,26 @@
 <div class={class_} style={style}>
   <div>
     <div class="form-group">
-        <label>Track Name</label>
-        <input type="text" name="name" placeholder="Name" bind:value={name} required=""/>
+        <label>{ctx.game.localizeCore("PLAYLIST.SoundName")}</label>
+        <input type="text" name="name" placeholder={ctx.game.localizeCore("PLAYLIST.SoundName")} bind:value={name} required=""/>
     </div>
     <div class="form-group">
-        <label>Mood</label>
-        <input type="text" disabled value={moodName}/>
+        <label>{ctx.game.localize("config.soundset")}</label>
+        <input type="text" disabled value={soundsetName} title={soundsetName}/>
+    </div>
+    <div class="form-group">
+        <label>{ctx.game.localize("config.mood")}</label>
+        <input type="text" disabled value={moodName} title={moodName}/>
     </div>
   </div>
 
   <input type="hidden" name="path" value="syrinscape.wav">
 
   <div>
-    This playlist sound is controlled by SyrinControl.
+    {ctx.game.localize("config.controlled", { name: ctx.game.localize("config.playlistSound") })}
     <button type="submit">
-        <i class="far fa-save"></i> Update Track
+        <i class="far fa-save"></i> 
+        {ctx.game.localizeCore("PLAYLIST.SoundUpdate")}
     </button>
   </div>
 </div>

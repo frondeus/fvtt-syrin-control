@@ -17,6 +17,7 @@
   export let flags: SyrinAmbientSoundFlags;
   export let create: boolean;
   let soundsets = ctx.stores.soundsets;
+  let soundsetName;
   let ambientName;
   let style;
   let class_ = "inner";
@@ -30,6 +31,7 @@
 
       const mood = soundset.moods[flags.mood];
       ambientName = mood.name;
+      soundsetName = soundset.name;
       if(soundset.artworkUrl !== undefined) {
         style = `background-image: url('${soundset.artworkUrl}');`;
         class_ = "inner inner-invert";
@@ -42,53 +44,57 @@
 
 <div class={class_} style={style}>
   <div>
-  <p class="notes">Configure the ambient sound to play an audio file when tokens move within it's radius.</p>
+  <p class="notes">
+  {ctx.game.localizeCore("SOUND.ConfigHint")}
+  </p>
 
   <div class="form-group">
+      <label>{ctx.game.localize("config.soundset")}</label>
+      <input type="text" disabled value={soundsetName} title={soundsetName}/>
+  </div>
+  <div class="form-group">
       <label>
-        {#if flags.type === "mood"}
-          Mood
-        {/if}
+        {ctx.game.localize("config." + flags.type)}
       </label>
     <div class="form-fields">
-      <input type="text" disabled value={ambientName}/>
+      <input type="text" disabled value={ambientName} title={ambientName}/>
       </div>
   </div>
   <div class="form-group">
-    <label>X-Coordinate <span class="units">(Pixels)</span></label>
+    <label>{ctx.game.localizeCore("XCoord")} <span class="units">({ctx.game.localizeCore("Pixels")})</span></label>
     <div class="form-fields">
       <input type="number" name="x" step="1" bind:value={x}/>
     </div>
   </div>
   <div class="form-group">
-    <label>Y-Coordinate <span class="units">(Pixels)</span></label>
+    <label>{ctx.game.localizeCore("YCoord")} <span class="units">({ctx.game.localizeCore("Pixels")})</span></label>
     <div class="form-fields">
       <input type="number" name="y" step="1" bind:value={y}/>
     </div>
   </div>
   <div class="form-group">
-    <label>Effect Radius</label>
+    <label>{ctx.game.localizeCore("SOUND.Radius")}</label>
     <div class="form-fields">
       <input type="number" name="radius" step="any" bind:value={radius}/>
     </div>
   </div>
   <div class="form-group">
-    <label>Constrained By Walls</label>
+    <label>{ctx.game.localizeCore("SOUND.Walls")}</label>
     <input type="checkbox" name="walls" bind:checked={walls}/>
     <p class="hint">
-      Configure whether area of effect for this audio source is constrained by nearby walls.
+      {ctx.game.localizeCore("SOUND.WallsHint")}
     </p>
   </div>
   <div class="form-group">
-    <label>Darkness Activation Range</label>
+    <label>{ctx.game.localizeCore("SOUND.DarknessRange")}</label>
     <div class="form-fields">
-      <label for="darkness.min">Between</label>
+      <label for="darkness.min">{ctx.game.localizeCore("Between")}</label>
       <input type="number" name="darkness.min" value={darkness.min} min="0" max="1" step="any" placeholder="0">
-      <label for="darkness.max">and</label>
+      <label for="darkness.max">{ctx.game.localizeCore("and")}</label>
       <input type="number" name="darkness.max" value={darkness.max} min="0" max="1" step="any" placeholder="1">
     </div>
     <p class="hint">
-      You may specify a range of darkness levels during which this ambient sound will be audible.
+      {ctx.game.localizeCore("SOUND.DarknessRangeHint")}
     </p>
   </div>
   </div>
@@ -98,13 +104,13 @@
     <input type="hidden" name="flags.syrinscape.mood" value={flags.mood}/>
   {/if}
   <div>
-    This ambient sound is controlled by SyrinControl.
+    {ctx.game.localize("config.controlled", { name: ctx.game.localize("config.ambientSound") })}
   <button type="submit">
     <i class="far fa-save"></i>
     {#if create}
-    Create Ambient Sound
+      {ctx.game.localizeCore("SOUND.Create")}
     {:else}
-    Update Ambient Sound
+      {ctx.game.localizeCore("SOUND.Update")}
     {/if}
   </button>
   </div>
