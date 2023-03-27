@@ -18,6 +18,8 @@
   export let create: boolean;
   let soundsets = ctx.stores.soundsets;
   let ambientName;
+  let style;
+  let class_ = "inner";
 
   const reactiveAmbientSoundName = async (flags, soundsets: Soundsets) => {
     if (flags.type === "mood") {
@@ -28,13 +30,30 @@
 
       const mood = soundset.moods[flags.mood];
       ambientName = mood.name;
+      if(soundset.artworkUrl !== undefined) {
+        style = `background-image: url('${soundset.artworkUrl}');`;
+        class_ = "inner inner-invert";
+      }
     }
   };
 
   $: reactiveAmbientSoundName(flags, $soundsets);
 </script>
+
+<div class={class_} style={style}>
+  <div>
   <p class="notes">Configure the ambient sound to play an audio file when tokens move within it's radius.</p>
 
+  <div class="form-group">
+      <label>
+        {#if flags.type === "mood"}
+          Mood
+        {/if}
+      </label>
+    <div class="form-fields">
+      <input type="text" disabled value={ambientName}/>
+      </div>
+  </div>
   <div class="form-group">
     <label>X-Coordinate <span class="units">(Pixels)</span></label>
     <div class="form-fields">
@@ -72,19 +91,14 @@
       You may specify a range of darkness levels during which this ambient sound will be audible.
     </p>
   </div>
+  </div>
   <input type="hidden" name="path" value="syrinscape.wav"/>
   <input type="hidden" name="flags.syrinscape.type" value={flags.type}/>
   {#if flags.type === "mood"}
     <input type="hidden" name="flags.syrinscape.mood" value={flags.mood}/>
   {/if}
-  <p>
+  <div>
     This ambient sound is controlled by SyrinControl.
-  </p><p>
-    It is linked to "{ambientName}"
-    {#if flags.type === "mood"}
-      mood.
-    {/if}
-  </p>
   <button type="submit">
     <i class="far fa-save"></i>
     {#if create}
@@ -93,3 +107,25 @@
     Update Ambient Sound
     {/if}
   </button>
+  </div>
+</div>
+
+<style>
+.inner {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.inner-invert {
+  color: var(--color-text-light-highlight);
+  background-size: cover;
+}
+.inner-invert .notes, .inner-invert .hint, .inner-invert .units {
+  color: var(--color-text-light-highlight);
+}
+.inner button, .inner input, .inner select {
+  background: url(../ui/parchment.jpg) repeat;
+}
+</style>

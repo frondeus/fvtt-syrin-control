@@ -15,6 +15,7 @@ import { createProxies } from './sounds';
 import { setupSocket } from './socket';
 import { onPlaylistConfig } from './ui/playlistConfig';
 import { onAmbientSoundConfig } from './ui/ambientSoundConfig';
+import { onPlaylistSoundConfig } from './ui/playlistSoundConfig';
 
 Hooks.once('init', function () {
 	console.log('SyrinControl | Initializing...');
@@ -102,7 +103,7 @@ Hooks.once('init', function () {
 		await onPlaylistConfig(ctx, node, details);
 	});
 	Hooks.on('renderPlaylistSoundConfig', async (_: any, node: JQuery<Element>, details: any) => {
-		// await onPlaylistConfig(ctx, node, details);
+		await onPlaylistSoundConfig(ctx, node, details);
 	});
 	Hooks.on('renderAmbientSoundConfig', async (_: any, node: JQuery<Element>, details: any) => {
 		await onAmbientSoundConfig(ctx, node, details);

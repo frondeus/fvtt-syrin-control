@@ -4,6 +4,7 @@ export interface Soundset {
 	name: string;
 	moods: Moods;
 	elements: Elements;
+	artworkUrl: string;
 }
 
 // export interface NextMood {

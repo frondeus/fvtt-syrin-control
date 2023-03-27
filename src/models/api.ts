@@ -4,6 +4,7 @@ export interface ApiSoundset {
 	uuid: string;
 	name: string;
 	full_name: string;
+	artwork_url: string;
 }
 
 export interface ApiMood {

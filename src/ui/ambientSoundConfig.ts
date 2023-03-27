@@ -5,11 +5,13 @@ export async function onAmbientSoundConfig(ctx: Context, window: JQuery<Element>
   if(details.data.flags?.syrinscape === undefined) {
     return;
   }
-  let windowContent = window.find('.window-content form');
-  windowContent.empty();
+  const windowContent = window.find('.window-content');
+  windowContent.attr('style', 'padding: 0;');
+  let form = windowContent.find('form');
+  form.empty();
 
   let component = new AmbientSoundConfigComponent({
-      target: windowContent.get(0)!,
+      target: form.get(0)!,
       props: {
         x: details.data.x,
         y: details.data.y,

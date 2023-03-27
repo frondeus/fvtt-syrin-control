@@ -5,11 +5,13 @@ export async function onPlaylistConfig(ctx: Context, window: JQuery<Element>, de
   if(details.data.flags?.syrinscape === undefined) {
     return;
   }
-  let windowContent = window.find('.window-content form');
-  windowContent.empty();
+  const windowContent = window.find('.window-content');
+  windowContent.attr('style', 'padding: 0;');
+  let form = windowContent.find('form');
+  form.empty();
 
   let component = new PlaylistConfigComponent({
-      target: windowContent.get(0)!,
+      target: form.get(0)!,
       props: {
         name: details.data.name,
         sorting: details.data.sorting,
@@ -18,5 +20,5 @@ export async function onPlaylistConfig(ctx: Context, window: JQuery<Element>, de
 			context: ctx.map()
   });
 
-  ctx.utils.trace('on Playlist config', { details, window, windowContent, component });
+  ctx.utils.trace('on Playlist config', { details, window, windowContent: form, component });
 }
