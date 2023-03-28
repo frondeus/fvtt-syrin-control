@@ -21,7 +21,7 @@ class SyrinAmbientSound extends AmbientSound {
 		
 		this.syrinFlags = (data as any).flags?.syrinscape;
 
-		console.log('Creating an ambient sound', { data, syrinFlags: this.syrinFlags });
+		this.ctx.utils.trace('Creating an ambient sound', { data, syrinFlags: this.syrinFlags });
 	}
 
 	override _createSound(): null {

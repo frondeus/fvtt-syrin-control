@@ -99,11 +99,25 @@ export class Stores {
 		);
 
 		this.currentlyPlaying = deduped_readable(
-			derived([this.nextMood, this.soundsets], ([nextMood, soundsets], set) => {
-				// utils.trace('Derived Store | currently playing', { nextMood, nextSoundset, soundsets });
-				if (nextMood === undefined) {
-					set(undefined);
-					return;
+			derived(
+				[this.nextMood, this.soundsets],
+				([nextMood, soundsets], set) => {
+					// utils.trace('Derived Store | currently playing', { nextMood, nextSoundset, soundsets });
+					if (nextMood === undefined) {
+						set(undefined);
+						return;
+					}
+
+					this.api.soundsetIdForMood(nextMood)
+						.then(nextSoundset => {
+							if (nextSoundset !== undefined) {
+								this.hydrateSoundsetInner(nextSoundset, soundsets).then((soundset) => {
+									const mood = soundset.moods[nextMood];
+									set({ soundset, mood });
+								});
+							}
+						});
+
 				}
 
 				console.warn('nextMood', { nextMood });
@@ -254,7 +268,6 @@ export class ElementsAppStore {
 	}
 
 	removeTab(idx: number) {
-		// console.trace("SyrinControl | Stores | removeTab", { idx});
 		if (this.active === idx) {
 			this.active -= 1;
 		}
@@ -311,7 +324,6 @@ export function deduped_readable<T>(other: Readable<T>): Readable<T> {
 	const subscribe = (run: Subscriber<T>, invalidate?: Invalidator<T> | undefined): Unsubscriber => {
 		let prev: { value: T } | undefined = undefined;
 		return other.subscribe((t) => {
-			// console.warn("SyrinStore | DEDUP", { prev, t });
 			if (prev !== undefined && _.isEqual(t, prev.value)) {
 				return;
 			}

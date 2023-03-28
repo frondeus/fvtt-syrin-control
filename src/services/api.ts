@@ -57,7 +57,6 @@ export class Api {
 		// this.utils.trace('API | Online Soundsets | soundsets = ', soundsets);
 		return soundsets
 			.map((soundset) => {
-				console.log(soundset);
 				return {
 					pid: soundset.id,
 					id: soundset.uuid,
