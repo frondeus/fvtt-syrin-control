@@ -12,6 +12,7 @@
 		"dev": "npx vite serve --https",
 		"check": "svelte-check --tsconfig ./tsconfig.json  --ignore ./libs/* --watch",
 		"format": "prettier --write --plugin-search-dir=. .",
+		"format:check": "prettier --plugin-search-dir=. --check .",
 		"test": "jest"
 	},
 	"devDependencies": {
