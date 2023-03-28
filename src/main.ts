@@ -124,7 +124,7 @@ Hooks.once('init', function () {
 		// Monkeypatching the drop data method
 		// Because flags are not passed into the ambient sound
 		async function onDropData(event: any, data: any) {
-			const playlistSound = await PlaylistSound.implementation.fromDropData(data);
+			const playlistSound = await (PlaylistSound.implementation as any).fromDropData(data);
 	    if ( !playlistSound ) return false;
 
 	    // Get the world-transformed drop position.

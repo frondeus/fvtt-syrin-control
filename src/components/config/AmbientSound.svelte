@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Context from '@/services/context';
   import type {SyrinAmbientSoundFlags} from '@/sounds';
+  import type {Soundsets} from '@/models/store';
 
 	// Context
 	const ctx = Context();
@@ -17,15 +18,15 @@
   export let flags: SyrinAmbientSoundFlags;
   export let create: boolean;
   let soundsets = ctx.stores.soundsets;
-  let soundsetName;
-  let ambientName;
-  let style;
+  let soundsetName: string = "...";
+  let ambientName: string = "...";
+  let style = "";
   let class_ = "inner";
 
-  const reactiveAmbientSoundName = async (flags, soundsets: Soundsets) => {
+  const reactiveAmbientSoundName = async (flags: SyrinAmbientSoundFlags, soundsets: Soundsets) => {
     if (flags.type === "mood") {
       const soundset = await ctx.stores.hydrateSoundsetInner(
-        await ctx.api.soundsetIdForMood(flags.mood), 
+        await ctx.api.soundsetIdForMood(Number(flags.mood)) ?? "", 
         soundsets
       );
 
@@ -49,11 +50,11 @@
   </p>
 
   <div class="form-group">
-      <label>{ctx.game.localize("config.soundset")}</label>
+      <label for="">{ctx.game.localize("config.soundset")}</label>
       <input type="text" disabled value={soundsetName} title={soundsetName}/>
   </div>
   <div class="form-group">
-      <label>
+      <label for="">
         {ctx.game.localize("config." + flags.type)}
       </label>
     <div class="form-fields">
@@ -61,32 +62,32 @@
       </div>
   </div>
   <div class="form-group">
-    <label>{ctx.game.localizeCore("XCoord")} <span class="units">({ctx.game.localizeCore("Pixels")})</span></label>
+    <label for="">{ctx.game.localizeCore("XCoord")} <span class="units">({ctx.game.localizeCore("Pixels")})</span></label>
     <div class="form-fields">
       <input type="number" name="x" step="1" bind:value={x}/>
     </div>
   </div>
   <div class="form-group">
-    <label>{ctx.game.localizeCore("YCoord")} <span class="units">({ctx.game.localizeCore("Pixels")})</span></label>
+    <label for="">{ctx.game.localizeCore("YCoord")} <span class="units">({ctx.game.localizeCore("Pixels")})</span></label>
     <div class="form-fields">
       <input type="number" name="y" step="1" bind:value={y}/>
     </div>
   </div>
   <div class="form-group">
-    <label>{ctx.game.localizeCore("SOUND.Radius")}</label>
+    <label for="">{ctx.game.localizeCore("SOUND.Radius")}</label>
     <div class="form-fields">
       <input type="number" name="radius" step="any" bind:value={radius}/>
     </div>
   </div>
   <div class="form-group">
-    <label>{ctx.game.localizeCore("SOUND.Walls")}</label>
+    <label for="">{ctx.game.localizeCore("SOUND.Walls")}</label>
     <input type="checkbox" name="walls" bind:checked={walls}/>
     <p class="hint">
       {ctx.game.localizeCore("SOUND.WallsHint")}
     </p>
   </div>
   <div class="form-group">
-    <label>{ctx.game.localizeCore("SOUND.DarknessRange")}</label>
+    <label for="">{ctx.game.localizeCore("SOUND.DarknessRange")}</label>
     <div class="form-fields">
       <label for="darkness.min">{ctx.game.localizeCore("Between")}</label>
       <input type="number" name="darkness.min" value={darkness.min} min="0" max="1" step="any" placeholder="0">
@@ -131,7 +132,7 @@
 .inner-invert .notes, .inner-invert .hint, .inner-invert .units {
   color: var(--color-text-light-highlight);
 }
-.inner button, .inner input, .inner select {
+.inner button, .inner input {
   background: url(../ui/parchment.jpg) repeat;
 }
 </style>

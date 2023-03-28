@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Context from '@/services/context';
+  import type { Soundsets } from '@/models/store';
 
 	// Context
 	const ctx = Context();
@@ -9,11 +10,11 @@
   export let sorting: string;
   export let soundsetId: string;
   let soundsets = ctx.stores.soundsets;
-  let soundsetName;
-  let style;
+  let soundsetName = "...";
+  let style = "";
   let class_ = "inner";
 
-  const reactiveSoundsetName = async (soundsetId, soundsets: Soundsets) => {
+  const reactiveSoundsetName = async (soundsetId: string, soundsets: Soundsets) => {
     let soundset = soundsets[soundsetId];
     soundsetName = soundset.name;
     if(soundset.artworkUrl !== undefined) {
@@ -28,15 +29,15 @@
 <div class={class_} style={style}>
   <div>
   <div class="form-group">
-    <label>{ctx.game.localizeCore("PLAYLIST.Name")}</label>
+    <label for="">{ctx.game.localizeCore("PLAYLIST.Name")}</label>
     <input type="text" name="name" placeholder={ctx.game.localizeCore("PLAYLIST.Name")} bind:value={name}/>
   </div>
   <div class="form-group">
-      <label>{ctx.game.localize("config.soundset")}</label>
+      <label for="">{ctx.game.localize("config.soundset")}</label>
       <input type="text" disabled value={soundsetName} title={soundsetName}/>
   </div>
   <div class="form-group">
-    <label>{ctx.game.localizeCore("PLAYLIST.SortMode")}</label>
+    <label for="">{ctx.game.localizeCore("PLAYLIST.SortMode")}</label>
     <select name="sorting" bind:value={sorting}>
       <option value="a">{ctx.game.localizeCore("PLAYLIST.SortAlphabetical")}</option>
       <option value="m">{ctx.game.localizeCore("PLAYLIST.SortManual")}</option>

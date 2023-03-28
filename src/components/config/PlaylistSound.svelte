@@ -1,21 +1,22 @@
 <script lang="ts">
 	import Context from '@/services/context';
+  import {Soundsets} from '@/models/store';
 
 	// Context
 	const ctx = Context();
 
   // Params & State
   export let name: string;
-  export let moodId: string;
+  export let moodId: number;
   let soundsets = ctx.stores.soundsets;
-  let soundsetName;
-  let moodName;
-  let style;
+  let soundsetName: string = "...";
+  let moodName: string = "...";
+  let style = "";
   let class_ = "inner";
 
-  const reactiveSoundsetName = async (moodId, soundsets: Soundsets) => {
+  const reactiveSoundsetName = async (moodId: number, soundsets: Soundsets) => {
       const soundset = await ctx.stores.hydrateSoundsetInner(
-        await ctx.api.soundsetIdForMood(moodId), 
+        await ctx.api.soundsetIdForMood(moodId)??"", 
         soundsets
       );
 
@@ -34,15 +35,15 @@
 <div class={class_} style={style}>
   <div>
     <div class="form-group">
-        <label>{ctx.game.localizeCore("PLAYLIST.SoundName")}</label>
-        <input type="text" name="name" placeholder={ctx.game.localizeCore("PLAYLIST.SoundName")} bind:value={name} required=""/>
+        <label for="">{ctx.game.localizeCore("PLAYLIST.SoundName")}</label>
+          <input type="text" name="name" placeholder={ctx.game.localizeCore("PLAYLIST.SoundName")} bind:value={name} required/>
     </div>
     <div class="form-group">
-        <label>{ctx.game.localize("config.soundset")}</label>
+        <label for="">{ctx.game.localize("config.soundset")}</label>
         <input type="text" disabled value={soundsetName} title={soundsetName}/>
     </div>
     <div class="form-group">
-        <label>{ctx.game.localize("config.mood")}</label>
+        <label for="">{ctx.game.localize("config.mood")}</label>
         <input type="text" disabled value={moodName} title={moodName}/>
     </div>
   </div>
@@ -70,7 +71,7 @@
   color: var(--color-text-light-highlight);
   background-size: cover;
 }
-.inner button, .inner input, .inner select {
+.inner button, .inner input {
   background: url(../ui/parchment.jpg) repeat;
 }
 </style>
