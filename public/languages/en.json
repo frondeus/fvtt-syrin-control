@@ -7,6 +7,11 @@
 				"text": "SyrinControl requires the socketlib module to work properly. Please activate the socketlib module in this world."
 			}
 		},
+		"migration": {
+			"ambientSound": {
+				"path": "Migrating Ambient Sound {id}"
+			}
+		},
 		"settings": {
 			"authToken": {
 				"name": "Auth Token",

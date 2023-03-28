@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Context from '@/services/context';
-	import { Soundsets } from '@/models/store';
+	import type { Soundsets } from '@/models/store';
 
 	// Context
 	const ctx = Context();

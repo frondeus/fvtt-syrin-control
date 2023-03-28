@@ -7,6 +7,11 @@
 				"text": "SyrinControl wymaga do pracy modułu socketlib. Proszę aktywować moduł socketlib w tym świecie."
 			}
 		},
+		"migration": {
+			"ambientSound": {
+				"path": "Migrowanie dźwięku tła {id}"
+			}
+		},
 		"settings": {
 			"authToken": {
 				"name": "Token Autoryzacyjny",
