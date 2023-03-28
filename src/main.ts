@@ -16,6 +16,7 @@ import { setupSocket } from './socket';
 import { onPlaylistConfig } from './ui/playlistConfig';
 import { onAmbientSoundConfig } from './ui/ambientSoundConfig';
 import { onPlaylistSoundConfig } from './ui/playlistSoundConfig';
+import { migrations } from './migrations';
 
 Hooks.once('init', function () {
 	console.log('SyrinControl | Initializing...');
@@ -157,6 +158,10 @@ Hooks.once('init', function () {
 		if (!ctx.game.isGM()) {
 			ctx.utils.info('Ready but not a GM...');
 			return;
+		}
+		ctx.utils.info('Migrating...');
+		for (const migration of migrations) {
+			migration(ctx);
 		}
 		ctx.utils.info('Ready...');
 	});

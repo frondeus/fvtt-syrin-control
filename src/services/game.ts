@@ -60,6 +60,7 @@ export interface FVTTGame {
 	): Promise<StoredDocument<PlaylistSound> | undefined>;
 
 	getPlaylists(): Playlists | undefined;
+	getAmbientSounds(): AmbientSoundDocument[] | undefined;
 
 	getPlayerName(): string;
 	callHookAll(name: string, ...args: any[]): void;
@@ -115,6 +116,10 @@ export class FVTTGameImpl implements FVTTGame {
 
 	getPlaylists(): Playlists | undefined {
 		return this.game.playlists;
+	}
+
+	getAmbientSounds(): AmbientSoundDocument[] | undefined {
+		return this.game.scenes?.contents.flatMap((scene) => scene.sounds.contents);
 	}
 
 	callHookAll(name: string, ...args: any[]): void {
