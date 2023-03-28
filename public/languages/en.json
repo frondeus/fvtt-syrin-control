@@ -10,6 +10,9 @@
 		"migration": {
 			"ambientSound": {
 				"path": "Migrating Ambient Sound {id}"
+			},
+			"playlistSound": {
+				"path": "Migrating Playlist Sound \"{name}\""
 			}
 		},
 		"settings": {

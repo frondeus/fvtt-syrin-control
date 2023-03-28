@@ -10,6 +10,9 @@
 		"migration": {
 			"ambientSound": {
 				"path": "Migrowanie dźwięku tła {id}"
+			},
+			"playlistSound": {
+				"path": "Migrowanie dźwięku playlisty \"{name}\""
 			}
 		},
 		"settings": {
