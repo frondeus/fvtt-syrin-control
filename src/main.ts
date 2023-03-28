@@ -108,7 +108,7 @@ Hooks.once('init', function () {
 	Hooks.on('renderAmbientSoundConfig', async (_: any, node: JQuery<Element>, details: any) => {
 		await onAmbientSoundConfig(ctx, node, details);
 	});
-	
+
 	Hooks.on('closeSettingsConfig', async () => {
 		if (!ctx.game.isGM()) {
 			return;
@@ -125,23 +125,26 @@ Hooks.once('init', function () {
 		// Because flags are not passed into the ambient sound
 		async function onDropData(event: any, data: any) {
 			const playlistSound = await (PlaylistSound.implementation as any).fromDropData(data);
-	    if ( !playlistSound ) return false;
+			if (!playlistSound) return false;
 
-	    // Get the world-transformed drop position.
-	    const coords = canvas.sounds._canvasCoordinatesFromDrop(event);
-	    if ( !coords ) return false;
-	    const soundData = {
-	      path: playlistSound.path,
-	      volume: playlistSound.volume,
+			// Get the world-transformed drop position.
+			const coords = canvas.sounds._canvasCoordinatesFromDrop(event);
+			if (!coords) return false;
+			const soundData = {
+				path: playlistSound.path,
+				volume: playlistSound.volume,
 				flags: playlistSound.flags, // <- This is added by the module, the rest is just copy-paste from foundry.js
-	      x: coords[0],
-	      y: coords[1],
-	      radius: canvas.dimensions.distance * 2
-	    };
-	    return canvas.sounds._createPreview(soundData, {top: event.clientY - 20, left: event.clientX + 40});
+				x: coords[0],
+				y: coords[1],
+				radius: canvas.dimensions.distance * 2
+			};
+			return canvas.sounds._createPreview(soundData, {
+				top: event.clientY - 20,
+				left: event.clientX + 40
+			});
 		}
 		canvas.sounds._onDropData = onDropData;
-	
+
 		ctx.stores.nextMood.subscribe((next) => {
 			ctx.utils.trace('Subscribe | next mood: ', next);
 			if (next !== undefined) {

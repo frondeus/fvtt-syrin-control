@@ -99,31 +99,14 @@ export class Stores {
 		);
 
 		this.currentlyPlaying = deduped_readable(
-			derived(
-				[this.nextMood, this.soundsets],
-				([nextMood, soundsets], set) => {
-					// utils.trace('Derived Store | currently playing', { nextMood, nextSoundset, soundsets });
-					if (nextMood === undefined) {
-						set(undefined);
-						return;
-					}
-
-					this.api.soundsetIdForMood(nextMood)
-						.then(nextSoundset => {
-							if (nextSoundset !== undefined) {
-								this.hydrateSoundsetInner(nextSoundset, soundsets).then((soundset) => {
-									const mood = soundset.moods[nextMood];
-									set({ soundset, mood });
-								});
-							}
-						});
-
+			derived([this.nextMood, this.soundsets], ([nextMood, soundsets], set) => {
+				// utils.trace('Derived Store | currently playing', { nextMood, nextSoundset, soundsets });
+				if (nextMood === undefined) {
+					set(undefined);
+					return;
 				}
 
-				console.warn('nextMood', { nextMood });
-
 				this.api.soundsetIdForMood(nextMood).then((nextSoundset) => {
-					console.warn('nextSoundset', { nextSoundset, soundsets });
 					if (nextSoundset !== undefined) {
 						this.hydrateSoundsetInner(nextSoundset, soundsets).then((soundset) => {
 							const mood = soundset.moods[nextMood];

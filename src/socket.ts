@@ -27,11 +27,11 @@ export function setupSocket(ctx: Context): Promise<SocketlibSocket> {
 						return ctx.api.playerJoined(name);
 					});
 					ctx.game.socket?.register(SocketCalls.PlayAmbient, (id, sound) => {
-						ctx.utils.trace("Socket got play ambient", { id, sound });
+						ctx.utils.trace('Socket got play ambient', { id, sound });
 						ctx.syrin.playAmbientSound(id, sound);
 					});
 					ctx.game.socket?.register(SocketCalls.StopAmbient, (id, userId) => {
-						ctx.utils.trace("Socket got stop ambient", { id, userId });
+						ctx.utils.trace('Socket got stop ambient', { id, userId });
 						ctx.syrin.stopAmbientSound(id, userId);
 					});
 					ctx.game.socket?.register(SocketCalls.PlayElement, async (id) => {
@@ -41,7 +41,7 @@ export function setupSocket(ctx: Context): Promise<SocketlibSocket> {
 						return await ctx.syrin.stopElement(id);
 					});
 					ctx.game.socket?.register(SocketCalls.PlayMood, (id) => {
-						ctx.utils.trace("Socket got play mood ", { id});
+						ctx.utils.trace('Socket got play mood ', { id });
 						return ctx.syrin.setMood(id);
 					});
 					ctx.game.socket?.register(SocketCalls.StopAll, () => {

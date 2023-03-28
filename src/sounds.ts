@@ -17,8 +17,6 @@ class SyrinAmbientSound extends AmbientSound {
 		}
 		this.ctx = (ctx as any).ctx;
 
-			
-		
 		this.syrinFlags = (data as any).flags?.syrinscape;
 
 		this.ctx.utils.trace('Creating an ambient sound', { data, syrinFlags: this.syrinFlags });
