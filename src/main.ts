@@ -54,7 +54,6 @@ Hooks.once('init', function () {
 		});
 	}
 
-
 	Hooks.on('renderPlaylistDirectory', async (_: any, html: JQuery<Element>) => {
 		await onPlaylistTab(ctx, html);
 	});

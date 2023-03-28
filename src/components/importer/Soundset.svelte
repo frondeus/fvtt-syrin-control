@@ -98,7 +98,13 @@
 		/>
 	</td>
 	<td class="name-cell">
-		<span role="button" data-test="syrin-soundset-name" title={soundsetButtonTitle} on:click={onExpand} on:keypress={onExpand}>
+		<span
+			role="button"
+			data-test="syrin-soundset-name"
+			title={soundsetButtonTitle}
+			on:click={onExpand}
+			on:keypress={onExpand}
+		>
 			{item.name}
 			{#if loading}
 				<i class="fas fa-refresh fa-spin" />

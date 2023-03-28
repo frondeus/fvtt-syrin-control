@@ -16,7 +16,6 @@ export enum SyrinComponent {
 
 @singleton()
 export class Syrin {
-
 	constructor(
 		@inject('FVTTGame')
 		private readonly game: FVTTGame,

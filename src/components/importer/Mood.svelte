@@ -43,15 +43,14 @@
 </script>
 
 <tr class="mood" data-test="syrin-mood-row">
-	<td class="empty-cell">
-	</td>
+	<td class="empty-cell" />
 	<td class="main-cell">
-			<input
-				type="checkbox"
-				data-test="syrin-mood-checkbox"
-				on:click={onSelectMood}
-				checked={filteredSelectedSoundsets.has(soundset.id + ';' + mood.id)}
-			/>
+		<input
+			type="checkbox"
+			data-test="syrin-mood-checkbox"
+			on:click={onSelectMood}
+			checked={filteredSelectedSoundsets.has(soundset.id + ';' + mood.id)}
+		/>
 		<span class="name" data-test="syrin-mood-name">
 			{mood.name}
 		</span>

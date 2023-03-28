@@ -142,9 +142,8 @@ export class FVTTGameImpl implements FVTTGame {
 	}
 
 	setSettingToDefault<T>(name: string): T {
-		const def = 
-			(this.game.settings.settings.get(MODULE + "." + name) as any).default;
-		console.warn("Set setting to default", {def});
+		const def = (this.game.settings.settings.get(MODULE + '.' + name) as any).default;
+		console.warn('Set setting to default', { def });
 		this.game.settings.set(MODULE, name, def);
 		return def;
 	}

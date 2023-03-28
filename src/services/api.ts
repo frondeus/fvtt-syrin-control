@@ -23,7 +23,7 @@ export class Api {
 		const mood = await this.raw.getMood(moodId);
 		return mood?.soundset_uuid;
 	}
-	
+
 	async onlineMoods(soundsetId: string): Promise<Moods> {
 		// this.utils.trace('API | Online Moods', { soundsetId });
 
@@ -72,7 +72,6 @@ export class Api {
 	}
 
 	async onlineGlobalElements(): Promise<Element[]> {
-
 		// this.utils.trace('API | Online Global Elements');
 
 		const elements = await this.raw.getGlobalElements();
@@ -92,7 +91,6 @@ export class Api {
 	}
 
 	async onlineElements(soundsetId: string): Promise<Element[]> {
-
 		// this.utils.trace('API | Online Elements', { soundsetId });
 
 		const elements = await this.raw.getElements(soundsetId);

@@ -107,7 +107,10 @@ class SyrinPlaylistSound extends PlaylistSound {
 			const flagsMoodId = this.syrinFlags.mood;
 			if (this.path === './syrinscape-not-a-real-path.wav') {
 				setTimeout(() => {
-					this.update({ _id: this.id, path: `syrinscape:${this.syrinFlags.type}:${flagsMoodId}.wav` });
+					this.update({
+						_id: this.id,
+						path: `syrinscape:${this.syrinFlags.type}:${flagsMoodId}.wav`
+					});
 				}, 10);
 			}
 			this.unsubsriber = this.ctx.stores.currentlyPlaying.subscribe((playing) => {

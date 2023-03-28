@@ -16,13 +16,13 @@
 	let isSelectedAll: boolean = false;
 	let isAnySelected: boolean = false;
 	let loading: boolean = false;
-	let faSpin: string = "";
+	let faSpin: string = '';
 
 	if (Object.values($soundsets).length === 0) {
 		onRefresh();
 	}
 	const reactiveFaSpin = (loading: boolean) => {
-		faSpin = loading ? "fa-spin": "";
+		faSpin = loading ? 'fa-spin' : '';
 	};
 
 	const reactiveFilterSoundsetList = (importerApp: ImporterAppStore) => {
@@ -137,7 +137,7 @@
 	async function onRefresh() {
 		loading = true;
 		const [soundsets, el] = await Promise.all([
-			ctx.api.onlineSoundsets(), 
+			ctx.api.onlineSoundsets(),
 			ctx.api.onlineGlobalElements()
 		]);
 		ctx.stores.globalElements.set(el);
@@ -164,36 +164,53 @@
 			bind:value={$importerApp.filterSoundset}
 		/>
 		<label for="caseSensitive"> {ctx.game.localize('importer.caseSensitive')} </label>
-		<input name="caseSensitive" data-test="syrin-case-sensitive" type="checkbox" bind:checked={$importerApp.filterCaseSensitive} />
-		<span role="button" data-test="syrin-importer-refresh" on:click={onRefresh} on:keypress={onRefresh} title={ctx.game.localize('importer.refresh')}>
-			<i class={"fas fa-refresh " + faSpin} />
-		</span> 
+		<input
+			name="caseSensitive"
+			data-test="syrin-case-sensitive"
+			type="checkbox"
+			bind:checked={$importerApp.filterCaseSensitive}
+		/>
+		<span
+			role="button"
+			data-test="syrin-importer-refresh"
+			on:click={onRefresh}
+			on:keypress={onRefresh}
+			title={ctx.game.localize('importer.refresh')}
+		>
+			<i class={'fas fa-refresh ' + faSpin} />
+		</span>
 	</div>
 	<div class="main">
 		<table class="list" data-test="syrin-soundsets-list">
 			<thead>
-			<tr>
-				<th class="checkbox-cell-header">
-					<input type="checkbox" data-test="syrin-select-all" checked={isSelectedAll} on:click={onSelectAll} />
-				</th>
-				<th class="name-cell-header">{ctx.game.localize('importer.soundsets')}</th>
-				<th class="actions-cell-header" />
-			</tr>
+				<tr>
+					<th class="checkbox-cell-header">
+						<input
+							type="checkbox"
+							data-test="syrin-select-all"
+							checked={isSelectedAll}
+							on:click={onSelectAll}
+						/>
+					</th>
+					<th class="name-cell-header">{ctx.game.localize('importer.soundsets')}</th>
+					<th class="actions-cell-header" />
+				</tr>
 			</thead>
 			<tbody>
-			{#each soundsetsList as item}
-				<SoundsetComponent {item} {filteredSelectedSoundsets} on:expand={onExpand(item)} />
-			{/each}
+				{#each soundsetsList as item}
+					<SoundsetComponent {item} {filteredSelectedSoundsets} on:expand={onExpand(item)} />
+				{/each}
 			</tbody>
 		</table>
 	</div>
 	{#if isAnySelected}
 		<div class="footer">
-			<button 
-				type="submit" 
+			<button
+				type="submit"
 				data-test="syrin-import-playlists-btn"
-				title={ctx.game.localize('importer.importPlaylists')} 
-				on:click={onCreatePlaylist}>
+				title={ctx.game.localize('importer.importPlaylists')}
+				on:click={onCreatePlaylist}
+			>
 				{ctx.game.localize('importer.importPlaylists')}
 			</button>
 		</div>

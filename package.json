@@ -11,7 +11,7 @@
 		"build": "npx vite build",
 		"dev": "npx vite serve --https",
 		"check": "svelte-check --tsconfig ./tsconfig.json  --ignore ./libs/* --watch",
-		"format": "prettier --ignore-path .gitignore --ignore-path libs/ --write --plugin-search-dir=. .",
+		"format": "prettier --write --plugin-search-dir=. .",
 		"test": "jest"
 	},
 	"devDependencies": {

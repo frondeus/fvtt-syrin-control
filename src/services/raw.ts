@@ -80,7 +80,7 @@ export class RawApiImpl implements RawApi {
 									game.getPlayerName()
 								);
 								if (newSessionId === null || newSessionId === undefined) {
-									throw new String("Session not found");
+									throw new String('Session not found');
 								}
 								syrinscape.config.sessionId = newSessionId;
 								break;
@@ -211,7 +211,6 @@ export class RawApiImpl implements RawApi {
 		return await this.apiCall('getMood', `moods/${moodId}/`, () => undefined);
 	}
 
-
 	async getMoods(soundsetId: string): Promise<ApiMood[]> {
 		return await this.apiCall('getMoods', `moods/?soundset__uuid=${soundsetId}`, () => []);
 	}
@@ -236,10 +235,13 @@ export class RawApiImpl implements RawApi {
 		const address = utils.getAddress();
 		const headers = new Headers();
 		headers.append('authorization', 'token ' + authToken);
-		
+
 		return await fetch(`${address}/${url}`, {
 			headers
-		}).then(this.handleErr).then((res) => res.json()) .catch(this.catchErr(name));
+		})
+			.then(this.handleErr)
+			.then((res) => res.json())
+			.catch(this.catchErr(name));
 	}
 
 	async apiCallFF(name: string, url: string): Promise<void> {
@@ -250,10 +252,8 @@ export class RawApiImpl implements RawApi {
 		const address = utils.getAddress();
 		const headers = new Headers();
 		headers.append('authorization', 'token ' + authToken);
-		
 
-		await fetch(`${address}/${url}`, { headers })
-		.catch(this.catchErr(name));
+		await fetch(`${address}/${url}`, { headers }).catch(this.catchErr(name));
 	}
 
 	catchErr<T>(api: string): (e: any) => T[] {

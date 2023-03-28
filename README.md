@@ -4,10 +4,10 @@
 
 # SyrinControl - provides integration with Syrinscape Online
 
-[![SyrinControl 0.4 walk-through](http://img.youtube.com/vi/nHGWU5m5atU/0.jpg)](https://youtu.be/nHGWU5m5atU "SyrinControl 0.4")
-
+[![SyrinControl 0.4 walk-through](http://img.youtube.com/vi/nHGWU5m5atU/0.jpg)](https://youtu.be/nHGWU5m5atU 'SyrinControl 0.4')
 
 ### Compatibility with V10
+
 This release brings support for Foundry V10, but at the same time, it no longer supports older versions of Foundry.
 
 ## Useful links:
@@ -17,15 +17,17 @@ This release brings support for Foundry V10, but at the same time, it no longer 
 - [How to Use](https://github.com/frondeus/fvtt-syrin-control/wiki/How-To-Use)
 
 ## Features
-* New Syrinscape Online viewer
-* A possibility to import playlists
-* Audio & Volume Control
-* Ambient sounds (experimental)
-* Translations
-* Players can trigger moods  & one-shots
-* Macro API is extended
+
+- New Syrinscape Online viewer
+- A possibility to import playlists
+- Audio & Volume Control
+- Ambient sounds (experimental)
+- Translations
+- Players can trigger moods & one-shots
+- Macro API is extended
 
 ### New Syrinscape Online viewer
+
 In the Audio Playlist tab, a new button opens the Syrinscape Online browser.
 
 ![image](https://user-images.githubusercontent.com/1165825/227784496-01928ca4-91fa-4666-9b2a-9a052c8d5211.png)
@@ -35,6 +37,7 @@ It opens a new window with all your soundsets.
 ![image](https://user-images.githubusercontent.com/1165825/227784543-7306abd8-8464-42b7-b486-f52d976be24e.png)
 
 ### A possibility to import playlists
+
 The new browser allows previewing moods and bulk-create playlists.
 
 ![image](https://user-images.githubusercontent.com/1165825/227784593-ba67ab24-d682-408d-87f5-416713cec732.png)
@@ -62,14 +65,17 @@ now SyrinControl can well... control, detect and trigger moods (for now only moo
 ![image](https://user-images.githubusercontent.com/1165825/213864068-2af853ae-1e02-495a-81d8-c41d66b5500c.png)
 
 ### Translations
+
 The English text is no longer hard coded, internationality, yay!
 
 ![image](https://user-images.githubusercontent.com/1165825/213864104-af3eaeee-f764-489a-879f-26f880573397.png)
 
-### Players can trigger moods  & one-shots
+### Players can trigger moods & one-shots
+
 A GM has to prepare a macro and permit them to run it. It just works (TM).
 
 ### Scene - Mood integration
+
 ![image](https://user-images.githubusercontent.com/1165825/186473709-a3507547-1380-45d0-b4ad-e9139372dae4.png)
 
 ### Macro API is extended
@@ -85,5 +91,3 @@ game.syrinscape.soundSources();
 game.syrinscape.onlineElements();
 game.syrinscape.onlineGlobalElements();
 ```
-
-

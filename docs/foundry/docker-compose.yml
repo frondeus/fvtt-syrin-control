@@ -1,4 +1,4 @@
-version: "3.3"
+version: '3.3'
 services:
   foundry:
     image: foundry_dev:v10
@@ -7,9 +7,9 @@ services:
       dockerfile: Dockerfile
       args:
         version: v10
-    command: "--adminKey=1 --noupdate --world=e2e"
+    command: '--adminKey=1 --noupdate --world=e2e'
     ports:
-      - "3000:30000"
+      - '3000:30000'
     volumes:
       - data:/home/foundry/data
       - ../../dist:/home/foundry/fvtt-syrin-control

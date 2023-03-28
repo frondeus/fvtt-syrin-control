@@ -3,7 +3,7 @@
 
 	import type { PlaylistItem } from '@/models';
 	import Toggable from './Toggable.svelte';
-  import Context from '@/services/context';
+	import Context from '@/services/context';
 
 	// Context
 	const ctx = Context();
