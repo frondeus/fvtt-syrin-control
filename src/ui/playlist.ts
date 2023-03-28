@@ -39,4 +39,22 @@ export async function onPlaylistTab(ctx: Context, $tab: JQuery<Element>) {
 	});
 
 	buttonsTarget.append(importButton);
+
+	const playlists = ctx.game.getPlaylists();
+
+	for (let item of target.find('.directory-item')) {
+		const playlist = playlists?.get(item.getAttribute("data-document-id")!) as any;
+		if (playlist?.flags?.syrinscape === undefined) {
+			continue;
+		}
+
+		ctx.utils.trace("Item", { item, playlist });
+		const actionsToRemove = [
+			"playlist-mode", "playlist-play", "playlist-backward", "playlist-forward",
+			"sound-create", "sound-repeat"
+		];
+		for (let action of actionsToRemove) {
+			$(item).find(`[data-action="${action}"]`).remove();
+		}
+	}
 }
