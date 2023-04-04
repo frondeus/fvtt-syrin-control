@@ -1,5 +1,5 @@
 import { Context } from '@/services/context';
-import AmbientSoundConfigComponent from '@/components/config/AmbientSound.svelte';
+import AmbientSoundConfigComponent from '@/components/config/ambient-sound/index.svelte';
 
 export async function onAmbientSoundConfig(ctx: Context, window: JQuery<Element>, details: any) {
 	if (details.data.flags?.syrinscape === undefined) {

@@ -19,7 +19,8 @@ const config: Config = {
 	modulePathIgnorePatterns: ['<rootDir>/dypress'],
 	moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
 		prefix: '<rootDir>' + compilerOptions.baseUrl
-	})
+	}),
+	setupFilesAfterEnv: ['<rootDir>/jest.setup.ts']
 };
 
 export default config;

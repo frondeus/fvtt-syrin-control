@@ -3,6 +3,9 @@ import { injectable } from 'tsyringe';
 import { MODULE } from './utils';
 import type { Soundset, Mood, Element, Soundsets } from '@/models';
 import { socket } from '@/socket';
+import { SvelteDialog } from '@/ui/dialog';
+import { Context } from './context';
+import { SvelteDialogImpl } from '@/ui/dialog-impl';
 
 export interface PlayMoodParams {
 	soundset: Soundset | undefined;
@@ -64,6 +67,13 @@ export interface FVTTGame {
 
 	getPlayerName(): string;
 	callHookAll(name: string, ...args: any[]): void;
+
+	createDialog<T>(
+		ctx: Context,
+		component: ConstructorOf<T>,
+		data: Dialog.Data,
+		dialog: Partial<DialogOptions>
+	): SvelteDialog;
 }
 
 @injectable()
@@ -72,6 +82,15 @@ export class FVTTGameImpl implements FVTTGame {
 
 	constructor() {
 		this.game = getGame();
+	}
+
+	createDialog<T>(
+		ctx: Context,
+		component: ConstructorOf<T>,
+		data: Dialog.Data,
+		dialog: Partial<DialogOptions> = {}
+	) {
+		return new SvelteDialogImpl<T>(ctx, component, data, dialog);
 	}
 
 	get socket(): SocketlibSocket | undefined {

@@ -1,5 +1,5 @@
 import { Context } from '@/services/context';
-import PlaylistSoundConfigComponent from '@/components/config/PlaylistSound.svelte';
+import PlaylistSoundConfigComponent from '@/components/config/playlist-sound/index.svelte';
 
 export async function onPlaylistSoundConfig(ctx: Context, window: JQuery<Element>, details: any) {
 	if (details.data.flags?.syrinscape === undefined) {

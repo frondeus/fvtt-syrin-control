@@ -16,6 +16,9 @@
 
 	const reactiveSoundsetName = async (soundsetId: string, soundsets: Soundsets) => {
 		let soundset = soundsets[soundsetId];
+		if (soundset === undefined) {
+			return;
+		}
 		soundsetName = soundset.name;
 		if (soundset.artworkUrl !== undefined) {
 			style = `background-image: url('${soundset.artworkUrl}');`;
