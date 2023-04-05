@@ -4,6 +4,15 @@ import type { Config } from 'jest';
 import { pathsToModuleNameMapper } from 'ts-jest';
 
 const config: Config = {
+	collectCoverageFrom: ['src/**/*'],
+	coverageThreshold: {
+		global: {
+			lines: 90
+		}
+	},
+	moduleFileExtensions: ['js', 'ts', 'svelte'],
+	setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+	testEnvironment: 'jsdom',
 	transform: {
 		'^.+\\.svelte$': [
 			'svelte-jester',
@@ -14,13 +23,10 @@ const config: Config = {
 		'^.+\\.ts$': 'ts-jest',
 		'^.+\\.js$': 'babel-jest'
 	},
-	moduleFileExtensions: ['js', 'ts', 'svelte'],
-	testEnvironment: 'jsdom',
-	modulePathIgnorePatterns: ['<rootDir>/dypress'],
+	modulePathIgnorePatterns: ['<rootDir>/cypress'],
 	moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
 		prefix: '<rootDir>' + compilerOptions.baseUrl
-	}),
-	setupFilesAfterEnv: ['<rootDir>/jest.setup.ts']
+	})
 };
 
 export default config;
