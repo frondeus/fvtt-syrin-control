@@ -123,8 +123,10 @@ export class Stores {
 				this.api.soundsetIdForMood(nextMood).then((nextSoundset) => {
 					if (nextSoundset !== undefined) {
 						this.hydrateSoundsetInner(nextSoundset, soundsets).then((soundset) => {
-							const mood = soundset.moods[nextMood];
-							set({ soundset, mood });
+							if (soundset !== undefined) {
+								const mood = soundset.moods[nextMood];
+								set({ soundset, mood });
+							}
 						});
 					}
 				});
@@ -154,11 +156,19 @@ export class Stores {
 		return get(this.soundsets);
 	}
 
-	async hydrateSoundsetInner(soundsetId: string, soundsets: Soundsets): Promise<Soundset> {
+	async hydrateSoundsetInner(
+		soundsetId: string,
+		soundsets: Soundsets
+	): Promise<Soundset | undefined> {
 		const moodsPromise = this.getMoodsInner(soundsetId, soundsets);
 		const elementsPromise = this.getSoundsetElementsInner(soundsetId, soundsets);
 		const [moods, elements] = await Promise.all([moodsPromise, elementsPromise]);
 		let result: Soundset = soundsets[soundsetId];
+
+		if (result === undefined) {
+			return undefined;
+		}
+
 		let changed = false;
 
 		if (Object.keys(result.moods).length === 0) {

@@ -8,8 +8,11 @@ describe('settings', () => {
 		cy.get('.active').should('contain.text', 'Auth Token');
 	});
 
-	// it('should have api key hidden', () => {
-	//   cy.get('.active > :nth-child(2) > .form-fields > input')
-	//   .should('have.attr', 'type', 'password');
-	// });
+	it('should have api key hidden', () => {
+		cy.get('.active > :nth-child(2) > .form-fields > input').should(
+			'have.attr',
+			'type',
+			'password'
+		);
+	});
 });

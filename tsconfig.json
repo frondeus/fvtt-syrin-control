@@ -32,8 +32,10 @@
 		"experimentalDecorators": true,
 		"baseUrl": "./src",
 		"paths": {
-			"@/*": ["./*"]
+			"@/*": ["./*"],
+			"@fixtures/*": ["../jest/fixtures/*"]
 		}
 	},
-	"include": ["src/**/*.d.ts", "**/*.ts", "src/**/*.svelte"]
+	"exclude": ["./cypress.config.ts"],
+	"include": ["src/**/*.d.ts", "**/*.ts", "src/**/*.svelte", "./jest.setup.ts"]
 }

@@ -33,6 +33,10 @@
 				soundsets
 			);
 
+			if (soundset === undefined) {
+				return;
+			}
+
 			const mood = soundset.moods[flags.mood];
 			ambientName = mood.name;
 			soundsetName = soundset.name;

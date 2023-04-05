@@ -2,12 +2,12 @@
 
 pushd docs/foundry
 
-docker-compose up -d --remove-orphans
+docker compose up -d --remove-orphans
 
 popd
 
 tmux new-session -s "syrincontrol" \; \
-  send-keys "yarn dev --no-open" C-m \; \
+  send-keys "npm run dev --no-open" C-m \; \
   split-window -v \; \
-  send-keys "yarn run cypress open --e2e -b firefox" C-m \; \
+  send-keys "npx cypress open --e2e -b firefox" C-m \; \
   select-layout tiled;

@@ -19,8 +19,12 @@
 			(await ctx.api.soundsetIdForMood(moodId)) ?? '',
 			soundsets
 		);
+		if (soundset === undefined) {
+			return;
+		}
 
 		const mood = soundset.moods[moodId];
+
 		moodName = mood.name;
 		soundsetName = soundset.name;
 		if (soundset.artworkUrl !== undefined) {
@@ -32,13 +36,14 @@
 	$: reactiveSoundsetName(moodId, $soundsets);
 </script>
 
-<div class={class_} {style}>
+<div class={class_} {style} data-test="syrin-playlist-sound-config">
 	<div>
 		<div class="form-group">
 			<label for="">{ctx.game.localizeCore('PLAYLIST.SoundName')}</label>
 			<input
 				type="text"
 				name="name"
+				data-test="syrin-sound-name"
 				placeholder={ctx.game.localizeCore('PLAYLIST.SoundName')}
 				bind:value={name}
 				required
@@ -46,18 +51,26 @@
 		</div>
 		<div class="form-group">
 			<label for="">{ctx.game.localize('config.soundset')}</label>
-			<input type="text" disabled value={soundsetName} title={soundsetName} />
+			<input
+				type="text"
+				disabled
+				data-test="syrin-soundset-name"
+				value={soundsetName}
+				title={soundsetName}
+			/>
 		</div>
 		<div class="form-group">
 			<label for="">{ctx.game.localize('config.mood')}</label>
-			<input type="text" disabled value={moodName} title={moodName} />
+			<input type="text" disabled data-test="syrin-mood-name" value={moodName} title={moodName} />
 		</div>
 	</div>
 
 	<input type="hidden" name="path" value="syrinscape.wav" />
 
 	<div>
-		{ctx.game.localize('config.controlled', { name: ctx.game.localize('config.playlistSound') })}
+		<div data-test="syrin-controlled">
+			{ctx.game.localize('config.controlled', { name: ctx.game.localize('config.playlistSound') })}
+		</div>
 		<button type="submit">
 			<i class="far fa-save" />
 			{ctx.game.localizeCore('PLAYLIST.SoundUpdate')}

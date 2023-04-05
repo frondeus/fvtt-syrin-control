@@ -29,31 +29,40 @@
 	$: reactiveSoundsetName(soundsetId, $soundsets);
 </script>
 
-<div class={class_} {style}>
+<div class={class_} {style} data-test="syrin-playlist-config">
 	<div>
 		<div class="form-group">
 			<label for="">{ctx.game.localizeCore('PLAYLIST.Name')}</label>
 			<input
 				type="text"
 				name="name"
+				data-test="syrin-playlist-name"
 				placeholder={ctx.game.localizeCore('PLAYLIST.Name')}
 				bind:value={name}
 			/>
 		</div>
 		<div class="form-group">
 			<label for="">{ctx.game.localize('config.soundset')}</label>
-			<input type="text" disabled value={soundsetName} title={soundsetName} />
+			<input
+				type="text"
+				disabled
+				data-test="syrin-soundset-name"
+				value={soundsetName}
+				title={soundsetName}
+			/>
 		</div>
 		<div class="form-group">
 			<label for="">{ctx.game.localizeCore('PLAYLIST.SortMode')}</label>
-			<select name="sorting" bind:value={sorting}>
+			<select name="sorting" data-test="syrin-sort-mode" bind:value={sorting}>
 				<option value="a">{ctx.game.localizeCore('PLAYLIST.SortAlphabetical')}</option>
 				<option value="m">{ctx.game.localizeCore('PLAYLIST.SortManual')}</option>
 			</select>
 		</div>
 	</div>
 	<div>
-		{ctx.game.localize('config.controlled', { name: ctx.game.localize('config.playlist') })}
+		<div data-test="syrin-controlled">
+			{ctx.game.localize('config.controlled', { name: ctx.game.localize('config.playlist') })}
+		</div>
 		<button type="submit">
 			<i class="far fa-save" />
 			{ctx.game.localizeCore('PLAYLIST.Update')}

@@ -13,7 +13,9 @@
 		"check": "svelte-check --tsconfig ./tsconfig.json  --ignore ./libs/* --watch",
 		"format": "prettier --write --plugin-search-dir=. .",
 		"format:check": "prettier --plugin-search-dir=. --check .",
-		"test": "jest"
+		"test": "jest",
+		"test:watch": "npm run test -- --watch",
+		"test:coverage": "npm run test -- --changedSince=next --coverage"
 	},
 	"devDependencies": {
 		"@babel/preset-env": "^7.20.2",
@@ -30,6 +32,7 @@
 		"@types/jest": "^29.2.6",
 		"@types/lodash": "^4.14.191",
 		"@types/papaparse": "^5.3.7",
+		"@types/testing-library__jest-dom": "^5.14.5",
 		"@vitejs/plugin-basic-ssl": "^1.0.1",
 		"babel-jest": "^29.3.1",
 		"cypress": "^12.3.0",

@@ -1,4 +1,6 @@
 import 'reflect-metadata';
+import '@testing-library/jest-dom';
+import { configure } from '@testing-library/svelte';
 
 Object.defineProperty(global, 'Hooks', {
 	value: {
@@ -8,5 +10,6 @@ Object.defineProperty(global, 'Hooks', {
 	}
 });
 
-// jest.spyOn(Hooks, 'once')
-//   .mockImplementation((_name, _cb) => { return 0; });
+configure({
+	testIdAttribute: 'data-test'
+});
