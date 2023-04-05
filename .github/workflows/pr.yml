@@ -52,7 +52,7 @@ jobs:
         run: npm install
 
       - name: test
-        run: npx jest
+        run: npm run test:coverage
   build:
     runs-on: ubuntu-latest
     steps:
