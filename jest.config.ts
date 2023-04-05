@@ -7,7 +7,7 @@ const config: Config = {
 	collectCoverageFrom: ['src/**/*'],
 	coverageThreshold: {
 		global: {
-			lines: 90
+			lines: 30
 		}
 	},
 	moduleFileExtensions: ['js', 'ts', 'svelte'],

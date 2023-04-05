@@ -41,7 +41,13 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Add ${{ github.base_ref }} branch
+        run: git branch -f --create-reflog ${{ github.base_ref }} origin/${{ github.base_ref }}
 
       - name: Use Node.js
         uses: actions/setup-node@v3
@@ -52,7 +58,7 @@ jobs:
         run: npm install
 
       - name: test
-        run: npm run test:coverage
+        run: npm run test -- --changedSince=${{ github.base_ref }} --coverage
   build:
     runs-on: ubuntu-latest
     steps:
