@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Context from '@/services/context';
-	import type { SyrinAmbientSoundFlags } from '@/sounds';
+	import type { SyrinAmbientSoundFlags } from '@/sounds/ambient-sound';
 	import type { Soundsets } from '@/models/store';
 
 	// Context

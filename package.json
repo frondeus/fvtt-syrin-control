@@ -10,12 +10,13 @@
 	"scripts": {
 		"build": "npx vite build",
 		"dev": "npx vite serve --https",
-		"check": "svelte-check --tsconfig ./tsconfig.json  --ignore ./libs/* --watch",
+		"check": "svelte-check --tsconfig ./tsconfig.json  --ignore ./libs/*",
+		"check:watch": "npm run check -- --watch",
 		"format": "prettier --write --plugin-search-dir=. .",
 		"format:check": "prettier --plugin-search-dir=. --check .",
 		"test": "jest",
 		"test:watch": "npm run test -- --watch",
-		"test:coverage": "npm run test -- --changedSince=origin/next --coverage",
+		"test:coverage": "npm run test -- --changedSince=origin/next --coverage --watch",
 		"prepare": "husky install"
 	},
 	"devDependencies": {

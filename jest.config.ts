@@ -5,20 +5,21 @@ import { pathsToModuleNameMapper } from 'ts-jest';
 
 const config: Config = {
 	collectCoverageFrom: ['src/**/*'],
-	coveragePathIgnorePatterns: ['<rootDir>/src/components/WithSyrinContext.svelte'],
+	coveragePathIgnorePatterns: [
+		'<rootDir>/src/main.ts', // Because execution part is hard to test
+		'<rootDir>/src/services/game.ts', // Because its an implementation detail of foundry, non-testable
+		'<rootDir>/src/socket.ts', // Because it has almost no logic, instead it's just a glue-code for socketlib
+		'<rootDir>/src/proxies.ts', // Because it has no logic, instead it's just a glue-code for foundry documents
+		// Because those two are test infrastructure
+		'<rootDir>/src/components/WithSyrinContext.svelte',
+		'<rootDir>/src/mock.ts'
+	],
 	coverageThreshold: {
 		global: {
-			branches: 20,
-			functions: 30,
+			branches: 75,
+			functions: 75,
 			lines: 75,
 			statements: 75
-		},
-		'./src/main.ts': {
-			// As an entrypoint it would be hard to test
-			branches: 0,
-			functions: 0,
-			lines: 0,
-			statements: 0
 		}
 	},
 	moduleFileExtensions: ['js', 'ts', 'svelte'],

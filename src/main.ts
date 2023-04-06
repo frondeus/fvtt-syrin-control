@@ -11,7 +11,7 @@ import { MODULE } from './services/utils';
 import { resolve } from './services/context';
 import { FVTTGameImpl } from './services/game';
 import { RawApiImpl } from './services/raw';
-import { createProxies } from './sounds';
+import { createProxies } from './proxies';
 import { setupSocket } from './socket';
 import { onPlaylistConfig } from './ui/playlistConfig';
 import { onAmbientSoundConfig } from './ui/ambientSoundConfig';
