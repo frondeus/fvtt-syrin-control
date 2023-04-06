@@ -2,8 +2,8 @@
 
 0. Install necessary dependencies:
 
-- docker with docker-compose
-- yarn
+- docker with `docker compose` plugin
+- nodejs with npm
 
 # Building the module
 
@@ -11,13 +11,13 @@
    You need to do it only once unless you change something in `package.json`
 
 ```
-  yarn install
+  npm install
 ```
 
 2. Build the module at least once
 
 ```
-  yarn run build
+  npm run build
 ```
 
 This populates `./dist` folder with built SyrinControl
@@ -58,13 +58,13 @@ This populates `./dist` folder with built SyrinControl
 8. Build the docker image.
 
 ```
-  docker-compose build
+  docker compose build
 ```
 
 9. Now you can run foundry in docker!
 
 ```
-  docker-compose up -d
+  docker compose up -d
 ```
 
 10. Setup license and create a world `e2e`
@@ -84,7 +84,7 @@ Requirements: running docker with foundry.
    Run dev server in root of the project
 
 ```
-yarn run dev
+npm run dev
 ```
 
 2. From now on you want to access the foundry by this address:
@@ -94,14 +94,14 @@ yarn run dev
    The server requires foundry running on http://localhost:3000 so make sure you ran
 
 ```
-  docker-compose up -d
+  docker compose up -d
 ```
 
 in `docs/foundry` folder.
 If not sure check `docker ps` if the foundry is running.
 
-4. To stop the server just press CTRL+C in terminal where you ran `yarn run dev`.
-5. to stop foundry go to `docs/foundry` and run `docker-compose down`
+4. To stop the server just press CTRL+C in terminal where you ran `npm run dev`.
+5. to stop foundry go to `docs/foundry` and run `docker compose down`
 
 # Running E2E
 
@@ -111,8 +111,14 @@ Requirements: running docker with foundry & running dev server
    Run cypress e2e tests in root of the project
 
 ```
-  yarn run cypress open --e2e -b chrome
+  npm run cypress open --e2e -b chrome
 ```
 
 4. Run all specs at least once
 5. When developing feature focus only on spec describing the feature.
+
+# Scripts
+
+To make it even simpler I prepared couple of scripts:
+* `./scripts/dev.sh` - it will run docker compose with foundry and then call `npm run dev`.
+* `./scripts/e2e.sh` - it will run E2E tests in Firefox
