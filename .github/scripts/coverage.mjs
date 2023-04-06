@@ -12,15 +12,15 @@ export default async function coverMe({ github, context }) {
 	const reportBody = !summary
 		? smallInfo
 		: `\`\`\`
-  ${summary}
-  \`\`\`
+${summary}
+\`\`\`
 
   <details>
     <summary>Detailed Coverage Report</summary>
 
-    \`\`\`
-    ${coverageInfo}
-    \`\`\`
+\`\`\`
+${coverageInfo}
+\`\`\`
   </details>`;
 
 	const templatedMessage = `##  Coverage Report:\n\n${reportBody}`;
