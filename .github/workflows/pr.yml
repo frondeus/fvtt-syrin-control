@@ -61,10 +61,12 @@ jobs:
         run: npm run test -- --changedSince=${{ github.base_ref }} --coverage --coverageReporters=cobertura
 
       - uses: actions/setup-python@v2
+        if: always()
         with:
           python-version: '3.x'
 
       - name: Generate Diff Coverage
+        if: always()
         run: |
           # stop-gap until Jest adds a way of doing this for us
           python -m pip install diff-cover
@@ -76,6 +78,7 @@ jobs:
           echo 'EOF' >> "$GITHUB_ENV"
 
       - name: Report Coverage
+        if: always()
         uses: actions/github-script@v5
         with:
           script: |
