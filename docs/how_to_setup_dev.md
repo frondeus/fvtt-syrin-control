@@ -120,5 +120,6 @@ Requirements: running docker with foundry & running dev server
 # Scripts
 
 To make it even simpler I prepared couple of scripts:
-* `./scripts/dev.sh` - it will run docker compose with foundry and then call `npm run dev`.
-* `./scripts/e2e.sh` - it will run E2E tests in Firefox
+
+- `./scripts/dev.sh` - it will run docker compose with foundry and then call `npm run dev`.
+- `./scripts/e2e.sh` - it will run E2E tests in Firefox
