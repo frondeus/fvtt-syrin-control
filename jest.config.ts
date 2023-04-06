@@ -8,9 +8,12 @@ const config: Config = {
 	coveragePathIgnorePatterns: [
 		'<rootDir>/src/main.ts', // Because execution part is hard to test
 		'<rootDir>/src/services/game.ts', // Because its an implementation detail of foundry, non-testable
+		'<rootDir>/src/services/raw.ts', // Because its an implementation detail of SyrinScape, non-testable
 		'<rootDir>/src/socket.ts', // Because it has almost no logic, instead it's just a glue-code for socketlib
 		'<rootDir>/src/proxies.ts', // Because it has no logic, instead it's just a glue-code for foundry documents
-		// Because those two are test infrastructure
+		// Because those have only imports and Jest-TS doesnt handle those very well:
+		'<rootDir>/src/models/index.ts',
+		// Because those two are test infrastructure:
 		'<rootDir>/src/components/WithSyrinContext.svelte',
 		'<rootDir>/src/mock.ts'
 	],

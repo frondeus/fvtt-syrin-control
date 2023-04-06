@@ -24,13 +24,13 @@ export class AmbientSound {
 			return;
 		}
 
-		const power = (1.0 - volume) * this.provider.radius();
-		const userId = this.ctx.game.userId() ?? '';
-
 		const id = this.provider.id();
 		if (id === null) {
 			return;
 		}
+
+		const power = (1.0 - volume) * this.provider.radius();
+		const userId = this.ctx.game.userId() ?? '';
 
 		if (isAudible) {
 			switch (this.flags.type) {

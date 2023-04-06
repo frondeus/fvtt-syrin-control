@@ -1,0 +1,38 @@
+[
+	{
+		"pk": 12345,
+		"playlist": [],
+		"unity_id": "element_12345",
+		"soundset_name": "My Room",
+		"url": "https://syrinscape.com/online/frontend-api/elements/12345/",
+		"soundset": "https://syrinscape.com/online/frontend-api/soundsets/1234/",
+		"name": "Boom",
+		"element_type": "music",
+		"playlist_order": "shuffle",
+		"is_global_oneshot": false
+	},
+	{
+		"pk": 54321,
+		"playlist": [],
+		"unity_id": "element_54321",
+		"soundset_name": "My Room",
+		"url": "https://syrinscape.com/online/frontend-api/elements/54321/",
+		"soundset": "https://syrinscape.com/online/frontend-api/soundsets/1234/",
+		"name": "Bam",
+		"element_type": "sfx",
+		"playlist_order": "shuffle",
+		"is_global_oneshot": false
+	},
+	{
+		"pk": 11111,
+		"playlist": [],
+		"unity_id": "element_11111",
+		"soundset_name": "My Room",
+		"url": "https://syrinscape.com/online/frontend-api/elements/11111/",
+		"soundset": "https://syrinscape.com/online/frontend-api/soundsets/1234/",
+		"name": "Puff",
+		"element_type": "oneshot",
+		"playlist_order": "shuffle",
+		"is_global_oneshot": false
+	}
+]
