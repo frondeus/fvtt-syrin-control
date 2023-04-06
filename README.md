@@ -16,6 +16,11 @@ This release brings support for Foundry V10, but at the same time, it no longer 
 - [How to Setup](https://github.com/frondeus/fvtt-syrin-control/wiki/Setup)
 - [How to Use](https://github.com/frondeus/fvtt-syrin-control/wiki/How-To-Use)
 
+## For contributors
+
+- [Contributing](https://github.com/frondeus/fvtt-syrin-control/blob/next/CONTRIBUTING.md)
+- [How to setup dev environment](https://github.com/frondeus/fvtt-syrin-control/blob/next/docs/how_to_setup_dev.md)
+
 ## Features
 
 - New Syrinscape Online viewer
