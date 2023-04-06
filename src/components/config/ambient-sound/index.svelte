@@ -50,7 +50,7 @@
 	$: reactiveAmbientSoundName(flags, $soundsets);
 </script>
 
-<div class={class_} {style}>
+<div class={class_} {style} data-test="syrin-ambient-sound-config">
 	<div>
 		<p class="notes">
 			{ctx.game.localizeCore('SOUND.ConfigHint')}
@@ -58,14 +58,26 @@
 
 		<div class="form-group">
 			<label for="">{ctx.game.localize('config.soundset')}</label>
-			<input type="text" disabled value={soundsetName} title={soundsetName} />
+			<input
+				type="text"
+				data-test="syrin-soundset-name"
+				disabled
+				value={soundsetName}
+				title={soundsetName}
+			/>
 		</div>
 		<div class="form-group">
 			<label for="">
 				{ctx.game.localize('config.' + flags.type)}
 			</label>
 			<div class="form-fields">
-				<input type="text" disabled value={ambientName} title={ambientName} />
+				<input
+					type="text"
+					disabled
+					data-test="syrin-ambient-name"
+					value={ambientName}
+					title={ambientName}
+				/>
 			</div>
 		</div>
 		<div class="form-group">
@@ -74,7 +86,7 @@
 				<span class="units">({ctx.game.localizeCore('Pixels')})</span></label
 			>
 			<div class="form-fields">
-				<input type="number" name="x" step="1" bind:value={x} />
+				<input type="number" data-test="syrin-x" name="x" step="1" bind:value={x} />
 			</div>
 		</div>
 		<div class="form-group">
@@ -83,18 +95,24 @@
 				<span class="units">({ctx.game.localizeCore('Pixels')})</span></label
 			>
 			<div class="form-fields">
-				<input type="number" name="y" step="1" bind:value={y} />
+				<input type="number" data-test="syrin-y" name="y" step="1" bind:value={y} />
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="">{ctx.game.localizeCore('SOUND.Radius')}</label>
 			<div class="form-fields">
-				<input type="number" name="radius" step="any" bind:value={radius} />
+				<input
+					type="number"
+					data-test="syrin-radius"
+					name="radius"
+					step="any"
+					bind:value={radius}
+				/>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="">{ctx.game.localizeCore('SOUND.Walls')}</label>
-			<input type="checkbox" name="walls" bind:checked={walls} />
+			<input type="checkbox" data-test="syrin-walls" name="walls" bind:checked={walls} />
 			<p class="hint">
 				{ctx.game.localizeCore('SOUND.WallsHint')}
 			</p>
@@ -105,6 +123,7 @@
 				<label for="darkness.min">{ctx.game.localizeCore('Between')}</label>
 				<input
 					type="number"
+					data-test="syrin-darkness-min"
 					name="darkness.min"
 					value={darkness.min}
 					min="0"
@@ -115,6 +134,7 @@
 				<label for="darkness.max">{ctx.game.localizeCore('and')}</label>
 				<input
 					type="number"
+					data-test="syrin-darkness-max"
 					name="darkness.max"
 					value={darkness.max}
 					min="0"
@@ -128,13 +148,25 @@
 			</p>
 		</div>
 	</div>
-	<input type="hidden" name="path" value="syrinscape.wav" />
-	<input type="hidden" name="flags.syrinscape.type" value={flags.type} />
+	<input type="hidden" data-test="syrin-path" name="path" value="syrinscape.wav" />
+	<input
+		type="hidden"
+		data-test="syrin-flags-type"
+		name="flags.syrinscape.type"
+		value={flags.type}
+	/>
 	{#if flags.type === 'mood'}
-		<input type="hidden" name="flags.syrinscape.mood" value={flags.mood} />
+		<input
+			type="hidden"
+			data-test="syrin-flags-mood"
+			name="flags.syrinscape.mood"
+			value={flags.mood}
+		/>
 	{/if}
 	<div>
-		{ctx.game.localize('config.controlled', { name: ctx.game.localize('config.ambientSound') })}
+		<div data-test="syrin-controlled">
+			{ctx.game.localize('config.controlled', { name: ctx.game.localize('config.ambientSound') })}
+		</div>
 		<button type="submit">
 			<i class="far fa-save" />
 			{#if create}

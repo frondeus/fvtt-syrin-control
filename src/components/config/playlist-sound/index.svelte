@@ -65,7 +65,7 @@
 		</div>
 	</div>
 
-	<input type="hidden" name="path" value="syrinscape.wav" />
+	<input type="hidden" data-test="syrin-path" name="path" value="syrinscape.wav" />
 
 	<div>
 		<div data-test="syrin-controlled">

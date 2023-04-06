@@ -1,36 +1,37 @@
 import PlaylistSoundConfig from './index.svelte';
 import WithSyrinContext from '@/components/WithSyrinContext.svelte';
 import { render, screen, waitFor } from '@testing-library/svelte';
-import { mocked, mockedApi, mockedGame } from '@/mock';
+import { mocked } from '@/mock';
 import { Context } from '@/services/context';
+import { RawApi } from '@/services/raw';
 
 describe('Playlist Sound Config', () => {
-	let context: Context;
+	let ctx: Context;
 	beforeEach(async () => {
-		const raw = mockedApi();
+		let raw: RawApi;
+		({ ctx, raw } = mocked());
 		raw.getMood = jest.fn(async (id) => {
 			if (id === 4321) {
 				return await import('@fixtures/raw-mood-4321.json');
 			}
 			return undefined;
 		});
-		context = mocked(mockedGame(), raw);
-		context.stores.soundsets.set({
+		ctx.stores.soundsets.set({
 			'1234': (await import('@fixtures/soundset-1234.json')).default
 		});
 	});
 
-	it('Renders mood config', () => {
+	it('Renders mood config', async () => {
 		render(WithSyrinContext, {
 			props: {
 				Component: PlaylistSoundConfig,
-				context,
+				ctx,
 				name: 'My Playlist Sound',
 				moodId: 4321
 			}
 		});
 
-		waitFor(() => {
+		await waitFor(() => {
 			const soundsetName = screen.queryByTestId('syrin-soundset-name');
 			expect(soundsetName).toHaveValue('My Soundset');
 			expect(soundsetName).toHaveAttribute('title', 'My Soundset');
@@ -47,23 +48,27 @@ describe('Playlist Sound Config', () => {
 			expect(name).toHaveValue('My Playlist Sound');
 			expect(name).toBeVisible();
 
+			const path = screen.queryByTestId('syrin-path');
+			expect(path).toHaveValue('syrinscape.wav');
+			expect(path).not.toBeVisible();
+
 			const controlled = screen.queryByTestId('syrin-controlled');
 			expect(controlled).toHaveTextContent('config.controlled');
 			expect(controlled).toBeVisible();
 		});
 	});
 
-	it('Renders loading state when mood doesnt exist', () => {
+	it('Renders loading state when mood doesnt exist', async () => {
 		render(WithSyrinContext, {
 			props: {
 				Component: PlaylistSoundConfig,
-				context,
+				ctx: ctx,
 				name: 'My Playlist Sound',
 				moodId: 43210
 			}
 		});
 
-		waitFor(() => {
+		await waitFor(() => {
 			const soundsetName = screen.queryByTestId('syrin-soundset-name');
 			expect(soundsetName).toHaveValue('...');
 			expect(soundsetName).toHaveAttribute('title', '...');
@@ -80,23 +85,27 @@ describe('Playlist Sound Config', () => {
 			expect(name).toHaveValue('My Playlist Sound');
 			expect(name).toBeVisible();
 
+			const path = screen.queryByTestId('syrin-path');
+			expect(path).toHaveValue('syrinscape.wav');
+			expect(path).not.toBeVisible();
+
 			const controlled = screen.queryByTestId('syrin-controlled');
 			expect(controlled).toHaveTextContent('config.controlled');
 			expect(controlled).toBeVisible();
 		});
 	});
 
-	it('Renders background image when artwork exists', () => {
+	it('Renders background image when artwork exists', async () => {
 		render(WithSyrinContext, {
 			props: {
 				Component: PlaylistSoundConfig,
-				context,
+				ctx: ctx,
 				name: 'My Playlist Sound',
 				moodId: 4321
 			}
 		});
 
-		waitFor(() => {
+		await waitFor(() => {
 			const el = screen.queryByTestId('syrin-playlist-sound-config');
 			expect(el).toHaveClass('inner');
 			expect(el).toHaveClass('inner-invert');
@@ -105,17 +114,17 @@ describe('Playlist Sound Config', () => {
 		});
 	});
 
-	it('Renders background image when artwork doesnt exist', () => {
+	it('Does not render background image when artwork doesnt exist', async () => {
 		render(WithSyrinContext, {
 			props: {
 				Component: PlaylistSoundConfig,
-				context,
+				ctx: ctx,
 				name: 'My Playlist Sound',
-				moodId: 4321
+				moodId: 43210
 			}
 		});
 
-		waitFor(() => {
+		await waitFor(() => {
 			const el = screen.queryByTestId('syrin-playlist-sound-config');
 			expect(el).toHaveClass('inner');
 			expect(el).not.toHaveClass('inner-invert');

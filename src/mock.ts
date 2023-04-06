@@ -33,12 +33,15 @@ export function mockedGame(): FVTTGame {
 			if (Object.hasOwn(storeDefaults as object, name)) {
 				return storeDefaults[name as StoreDefaultsKey] as any;
 			}
+			if (name === 'debugTraces') {
+				return false;
+			}
 			console.error('get setting', { name });
 			return null!;
 		}),
 		setSetting: jest.fn(),
 		setGlobal: jest.fn(),
-		localize: jest.fn((key) => key),
+		localize: jest.fn((key) => 'syrin.' + key),
 		registerSetting: jest.fn(),
 		notifyInfo: jest.fn(),
 		notifyError: jest.fn(),
@@ -59,7 +62,7 @@ export function mockedGame(): FVTTGame {
 		isReady: jest.fn(() => true),
 		userId: jest.fn(),
 		hasActiveModule: jest.fn(),
-		localizeCore: jest.fn(),
+		localizeCore: jest.fn((key) => 'core.' + key),
 		getAudioContext: jest.fn(),
 		createMoodMacro: jest.fn(),
 		createElementMacro: jest.fn(),
@@ -73,10 +76,20 @@ export function mockedGame(): FVTTGame {
 	};
 }
 
-export function mocked(game: FVTTGame = mockedGame(), raw: RawApi = mockedApi()): Context {
+export interface Mocked {
+	ctx: Context;
+	game: FVTTGame;
+	raw: RawApi;
+}
+
+export function mocked(): Mocked {
+	const game = mockedGame();
+	const raw = mockedApi();
 	const utils = new Utils(game);
 	const api = new Api(raw);
 	const stores = new Stores(game, api);
 	const syrin = new Syrin(game, utils, api, stores);
-	return new Context(game, utils, api, stores, syrin);
+	const ctx = new Context(game, utils, api, stores, syrin);
+
+	return { ctx, game, raw };
 }

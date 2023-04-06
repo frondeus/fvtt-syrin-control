@@ -5,6 +5,12 @@ describe('coverage', () => {
 	it('loads all components', async () => {
 		const cwd = path.join(process.cwd(), 'src');
 		const pattern = '**/*.svelte';
-		glob.sync(pattern, { cwd, matchBase: true }).forEach((file: string) => import('@/' + file));
+		const ignore = ['components/WithSyrinContext.svelte'];
+		glob.sync(pattern, { cwd, matchBase: true }).forEach((file: string) => {
+			if (ignore.includes(file)) {
+				return;
+			}
+			import('@/' + file);
+		});
 	});
 });

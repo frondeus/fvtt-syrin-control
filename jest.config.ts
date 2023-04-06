@@ -5,9 +5,20 @@ import { pathsToModuleNameMapper } from 'ts-jest';
 
 const config: Config = {
 	collectCoverageFrom: ['src/**/*'],
+	coveragePathIgnorePatterns: ['<rootDir>/src/components/WithSyrinContext.svelte'],
 	coverageThreshold: {
 		global: {
-			lines: 30
+			branches: 20,
+			functions: 30,
+			lines: 75,
+			statements: 75
+		},
+		'./src/main.ts': {
+			// As an entrypoint it would be hard to test
+			branches: 0,
+			functions: 0,
+			lines: 0,
+			statements: 0
 		}
 	},
 	moduleFileExtensions: ['js', 'ts', 'svelte'],

@@ -5,20 +5,20 @@ import { mocked } from '@/mock';
 import { Context } from '@/services/context';
 
 describe('Playlist Config', () => {
-	let context: Context;
+	let ctx: Context;
 	beforeEach(async () => {
-		context = mocked();
-		context.stores.soundsets.set({
+		({ ctx } = mocked());
+		ctx.stores.soundsets.set({
 			'1234': (await import('@fixtures/soundset-1234.json')).default
 		});
 	});
 
 	it('Renders loading state when soundset doesnt exist', () => {
-		context.stores.soundsets.set({});
+		ctx.stores.soundsets.set({});
 		render(WithSyrinContext, {
 			props: {
 				Component: PlaylistConfig,
-				context,
+				ctx,
 				name: 'My Playlist',
 				soundsetId: '1234'
 			}
@@ -47,7 +47,7 @@ describe('Playlist Config', () => {
 		render(WithSyrinContext, {
 			props: {
 				Component: PlaylistConfig,
-				context,
+				ctx: ctx,
 				name: 'My Playlist',
 				soundsetId: '1234'
 			}
@@ -76,7 +76,7 @@ describe('Playlist Config', () => {
 		render(WithSyrinContext, {
 			props: {
 				Component: PlaylistConfig,
-				context,
+				ctx: ctx,
 				name: 'My Playlist',
 				sorting: 'a',
 				soundsetId: '1234'
@@ -93,13 +93,13 @@ describe('Playlist Config', () => {
 	it('Renders background image when artwork doesnt exist', async () => {
 		let soundset = (await import('@fixtures/soundset-1234.json')).default;
 		soundset.artworkUrl = undefined as any;
-		context.stores.soundsets.set({
+		ctx.stores.soundsets.set({
 			'1234': soundset
 		});
 		render(WithSyrinContext, {
 			props: {
 				Component: PlaylistConfig,
-				context,
+				ctx: ctx,
 				name: 'My Playlist',
 				sorting: 'a',
 				soundsetId: '1234'

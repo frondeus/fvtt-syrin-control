@@ -3,9 +3,9 @@
 	import { MODULE } from '@/services/utils';
 
 	export let Component: ConstructorOfATypedSvelteComponent;
-	export let context;
+	export let ctx;
 
-	setContext(MODULE, context);
+	setContext(MODULE, ctx);
 </script>
 
 <svelte:component this={Component} {...$$restProps} />

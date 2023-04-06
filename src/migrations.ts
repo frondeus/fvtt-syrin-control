@@ -1,6 +1,6 @@
 import { Context } from './services/context';
 
-function migrateAmbientSoundPaths(ctx: Context) {
+export function migrateAmbientSoundPaths(ctx: Context) {
 	const ambientSounds = ctx.game.getAmbientSounds() ?? [];
 	for (const ambientSound of ambientSounds) {
 		const path = (ambientSound as any).path as string;
@@ -23,7 +23,7 @@ function migrateAmbientSoundPaths(ctx: Context) {
 	}
 }
 
-function migratePlaylistSoundPaths(ctx: Context) {
+export function migratePlaylistSoundPaths(ctx: Context) {
 	const playlistSounds = (ctx.game.getPlaylists()?.contents ?? []).flatMap(
 		(playlist) => playlist.sounds.contents
 	);
