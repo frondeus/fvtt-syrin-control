@@ -6,21 +6,20 @@ export type SyrinAmbientSoundFlags = ElementSoundFlags | MoodSoundFlags;
 export interface AmbientSoundProvider {
 	id(): string | null;
 	radius(): number;
+	ctx(): Context;
 }
 export class AmbientSound {
-	ctx: Context;
 	flags: SyrinAmbientSoundFlags;
 	provider: AmbientSoundProvider;
 
-	constructor(data: any, ctx: Context, provider: AmbientSoundProvider) {
-		this.ctx = ctx;
+	constructor(data: any, provider: AmbientSoundProvider) {
 		this.flags = data.flags.syrinscape;
 		this.provider = provider;
-		this.ctx.utils.trace('Creating an ambient sound', { data, flags: this.flags });
+		this.provider.ctx().utils.trace('Creating an ambient sound', { data, flags: this.flags });
 	}
 
 	async sync(isAudible: boolean, volume: number): Promise<void> {
-		if (!this.ctx.api.isPlayerActive()) {
+		if (!this.provider.ctx().api.isPlayerActive()) {
 			return;
 		}
 
@@ -30,13 +29,13 @@ export class AmbientSound {
 		}
 
 		const power = (1.0 - volume) * this.provider.radius();
-		const userId = this.ctx.game.userId() ?? '';
+		const userId = this.provider.ctx().game.userId() ?? '';
 
 		if (isAudible) {
 			switch (this.flags.type) {
 				case 'mood': {
 					const moodId = this.flags.mood;
-					this.ctx.syrin.playAmbientSound(id, {
+					this.provider.ctx().syrin.playAmbientSound(id, {
 						kind: 'mood',
 						volume: power,
 						moodId,
@@ -46,7 +45,7 @@ export class AmbientSound {
 				}
 				case 'element': {
 					const elementId = this.flags.element;
-					this.ctx.syrin.playAmbientSound(id, {
+					this.provider.ctx().syrin.playAmbientSound(id, {
 						kind: 'element',
 						volume: power,
 						elementId,
@@ -56,7 +55,7 @@ export class AmbientSound {
 				}
 			}
 		} else {
-			this.ctx.syrin.stopAmbientSound(id, userId);
+			this.provider.ctx().syrin.stopAmbientSound(id, userId);
 		}
 	}
 }

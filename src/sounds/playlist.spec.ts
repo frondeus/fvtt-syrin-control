@@ -36,9 +36,10 @@ describe('Ambient sound controller', () => {
 	it('calls unsubscriber', () => {
 		const provider = {
 			id: () => '1',
-			update: jest.fn((_playing: boolean) => {})
+			update: jest.fn((_playing: boolean) => {}),
+			ctx: () => mock.ctx
 		};
-		const sound = new Playlist({ flags: { syrinscape: flags } }, mock.ctx, provider);
+		const sound = new Playlist({ flags: { syrinscape: flags } }, provider);
 		const spy = jest.spyOn(sound, 'unsubscriber');
 
 		sound.unsubscribe();
@@ -49,9 +50,10 @@ describe('Ambient sound controller', () => {
 	it('stops all', () => {
 		const provider = {
 			id: () => '1',
-			update: jest.fn((_playing: boolean) => {})
+			update: jest.fn((_playing: boolean) => {}),
+			ctx: () => mock.ctx
 		};
-		const sound = new Playlist({ flags: { syrinscape: flags } }, mock.ctx, provider);
+		const sound = new Playlist({ flags: { syrinscape: flags } }, provider);
 		const spy = jest.spyOn(mock.ctx.syrin, 'stopAll');
 
 		sound.stopAll();
@@ -66,12 +68,13 @@ describe('Ambient sound controller', () => {
 				id: () => '1',
 				update: jest.fn((playing: boolean) => {
 					newPlaying = playing;
-				})
+				}),
+				ctx: () => mock.ctx
 			};
 
 			expect(newPlaying).toBe(false);
 
-			const sound = new Playlist({ flags: { syrinscape: flags } }, mock.ctx, provider);
+			const sound = new Playlist({ flags: { syrinscape: flags } }, provider);
 
 			mock.ctx.stores.nextPlaylistMood.set(4321);
 
@@ -84,6 +87,21 @@ describe('Ambient sound controller', () => {
 			expect(newPlaying).toBe(true);
 
 			sound.unsubscribe();
+		});
+	});
+
+	describe('bugs', () => {
+		it('can be flattened', () => {
+			const provider = {
+				id: () => '1',
+				update: jest.fn((_playing: boolean) => {}),
+				ctx: () => mock.ctx
+			};
+			const sound = new Playlist({ flags: { syrinscape: flags } }, provider);
+
+			const flattened = foundry.utils.flattenObject(sound);
+
+			expect(flattened).toMatchSnapshot();
 		});
 	});
 });
