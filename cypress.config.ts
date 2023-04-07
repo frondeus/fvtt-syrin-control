@@ -13,7 +13,7 @@ export default defineConfig({
 		experimentalStudio: true,
 		setupNodeEvents(on, _config) {
 			on('before:browser:launch', (browser, launchOptions) => {
-				if (browser.name === 'chrome') {
+				if (browser.family === 'chromium') {
 					const index = launchOptions.args.indexOf('--disable-gpu');
 					if (index > -1) {
 						launchOptions.args.splice(index, 1);

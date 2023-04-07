@@ -6,7 +6,7 @@ export interface PlaylistSoundDetails {
 	data: {
 		flags:
 			| {
-					syrinscape: SyrinPlaylistSoundFlags;
+					syrinscape: SyrinPlaylistSoundFlags | undefined;
 			  }
 			| undefined;
 		name: string;
@@ -18,7 +18,7 @@ export async function onPlaylistSoundConfig(
 	window: JQuery<Element>,
 	details: PlaylistSoundDetails
 ) {
-	if (details.data.flags?.syrinscape.type !== 'mood') {
+	if (details.data.flags?.syrinscape?.type !== 'mood') {
 		return;
 	}
 

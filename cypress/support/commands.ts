@@ -44,6 +44,9 @@ Cypress.Commands.add('clearWorld', () => {
 		win.game.playlists.forEach((t: any) => {
 			t.delete();
 		});
+		win.game.scenes.active.sounds.forEach((t: any) => {
+			t.delete();
+		});
 	});
 });
 
@@ -119,4 +122,43 @@ Cypress.Commands.add('importerGetSoundset', (selector: string) => {
 
 Cypress.Commands.add('importerGetMood', (selector: string) => {
 	return cy.get('[data-test="syrin-soundsets-list"] [data-test="syrin-mood-row"]:' + selector);
+});
+
+Cypress.Commands.add('importPlaylist', () => {
+	cy.openImporter();
+	cy.importerGetSoundset('first').as('soundset');
+	cy.get('@soundset').find('[data-test="syrin-soundset-name"]').click();
+	cy.wait('@requestMoods');
+
+	cy.importerGetMood('first').find('[data-test="syrin-mood-checkbox"]').as('moodCheckbox');
+
+	cy.get('@soundset').find('[data-test="syrin-soundset-checkbox"]').as('soundsetCheckbox');
+
+	cy.get('@soundsetCheckbox').check();
+
+	cy.get('@soundsetCheckbox').should('be.checked');
+	cy.get('@moodCheckbox').should('be.checked');
+
+	cy.get('[data-test="syrin-import-playlists-btn"]').as('importBtn').click();
+
+	cy.get('.header-button').click();
+	cy.get('.notification > .close').should('be.visible').click({ multiple: true });
+});
+
+Cypress.Commands.add('createPlaylist', () => {
+	cy.get('#playlists > .directory-header > .header-actions > .create-document').click();
+	cy.get('.form-fields > input').type('Non-Syrinscape');
+	cy.get('.dialog-button').click();
+
+	cy.wait(1000);
+	cy.get('.close').click();
+
+	cy.get('[data-action="sound-create"]').should('be.visible').click();
+
+	cy.get('.window-content > form > :nth-child(1)').type('Notify');
+	cy.get('.window-content > form > :nth-child(2)').type('sounds/notify.wav');
+
+	cy.wait(1000);
+	cy.get('form > [type="submit"]').click();
+	// cy.get('.close').click();
 });
