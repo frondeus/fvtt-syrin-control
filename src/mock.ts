@@ -5,16 +5,28 @@ import { Utils } from './services/utils';
 import { Api } from './services/api';
 import { Syrin } from './services/syrin';
 import { Context } from './services/context';
+import { ApiElement } from './models';
 
 export function mockedApi(): RawApi {
 	return {
 		stopMood: jest.fn(),
 		playMood: jest.fn(),
 		playElement: jest.fn(),
-		getMoods: jest.fn(async (_) => []),
-		getElements: jest.fn(async (_) => []),
-		getSoundsets: jest.fn(async () => []),
-		getGlobalElements: jest.fn(async () => []),
+		getMoods: jest.fn(async (_) => {
+			console.warn('get Moods was called');
+			return [];
+		}),
+		getElements: jest.fn(async (_) => {
+			console.warn('get Elements was called');
+			return [];
+		}),
+		getSoundsets: jest.fn(async () => {
+			console.warn('get soundsets was called');
+			return [];
+		}),
+		getGlobalElements: jest.fn(async () => {
+			return (await import('@fixtures/raw-global-elements.json')).default as ApiElement[];
+		}),
 		onInit: jest.fn(),
 		getState: jest.fn(),
 		changePlayerVolume: jest.fn(),

@@ -6,7 +6,7 @@ export interface PlaylistProvider {
 	id(): null | string;
 }
 
-interface SyrinPlaylistFlags {
+export interface SyrinPlaylistFlags {
 	soundset: string;
 }
 
@@ -21,12 +21,16 @@ export class Playlist {
 		this.flags = data.flags.syrinscape;
 		this.provider = provider;
 
+		this.handleSubscribtion();
+	}
+
+	handleSubscribtion() {
 		this.unsubscriber = this.ctx.stores.currentlyPlaying.subscribe((playing) => {
 			const soundset = playing?.soundset;
-			if (provider.id() !== null) {
+			if (this.provider.id() !== null) {
 				const playing = soundset?.id === this.flags.soundset;
 				if (this.ctx.game.isGM()) {
-					provider.update(playing);
+					this.provider.update(playing);
 				}
 			}
 		});

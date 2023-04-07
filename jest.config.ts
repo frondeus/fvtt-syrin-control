@@ -11,6 +11,7 @@ const config: Config = {
 		'<rootDir>/src/services/raw.ts', // Because its an implementation detail of SyrinScape, non-testable
 		'<rootDir>/src/socket.ts', // Because it has almost no logic, instead it's just a glue-code for socketlib
 		'<rootDir>/src/proxies.ts', // Because it has no logic, instead it's just a glue-code for foundry documents
+		'<rootDir>/src/ui/dialog-impl.ts', // Because its just a glue for foundry
 		// Because those have only imports and Jest-TS doesnt handle those very well:
 		'<rootDir>/src/models/index.ts',
 		// Because those two are test infrastructure:

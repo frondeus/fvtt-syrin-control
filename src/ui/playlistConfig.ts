@@ -1,7 +1,23 @@
 import { Context } from '@/services/context';
 import PlaylistConfigComponent from '@/components/config/playlist/index.svelte';
+import { SyrinPlaylistFlags } from '@/sounds/playlist';
 
-export async function onPlaylistConfig(ctx: Context, window: JQuery<Element>, details: any) {
+export interface PlaylistDetails {
+	data: {
+		name: string;
+		sorting: 'a' | 'm';
+		flags:
+			| {
+					syrinscape: SyrinPlaylistFlags;
+			  }
+			| undefined;
+	};
+}
+export async function onPlaylistConfig(
+	ctx: Context,
+	window: JQuery<Element>,
+	details: PlaylistDetails
+) {
 	if (details.data.flags?.syrinscape === undefined) {
 		return;
 	}

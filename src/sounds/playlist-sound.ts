@@ -2,7 +2,7 @@ import { Context } from '@/services/context';
 import { ElementSoundFlags, MoodSoundFlags } from '@/sounds';
 import { Unsubscriber } from 'svelte/store';
 
-type SyrinPlaylistSoundFlags = ElementSoundFlags | MoodSoundFlags;
+export type SyrinPlaylistSoundFlags = ElementSoundFlags | MoodSoundFlags;
 
 export interface PlaylistSoundProvider {
 	playing(): boolean;
@@ -23,13 +23,17 @@ export class PlaylistSound {
 		this.wasPlaying = false;
 		this.provider = provider;
 
+		this.handleSubscribtion();
+	}
+
+	handleSubscribtion() {
 		if (this.flags.type === 'mood' && this.ctx.game.isGM()) {
 			const moodId = this.flags.mood;
 			this.unsubscriber = this.ctx.stores.currentlyPlaying.subscribe((playing) => {
 				const mood = playing?.mood;
-				if (provider.id() !== null) {
+				if (this.provider.id() !== null) {
 					const playing = mood?.id === moodId;
-					provider.update(playing);
+					this.provider.update(playing);
 					this.wasPlaying = playing;
 				}
 			});

@@ -1,0 +1,135 @@
+<div
+	id="AmbientSoundConfig-Scene-SoRGaBqxAtq2wGHX-AmbientSound-"
+	class="app window-app sheet"
+	data-appid="106"
+	style="
+		z-index: 100;
+		opacity: 0.00024672;
+		width: 480px;
+		height: 463px;
+		left: 597.5px;
+		top: 164.5px;
+	"
+>
+	<header class="window-header flexrow draggable">
+		<h4 class="window-title">Create Ambient Sound</h4>
+		<a class="header-button configure-sheet"><i class="fas fa-cog"></i>Sheet</a>
+		<a class="header-button close"><i class="fas fa-times"></i>Close</a>
+	</header>
+
+	<section class="window-content">
+		<form autocomplete="off">
+			<p class="notes">
+				Configure the ambient sound to play an audio file when tokens move within it's radius.
+			</p>
+
+			<div class="form-group">
+				<label>Source File Path</label>
+				<div class="form-fields">
+					<input type="text" name="path" placeholder="path/to/audio.mp3" value="" />
+
+					<button
+						type="button"
+						class="file-picker"
+						data-type="audio"
+						data-target="path"
+						title="Browse Files"
+						tabindex="-1"
+					>
+						<i class="fas fa-file-import fa-fw"></i>
+					</button>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label>X-Coordinate <span class="units">(Pixels)</span></label>
+				<div class="form-fields">
+					<input type="number" value="922" step="1" name="x" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label>Y-Coordinate <span class="units">(Pixels)</span></label>
+				<div class="form-fields">
+					<input type="number" value="1016" step="1" name="y" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label>Effect Radius <span class="units">()</span></label>
+				<div class="form-fields">
+					<input type="number" name="radius" value="4.366934780320622" step="any" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label>Volume Easing</label>
+				<input type="checkbox" name="easing" checked="" />
+				<p class="notes">
+					Adjust the volume level of the sound as Tokens move closer to the origin.
+				</p>
+			</div>
+
+			<div class="form-group">
+				<label>Constrained By Walls</label>
+				<input type="checkbox" name="walls" checked="" />
+				<p class="hint">
+					Configure whether area of effect for this audio source is constrained by nearby walls.
+				</p>
+			</div>
+
+			<div class="form-group">
+				<label>Maximum Volume</label>
+				<div class="form-fields">
+					<input
+						class="sound-volume"
+						type="range"
+						name="volume"
+						title="Sound Volume"
+						value="0.5"
+						min="0"
+						max="1"
+						step="0.05"
+					/>
+					<span class="range-value">0.5</span>
+				</div>
+				<p class="notes">
+					Define the maximum volume of the sound at it's origin point (if easing) or everywhere in
+					the area.
+				</p>
+			</div>
+
+			<div class="form-group">
+				<label>Darkness Activation Range</label>
+				<div class="form-fields">
+					<label for="darkness.min">Between</label>
+					<input
+						type="number"
+						name="darkness.min"
+						value="0"
+						min="0"
+						max="1"
+						step="any"
+						placeholder="0"
+					/>
+					<label for="darkness.max">and</label>
+					<input
+						type="number"
+						name="darkness.max"
+						value="1"
+						min="0"
+						max="1"
+						step="any"
+						placeholder="1"
+					/>
+				</div>
+				<p class="hint">
+					You may specify a range of darkness levels during which this ambient sound will be
+					audible.
+				</p>
+			</div>
+
+			<button type="submit"><i class="far fa-save"></i> Create Ambient Sound</button>
+		</form>
+	</section>
+</div>

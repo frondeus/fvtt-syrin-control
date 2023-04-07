@@ -39,8 +39,10 @@
 		"babel-jest": "^29.3.1",
 		"cypress": "^12.3.0",
 		"glob": "^9.3.4",
+		"husky": "^8.0.0",
 		"jest": "^29.3.1",
 		"jest-environment-jsdom": "^29.5.0",
+		"jquery": "^3.6.4",
 		"json-server": "^0.17.1",
 		"prettier": "^2.8.3",
 		"prettier-plugin-svelte": "^2.9.0",
@@ -55,8 +57,7 @@
 		"unplugin-swc": "github:frondeus/unplugin-swc",
 		"vite": "4.0.4",
 		"vite-plugin-checker": "^0.5.4",
-		"vite-tsconfig-paths": "^4.0.5",
-		"husky": "^8.0.0"
+		"vite-tsconfig-paths": "^4.0.5"
 	},
 	"dependencies": {
 		"lodash": "^4.17.21",

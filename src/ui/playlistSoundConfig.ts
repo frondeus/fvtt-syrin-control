@@ -1,10 +1,27 @@
 import { Context } from '@/services/context';
 import PlaylistSoundConfigComponent from '@/components/config/playlist-sound/index.svelte';
+import { SyrinPlaylistSoundFlags } from '@/sounds/playlist-sound';
 
-export async function onPlaylistSoundConfig(ctx: Context, window: JQuery<Element>, details: any) {
-	if (details.data.flags?.syrinscape === undefined) {
+export interface PlaylistSoundDetails {
+	data: {
+		flags:
+			| {
+					syrinscape: SyrinPlaylistSoundFlags;
+			  }
+			| undefined;
+		name: string;
+	};
+}
+
+export async function onPlaylistSoundConfig(
+	ctx: Context,
+	window: JQuery<Element>,
+	details: PlaylistSoundDetails
+) {
+	if (details.data.flags?.syrinscape.type !== 'mood') {
 		return;
 	}
+
 	const windowContent = window.find('.window-content');
 	windowContent.attr('style', 'padding: 0;');
 	let form = windowContent.find('form');

@@ -1,0 +1,77 @@
+<div
+	id="PlaylistConfig-Playlist-0n4AUbvcwq48KWbR"
+	class="app window-app sheet"
+	data-appid="106"
+	style="z-index: 100; width: 360px; height: 312px; left: 608px; top: 171px"
+>
+	<header class="window-header flexrow draggable">
+		<h4 class="window-title">
+			Edit Playlist: Airship<a
+				class="document-id-link"
+				alt="Copy document id"
+				data-tooltip="Playlist: 0n4AUbvcwq48KWbR"
+				data-tooltip-direction="UP"
+				><i class="fa-solid fa-passport"></i
+			></a>
+		</h4>
+		<a class="header-button configure-sheet"><i class="fas fa-cog"></i>Sheet</a>
+		<a class="header-button close"><i class="fas fa-times"></i>Close</a>
+	</header>
+
+	<section class="window-content">
+		<form autocomplete="off">
+			<div class="form-group">
+				<label>Playlist Name</label>
+				<input type="text" name="name" placeholder="Playlist Name" value="Airship" />
+			</div>
+
+			<div class="form-group">
+				<label>Playback Mode</label>
+				<select name="mode" data-dtype="Number">
+					<option value="0">Sequential Playback</option>
+					<option value="1">Shuffle Tracks</option>
+					<option value="2" selected="">Simultaneous Playback</option>
+					<option value="-1">Soundboard Only</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label>Sort Mode</label>
+				<select name="sorting">
+					<option value="a" selected="">Alphabetical</option>
+					<option value="m">Manual</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label>Fade Duration (ms)</label>
+				<input name="fade" type="number" value="" step="1" min="0" />
+			</div>
+
+			<div class="form-group form-group-stacked">
+				<label>Playlist Description</label>
+				<textarea name="description" style="resize: none">
+Created &amp; Managed by SyrinControl</textarea
+				>
+			</div>
+
+			<div class="form-group">
+				<label>Bulk Import</label>
+				<div class="form-fields">
+					<button
+						type="button"
+						class="file-picker"
+						data-type="folder"
+						data-target="importPath"
+						title="Browse Files"
+						tabindex="-1"
+					>
+						<i class="fas fa-file-import fa-fw"></i>
+					</button>
+				</div>
+			</div>
+
+			<button type="submit"><i class="far fa-save"></i> Update Playlist</button>
+		</form>
+	</section>
+</div>

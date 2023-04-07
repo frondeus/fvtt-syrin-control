@@ -4,6 +4,7 @@ import { render, screen, waitFor } from '@testing-library/svelte';
 import { mocked } from '@/mock';
 import { Context } from '@/services/context';
 import { RawApi } from '@/services/raw';
+import { ApiElement } from '@/models';
 
 describe('Ambient Sound Config', () => {
 	let ctx: Context;
@@ -18,6 +19,12 @@ describe('Ambient Sound Config', () => {
 		});
 		ctx.stores.soundsets.set({
 			'1234': (await import('@fixtures/soundset-1234.json')).default
+		});
+		raw.getElements = jest.fn(async (id) => {
+			if (id === '1234') {
+				return (await import('@fixtures/raw-elements-1234.json')).default as ApiElement[];
+			}
+			return [];
 		});
 	});
 
