@@ -10,10 +10,11 @@ function populateContext(ctx: any): Context {
 		ctx = {};
 	}
 	if (ctx.ctx === undefined || ctx.ctx === null) {
-		ctx.ctx = container.resolve(Context);
-		ctx.ctx.utils.warn('Context was undefined. Fixing it!');
+		let context = container.resolve(Context);
+		ctx.syrinCtx = () => context;
+		context.utils.warn('Context was undefined. Fixing it!');
 	}
-	return ctx.ctx;
+	return ctx.syrinCtx();
 }
 
 class SyrinAmbientSound extends AmbientSound {
@@ -26,10 +27,11 @@ class SyrinAmbientSound extends AmbientSound {
 
 		const provider = {
 			id: () => this.id,
-			radius: () => this.radius
+			radius: () => this.radius,
+			ctx: () => ctx
 		};
 
-		this.syrin = new AmbientSoundController(data, ctx, provider);
+		this.syrin = new AmbientSoundController(data, provider);
 	}
 
 	override _createSound(): null {
@@ -59,10 +61,11 @@ class SyrinPlaylistSound extends PlaylistSound {
 		const provider = {
 			playing: () => this.playing,
 			id: () => this.id,
-			update: (playing: boolean) => this.update({ playing })
+			update: (playing: boolean) => this.update({ playing }),
+			ctx: () => ctx
 		};
 
-		this.syrin = new PlaylistSoundController(data, ctx, provider);
+		this.syrin = new PlaylistSoundController(data, provider);
 	}
 
 	override async sync(): Promise<void> {
@@ -92,9 +95,10 @@ class SyrinPlaylist extends Playlist {
 
 		const provider = {
 			id: () => this.id,
-			update: (playing: boolean) => this.update({ playing })
+			update: (playing: boolean) => this.update({ playing }),
+			ctx: () => ctx
 		};
-		this.syrin = new PlaylistController(data, ctx, provider);
+		this.syrin = new PlaylistController(data, provider);
 	}
 
 	override async playAll(): Promise<undefined> {
@@ -125,10 +129,10 @@ function handler<
 				return new t(...args);
 			}
 
-			if (args[1] === undefined) {
+			if (args[1] === undefined || args[1] === null) {
 				args[1] = {};
 			}
-			(args[1] as any).ctx = ctx;
+			(args[1] as any).syrinCtx = () => ctx;
 			return new s(...args);
 		}
 	};

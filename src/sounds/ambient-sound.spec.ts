@@ -20,9 +20,10 @@ describe('Ambient sound controller', () => {
 	it('does nothing when player is not active', async () => {
 		const provider = {
 			id: () => '1',
-			radius: () => 10
+			radius: () => 10,
+			ctx: () => mock.ctx
 		};
-		const sound = new AmbientSound({ flags: { syrinscape: flags } }, mock.ctx, provider);
+		const sound = new AmbientSound({ flags: { syrinscape: flags } }, provider);
 
 		mock.raw.getState = jest.fn(() => 'inactive');
 
@@ -34,9 +35,10 @@ describe('Ambient sound controller', () => {
 	it('also does nothing when id is unknown', async () => {
 		const provider = {
 			id: () => null,
-			radius: () => 10
+			radius: () => 10,
+			ctx: () => mock.ctx
 		};
-		const sound = new AmbientSound({ flags: { syrinscape: flags } }, mock.ctx, provider);
+		const sound = new AmbientSound({ flags: { syrinscape: flags } }, provider);
 
 		await sound.sync(true, 1);
 
@@ -47,9 +49,10 @@ describe('Ambient sound controller', () => {
 		const spy = jest.spyOn(mock.ctx.syrin, 'stopAmbientSound');
 		const provider = {
 			id: () => '1',
-			radius: () => 10
+			radius: () => 10,
+			ctx: () => mock.ctx
 		};
-		const sound = new AmbientSound({ flags: { syrinscape: flags } }, mock.ctx, provider);
+		const sound = new AmbientSound({ flags: { syrinscape: flags } }, provider);
 
 		await sound.sync(false, 1);
 
@@ -60,9 +63,10 @@ describe('Ambient sound controller', () => {
 		const spy = jest.spyOn(mock.ctx.syrin, 'playAmbientSound');
 		const provider = {
 			id: () => '1',
-			radius: () => 10
+			radius: () => 10,
+			ctx: () => mock.ctx
 		};
-		const sound = new AmbientSound({ flags: { syrinscape: flags } }, mock.ctx, provider);
+		const sound = new AmbientSound({ flags: { syrinscape: flags } }, provider);
 
 		await sound.sync(true, 1);
 
@@ -78,13 +82,14 @@ describe('Ambient sound controller', () => {
 		const spy = jest.spyOn(mock.ctx.syrin, 'playAmbientSound');
 		const provider = {
 			id: () => '1',
-			radius: () => 10
+			radius: () => 10,
+			ctx: () => mock.ctx
 		};
 		flags = {
 			type: 'element',
 			element: 4321
 		};
-		const sound = new AmbientSound({ flags: { syrinscape: flags } }, mock.ctx, provider);
+		const sound = new AmbientSound({ flags: { syrinscape: flags } }, provider);
 
 		await sound.sync(true, 1);
 
@@ -101,9 +106,10 @@ describe('Ambient sound controller', () => {
 		const spy = jest.spyOn(mock.ctx.syrin, 'playAmbientSound');
 		const provider = {
 			id: () => '1',
-			radius: () => 10
+			radius: () => 10,
+			ctx: () => mock.ctx
 		};
-		const sound = new AmbientSound({ flags: { syrinscape: flags } }, mock.ctx, provider);
+		const sound = new AmbientSound({ flags: { syrinscape: flags } }, provider);
 
 		await sound.sync(true, 1);
 
@@ -112,6 +118,21 @@ describe('Ambient sound controller', () => {
 			volume: 0,
 			userId: '',
 			moodId: 4321
+		});
+	});
+
+	describe('bugs', () => {
+		it('can be flattened', () => {
+			const provider = {
+				id: () => '1',
+				radius: () => 10,
+				ctx: () => mock.ctx
+			};
+			const sound = new AmbientSound({ flags: { syrinscape: flags } }, provider);
+
+			const flattened = foundry.utils.flattenObject(sound);
+
+			expect(flattened).toMatchSnapshot();
 		});
 	});
 });

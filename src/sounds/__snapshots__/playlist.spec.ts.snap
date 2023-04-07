@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Ambient sound controller bugs can be flattened 1`] = `
+{
+  "flags.soundset": "1234",
+  "provider.ctx": [Function],
+  "provider.id": [Function],
+  "provider.update": [MockFunction] {
+    "calls": [
+      [
+        false,
+      ],
+    ],
+    "results": [
+      {
+        "type": "return",
+        "value": undefined,
+      },
+    ],
+  },
+  "unsubscriber": [Function],
+}
+`;

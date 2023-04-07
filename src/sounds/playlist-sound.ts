@@ -8,17 +8,16 @@ export interface PlaylistSoundProvider {
 	playing(): boolean;
 	id(): null | string;
 	update(playing: boolean): void;
+	ctx(): Context;
 }
 
 export class PlaylistSound {
-	ctx: Context;
 	flags: SyrinPlaylistSoundFlags;
 	unsubscriber?: Unsubscriber;
 	wasPlaying: boolean;
 	provider: PlaylistSoundProvider;
 
-	constructor(data: any, ctx: Context, provider: PlaylistSoundProvider) {
-		this.ctx = ctx;
+	constructor(data: any, provider: PlaylistSoundProvider) {
 		this.flags = data.flags.syrinscape;
 		this.wasPlaying = false;
 		this.provider = provider;
@@ -27,9 +26,9 @@ export class PlaylistSound {
 	}
 
 	handleSubscribtion() {
-		if (this.flags.type === 'mood' && this.ctx.game.isGM()) {
+		if (this.flags.type === 'mood' && this.provider.ctx().game.isGM()) {
 			const moodId = this.flags.mood;
-			this.unsubscriber = this.ctx.stores.currentlyPlaying.subscribe((playing) => {
+			this.unsubscriber = this.provider.ctx().stores.currentlyPlaying.subscribe((playing) => {
 				const mood = playing?.mood;
 				if (this.provider.id() !== null) {
 					const playing = mood?.id === moodId;
@@ -45,7 +44,7 @@ export class PlaylistSound {
 	}
 
 	async sync(): Promise<void> {
-		if (!this.ctx.api.isPlayerActive() || !this.ctx.game.isGM()) {
+		if (!this.provider.ctx().api.isPlayerActive() || !this.provider.ctx().game.isGM()) {
 			return;
 		}
 
@@ -53,9 +52,9 @@ export class PlaylistSound {
 			switch (this.flags.type) {
 				case 'mood': {
 					if (this.provider.playing()) {
-						this.ctx.syrin.setMood(this.flags.mood);
+						this.provider.ctx().syrin.setMood(this.flags.mood);
 					} else {
-						this.ctx.syrin.stopAll();
+						this.provider.ctx().syrin.stopAll();
 					}
 					break;
 				}
