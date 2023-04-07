@@ -3,6 +3,9 @@ import { injectable } from 'tsyringe';
 import { MODULE } from './utils';
 import type { Soundset, Mood, Element, Soundsets } from '@/models';
 import { socket } from '@/socket';
+import { SvelteDialog } from '@/ui/dialog';
+import { Context } from './context';
+import { SvelteDialogImpl } from '@/ui/dialog-impl';
 
 export interface PlayMoodParams {
 	soundset: Soundset | undefined;
@@ -41,6 +44,7 @@ export interface FVTTGame {
 
 	hasActiveModule(name: string): boolean;
 	localize(key: string, args?: any): string;
+	localizeCore(key: string, args?: any): string;
 
 	getAudioContext(): Promise<AudioContext | undefined>;
 	createMoodMacro(mood: Mood, folder: any): Promise<StoredDocument<Macro> | undefined>;
@@ -59,9 +63,17 @@ export interface FVTTGame {
 	): Promise<StoredDocument<PlaylistSound> | undefined>;
 
 	getPlaylists(): Playlists | undefined;
+	getAmbientSounds(): AmbientSoundDocument[] | undefined;
 
 	getPlayerName(): string;
 	callHookAll(name: string, ...args: any[]): void;
+
+	createDialog<T>(
+		ctx: Context,
+		component: ConstructorOf<T>,
+		data: Dialog.Data,
+		dialog: Partial<DialogOptions>
+	): SvelteDialog;
 }
 
 @injectable()
@@ -70,6 +82,15 @@ export class FVTTGameImpl implements FVTTGame {
 
 	constructor() {
 		this.game = getGame();
+	}
+
+	createDialog<T>(
+		ctx: Context,
+		component: ConstructorOf<T>,
+		data: Dialog.Data,
+		dialog: Partial<DialogOptions> = {}
+	) {
+		return new SvelteDialogImpl<T>(ctx, component, data, dialog);
 	}
 
 	get socket(): SocketlibSocket | undefined {
@@ -91,6 +112,13 @@ export class FVTTGameImpl implements FVTTGame {
 		return this.game.i18n.format(MODULE + '.' + key, args);
 	}
 
+	localizeCore(key: string, args?: any): string {
+		if (args === undefined) {
+			return this.game.i18n.localize(key);
+		}
+		return this.game.i18n.format(key, args);
+	}
+
 	setGlobal(global: Global): void {
 		this.game.syrinscape = global;
 		// this.game.modules.get(MODULE)!.api = global;
@@ -107,6 +135,10 @@ export class FVTTGameImpl implements FVTTGame {
 
 	getPlaylists(): Playlists | undefined {
 		return this.game.playlists;
+	}
+
+	getAmbientSounds(): AmbientSoundDocument[] | undefined {
+		return this.game.scenes?.contents.flatMap((scene) => scene.sounds.contents);
 	}
 
 	callHookAll(name: string, ...args: any[]): void {
@@ -143,7 +175,6 @@ export class FVTTGameImpl implements FVTTGame {
 
 	setSettingToDefault<T>(name: string): T {
 		const def = (this.game.settings.settings.get(MODULE + '.' + name) as any).default;
-		console.warn('Set setting to default', { def });
 		this.game.settings.set(MODULE, name, def);
 		return def;
 	}
@@ -177,7 +208,7 @@ export class FVTTGameImpl implements FVTTGame {
 			{
 				name: element.name,
 				description: this.localize('createdBy'),
-				path: `syrinscape:element:${element.id}.wav`,
+				path: 'syrinscape.wav',
 				sort: 0,
 				flags: {
 					syrinscape: {
@@ -199,7 +230,7 @@ export class FVTTGameImpl implements FVTTGame {
 			{
 				name: mood.name,
 				description: this.localize('createdBy'),
-				path: `syrinscape:mood:${mood.id}.wav`,
+				path: 'syrinscape.wav',
 				sort: 0,
 				flags: {
 					syrinscape: {

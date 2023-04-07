@@ -21,7 +21,8 @@ jobs:
 
       - name: check
         run: npx svelte-check --tsconfig ./tsconfig.json --ignore ./cypress
-  test:
+
+  format:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -34,8 +35,55 @@ jobs:
       - name: install deps
         run: npm install
 
+      - name: check
+        run: npm run format:check
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Add ${{ github.base_ref }} branch
+        run: git branch -f --create-reflog ${{ github.base_ref }} origin/${{ github.base_ref }}
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: install deps
+        run: npm install
+
       - name: test
-        run: npx jest
+        run: npm run test -- --changedSince=${{ github.base_ref }} --coverage --coverageReporters=cobertura
+
+      - uses: actions/setup-python@v2
+        if: always()
+        with:
+          python-version: '3.x'
+
+      - name: Generate Diff Coverage
+        if: always()
+        run: |
+          # stop-gap until Jest adds a way of doing this for us
+          python -m pip install diff-cover
+          # Get diff coverage
+          DIFF_COVERAGE="$(diff-cover coverage/cobertura-coverage.xml --compare-branch=${{ github.base_ref }})"
+
+          echo 'DIFF_COVERAGE<<EOF' >> "$GITHUB_ENV"
+          echo "$DIFF_COVERAGE" >> "$GITHUB_ENV"
+          echo 'EOF' >> "$GITHUB_ENV"
+
+      - name: Report Coverage
+        if: always()
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const { default: script } = await import('${{ github.workspace }}/.github/scripts/coverage.mjs');
+            await script({ github, context });
   build:
     runs-on: ubuntu-latest
     steps:

@@ -7,6 +7,14 @@
 				"text": "SyrinControl wymaga do pracy modułu socketlib. Proszę aktywować moduł socketlib w tym świecie."
 			}
 		},
+		"migration": {
+			"ambientSound": {
+				"path": "Migrowanie dźwięku tła {id}"
+			},
+			"playlistSound": {
+				"path": "Migrowanie dźwięku playlisty \"{name}\""
+			}
+		},
 		"settings": {
 			"authToken": {
 				"name": "Token Autoryzacyjny",
@@ -16,6 +24,14 @@
 				"name": "Debug traces in SyrinControl",
 				"hint": "Jeśli doświadzasz błędnego działania SyrinControl, proszę aktywuj tą opcję i prześlij logi do twórcy, by mógł on zbadać co się stało"
 			}
+		},
+		"config": {
+			"soundset": "Zestaw Dźwięków",
+			"mood": "Nastrój",
+			"controlled": "{name} jest pod kontrolą SyrinControl",
+			"playlist": "Ta playlista",
+			"playlistSound": "Ten dźwięk playlisty",
+			"ambientSound": "Ten dźwięk tła"
 		},
 		"playlist": {
 			"importSoundsets": "Importuj Zestaw Dźwięków",

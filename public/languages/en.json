@@ -7,6 +7,14 @@
 				"text": "SyrinControl requires the socketlib module to work properly. Please activate the socketlib module in this world."
 			}
 		},
+		"migration": {
+			"ambientSound": {
+				"path": "Migrating Ambient Sound {id}"
+			},
+			"playlistSound": {
+				"path": "Migrating Playlist Sound \"{name}\""
+			}
+		},
 		"settings": {
 			"authToken": {
 				"name": "Auth Token",
@@ -16,6 +24,14 @@
 				"name": "Debug traces in SyrinControl",
 				"hint": "If you experience problems with the SyrinControl please enable this option so the maintainers can know what happened"
 			}
+		},
+		"config": {
+			"soundset": "Soundset",
+			"mood": "Mood",
+			"controlled": "This {name} is controlled by SyrinControl",
+			"playlist": "playlist",
+			"playlistSound": "playlist sound",
+			"ambientSound": "ambient sound"
 		},
 		"playlist": {
 			"importSoundsets": "Import Soundsets",

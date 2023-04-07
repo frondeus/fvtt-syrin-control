@@ -1,14 +1,11 @@
-<!--
 <script lang="ts">
 	import { setContext } from 'svelte';
-	import { SvelteComponent } from 'svelte/internal';
 	import { MODULE } from '@/services/utils';
 
-	export let Component: SvelteComponent;
-	export let context;
+	export let Component: ConstructorOfATypedSvelteComponent;
+	export let ctx;
 
-	setContext(MODULE, context);
+	setContext(MODULE, ctx);
 </script>
 
 <svelte:component this={Component} {...$$restProps} />
--->

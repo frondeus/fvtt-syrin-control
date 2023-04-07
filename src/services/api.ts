@@ -61,6 +61,7 @@ export class Api {
 					pid: soundset.id,
 					id: soundset.uuid,
 					name: soundset.full_name,
+					artworkUrl: soundset.artwork_url,
 					moods: [],
 					elements: []
 				};

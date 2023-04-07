@@ -1,5 +1,10 @@
 const sveltePreprocess = require('svelte-preprocess');
 
 module.exports = {
-	preprocess: sveltePreprocess()
+	compilerOptions: {
+		enableSourcemap: true
+	},
+	preprocess: sveltePreprocess({
+		sourceMap: true
+	})
 };

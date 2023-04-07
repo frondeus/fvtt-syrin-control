@@ -13,10 +13,8 @@ import {
 	CurrentlyPlaying
 	// CurrentlyPlaying
 } from '@/models';
-import { ElementsApplication } from '@/ui/elements';
 import { inject, singleton } from 'tsyringe';
 import { Api } from './api';
-import { ImporterApplication } from '@/ui/importer';
 
 export type FoundryStore<T> = Writable<T> & {
 	get: () => T;
@@ -24,6 +22,22 @@ export type FoundryStore<T> = Writable<T> & {
 	clear: () => void;
 };
 declare type Invalidator<T> = (value?: T) => void;
+
+interface StoreDefaults {
+	elements: Elements;
+	soundsets: Soundsets;
+	playerVolume: number;
+	globalVolume: number;
+	oneshotsVolume: number;
+}
+
+export const storeDefaults: StoreDefaults = {
+	elements: [],
+	soundsets: {},
+	playerVolume: 0.5,
+	globalVolume: 0.5,
+	oneshotsVolume: 0.5
+};
 
 @singleton()
 export class Stores {
@@ -55,11 +69,11 @@ export class Stores {
 	) {
 		this.id = `syrin-${Math.random() * 10}`;
 
-		this.globalElements = createFoundryStore(game, 'elements', []);
-		this.soundsets = createFoundryStore(game, 'soundsets', {});
-		this.playerVolume = createFoundryStore(game, 'playerVolume', 50);
-		this.globalVolume = createFoundryStore(game, 'globalVolume', 50);
-		this.oneshotsVolume = createFoundryStore(game, 'oneshotsVolume', 50);
+		this.globalElements = createFoundryStore(game, 'elements');
+		this.soundsets = createFoundryStore(game, 'soundsets');
+		this.playerVolume = createFoundryStore(game, 'playerVolume');
+		this.globalVolume = createFoundryStore(game, 'globalVolume');
+		this.oneshotsVolume = createFoundryStore(game, 'oneshotsVolume');
 
 		this.elementsApp = writable(new ElementsAppStore());
 		this.importerApp = writable(new ImporterAppStore());
@@ -106,14 +120,13 @@ export class Stores {
 					return;
 				}
 
-				console.warn('nextMood', { nextMood });
-
 				this.api.soundsetIdForMood(nextMood).then((nextSoundset) => {
-					console.warn('nextSoundset', { nextSoundset, soundsets });
 					if (nextSoundset !== undefined) {
 						this.hydrateSoundsetInner(nextSoundset, soundsets).then((soundset) => {
-							const mood = soundset.moods[nextMood];
-							set({ soundset, mood });
+							if (soundset !== undefined) {
+								const mood = soundset.moods[nextMood];
+								set({ soundset, mood });
+							}
 						});
 					}
 				});
@@ -143,11 +156,19 @@ export class Stores {
 		return get(this.soundsets);
 	}
 
-	private async hydrateSoundsetInner(soundsetId: string, soundsets: Soundsets): Promise<Soundset> {
+	async hydrateSoundsetInner(
+		soundsetId: string,
+		soundsets: Soundsets
+	): Promise<Soundset | undefined> {
 		const moodsPromise = this.getMoodsInner(soundsetId, soundsets);
 		const elementsPromise = this.getSoundsetElementsInner(soundsetId, soundsets);
 		const [moods, elements] = await Promise.all([moodsPromise, elementsPromise]);
 		let result: Soundset = soundsets[soundsetId];
+
+		if (result === undefined) {
+			return undefined;
+		}
+
 		let changed = false;
 
 		if (Object.keys(result.moods).length === 0) {
@@ -235,8 +256,10 @@ export class Stores {
 	}
 }
 
+import { SvelteDialog } from '@/ui/dialog';
+
 export class ElementsAppStore {
-	app?: ElementsApplication;
+	app?: SvelteDialog = undefined;
 	active: number;
 	tabs: ElementsTabs;
 
@@ -254,7 +277,6 @@ export class ElementsAppStore {
 	}
 
 	removeTab(idx: number) {
-		// console.trace("SyrinControl | Stores | removeTab", { idx});
 		if (this.active === idx) {
 			this.active -= 1;
 		}
@@ -263,7 +285,7 @@ export class ElementsAppStore {
 }
 
 export class ImporterAppStore {
-	app?: ImporterApplication;
+	app?: SvelteDialog;
 	filterSoundset: string;
 	filterCaseSensitive: boolean;
 	selectedSoundsets: Set<string>;
@@ -311,7 +333,6 @@ export function deduped_readable<T>(other: Readable<T>): Readable<T> {
 	const subscribe = (run: Subscriber<T>, invalidate?: Invalidator<T> | undefined): Unsubscriber => {
 		let prev: { value: T } | undefined = undefined;
 		return other.subscribe((t) => {
-			// console.warn("SyrinStore | DEDUP", { prev, t });
 			if (prev !== undefined && _.isEqual(t, prev.value)) {
 				return;
 			}
@@ -327,7 +348,8 @@ export function deduped_readable<T>(other: Readable<T>): Readable<T> {
 	};
 }
 
-function createFoundryStore<T>(game: FVTTGame, name: string, initial: T): FoundryStore<T> {
+function createFoundryStore<T>(game: FVTTGame, name: keyof StoreDefaults): FoundryStore<T> {
+	const initial = storeDefaults[name] as T;
 	const getSetting = (n: string) => {
 		if (!game.isReady()) {
 			return initial;

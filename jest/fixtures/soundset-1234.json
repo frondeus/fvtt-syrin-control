@@ -1,0 +1,14 @@
+{
+	"artworkUrl": "http://localhost/image",
+	"id": "1234",
+	"pid": 0,
+	"name": "My Soundset",
+	"elements": [],
+	"moods": {
+		"4321": {
+			"id": 4321,
+			"name": "My Mood",
+			"elementsIds": []
+		}
+	}
+}

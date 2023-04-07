@@ -7,7 +7,8 @@
 ## Blocked by
 
 ## Thigs needed to close this PR:
-* [ ] Tested manually
-* [ ] Wrote e2e test
-* [ ] Wrote unit tests
-* [ ] Wrote documentation
+
+- [ ] Tested manually
+- [ ] Wrote e2e test
+- [ ] Wrote unit tests
+- [ ] Wrote documentation

@@ -1,6 +1,7 @@
 import type { UserConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import tsconfigPaths from 'vite-tsconfig-paths';
+// @ts-ignore
 import { swcUnpluginTs } from 'unplugin-swc';
 import path from 'path';
 import basicSsl from '@vitejs/plugin-basic-ssl';
@@ -33,7 +34,8 @@ const config: UserConfig = {
 	},
 	resolve: {
 		alias: {
-			'@': path.resolve(__dirname, './src')
+			'@': path.resolve(__dirname, './src'),
+			'@fixtures': path.resolve(__dirname, './jest/fixtures')
 		}
 	},
 	plugins: [

@@ -4,7 +4,7 @@
 		"target": "es2022",
 		"isolatedModules": false,
 		"module": "es2022",
-		"sourceMap": false,
+		"sourceMap": true,
 		"lib": ["DOM", "ESNext"],
 		"types": ["svelte", "jest", "cypress"],
 		"moduleResolution": "node",
@@ -32,8 +32,10 @@
 		"experimentalDecorators": true,
 		"baseUrl": "./src",
 		"paths": {
-			"@/*": ["./*"]
+			"@/*": ["./*"],
+			"@fixtures/*": ["../jest/fixtures/*"]
 		}
 	},
-	"include": ["src/**/*.d.ts", "**/*.ts", "src/**/*.svelte"]
+	"exclude": ["./cypress.config.ts"],
+	"include": ["src/**/*.d.ts", "**/*.ts", "src/**/*.svelte", "./jest.setup.ts"]
 }

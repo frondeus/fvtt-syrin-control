@@ -37,7 +37,7 @@ export class Syrin {
 			return;
 		}
 
-		this.utils.info('Syrin | StopAll');
+		this.utils.trace('Syrin | StopAll');
 
 		this.game.callHookAll('moodChange', undefined);
 	}
@@ -49,7 +49,7 @@ export class Syrin {
 			return;
 		}
 
-		this.utils.info('Syrin | Set Mood', { moodId });
+		this.utils.trace('Syrin | Set Mood', { moodId });
 		this.game.callHookAll('moodChange', moodId);
 	}
 
@@ -59,7 +59,7 @@ export class Syrin {
 			this.game.socket?.executeAsGM(SocketCalls.PlayAmbient, key, sound);
 			return;
 		}
-		this.utils.info('Syrin | Set Ambient Sound', { id, sound });
+		this.utils.trace('Syrin | Set Ambient Sound', { id, sound });
 		this.stores.possibleAmbientSounds.update((p) => ({ ...p, [id]: sound }));
 	}
 
@@ -68,7 +68,7 @@ export class Syrin {
 			this.game.socket?.executeAsGM(SocketCalls.StopAmbient, id + userId, userId);
 			return;
 		}
-		this.utils.info('Syrin | Stop Ambient Sound', { id, userId });
+		this.utils.trace('Syrin | Stop Ambient Sound', { id, userId });
 		this.stores.possibleAmbientSounds.update((p) => {
 			delete p[id];
 			return p;
