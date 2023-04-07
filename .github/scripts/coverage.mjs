@@ -38,7 +38,7 @@ ${coverageInfo}
 		const latestComment = githubActionComments.reverse()[0];
 
 		if (latestComment.body === templatedMessage) {
-			core.info('Diff comment with the same message already exists - not posting.');
+			console.info('Diff comment with the same message already exists - not posting.');
 			return;
 		}
 	}
