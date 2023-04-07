@@ -9,10 +9,10 @@ function populateContext(ctx: any): Context {
 	if (ctx === undefined || ctx === null) {
 		ctx = {};
 	}
-	if (ctx.ctx === undefined || ctx.ctx === null) {
+	if (ctx.syrinCtx === undefined || ctx.syrinCtx === null) {
 		let context = container.resolve(Context);
 		ctx.syrinCtx = () => context;
-		context.utils.warn('Context was undefined. Fixing it!');
+		context.utils.warn('Context was undefined. Fixing it!', { context });
 	}
 	return ctx.syrinCtx();
 }
