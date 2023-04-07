@@ -4,7 +4,7 @@ import type { Config } from 'jest';
 import { pathsToModuleNameMapper } from 'ts-jest';
 
 const config: Config = {
-	collectCoverageFrom: ['src/**/*'],
+	collectCoverageFrom: ['src/**/*.{svelte,ts,js}'],
 	coveragePathIgnorePatterns: [
 		'<rootDir>/src/main.ts', // Because execution part is hard to test
 		'<rootDir>/src/services/game.ts', // Because its an implementation detail of foundry, non-testable
