@@ -197,6 +197,6 @@
 	}
 	.inner button,
 	.inner input {
-		background: url(../ui/parchment.jpg) repeat;
+		background: url(/ui/parchment.jpg) repeat;
 	}
 </style>

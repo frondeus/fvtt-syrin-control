@@ -85,6 +85,6 @@
 	.inner button,
 	.inner input,
 	.inner select {
-		background: url(../ui/parchment.jpg) repeat;
+		background: url(/ui/parchment.jpg) repeat;
 	}
 </style>
