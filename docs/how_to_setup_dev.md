@@ -31,28 +31,28 @@ This populates `./dist` folder with built SyrinControl
   cd docs/foundry
 ```
 
-3. Copy `FoundryVTT-10.xxx.zip` to `docs/foundry`
+3. Copy `FoundryVTT-11.xxx.zip` to `docs/foundry`
 
 ```
-  cp ~/Downloads/FoundryVTT-10.xxx.zip .
+  cp ~/Downloads/FoundryVTT-11.xxx.zip .
 ```
 
-4. Create a new folder called `foundryvtt-v10` inside of `docs/foundry`
+4. Create a new folder called `foundryvtt-v11` inside of `docs/foundry`
 
 ```
-  mkdir foundryvtt-v10
+  mkdir foundryvtt-v11
 ```
 
 5. unpack zip **to this new folder**:
 
 ```
-  unzip ./FoundryVTT-10.xxx.zip -d foundryvtt-v10
+  unzip ./FoundryVTT-11.xxx.zip -d foundryvtt-v11
 ```
 
 6. Remove zip file
 
 ```
-  rm ./FoundryVTT-10.xxx.zip
+  rm ./FoundryVTT-11.xxx.zip
 ```
 
 8. Build the docker image.
