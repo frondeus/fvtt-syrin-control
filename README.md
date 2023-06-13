@@ -6,9 +6,9 @@
 
 [![SyrinControl 0.4 walk-through](http://img.youtube.com/vi/nHGWU5m5atU/0.jpg)](https://youtu.be/nHGWU5m5atU 'SyrinControl 0.4')
 
-### Compatibility with V10
+### Compatibility
 
-This release brings support for Foundry V10, but at the same time, it no longer supports older versions of Foundry.
+This module supports Foundry V10 & V11. However older versions are currently not supported.
 
 ## Useful links:
 

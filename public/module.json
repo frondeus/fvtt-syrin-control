@@ -11,8 +11,8 @@
 	"version": "0.1.0",
 	"compatibility": {
 		"minimum": 10,
-		"verified": "10",
-		"maximum": "10"
+		"verified": "11",
+		"maximum": "11"
 	},
 	"library": false,
 	"esmodules": ["index.js"],
