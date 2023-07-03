@@ -50,6 +50,7 @@
 
 	function copyMoodIdToClipboard() {
 		navigator.clipboard.writeText(mood.id.toString());
+		ctx.game.notifyInfo('importer.idCopiedToClipboard', { id: mood.id });
 	}
 </script>
 

@@ -50,6 +50,7 @@
 			"elements": "Soundset Elements",
 			"createdMacro": "Created macro \"{macroName}\"",
 			"createdFolder": "Created macro folder \"{folderName}\"",
+			"idCopiedToClipboard": "Mood Id copied to clipboard : \"{id}\"",
 			"collapse": "Collapse: ",
 			"expand": "Expand: ",
 			"removeSelection": "Remove selection: ",
