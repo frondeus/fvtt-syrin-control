@@ -60,7 +60,8 @@
 			"stopMood": "Stop Mood",
 			"playElement": "Play: {elementName}",
 			"createMacro": "Create Macro",
-			"createPlaylist": "Create Playlist"
+			"createPlaylist": "Create Playlist",
+			"copyIdToClipboard": "Copy ID to Clipboard"
 		},
 		"elements": {
 			"zeroFound": "No elements found"

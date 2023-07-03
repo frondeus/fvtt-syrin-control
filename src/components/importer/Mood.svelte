@@ -2,6 +2,7 @@
 	import type { CurrentlyPlaying, Mood, Soundset } from '@/models';
 	import Context from '@/services/context';
 	import Toggable from '@/components/Toggable.svelte';
+	import SimpleButton from '@/components/SimpleButton.svelte';
 
 	// Context
 	const ctx = Context();
@@ -40,6 +41,16 @@
 			ctx.syrin.setMood(mood.id);
 		}
 	}
+
+	async function createMoodMacro() {
+		let macro = await ctx.game.createMoodMacro(mood, '');
+		ctx.utils.trace('Element | Macro = ', { macro });
+		ctx.game.notifyInfo('importer.createdMacro', { macroName: mood.name });
+	}
+
+	function copyMoodIdToClipboard() {
+		navigator.clipboard.writeText(mood.id.toString());
+	}
 </script>
 
 <tr class="mood" data-test="syrin-mood-row">
@@ -56,6 +67,16 @@
 		</span>
 	</td>
 	<td class="actions-cell">
+		<SimpleButton
+			on:click={copyMoodIdToClipboard}
+			title={ctx.game.localize('commands.copyIdToClipboard')}
+			icon="copy"
+		/>
+		<SimpleButton
+			on:click={createMoodMacro}
+			title={ctx.game.localize('commands.createMacro')}
+			icon="terminal"
+		/>
 		<Toggable
 			on:click={onPlayMood}
 			toggled={isPlaying}

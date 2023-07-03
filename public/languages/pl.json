@@ -59,7 +59,8 @@
 			"playElement": "Graj: {elementName}",
 			"stopMood": "Zatrzymaj nastrój",
 			"createMacro": "Utwórz makro",
-			"createPlaylist": "Utwórz playlistę"
+			"createPlaylist": "Utwórz playlistę",
+			"copyIdToClipboard": "Copy ID to Clipboard"
 		},
 		"elements": {
 			"zeroFound": "Brak elementów"
