@@ -49,6 +49,7 @@
 			"elements": "Elementy zestawu",
 			"createdMacro": "Utworzono makro \"{macroName}\"",
 			"createdFolder": "Utworzono folder z makrami \"{folderName}\"",
+			"idCopiedToClipboard": "Id (\"{id}\") zostało skopiowane do schowka",
 			"collapse": "Zwiń: ",
 			"expand": "Rozwiń: ",
 			"removeSelection": "Usuń zaznaczenie: ",
@@ -60,7 +61,7 @@
 			"stopMood": "Zatrzymaj nastrój",
 			"createMacro": "Utwórz makro",
 			"createPlaylist": "Utwórz playlistę",
-			"copyIdToClipboard": "Copy ID to Clipboard"
+			"copyIdToClipboard": "Skopiuj ID do schowka"
 		},
 		"elements": {
 			"zeroFound": "Brak elementów"

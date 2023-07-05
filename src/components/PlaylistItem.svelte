@@ -36,8 +36,8 @@
 				on:click={onPlay}
 				toggled={item.isPlaying}
 				test="syrin-play-btn"
-				on={['Stop Mood', 'stop']}
-				off={['Play Mood', 'play']}
+				on={[ctx.game.localize('commands.stopMood'), 'stop']}
+				off={[ctx.game.localize('commands.playMood'), 'play']}
 			/>
 
 			<span
@@ -45,7 +45,7 @@
 				class="syrin-control"
 				on:click={onElements}
 				on:keypress={onElements}
-				title={ctx.game.localize('elements')}
+				title={ctx.game.localize('playlist.elements')}
 			>
 				<i class="fas fa-drum" />
 			</span>
@@ -54,7 +54,7 @@
 				class="syrin-control"
 				on:click={onImport}
 				on:keypress={onImport}
-				title={ctx.game.localize('importSoundset')}
+				title={ctx.game.localize('playlist.importSoundset')}
 			>
 				<i class="fas fa-file-import" />
 			</span>
