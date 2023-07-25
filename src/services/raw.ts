@@ -183,28 +183,11 @@ export class RawApiImpl implements RawApi {
 	}
 
 	async playElement(id: number): Promise<void> {
-		let utils = this.utils;
-		if (!this.game.isGM() || !utils.hasAuth()) return;
-
-		// this.utils.trace('RAW | Play Element', { id });
-
-		await syrinscape.player.controlSystem.startElements([id]);
-		// function link(id: number) {
-		// 	let address = utils.getAddress();
-		// 	let authToken = utils.getAuth();
-		// 	return `${address}/elements/${id}/play/?auth_token=${authToken}`;
-		// }
-
-		// await fetch(link(id), this.fetchOptions()).catch(this.catchErr('playElement'));
+		return await this.apiCallFF('playMood', `elements/${id}/play/`);
 	}
 
 	async stopElement(id: number): Promise<void> {
-		let utils = this.utils;
-		if (!this.game.isGM() || !utils.hasAuth()) return;
-
-		this.utils.trace('RAW | Stop Element', { id });
-
-		await syrinscape.player.controlSystem.stopElements([id]);
+		return await this.apiCallFF('playMood', `elements/${id}/stop/`);
 	}
 
 	async getMood(moodId: number): Promise<ApiMood | undefined> {
@@ -234,7 +217,7 @@ export class RawApiImpl implements RawApi {
 		const authToken = utils.getAuth();
 		const address = utils.getAddress();
 		const headers = new Headers();
-		headers.append('authorization', 'token ' + authToken);
+		headers.append('authorization', 'Token ' + authToken);
 
 		return await fetch(`${address}/${url}`, {
 			headers
@@ -244,6 +227,9 @@ export class RawApiImpl implements RawApi {
 			.catch(this.catchErr(name));
 	}
 
+	/**
+	 * Api call that does not return anything (Fire and forget)
+	 * */
 	async apiCallFF(name: string, url: string): Promise<void> {
 		const utils = this.utils;
 		if (!this.game.isGM() || !utils.hasAuth()) return;
@@ -251,7 +237,7 @@ export class RawApiImpl implements RawApi {
 		const authToken = utils.getAuth();
 		const address = utils.getAddress();
 		const headers = new Headers();
-		headers.append('authorization', 'token ' + authToken);
+		headers.append('authorization', 'Token ' + authToken);
 
 		await fetch(`${address}/${url}`, { headers }).catch(this.catchErr(name));
 	}
