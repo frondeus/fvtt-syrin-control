@@ -271,7 +271,7 @@ export class FVTTGameImpl implements FVTTGame {
 			type: 'script',
 			folder: folder,
 			img: 'icons/svg/sound.svg',
-			command: 'game.syrinscape.playMood(' + mood.id + '); // ' + mood.name
+			command: `game.syrinscape.playMood(${mood.id} /* ${mood.name} */);`
 		});
 		return macro;
 	}
@@ -281,7 +281,7 @@ export class FVTTGameImpl implements FVTTGame {
 			name: element.name,
 			type: 'script',
 			img: element.icon,
-			command: 'game.syrinscape.playElement(' + element.id + '); // ' + element.name
+			command: `game.syrinscape.playElement(${element.id} /* ${element.name} */);`
 		});
 		return macro;
 	}
