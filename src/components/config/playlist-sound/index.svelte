@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Context from '@/services/context';
 	import type { Soundsets } from '@/models/store';
+	import { hashPath } from '@/utils';
 
 	// Context
 	const ctx = Context();
@@ -13,6 +14,7 @@
 	let moodName: string = '...';
 	let style = '';
 	let class_ = 'inner';
+	$: hashedPath = hashPath('mood', moodId);
 
 	const reactiveSoundsetName = async (moodId: number, soundsets: Soundsets) => {
 		const soundset = await ctx.stores.hydrateSoundsetInner(
@@ -65,7 +67,7 @@
 		</div>
 	</div>
 
-	<input type="hidden" data-test="syrin-path" name="path" value="syrinscape.wav" />
+	<input type="hidden" data-test="syrin-path" name="path" value={hashedPath} />
 
 	<div>
 		<div data-test="syrin-controlled">

@@ -9,43 +9,76 @@ describe('Migrate ambient sound paths', () => {
 	});
 
 	it('migrates sound path to flags', () => {
-		const syrinSound = {
+		const hashed =
+			'syrinscape:e7a81fff2ffebce8f7ac69b842609f3fb92719ba15d7b1a63d6e5f69d26b3379f5a85b5e6221c1ab8ada2ad68fb9d037c2df44acae59cd2baec4c5f8cb4c2eb6.wav';
+
+		const notImportantSound = {
 			id: 'abcd',
-			path: 'syrinscape:mood:4321.wav',
+			path: 'notImportant.wav',
 			update: jest.fn()
 		} as any;
 
-		const otherSound = {
+		const neverMigratedUsingPathWithIdSound = {
 			id: 'efgh',
-			path: 'otherSound',
+			path: 'syrinscape:mood:4321.wav',
+			flags: {},
 			update: jest.fn()
 		} as any;
 
-		const alreadyUpdatedSound = {
+		const migratedOnceUsingStaticPathSound = {
 			id: 'ijkl',
 			path: 'syrinscape.wav',
+			flags: {
+				syrinscape: {
+					type: 'mood',
+					mood: 4321
+				}
+			},
 			update: jest.fn()
 		} as any;
 
-		mock.game.getAmbientSounds = jest.fn(() => [syrinSound, otherSound, alreadyUpdatedSound]);
+		const migratedTwiceUsingHashedPathSound = {
+			id: 'mnop',
+			path: hashed,
+			flags: {
+				syrinscape: {
+					type: 'mood',
+					mood: 4321
+				}
+			},
+			update: jest.fn()
+		} as any;
+
+		mock.game.getAmbientSounds = jest.fn(() => [
+			notImportantSound,
+			neverMigratedUsingPathWithIdSound,
+			migratedOnceUsingStaticPathSound,
+			migratedTwiceUsingHashedPathSound
+		]);
 		migrateAmbientSoundPaths(mock.ctx);
 
-		expect(syrinSound.update).toBeCalledWith({
+		expect(notImportantSound.update).not.toBeCalled();
+		expect(neverMigratedUsingPathWithIdSound.update).toBeCalledWith({
 			flags: {
 				syrinscape: {
 					mood: 4321,
 					type: 'mood'
 				}
 			},
-			path: 'syrinscape.wav'
+			path: hashed
 		});
+		expect(migratedOnceUsingStaticPathSound.update).toBeCalledWith({
+			path: hashed
+		});
+		expect(migratedTwiceUsingHashedPathSound.update).not.toBeCalled();
 
-		expect(otherSound.update).not.toBeCalled();
-
-		expect(alreadyUpdatedSound.update).not.toBeCalled();
-
-		expect(mock.game.notifyInfo).toBeCalledTimes(1);
-		expect(mock.game.notifyInfo).toBeCalledWith('migration.ambientSound.path', { id: 'abcd' });
+		expect(mock.game.notifyInfo).toBeCalledTimes(2);
+		expect(mock.game.notifyInfo).toHaveBeenNthCalledWith(1, 'migration.ambientSound.path', {
+			id: 'efgh'
+		});
+		expect(mock.game.notifyInfo).toHaveBeenNthCalledWith(2, 'migration.ambientSound.path', {
+			id: 'ijkl'
+		});
 	});
 });
 
@@ -57,21 +90,47 @@ describe('Migrate playlist sound paths', () => {
 	});
 
 	it('migrates sound path to static wav', () => {
-		const syrinSound = {
+		const hashed =
+			'syrinscape:e7a81fff2ffebce8f7ac69b842609f3fb92719ba15d7b1a63d6e5f69d26b3379f5a85b5e6221c1ab8ada2ad68fb9d037c2df44acae59cd2baec4c5f8cb4c2eb6.wav';
+		const notImportantSound = {
 			name: 'abcd',
-			path: 'syrinscape:mood:4321.wav',
+			path: 'notImportant.wav',
 			update: jest.fn()
-		} as any;
+		};
 
-		const otherSound = {
+		const neverMigratedUsingPathWithIdSound = {
 			name: 'efgh',
-			path: 'otherSound',
+			path: 'syrinscape:mood:4321.wav',
+			flags: {
+				syrinscape: {
+					type: 'mood',
+					mood: 4321
+				}
+			},
 			update: jest.fn()
 		} as any;
 
-		const alreadyUpdatedSound = {
+		const migratedOnceUsingStaticPathSound = {
 			name: 'ijkl',
 			path: 'syrinscape.wav',
+			flags: {
+				syrinscape: {
+					type: 'mood',
+					mood: 4321
+				}
+			},
+			update: jest.fn()
+		} as any;
+
+		const migratedTwiceUsingHashedPathSound = {
+			name: 'mnop',
+			path: hashed,
+			flags: {
+				syrinscape: {
+					type: 'mood',
+					mood: 4321
+				}
+			},
 			update: jest.fn()
 		} as any;
 
@@ -81,7 +140,12 @@ describe('Migrate playlist sound paths', () => {
 					contents: [
 						{
 							sounds: {
-								contents: [syrinSound, otherSound, alreadyUpdatedSound]
+								contents: [
+									notImportantSound,
+									neverMigratedUsingPathWithIdSound,
+									migratedOnceUsingStaticPathSound,
+									migratedTwiceUsingHashedPathSound
+								]
 							}
 						}
 					]
@@ -89,15 +153,21 @@ describe('Migrate playlist sound paths', () => {
 		);
 		migratePlaylistSoundPaths(mock.ctx);
 
-		expect(syrinSound.update).toBeCalledWith({
-			path: 'syrinscape.wav'
+		expect(notImportantSound.update).not.toBeCalled();
+		expect(neverMigratedUsingPathWithIdSound.update).toBeCalledWith({
+			path: hashed
 		});
+		expect(migratedOnceUsingStaticPathSound.update).toBeCalledWith({
+			path: hashed
+		});
+		expect(migratedTwiceUsingHashedPathSound.update).not.toBeCalled();
 
-		expect(otherSound.update).not.toBeCalled();
-
-		expect(alreadyUpdatedSound.update).not.toBeCalled();
-
-		expect(mock.game.notifyInfo).toBeCalledTimes(1);
-		expect(mock.game.notifyInfo).toBeCalledWith('migration.playlistSound.path', { name: 'abcd' });
+		expect(mock.game.notifyInfo).toBeCalledTimes(2);
+		expect(mock.game.notifyInfo).toHaveBeenNthCalledWith(1, 'migration.playlistSound.path', {
+			name: 'efgh'
+		});
+		expect(mock.game.notifyInfo).toHaveBeenNthCalledWith(2, 'migration.playlistSound.path', {
+			name: 'ijkl'
+		});
 	});
 });

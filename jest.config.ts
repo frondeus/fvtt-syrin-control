@@ -26,7 +26,7 @@ const config: Config = {
 			statements: 75
 		}
 	},
-	moduleFileExtensions: ['js', 'ts', 'svelte'],
+	moduleFileExtensions: ['js', 'ts', 'svelte', 'node'],
 	setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 	testEnvironment: 'jsdom',
 	transform: {

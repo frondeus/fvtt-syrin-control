@@ -56,7 +56,9 @@ describe('Playlist Sound Config', () => {
 			expect(name).toBeVisible();
 
 			const path = screen.queryByTestId('syrin-path');
-			expect(path).toHaveValue('syrinscape.wav');
+			expect(path).toHaveValue(
+				'syrinscape:e7a81fff2ffebce8f7ac69b842609f3fb92719ba15d7b1a63d6e5f69d26b3379f5a85b5e6221c1ab8ada2ad68fb9d037c2df44acae59cd2baec4c5f8cb4c2eb6.wav'
+			);
 			expect(path).not.toBeVisible();
 
 			const controlled = screen.queryByTestId('syrin-controlled');
@@ -93,7 +95,9 @@ describe('Playlist Sound Config', () => {
 			expect(name).toBeVisible();
 
 			const path = screen.queryByTestId('syrin-path');
-			expect(path).toHaveValue('syrinscape.wav');
+			expect(path).toHaveValue(
+				'syrinscape:f554770b5a49ed068cf0f9790ce33ae43909cb5dd04616ab49b3f500258f828a0700afc2b67e4d2c3daf42f93cabf936d50113e7e2a68a91e4c62eb6654f47c8.wav'
+			);
 			expect(path).not.toBeVisible();
 
 			const controlled = screen.queryByTestId('syrin-controlled');
