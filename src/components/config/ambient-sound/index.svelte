@@ -2,6 +2,7 @@
 	import Context from '@/services/context';
 	import type { SyrinAmbientSoundFlags } from '@/sounds/ambient-sound';
 	import type { Soundsets } from '@/models/store';
+	import { hashPath } from '@/utils';
 
 	// Context
 	const ctx = Context();
@@ -20,6 +21,9 @@
 
 	export let flags: SyrinAmbientSoundFlags;
 	export let create: boolean;
+
+	$: hashedPath = hashPath(flags.type, (flags as any)[flags.type]);
+
 	let soundsets = ctx.stores.soundsets;
 	let soundsetName: string = '...';
 	let ambientName: string = '...';
@@ -148,7 +152,7 @@
 			</p>
 		</div>
 	</div>
-	<input type="hidden" data-test="syrin-path" name="path" value="syrinscape.wav" />
+	<input type="hidden" data-test="syrin-path" name="path" value={hashedPath} />
 	<input
 		type="hidden"
 		data-test="syrin-flags-type"

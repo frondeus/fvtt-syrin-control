@@ -6,6 +6,7 @@ import { socket } from '@/socket';
 import { SvelteDialog } from '@/ui/dialog';
 import { Context } from './context';
 import { SvelteDialogImpl } from '@/ui/dialog-impl';
+import { hashPath } from '@/utils';
 
 export interface PlayMoodParams {
 	soundset: Soundset | undefined;
@@ -208,7 +209,7 @@ export class FVTTGameImpl implements FVTTGame {
 			{
 				name: element.name,
 				description: this.localize('createdBy'),
-				path: 'syrinscape.wav',
+				path: hashPath('element', element.id),
 				sort: 0,
 				flags: {
 					syrinscape: {
@@ -230,7 +231,7 @@ export class FVTTGameImpl implements FVTTGame {
 			{
 				name: mood.name,
 				description: this.localize('createdBy'),
-				path: 'syrinscape.wav',
+				path: hashPath('mood', mood.id),
 				sort: 0,
 				flags: {
 					syrinscape: {

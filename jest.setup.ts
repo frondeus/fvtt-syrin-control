@@ -20,6 +20,10 @@ Object.defineProperty(global, 'foundry', {
 	}
 });
 
+import { TextEncoder, TextDecoder } from 'util';
+
+Object.assign(global, { TextDecoder, TextEncoder });
+
 function flattenObject(ob: any, _d: number = 0) {
 	var toReturn: any = {};
 	if (_d > 100) {

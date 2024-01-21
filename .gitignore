@@ -19,3 +19,5 @@ cypress.env.json
 cypress/screenshots
 cypress/videos
 coverage
+/.direnv
+/.envrc
